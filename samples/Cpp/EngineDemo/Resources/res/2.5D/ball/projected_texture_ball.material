@@ -1,0 +1,43 @@
+material 
+{
+	u_lightColor = 1.0, 0.0, 0.0
+	u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
+	u_specularExponent = 2
+	
+	technique 0
+	<
+		channel = transparency
+	>
+	{
+		pass 0
+		{
+			vertexShader = shaders/cubemap.vsh
+			fragmentShader = shaders/cubemap.fsh
+			defines = MAXPOINTLIGHT 1
+
+			samplerCube u_shellTex
+			{
+				path_left	= demo/magiclight/LanternF_2.png
+				path_right	= demo/magiclight/LanternF_1.png
+				path_top	= demo/magiclight/LanternF_5.png
+				path_bottom = demo/magiclight/LanternF_6.png
+				path_front	= demo/magiclight/LanternF_3.png
+				path_back	= demo/magiclight/LanternF_4.png
+					
+				wrapS = MIRROR
+				wrapT = MIRROR
+			}
+
+			renderState 
+			{
+				cullFace = true
+				depthTest = true
+				depthWrite = true
+				blend = true
+				srcBlend = SRC_ALPHA
+				dstBlend = ONE_MINUS_SRC_ALPHA
+			}
+		}
+	}
+}
+

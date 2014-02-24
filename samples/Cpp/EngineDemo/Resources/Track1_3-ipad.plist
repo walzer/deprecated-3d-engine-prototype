@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Path1</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0,-60}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{900, 100}</string>
+		</array>
+		<key>speed</key>
+		<integer>150</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path2</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{1050, 150}</string>
+		</array>
+		<key>speed</key>
+		<integer>150</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path3</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>actorname</key>
+				<string>CroakerActor</string>
+				<key>offset</key>
+				<string>{0, -7}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{1100, 200}</string>
+		</array>
+		<key>speed</key>
+		<integer>150</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path4</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>actorname</key>
+				<string>CroakerActor</string>
+				<key>offset</key>
+				<string>{0, -7}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{1000, 250}</string>
+		</array>
+		<key>speed</key>
+		<integer>150</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path5</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>actorname</key>
+				<string>CroakerActor</string>
+				<key>offset</key>
+				<string>{0, -7}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{1200, 100}</string>
+		</array>
+		<key>speed</key>
+		<integer>150</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+</dict>
+</plist>

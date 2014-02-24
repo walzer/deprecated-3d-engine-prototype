@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Path21</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-80,10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-130,-20}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-180,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{350, 200}</string>
+			<string>{750, 150}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path1</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0,0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-50,51}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-90,-45}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-180,25}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{319, 180}</string>
+			<string>{380, 100}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path2</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0,0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-100,21}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-60,-15}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{376,200}</string>
+			<string>{350,200}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path3</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-60, 10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-170, 10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-250, 20}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{229, 160}</string>
+			<string>{256, 250}</string>
+			<string>{350, 200}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path4</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-90, 10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-40,-25}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{550, 200}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>2</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path5</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-100, 10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-45,-15}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{225, 150}</string>
+			<string>{500, 250}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path6</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-130,10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-75,-35}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-195,25}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-285,-15}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-345,20}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{356, 180}</string>
+			<string>{600, 200}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path7</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-50,10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-105,-15}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{360, 100}</string>
+			<string>{350, 300}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path8</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-40,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{400, 150}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>2</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path9</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-45,-5}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-150,-25}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{450, 120}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>2</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path10</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-50,10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-133,17}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-255,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{250, 200}</string>
+			<string>{450, 250}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path11</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-30,-25}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-175,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{300, 200}</string>
+			<string>{550, 150}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path12</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-175,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{275, 250}</string>
+			<string>{450, 150}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path13</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-155,12}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-207,-10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{400, 180}</string>
+			<string>{400, 250}</string>
+		</array>
+		<key>speed</key>
+		<integer>250</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path14</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-120,5}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-53,-20}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-170,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{300, 220}</string>
+			<string>{550, 170}</string>
+		</array>
+		<key>speed</key>
+		<integer>250</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path15</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-50,10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-110,-20}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{510, 200}</string>
+		</array>
+		<key>speed</key>
+		<integer>250</integer>
+		<key>MoveDict</key>
+		<integer>2</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path16</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-80,-20}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-30,10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-143,-20}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-200,-20}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{800, 120}</string>
+		</array>
+		<key>speed</key>
+		<integer>250</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path17</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-106,-20}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-40,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{200, 150}</string>
+			<string>{360, 250}</string>
+			<string>{230, 250}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path18</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-157,-10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{415, 150}</string>
+			<string>{400, 350}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+	<key>Path19</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-107,-10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-183,-10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-224,10}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{450, 250}</string>
+			<string>{450, 220}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>1</integer>
+		<key>onTheRrc</key>
+		<integer>1</integer>
+	</dict>
+	<key>Path20</key>
+	<dict>
+		<key>Offset</key>
+		<array>
+			<dict>
+				<key>offset</key>
+				<string>{0, 0}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-50,10}</string>
+			</dict>
+			<dict>
+				<key>offset</key>
+				<string>{-100,-30}</string>
+			</dict>
+		</array>
+		<key>Radius</key>
+		<array>
+			<string>{350, 150}</string>
+		</array>
+		<key>speed</key>
+		<integer>300</integer>
+		<key>MoveDict</key>
+		<integer>2</integer>
+		<key>onTheRrc</key>
+		<integer>0</integer>
+	</dict>
+</dict>
+</plist>

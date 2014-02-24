@@ -1,0 +1,18 @@
+material toon
+{
+    technique 0
+    {
+		pass 0
+        {
+            vertexShader = shaders/toon.vsh
+            fragmentShader = shaders/toon.fsh
+            renderState
+            {
+                cullFace = true
+                depthTest = true
+				depthWrite = true
+				blend = false
+            }
+        }
+    }
+}

@@ -1,0 +1,52 @@
+material 
+{
+
+	technique 0
+	{
+
+		pass 0
+		{
+			vertexShader = shaders/textured-swirl.vsh
+			fragmentShader = shaders/textured-swirl.fsh
+			u_diffuseColor = 1,1,1,1
+			u_nanimlight = 0
+			u_fogcolor = 1,1,1,1
+			u_fogparam = 0.01,0,1,0
+      u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
+      u_worldMatrix = WORLD_MATRIX            
+	    defines = MAXANIMLIGHT 1;MASKLAYER
+	    
+	    time = 0.0
+	    radius = 0.0
+	    angle = 0.0
+      rt_w = 1024
+      rt_h = 768
+      center = 512.0, 384.0
+
+			sampler u_diffuseTexture
+			{
+				path = scene/1/changjing01_beijing.png
+				mipmap = false
+				wrapS = CLAMP
+				wrapT = CLAMP
+				minFilter = LINEAR
+				magFilter = LINEAR
+			}
+
+            
+			renderState 
+			{
+				blend = false
+				srcBlend = SRC_ALPHA
+				dstBlend = ONE_MINUS_SRC_ALPHA
+				cullFace = true
+				depthTest = true
+				depthWrite = true
+			}
+
+		}
+
+	}
+
+}
+
