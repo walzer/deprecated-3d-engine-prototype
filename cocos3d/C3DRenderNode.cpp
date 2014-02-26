@@ -74,7 +74,7 @@ C3DRenderNode::~C3DRenderNode()
 C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fileName)
 {	
 	// Load mesh/scene from file
-	C3DResourceLoader* loader = C3DResourceLoader::create(fileName);   	
+	C3DResourceLoader* loader = C3DResourceLoader::create(fileName);
 			
 	if (loader == NULL)
         return NULL;
@@ -90,7 +90,7 @@ C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fi
 	}
 
 	renderNode->_fileName = fileName;
-	//renderNode->_loader = loader;
+	loader->autorelease();
 
 	return renderNode;
 }
