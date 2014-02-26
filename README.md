@@ -1,6 +1,7 @@
 cocos3d-x
 =========
-cocos3d-x is a multi-platform framework for building 3d games, interactive books, demos and other graphical applications. It is based on cocos2d-x. It works on iOS, Android, Windows
+cocos3d-x is  a multi-platform game framework for building 3d games,which is based cocos2d-x.
+
 
 cocos3d-x is:
 
@@ -8,3 +9,10 @@ cocos3d-x is:
   * Free
   * Easy to use
   * Community Supported
+  * 
+  
+## Supported Platforms
+- [Windows]
+- [iOS]
+- [Android]
+
