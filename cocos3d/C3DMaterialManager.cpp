@@ -8,27 +8,24 @@ namespace cocos3d
 {
 static C3DMaterialManager* __materialManagerInstance = NULL;
 
-C3DMaterialManager::C3DMaterialManager() 
+C3DMaterialManager::C3DMaterialManager()
 {
 }
 
 C3DMaterialManager::~C3DMaterialManager()
 {
 	__materialManagerInstance = NULL;
-    
 }
 
 C3DMaterialManager* C3DMaterialManager::getInstance()
-{	   
+{
 	if (!__materialManagerInstance)
     {
         __materialManagerInstance = new C3DMaterialManager();
         __materialManagerInstance->autorelease();
     }
     return __materialManagerInstance;
-
 }
-
 
 C3DResource* C3DMaterialManager::createResource(const std::string& name)
 {
@@ -38,15 +35,15 @@ C3DResource* C3DMaterialManager::createResource(const std::string& name)
     if (nodes == NULL)
     {
         return NULL;
-    }   
-	
+    }
+
     C3DElementNode* materialNodes = nodes->getNodeType().empty() ? nodes->getNextChild() : nodes;
 	assert(materialNodes);
     if (!materialNodes || materialNodes->getNodeType()!="material")
     {
         return NULL;
     }
-	
+
 	C3DMaterial* material = new C3DMaterial(name);
 
 	material->autorelease();
@@ -61,21 +58,21 @@ C3DResource* C3DMaterialManager::createResource(const std::string& name)
 		SAFE_DELETE(nodes);
 		return NULL;
 	}
-	
+
     SAFE_DELETE(nodes);
 
 	return material;
 }
-
 
 C3DResource* C3DMaterialManager::cloneResource(C3DResource* resource)
 {
 	if(resource != NULL)
     {
 		C3DResource* newResource = resource->clone();
-					
+
 		this->setResourceState(newResource,C3DResource::State_Used);
-		return newResource;		
+		return newResource;
     }
+	return NULL;
 }
 }
