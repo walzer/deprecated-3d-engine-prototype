@@ -213,9 +213,6 @@
     <Filter Include="ParticleTest">
       <UniqueIdentifier>{b0f6662b-7cea-41da-8a1a-1a20708311fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MultiLayer">
-      <UniqueIdentifier>{12e19163-396d-458c-87a3-384a73279883}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FullDemo\Bullet">
       <UniqueIdentifier>{38a18f85-a1a0-4e6b-86d1-20d272e69544}</UniqueIdentifier>
     </Filter>

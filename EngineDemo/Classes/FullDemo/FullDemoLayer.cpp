@@ -181,7 +181,7 @@ void FullDemoLayer::createStaticModel()
 		sm->loadFromFile("demores/fulldemo/scene/scene.ckb");	
 		sm->translate(0, -1, 0);
 		sm->scale(1, 1, 1);
-		sm->showAABB(true);
+		//sm->showAABB(true);
 		_scene->addChild(sm);	
 	}	
 }
@@ -323,7 +323,7 @@ void FullDemoLayer::createMainPlayer()
 
 		_mainPlayer->init();
 
-		entity->showAABB(true);
+		//entity->showAABB(true);
 	 
 	  
 	   C3DLight* light = C3DLight::create("head light");
