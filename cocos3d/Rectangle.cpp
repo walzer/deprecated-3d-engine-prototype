@@ -3,7 +3,6 @@
 using namespace std;
 namespace cocos3d
 {
-
 Rectangle::Rectangle()
     : x(0), y(0), width(0), height(0)
 {
@@ -80,7 +79,7 @@ float Rectangle::bottom() const
 
 bool Rectangle::contains(float x, float y) const
 {
-    return (x >= x && x <= (x + width) && y >= y && y <= (y + height));
+    return (x >= this->x && x <= (this->x + width) && y >= this->y && y <= (this->y + height));
 }
 
 bool Rectangle::contains(float x, float y, float width, float height) const
@@ -124,7 +123,7 @@ void Rectangle::inflate(float horizontalAmount, float verticalAmount)
     height += verticalAmount * 2;
 }
 
-const Rectangle& Rectangle::operator = (const Rectangle& r)
+Rectangle& Rectangle::operator = (const Rectangle& r)
 {
     x = r.x;
     y = r.y;
@@ -142,5 +141,4 @@ bool Rectangle::operator != (const Rectangle& r) const
 {
     return (x != r.x || width != r.width || y != r.y || height != r.height);
 }
-
 }

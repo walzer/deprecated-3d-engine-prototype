@@ -1,10 +1,8 @@
 #ifndef RECTANGLE_H_
 #define RECTANGLE_H_
 
-
 namespace cocos3d
 {
-
 /**
  * Defines a rectangle.
  */
@@ -139,7 +137,7 @@ public:
      *
      * @param x The x-coordinate of the point.
      * @param y The y-coordinate of the point.
-     * 
+     *
      * @return true if the rectangle contains the point, false otherwise.
      */
     bool contains(float x, float y) const;
@@ -151,7 +149,7 @@ public:
      * @param y The y-coordinate of the rectangle.
      * @param width The width of the rectangle.
      * @param height The height of the rectangle.
-     * 
+     *
      * @return true if the rectangle contains the specified rectangle, false
      * otherwise.
      */
@@ -161,7 +159,7 @@ public:
      * Determines whether this rectangle contains a specified rectangle.
      *
      * @param r The rectangle.
-     * 
+     *
      * @return true if the rectangle contains the specified rectangle, false
      * otherwise.
      */
@@ -174,7 +172,7 @@ public:
      * @param y The y-coordinate of the rectangle.
      * @param width The width of the rectangle.
      * @param height The height of the rectangle.
-     * 
+     *
      * @return true if the specified Rectangle intersects with this one, false otherwise.
      */
     bool intersects(float x, float y, float width, float height) const;
@@ -183,7 +181,7 @@ public:
      * Determines whether a specified rectangle intersects with this rectangle.
      *
      * @param r The rectangle.
-     * 
+     *
      * @return true if the specified rectangle intersects with this one, false
      * otherwise.
      */
@@ -213,7 +211,7 @@ public:
     /**
      * operator =
      */
-    const Rectangle& operator = (const Rectangle& r);
+    Rectangle& operator = (const Rectangle& r);
 
     /**
      * operator ==
@@ -225,7 +223,6 @@ public:
      */
     bool operator != (const Rectangle& r) const;
 };
-
 }
 
 #endif
