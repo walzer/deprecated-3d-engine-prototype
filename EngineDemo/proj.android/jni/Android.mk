@@ -42,14 +42,13 @@ LOCAL_SRC_FILES := main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 LOCAL_CFLAGS    := -D__ANDROID__\
-                   -I"$(LOCAL_PATH)/../../../../../cocos3d" \
+                   -I"$(LOCAL_PATH)/../../../cocos3d" \
 
-LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocos_extension_static cocos3d_static
+LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocos3d_static
 
 LOCAL_LDLIBS :=  -landroid -lEGL -lGLESv2
             
 include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,cocos2dx) 
-$(call import-module,extensions)
 $(call import-module,cocos3d) 
