@@ -21,14 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 ****************************************************************************/
-package org.cocos3d.hellocpp;
+package org.cocos3d.helloCpp;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 
 import android.os.Bundle;
 
-public class HelloCpp extends Cocos2dxActivity{
+public class helloCpp extends Cocos2dxActivity{
 	
     protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);	
@@ -43,6 +43,6 @@ public class HelloCpp extends Cocos2dxActivity{
     }
 
     static {
-        System.loadLibrary("cocos2dcpp");
+        System.loadLibrary("HelloCpp");
     }     
 }

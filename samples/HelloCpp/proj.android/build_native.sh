@@ -28,16 +28,30 @@ exit 0
 esac
 done
 
+# read local.properties
+
+_LOCALPROPERTIES_FILE=$(dirname "$0")"/local.properties"
+if [ -f "$_LOCALPROPERTIES_FILE" ]
+then
+    [ -r "$_LOCALPROPERTIES_FILE" ] || die "Fatal Error: $_LOCALPROPERTIES_FILE exists but is unreadable"
+
+    # strip out entries with a "." because Bash cannot process variables with a "."
+    _PROPERTIES=`sed '/\./d' "$_LOCALPROPERTIES_FILE"`
+    for line in "$_PROPERTIES"; do
+        declare "$line";
+    done
+fi
+
 # paths
 
 if [ -z "${NDK_ROOT+aaa}" ];then
-echo "please define NDK_ROOT"
+echo "NDK_ROOT not defined. Please define NDK_ROOT in your environment or in local.properties"
 exit 1
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # ... use paths relative to current directory
-COCOS2DX_ROOT="$DIR/../../.."
+COCOS2DX_ROOT="$DIR/../../../"
 APP_ROOT="$DIR/.."
 APP_ANDROID_ROOT="$DIR"
 
@@ -65,13 +79,14 @@ if [ -f "$file" ]; then
 fi
 done
 
-# run ndk-build
 if [[ "$buildexternalsfromsource" ]]; then
     echo "Building external dependencies from source"
+    set -x
     "$NDK_ROOT"/ndk-build -C "$APP_ANDROID_ROOT" $* \
         "NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/source"
 else
     echo "Using prebuilt externals"
+    set -x
     "$NDK_ROOT"/ndk-build -C "$APP_ANDROID_ROOT" $* \
         "NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos2dx/platform/third_party/android/prebuilt"
 fi
