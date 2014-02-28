@@ -1,4 +1,3 @@
-__author__ = 'W64'
 #!/usr/bin/python
 # create_project.py
 # Create cross-platform cocos3d project
