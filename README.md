@@ -66,24 +66,24 @@ Running Tests
 Select the test you want from Xcode Scheme chooser.
 
 * For iOS
+$ cd cocos3d-x/projects/helloworld
+$ cd proj.ios
+$ open helloworld.xcodeproj
 
-```
-$ cd cocos2d-x/build
-$ open samples.xcodeproj
-```
 
 * For Windows
+$ cd cocos3d-x
+Open the `cocos3d-win32.vc2010.sln`
 
-Open the `cocos3d-x/cocos3d-win32.vc2010.sln`
+
 
 * For Android
+$ cd cocos3d-x/projects/helloworld
+$ cd proj.android
+$ ./build_native.sh
 
-```
-$ cd cocos2d-x/build
-$ python ./android-build.py hellocpp
-```
 
-Import HelloCpp Android project using Eclipse(released with Android SDK). The path to be imported is `cocos2d-x/samples/Cpp/HelloCpp/proj.android`.
+Import helloworld Android project using Eclipse(released with Android SDK). The path to be imported is `cocos3d-x/projects/helloworld/proj.android`.
 
 
 
