@@ -4,7 +4,6 @@ cocos3d-x is  a multi-platform game framework for building 3d games,which is bas
 
 
 cocos3d-x is:
-
   * Fast
   * Free
   * Easy to use
