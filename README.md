@@ -72,26 +72,6 @@ $ cd cocos2d-x/build
 $ open samples.xcodeproj
 ```
 
-* For Linux
-
-```
-$ cd cocos2d-x/build
-$ ./install-deps-linux.sh
-$ cmake ..
-$ make
-```
-
-Run Samples
-
-```
-$ bin/hellocpp/hellocpp
-or
-$ bin/testlua/testlua
-```
-
-      You may meet building errors when building libGLFW.so. It is because libGL.so directs to an error target,
-      you should make it to direct to a correct one. `install-deps-linux.sh` only has to be run once.
-
 * For Windows
 
 Open the `cocos3d-x/cocos3d-win32.vc2010.sln`
