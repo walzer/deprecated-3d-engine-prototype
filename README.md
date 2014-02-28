@@ -9,10 +9,109 @@ cocos3d-x is:
   * Free
   * Easy to use
   * Community Supported
-  * 
+  
   
 ## Supported Platforms
 - [Windows]
 - [iOS]
 - [Android]
 
+
+How to start a new game
+-----------------------
+
+1. Download the code from cocos3d download site or https://github.com/houguohua/cocos3d-x
+2. Enter `tools/project-creator`
+3. Run the `create_project.py` script
+
+Example:
+
+    $ cd cocos3d-x/tools/project-creator
+    $ ./create_project.py -project helloworld -package com.your_company.helloworld -position /projects/helloworld
+    $ cd /projects/helloworld
+
+### Build new project for android ###
+
+    $ cd proj.android
+    $ ./build_native.sh
+
+### Build new project for ios
+
+* Enter *proj.ios* folder, open *helloworld.xcodeproj*
+* Select ios targets in scheme toolbar
+
+
+### Build new project for win32 ###
+
+* Enter *proj.win32*, open *helloworld.sln* by vs2010
+
+
+Build Requirements
+------------------
+
+* Mac OS X 10.7+, Xcode 4.6+
+* Windows 7+, VS 2010+
+
+
+Runtime Requirements
+--------------------
+  * iOS 5.0+ for iPhone / iPad games
+  * Android 2.3+ for Android games
+  * Windows 7+ for Win games
+
+
+Running Tests
+--------------------
+
+Select the test you want from Xcode Scheme chooser.
+
+* For iOS
+
+```
+$ cd cocos2d-x/build
+$ open samples.xcodeproj
+```
+
+* For Linux
+
+```
+$ cd cocos2d-x/build
+$ ./install-deps-linux.sh
+$ cmake ..
+$ make
+```
+
+Run Samples
+
+```
+$ bin/hellocpp/hellocpp
+or
+$ bin/testlua/testlua
+```
+
+      You may meet building errors when building libGLFW.so. It is because libGL.so directs to an error target,
+      you should make it to direct to a correct one. `install-deps-linux.sh` only has to be run once.
+
+* For Windows
+
+Open the `cocos3d-x/cocos3d-win32.vc2010.sln`
+
+* For Android
+
+```
+$ cd cocos2d-x/build
+$ python ./android-build.py hellocpp
+```
+
+Import HelloCpp Android project using Eclipse(released with Android SDK). The path to be imported is `cocos2d-x/samples/Cpp/HelloCpp/proj.android`.
+
+
+
+Contact us
+----------
+
+   * Forum: 
+   * Twitter: 
+   * Weibo:
+   * QQ:
+  
