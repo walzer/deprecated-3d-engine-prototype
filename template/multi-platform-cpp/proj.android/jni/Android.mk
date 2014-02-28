@@ -2,27 +2,24 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := cocos2dcpp_shared
+LOCAL_MODULE := HelloCocos3D
 
-LOCAL_MODULE_FILENAME := libcocos2dcpp
-
-LOCAL_SRC_FILES := hellocpp/main.cpp \
+LOCAL_MODULE_FILENAME := libHelloCocos3D
+LOCAL_SRC_FILES := src/main.cpp \
                    ../../Classes/AppDelegate.cpp \
+                   ../../Classes/Hello3DLayer.cpp \
                    ../../Classes/HelloWorldScene.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
-LOCAL_WHOLE_STATIC_LIBRARIES += box2d_static
-LOCAL_WHOLE_STATIC_LIBRARIES += chipmunk_static
-LOCAL_WHOLE_STATIC_LIBRARIES += cocos_extension_static
+LOCAL_CFLAGS    := -D__ANDROID__\
+                   -I"$(LOCAL_PATH)/../../../../cocos3d" \
 
+LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocos3d_static
+
+LOCAL_LDLIBS :=  -landroid -lEGL -lGLESv2
+            
 include $(BUILD_SHARED_LIBRARY)
 
-$(call import-module,cocos2dx)
-$(call import-module,cocos2dx/platform/third_party/android/prebuilt/libcurl)
-$(call import-module,CocosDenshion/android)
-$(call import-module,extensions)
-$(call import-module,external/Box2D)
-$(call import-module,external/chipmunk)
+$(call import-module,cocos2dx) 
+$(call import-module,cocos3d) 

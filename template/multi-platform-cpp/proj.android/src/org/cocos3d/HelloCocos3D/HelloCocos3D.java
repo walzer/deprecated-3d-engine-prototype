@@ -36,13 +36,13 @@ public class HelloCocos3D extends Cocos2dxActivity{
 
     public Cocos2dxGLSurfaceView onCreateView() {
     	Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
-    	// HelloCocos3D should create stencil buffer
+    	// HelloCpp should create stencil buffer
     	glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
     	
     	return glSurfaceView;
     }
 
     static {
-        System.loadLibrary("cocos2dcpp");
+        System.loadLibrary("HelloCocos3D");
     }     
 }
