@@ -20,7 +20,7 @@ cocos3d-x is:
 How to start a new game
 -----------------------
 
-1. Download the code from cocos3d download site or https://github.com/houguohua/cocos3d-x
+1. Download the code from cocos3d download site or https://github.com/cocos2d/cocos3d-x
 2. Enter `tools/project-creator`
 3. Run the `create_project.py` script
 
