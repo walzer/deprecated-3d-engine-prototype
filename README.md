@@ -52,7 +52,7 @@ Main features
 
 
 
-### Create a new game
+### Create project
     * Download the code from cocos3d download site or https://github.com/cocos2d/cocos3d-x
     * Enter `tools/project-creator`
     * Run the `create_project.py` script
@@ -61,48 +61,49 @@ Main features
        $ cd cocos3d-x/tools/project-creator
        $ python ./create_project.py -project helloworld -package com.company.helloworld
        $ cd /projects/helloworld
+       
+### Build project
+    for android ###
 
-### Build new project for android ###
-
-    Requirements : Windows 7+ , android sdk 2.3+ , android ndk r8b+
-    
-    Build : 
-    $ cd cocos3d-x/projects/helloworld
-    $ cd proj.android
-    $ sh ./build_native.sh
-    
-    Run:
-    Import helloworld Android project using Eclipse(released with Android SDK). 
-    The path to be imported is `cocos3d-x/projects/helloworld/proj.android`.
+        Requirements : Windows 7+ , android sdk 2.3+ , android ndk r8b+
+        
+        Build : 
+        $ cd cocos3d-x/projects/helloworld
+        $ cd proj.android
+        $ sh ./build_native.sh
+        
+        Run:
+        Import helloworld Android project using Eclipse(released with Android SDK). 
+        The path to be imported is `cocos3d-x/projects/helloworld/proj.android`.
     
 
-### Build new project for ios
-    Requirements : Mac OS X 10.7+, Xcode 4.6+
-
-    Build :
-    * Enter *proj.ios* folder
-    * open *helloworld.xcodeproj*
-    * Select ios targets in scheme toolbar , build
+    for ios
+        Requirements : Mac OS X 10.7+, Xcode 4.6+
     
-    Run :
-    * Enter *proj.ios* folder
-    * open *helloworld.xcodeproj*
-    * Select ios targets in scheme toolbar , run
+        Build :
+        * Enter *proj.ios* folder
+        * open *helloworld.xcodeproj*
+        * Select ios targets in scheme toolbar , build
+        
+        Run :
+        * Enter *proj.ios* folder
+        * open *helloworld.xcodeproj*
+        * Select ios targets in scheme toolbar , run
 
 
-### Build new project for win32 ###
-    Requirements : Windows 7+, VS 2010+
-    
-    Build :
-    * enter *cocos3d* folder
-    * open the `cocos3d-win32.vc2010.sln`
-    * build
-    
-    Run :
-    * Enter *cocos3d* folder
-    * open the `cocos3d-win32.vc2010.sln` by vs2010
-    * select the *helloworld*
-    * run
+    for win32
+        Requirements : Windows 7+, VS 2010+
+        
+        Build :
+        * enter *cocos3d* folder
+        * open the `cocos3d-win32.vc2010.sln`
+        * build
+        
+        Run :
+        * Enter *cocos3d* folder
+        * open the `cocos3d-win32.vc2010.sln` by vs2010
+        * select the *helloworld*
+        * run
 
 
 
