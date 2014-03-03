@@ -62,7 +62,7 @@ How to start a new game
 Example:
 
     $ cd cocos3d-x/tools/project-creator
-    $ ./create_project.py -project helloworld -package com.company.helloworld
+    $ python ./create_project.py -project helloworld -package com.company.helloworld
     $ cd /projects/helloworld
 
 ### Build new project for android ###
