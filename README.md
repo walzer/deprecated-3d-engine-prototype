@@ -63,7 +63,7 @@ Main features
        $ cd /projects/helloworld
        
 ### Build project
-    for android ###
+    for android
 
         Requirements : Windows 7+ , android sdk 2.3+ , android ndk r8b+
         
