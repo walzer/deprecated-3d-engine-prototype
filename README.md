@@ -52,18 +52,15 @@ Main features
 
 
 
-How to start a new game
------------------------
+### Create a new game
+    * Download the code from cocos3d download site or https://github.com/cocos2d/cocos3d-x
+    * Enter `tools/project-creator`
+    * Run the `create_project.py` script
 
-1. Download the code from cocos3d download site or https://github.com/cocos2d/cocos3d-x
-2. Enter `tools/project-creator`
-3. Run the `create_project.py` script
-
-Example:
-
-    $ cd cocos3d-x/tools/project-creator
-    $ python ./create_project.py -project helloworld -package com.company.helloworld
-    $ cd /projects/helloworld
+    Example:
+       $ cd cocos3d-x/tools/project-creator
+       $ python ./create_project.py -project helloworld -package com.company.helloworld
+       $ cd /projects/helloworld
 
 ### Build new project for android ###
 
@@ -75,7 +72,8 @@ Example:
     $ sh ./build_native.sh
     
     Run:
-    Import helloworld Android project using Eclipse(released with Android SDK). The path to be imported is `cocos3d-x/projects/helloworld/proj.android`.
+    Import helloworld Android project using Eclipse(released with Android SDK). 
+    The path to be imported is `cocos3d-x/projects/helloworld/proj.android`.
     
 
 ### Build new project for ios
@@ -105,14 +103,6 @@ Example:
     * open the `cocos3d-win32.vc2010.sln` by vs2010
     * select the *helloworld*
     * run
-
-
-
-Running Tests
---------------------
-
-
-
 
 
 
