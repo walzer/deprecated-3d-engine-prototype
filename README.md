@@ -66,39 +66,24 @@ Example:
     $ cd /projects/helloworld
 
 ### Build new project for android ###
-  Build Requirements
-------------------
 
-* Mac OS X 10.7+, Xcode 4.6+
-* Windows 7+, VS 2010+
+    Build Requirements : Windows 7+,android sdk,android ndk
 
     $ cd proj.android
     $ ./build_native.sh
     
 
 ### Build new project for ios
-Build Requirements
-------------------
+    Build Requirements : Mac OS X 10.7+, Xcode 4.6+
 
-* Mac OS X 10.7+, Xcode 4.6+
-* Windows 7+, VS 2010+
-
-* Enter *proj.ios* folder, open *helloworld.xcodeproj*
-* Select ios targets in scheme toolbar
+    * Enter *proj.ios* folder, open *helloworld.xcodeproj*
+    * Select ios targets in scheme toolbar
 
 
 ### Build new project for win32 ###
-Build Requirements
-------------------
-
-* Mac OS X 10.7+, Xcode 4.6+
-* Windows 7+, VS 2010+
+    Build Requirements : Windows 7+, VS 2010+
 
 * Enter *proj.win32*, open *helloworld.sln* by vs2010
-
-
-
-
 
 
 Runtime Requirements
