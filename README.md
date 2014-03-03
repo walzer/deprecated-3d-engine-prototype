@@ -3,12 +3,6 @@ cocos3d-x
 cocos3d-x is  a multi-platform game framework for building 3d games,which is based cocos2d-x.
 
 
-cocos3d-x is:
-  * Fast
-  * Free
-  * Easy to use
-  * Community Supported
-  
   
 ## Supported Platforms
 - [Windows]
@@ -43,6 +37,49 @@ Example:
 ### Build new project for win32 ###
 
 * Enter *proj.win32*, open *helloworld.sln* by vs2010
+
+Main features
+-------------
+   * Math : vector,matrix,quaternion
+   * Mesh
+     * general mesh
+     * morph mesh
+     * batch mesh
+   * Material
+   * Model
+     * skinmodel
+     * skinlessmodel
+     * batchmodel
+   * Texture
+     * 2D texture
+     * 3D texture
+   * FileSystem
+     * filestream
+     * memorystream
+   * ResourceManager
+     * resource
+     * resourepool
+     * resourcemanager
+   * Scene items
+     * camera
+     * light
+     * dynamic sprite
+     * static sprite
+   * ParticleSystem
+     * emitter
+     * render
+     * affect
+   * PostEffect
+   * Geo
+   * shader lib
+     * texture : texture only
+     * diffuse : texture + diffuse light
+     * specular : texture + diffuse light + specular light
+     * bumpdiffuse : texture + diffuse light + bump
+     * bumpspecular : texture + diffuse light + specular light + bump
+     * ......
+
+   
 
 
 Build Requirements
