@@ -62,7 +62,7 @@ Main features
        $ python ./create_project.py -project helloworld -package com.company.helloworld
        $ cd /projects/helloworld
        
-### Build project
+### Build and Run project
     for android
 
         Requirements : Windows 7+ , android sdk 2.3+ , android ndk r8b+
