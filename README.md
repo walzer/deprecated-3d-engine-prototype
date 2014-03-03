@@ -9,35 +9,6 @@ cocos3d-x is  a multi-platform game framework for building 3d games,which is bas
 - [iOS]
 - [Android]
 
-
-How to start a new game
------------------------
-
-1. Download the code from cocos3d download site or https://github.com/cocos2d/cocos3d-x
-2. Enter `tools/project-creator`
-3. Run the `create_project.py` script
-
-Example:
-
-    $ cd cocos3d-x/tools/project-creator
-    $ ./create_project.py -project helloworld -package com.company.helloworld
-    $ cd /projects/helloworld
-
-### Build new project for android ###
-
-    $ cd proj.android
-    $ ./build_native.sh
-
-### Build new project for ios
-
-* Enter *proj.ios* folder, open *helloworld.xcodeproj*
-* Select ios targets in scheme toolbar
-
-
-### Build new project for win32 ###
-
-* Enter *proj.win32*, open *helloworld.sln* by vs2010
-
 Main features
 -------------
    * Math : vector,matrix,quaternion
@@ -70,7 +41,7 @@ Main features
      * render
      * affect
    * PostEffect
-   * Geo
+   * Geo ：box,plane,ray...
    * shader lib
      * texture : texture only
      * diffuse : texture + diffuse light
@@ -79,7 +50,36 @@ Main features
      * bumpspecular : texture + diffuse light + specular light + bump
      * ......
 
-   
+
+
+How to start a new game
+-----------------------
+
+1. Download the code from cocos3d download site or https://github.com/cocos2d/cocos3d-x
+2. Enter `tools/project-creator`
+3. Run the `create_project.py` script
+
+Example:
+
+    $ cd cocos3d-x/tools/project-creator
+    $ ./create_project.py -project helloworld -package com.company.helloworld
+    $ cd /projects/helloworld
+
+### Build new project for android ###
+
+    $ cd proj.android
+    $ ./build_native.sh
+
+### Build new project for ios
+
+* Enter *proj.ios* folder, open *helloworld.xcodeproj*
+* Select ios targets in scheme toolbar
+
+
+### Build new project for win32 ###
+
+* Enter *proj.win32*, open *helloworld.sln* by vs2010
+
 
 
 Build Requirements
