@@ -29,8 +29,8 @@ cocos3d-x is a multi-platform game framework for building 3d games,which is base
      * skinlessmodel : a model which doesn't have skin mesh
      * batchmodel :  contain a C3DBatchMesh and a material
    * Texture
-     * 2D texture
-     * 3D texture
+     * 2D texture : represents a 2d texture.It wraps the cocos2d::ccTexture
+     * 3D texture : represents a cube map.It wraps the cocos2d::ccTexture
    * Stream : the interface for reading and writing a sequence of bytes
      * filestream : support the file data stream
      * memorystream : suppert the memory data stream
@@ -38,15 +38,17 @@ cocos3d-x is a multi-platform game framework for building 3d games,which is base
      * resource
      * resourepool
      * resourcemanager
-   * Scene items
+   * Scene : a scene node includes all the scene object,for example,light,camera,sprite,and so on
      * camera
      * light
      * dynamic sprite
      * static sprite
    * ParticleSystem
-     * emitter
-     * render
-     * affect
+     represents a 3D particle system. It is loaded from .particle files.
+	   It is made up of one emitter, one render, some actions
+     * emitter : defines the emission rate, particle start size, end size, age,position, velocity, rotation and so on...
+     * render : render the particle with the batch render technique
+     * action : affect the particle's movement
    * PostEffect
    * Geo ：box,plane,ray...
    * shader lib
