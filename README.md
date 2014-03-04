@@ -1,3 +1,5 @@
+
+<img src="http://user.qzone.qq.com/85454322/4" width=200>
 cocos3d-x
 =========
 cocos3d-x is  a multi-platform game framework for building 3d games,which is based cocos2d-x.
