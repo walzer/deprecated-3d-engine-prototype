@@ -73,8 +73,8 @@ bool FullDemoLayer::init()
 	bool r = C3DLayer::init();
 
 	C3DEnvConf conf;
-	conf._clearColor = C3DVector4(30.f / 255.f, 60.f / 255.f, 100.f / 255.f, 1.0f);
-	conf._fogColor = C3DVector4(30.0 / 255.0, 54.0 / 255.0, 84.0 / 255.0, 1.0);
+	conf._clearColor = C3DVector4(30.f / 255.f, 60.f / 255.f, 100.f / 255.f, 1.f);
+	conf._fogColor = C3DVector4(30.f / 255.f, 54.f / 255.f, 84.f / 255.f, 1.f);
 	conf._fogType = C3DEnvConf::Linear;
 	conf._fogStart = 6.f;
 	conf._fogEnd = 30.f;
