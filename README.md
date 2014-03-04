@@ -113,12 +113,11 @@ cocos3d-x is a multi-platform game framework for building 3d games,which is base
    * Weibo:
    * QQ:
    
-### some useful web resource about 3d 
+### some useful web resource about 3d
 
-   * matrix transform : 
-        * http://blog.sina.com.cn/s/blog_4a657c5a0100090b.html
-        * http://hi.baidu.com/xoxoxo/item/db76cd2988fa0385ae48f5c0
-        
+   * matrix transform
+     * http://blog.sina.com.cn/s/blog_4a657c5a0100090b.html
+     * http://hi.baidu.com/xoxoxo/item/db76cd2988fa0385ae48f5c0
    * fbx sdk : http://blog.sina.com.cn/s/blog_4a657c5a01014da9.html
    * soft shadow : http://blog.sina.com.cn/s/blog_4a657c5a0100w8il.html   * 
    * opengl render optimize : http://blog.sina.com.cn/s/blog_4a657c5a01015tyo.html   * 
