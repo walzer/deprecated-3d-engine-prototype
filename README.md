@@ -12,10 +12,13 @@ cocos3d-x is a multi-platform game framework for building 3d games,which is base
 ### Main features
 
    * Math : vector,matrix,quaternion
-   * Mesh
+   * Mesh ：
      * general mesh
+         supporting various vertex formats and 1 or more MeshPart to define how the vertices are connected.
      * morph mesh
+         supporting morph deform
      * batch mesh
+         rendering multiple mesh into a single draw call
    * Material
    * Model
      * skinmodel
