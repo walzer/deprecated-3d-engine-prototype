@@ -29,7 +29,8 @@
 #define DESIGN_RESOLUTION_960X640  3
 
 /* If you want to switch design resolution, change next line */
-#define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_2048X1536
+#define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_960X640
+#
 
 typedef struct tagResource
 {
@@ -49,6 +50,8 @@ static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(1024, 768);
 static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(2048, 1536);
 #elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_960X640)
 static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(960, 640);
+#elif (TARGET_DESIGN_RESOLUTION_SIZE == DESIGN_RESOLUTION_800X480)
+static cocos2d::CCSize designResolutionSize = cocos2d::CCSizeMake(800, 480);
 #else
 #error unknown target design resolution!
 #endif
