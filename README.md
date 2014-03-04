@@ -20,16 +20,20 @@ cocos3d-x is a multi-platform game framework for building 3d games,which is base
      * batch mesh
          rendering multiple mesh into a single draw call
    * Material
+        one material contains several techniques for render an model.
+        when multiple techniques are loaded from a material file
+        the current technique can be set at runtime
    * Model
-     * skinmodel
-     * skinlessmodel
-     * batchmodel
+     a model which contains a Mesh and a material
+     * skinmodel : a model which have skin mesh
+     * skinlessmodel : a model which doesn't have skin mesh
+     * batchmodel :  contain a C3DBatchMesh and a material
    * Texture
      * 2D texture
      * 3D texture
-   * FileSystem
-     * filestream
-     * memorystream
+   * Stream : the interface for reading and writing a sequence of bytes
+     * filestream : support the file data stream
+     * memorystream : suppert the memory data stream
    * ResourceManager
      * resource
      * resourepool
