@@ -4,13 +4,13 @@ cocos3d-x
 cocos3d-x is a multi-platform game framework for building 3d games,which is based on the cocos2d-x engine.
 
   
-## Supported Platforms
+### Supported Platforms
 - [Windows]
 - [iOS]
 - [Android]
 
-Main features
--------------
+### Main features
+
    * Math : vector,matrix,quaternion
    * Mesh
      * general mesh
@@ -73,8 +73,8 @@ Main features
         $ sh ./build_native.sh
         
         Run:
-        Import helloworld Android project using Eclipse(released with Android SDK). 
-        The path to be imported is `cocos3d-x/projects/helloworld/proj.android`.
+        * Import helloworld Android project using Eclipse(released with Android SDK). 
+        * The path to be imported is `cocos3d-x/projects/helloworld/proj.android`.
     
 
     for ios
@@ -113,10 +113,11 @@ Main features
    * Weibo:
    * QQ:
    
-### some useful web resource about 3d
+### some useful web resource about 3d 
+
    * matrix transform : 
-        http://blog.sina.com.cn/s/blog_4a657c5a0100090b.html
-        http://hi.baidu.com/xoxoxo/item/db76cd2988fa0385ae48f5c0
+        * http://blog.sina.com.cn/s/blog_4a657c5a0100090b.html
+        * http://hi.baidu.com/xoxoxo/item/db76cd2988fa0385ae48f5c0
         
    * fbx sdk : http://blog.sina.com.cn/s/blog_4a657c5a01014da9.html
    * soft shadow : http://blog.sina.com.cn/s/blog_4a657c5a0100w8il.html   * 
