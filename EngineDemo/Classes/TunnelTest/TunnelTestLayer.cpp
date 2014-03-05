@@ -107,17 +107,8 @@ void TunnelTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsi
         break;
     case TouchEvent_MOVE:
         {
-            int deltaX = x - _touchX;
             _touchX = x;
-
-            int deltaY = y - _touchY;
             _touchY = y;
-
-            {
-                C3DCamera* camera = _scene->getActiveCamera();
-                //if (camera)
-                //    camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-            }
         }
         break;
     default:

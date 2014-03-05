@@ -71,6 +71,8 @@ void C3DResource::update(long elapsedTime)
 			}
 		}
 		break;
+    default:
+        break;
 	}
 }
 

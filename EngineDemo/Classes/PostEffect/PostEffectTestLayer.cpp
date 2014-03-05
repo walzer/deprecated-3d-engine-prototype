@@ -217,8 +217,6 @@ void PostEffectTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, 
         {
             int deltaX = x - _touchX;
             _touchX = x;
-
-            int deltaY = y - _touchY;
             _touchY = y;
 
             {
@@ -297,8 +295,6 @@ void PostEffectTestLayer::menuCallback( CCObject * pSender )
     // get the userdata, it's the index of the menu item clicked
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSender);
     int nIdx = pMenuItem->getZOrder() - 10000;
-
-    TestLayer* layer = NULL;
 
     C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("1");
 

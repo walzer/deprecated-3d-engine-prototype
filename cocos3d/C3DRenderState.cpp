@@ -287,6 +287,8 @@ void C3DRenderState::applyNodeAutoBinding(const std::string& uniformName, AutoBi
 		{
 			getParameter(uniformName)->setValue(_nodeBinding, &C3DNode::getTimeParam);
 		}break;
+    default:
+        break;
     }
 }
 
@@ -355,7 +357,7 @@ void C3DRenderState::bind(C3DPass* pass)
     // Apply parameter bindings and renderer state for the entire hierarchy, top-down.
     rs = NULL;
     C3DEffect* effect = pass->getEffect();
-    while (rs = getTopmost(rs))
+    while ((rs = getTopmost(rs)))
     {
 		for (std::list<MaterialParameter*>::iterator iter = rs->_parameters.begin();iter != rs->_parameters.end();++iter)
 		{
@@ -377,7 +379,7 @@ void C3DRenderState::setParamMethonAutoUniform(C3DPass* pass)
 {
 	C3DRenderState* rs = NULL;
     C3DEffect* effect = pass->getEffect();
-    while (rs = getTopmost(rs))
+    while ((rs = getTopmost(rs)))
     {
 		for (std::list<MaterialParameter*>::iterator iter = rs->_parameters.begin();iter != rs->_parameters.end();++iter)
        // for (unsigned int i = 0, count = rs->_parameters.size(); i < count; ++i)
@@ -544,7 +546,7 @@ bool C3DRenderState::load(C3DElementNode* nodes)
 
     // Iterate through all child namespaces searching for samplers and render state blocks
     C3DElementNode* ns;
-    while (ns = nodes->getNextChild())
+    while ((ns = nodes->getNextChild()))
     {
         if (ns->getNodeType() == "sampler")
         {

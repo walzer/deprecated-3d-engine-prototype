@@ -196,6 +196,11 @@ void FullDemoLayer::createParticleEffect()
 		_scene->addChild(ps);
 		ps->rotateX(MATH_DEG_TO_RAD(90));
 	}
+	else
+	{
+		return;
+	}
+    
 	C3DParticleSystem* ps2 = C3DParticleSystem::create("secondhuopeng_ps");
 	if(ps2!=NULL)
 	{
@@ -204,8 +209,12 @@ void FullDemoLayer::createParticleEffect()
 		_scene->addChild(ps2);
 		ps2->rotateX(MATH_DEG_TO_RAD(90));
 	}
+	else
+	{
+		return;
+	}
 
-	for(int i = 1;i<=20;++i)
+	for(int i = 1 ;i<=20; ++i)
 	{
 		C3DNode::CloneContext context;
 		context.cloneChildren = true;
@@ -236,8 +245,8 @@ void FullDemoLayer::createParticleEffect()
 
 			m->attach(name.c_str(),newPS);
 		}
-		//newPS->showAABB(true);
 	}
+
 	_scene->removeChild(ps);
 	_scene->removeChild(ps2);
 
@@ -246,13 +255,8 @@ void FullDemoLayer::createParticleEffect()
 	particle->rotateX(MATH_DEG_TO_RAD(90));
 	_scene->addChild(particle);
 	particle->setPosition(0.0f, -5.0f, 0.0f);
-	//particle->showAABB(true);
-	cocos3d::C3DRenderNode* m = ((C3DRenderNode*)_scene->findNode("scene"));//C3DLayer::getInstance()->getSpriteManager()->findEntity("girl");
-	if(m)
-	{
-		//m->attach("yuanpan",particle);
-	}
 }
+    
 void FullDemoLayer::createEffect()
 {
     C3DStaticObj* sm = C3DStaticObj::create("123");
@@ -261,7 +265,6 @@ void FullDemoLayer::createEffect()
     sm->setMaterial("effect/fadecircle.material");
     sm->translate(0, 0, 0);
     sm->rotateX(MATH_DEG_TO_RAD(-90.0f));
- //   sm->scale(50, 50, 50);
 
     _scene->addChild(sm);
 }
@@ -269,45 +272,34 @@ void FullDemoLayer::createEffect()
 void FullDemoLayer::createMainPlayer()
 {
 	cocos3d::C3DSprite* entity = NULL;
-	//entity = cocos3d::C3DSprite::create("mainPlayer");
 	entity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/warrior/warrior.ckb"));
 	if(entity != NULL)
 	{
 		std::string name = "mainPlayer";
 		_mainPlayer = new MainPlayer(name,entity,this);
 
-		//entity->loadFromFile("demo/warrior/warrior.ckb");
-
-		C3DAnimationClip* idleClip = entity->addAnimationClip("run",0,24,0,1.0f);
-		C3DAnimationClip* runClip = entity->addAnimationClip("idle",100,116,0,1.0f);
-		C3DAnimationClip* attackClip_normal = entity->addAnimationClip("attack_normal",170,206,1,1.0f);
-		C3DAnimationClip* attackClip_skill = entity->addAnimationClip("attack_skill",370,416,1,1.0f);
+		entity->addAnimationClip("run",0,24,0,1.0f);
+		entity->addAnimationClip("idle",100,116,0,1.0f);
+		entity->addAnimationClip("attack_normal",170,206,1,1.0f);
+		entity->addAnimationClip("attack_skill",370,416,1,1.0f);
 		entity->playAnimationClip("idle");
 
 		_mainPlayer->addPartConfig("body",false);
-
 		_mainPlayer->addPart("body","body","demores/fulldemo/warrior/material/body.material");
-
 		_mainPlayer->setPart("body",0);
-
 		_mainPlayer->loadParts();
 
 		entity->setPosition(0.0f,0.0f,0.0f);
-
 		entity->setScale(1.0f,1.0f,1.0f);
 
 		_scene->addChild(entity);
 
 		_mainPlayer->init();
 
-		//entity->showAABB(true);
-
 	   C3DLight* light = C3DLight::create("head light");
 	   light->setComponent(C3DPointLight::create(C3DVector3(0.8f, 0.2f, 0.0f), 8.f));
 	   light->setPosition(0.0f, 1.0f, 0.0f);
 	   entity->addChild(light);
-
-	   //_scene->showLight(true);
 	}
 }
 
@@ -316,19 +308,16 @@ void FullDemoLayer::createEnemy()
 	cocos3d::C3DSprite* entity = NULL;
 
 	entity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/guai/guai.ckb"));
-
 	entity->getAnimation()->setQuality(C3DAnimation::Low);
-//	entity = cocos3d::C3DSprite::create("enemy_guai");
+
 	if(entity != NULL)
 	{
-      //  entity->loadFromFile("demo/guai/guai.ckb",true);
-
-		C3DAnimationClip* idleClip = entity->addAnimationClip("run",0,24,0,1.0f);
-		C3DAnimationClip* runClip = entity->addAnimationClip("idle",50,74,0,1.0f);
-		C3DAnimationClip* injureClip = entity->addAnimationClip("injure", 100, 118, 1, 1.0f);
-		C3DAnimationClip* vertigoClip = entity->addAnimationClip("vertigo", 200, 232, 1, 1.0f);
-		C3DAnimationClip* dieClip = entity->addAnimationClip("die", 270, 271, 0, 0.1f);
-		C3DAnimationClip* standupClip = entity->addAnimationClip("standup", 271, 314, 1, 1.0f);
+		entity->addAnimationClip("run",0,24,0,1.0f);
+		entity->addAnimationClip("idle",50,74,0,1.0f);
+		entity->addAnimationClip("injure", 100, 118, 1, 1.0f);
+		entity->addAnimationClip("vertigo", 200, 232, 1, 1.0f);
+		entity->addAnimationClip("die", 270, 271, 0, 0.1f);
+		entity->addAnimationClip("standup", 271, 314, 1, 1.0f);
 		entity->playAnimationClip("idle");
 
         entity->setPosition(0.8f,0.0f,7.5f);
@@ -337,18 +326,8 @@ void FullDemoLayer::createEnemy()
 
 		for (int i = 0; i < 5; i++)
 		{
-			/*C3DNode::CloneContext context;
-	        context.cloneChildren = true;
-
-			context.cloneMap.clear();
-			context.clonedAnim.clear();
-			context.clonedMeshSkin.clear();
-
-			context.idSuffix = StringTool::toString(i);
-			C3DSprite* newEntity = static_cast<C3DSprite*> (entity->clone(context));*/
-			//...
+	
 			C3DSprite* newEntity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/guai/guai.ckb"));
-			//...
 
 			newEntity->playAnimationClip("idle");
 
@@ -373,8 +352,7 @@ void FullDemoLayer::createEnemy()
 
 			std::string name = newEntity->getId();
 			C3DActor* enemy = new Enemy(name,newEntity,this);
-
-		    //newEntity->showOBB(true);
+            
 		    _actors.push_back(enemy);
 		}
 	}
@@ -533,6 +511,8 @@ void FullDemoLayer::touchEvent(TouchEvent evt, float x, float y, unsigned int co
 						_mainPlayer->speak(picked);
 					}
 					break;
+                default:
+                    break;
 				}
             }
 			else
@@ -554,39 +534,8 @@ void FullDemoLayer::touchEvent(TouchEvent evt, float x, float y, unsigned int co
         break;
     case TouchEvent_MOVE:
         {
-            int deltaX = x - _touchX;
             _touchX = x;
-
-			int deltaY = y - _touchY;
 			_touchY = y;
-
-			//for (int i = 0; i < 9; i ++)
-			{
-				std::string id = std::string("testScene");// + StringTool::toString(i);
-				cocos3d::C3DNode* entity = _scene->findNode(id.c_str());
-				if(entity!=NULL )
-				{
-					//entity->setRotation(MATH_DEG_TO_RAD(_touchX * 0.5f));
-
-				//	entity->rotateY(MATH_DEG_TO_RAD(deltaY * 0.5f));
-				//	entity->translateY(MATH_DEG_TO_RAD(deltaX ));
-				}
-			}
-
-			{
-				C3DCamera* camera = _scene->getActiveCamera();
-			//	camera->translateY(MATH_DEG_TO_RAD(deltaX * 4));
-			//	camera->rotateX(MATH_DEG_TO_RAD(deltaX * 4));
-			//	camera->translateZ(MATH_DEG_TO_RAD(deltaX * 1.1f));
-        //        if (camera)
-				    //camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-			}
-
-			{
-			//	Light* light = C3DLayer::getInstance()->getScene()->getActiveLight();
-				//light->translateX(MATH_DEG_TO_RAD(deltaX * 0.5f));
-			//	light->rotateZ(MATH_DEG_TO_RAD(deltaX * 0.5f));
-			}
         }
         break;
     default:
@@ -645,7 +594,7 @@ void FullDemoLayer::createAnimLight()
 	animLight->setScaleUV(0.017f, 0.017f, 0.03f, 0.03f);
 	animLight->setSpeedUV(0.05f, 0.03f, 0.01f, 0.01f);
 	animLight->setRotateUV(0.0f, MATH_DEG_TO_RAD(90));
-	//animLight->setRotateSpeedUV(0.01f, -0.05f);
+
 	animLight->setIntensity(1.0f, 0.5f, 0.1f, 5.0f);
 	light->setComponent(animLight);
 	light->lookAt(C3DVector3(20, 100, 50), C3DVector3(0, 0, 1), C3DVector3(0, 0, 0));

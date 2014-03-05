@@ -20,7 +20,6 @@ bool ClothUILayer::init()
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-
 	CCMenuItemImage *pItem1 = CCMenuItemImage::create("cap_normal.png",		 "cap_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeCap) );
 	CCMenuItemImage *pItem2 = CCMenuItemImage::create("hair_normal.png",	 "hair_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeHair) );
 	CCMenuItemImage *pItem3 = CCMenuItemImage::create("glasses_normal.png",	 "glasses_selected.png",	this,menu_selector(ClothUILayer::menuCallback_changeGlasses) );
@@ -29,9 +28,6 @@ bool ClothUILayer::init()
 	CCMenuItemImage *pItem6 = CCMenuItemImage::create("shoe_normal.png",	 "shoe_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeShoot) );
 	CCMenuItemImage *pItem7 = CCMenuItemImage::create("nose_normal.png",	 "nose_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeNose) );
 	CCMenuItemImage *pItem8 = CCMenuItemImage::create("eyemorph_normal.png", "eyemorph_selected.png",	this,menu_selector(ClothUILayer::menuCallback_changeEye) );
-	//CCDirector::sharedDirector()->getWinSize().width
-
-    CCPoint pt = VisibleRect::left();
 
     pItem1->setPosition( ccp(VisibleRect::left().x+50, VisibleRect::bottom().y+pItem1->getContentSize().height ) );
 	pItem2->setPosition( ccp(VisibleRect::left().x+50, VisibleRect::bottom().y+pItem1->getContentSize().height *2 ) );

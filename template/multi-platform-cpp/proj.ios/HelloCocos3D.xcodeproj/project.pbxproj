@@ -133,6 +133,7 @@
 		A9633EC118C09385003BE009 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = A9633EBD18C09385003BE009 /* CloseSelected.png */; };
 		A9633EC218C09385003BE009 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = A9633EBE18C09385003BE009 /* fonts */; };
 		A9633EC518C09443003BE009 /* Hello3DLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633EC318C09443003BE009 /* Hello3DLayer.cpp */; };
+		BCE2E9D918C6FEDF006CEE3B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE2E9D818C6FEDF006CEE3B /* Default-568h@2x.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712461292920000B8313A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB212928DE900B8313A /* libxml2.dylib */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -408,6 +409,7 @@
 		A9633EBE18C09385003BE009 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		A9633EC318C09443003BE009 /* Hello3DLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hello3DLayer.cpp; path = ../Classes/Hello3DLayer.cpp; sourceTree = "<group>"; };
 		A9633EC418C09443003BE009 /* Hello3DLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hello3DLayer.h; path = ../Classes/Hello3DLayer.h; sourceTree = "<group>"; };
+		BCE2E9D818C6FEDF006CEE3B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB212928DE900B8313A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -525,6 +527,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				BCE2E9D818C6FEDF006CEE3B /* Default-568h@2x.png */,
 				A9633D7018C09304003BE009 /* cocos3d */,
 				15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
@@ -869,6 +872,7 @@
 				A9633EAC18C09304003BE009 /* C3DVector4.inl in Resources */,
 				A9633E7218C09304003BE009 /* C3DMatrix.inl in Resources */,
 				A9633EA818C09304003BE009 /* C3DVector2.inl in Resources */,
+				BCE2E9D918C6FEDF006CEE3B /* Default-568h@2x.png in Resources */,
 				A9633EC118C09385003BE009 /* CloseSelected.png in Resources */,
 				A9633EC018C09385003BE009 /* CloseNormal.png in Resources */,
 				A9633EBF18C09385003BE009 /* 3d in Resources */,

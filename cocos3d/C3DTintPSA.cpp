@@ -53,7 +53,6 @@ void C3DTintPSA::load(C3DElementNode* tintPSANode)
 	{
 		tintNodes->rewind();
 		C3DElementNode* tintNode = NULL;
-		C3DBaseParticleAction* action = NULL;
 		while ((tintNode = tintNodes->getNextChild()))
 		{
 			if (tintNode->getNodeType() == "Tint")
@@ -137,7 +136,6 @@ void C3DTintPSA::action(long elapsedTime)
 		return;
 
     // Calculate the time passed since last update.
-    float elapsedSecs = (float)elapsedTime / 1000.0f;
 	C3DParticle**& _particles = _system->_particles;
 	int& _validParticleCount = _system->_validParticleCount;
 	C3DVector4 color;

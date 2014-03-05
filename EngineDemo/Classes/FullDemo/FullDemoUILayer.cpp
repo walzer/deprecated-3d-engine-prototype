@@ -5,8 +5,6 @@
 #include "UI3DLayer.h"
 #include "MainPlayer.h"
 
-static CCMenu* pMenu1;
-
 // on "init" you need to initialize your instance
 bool FullDemoUILayer::init()
 {
@@ -22,8 +20,6 @@ bool FullDemoUILayer::init()
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-
-	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
 
 	CCMenuItemImage *pItemNearAttack = CCMenuItemImage::create("icons/melee_attack.png","icons/melee_attack_selected.png",this,menu_selector(FullDemoUILayer::menuCallback_nearAttack) );
 	CCMenuItemImage *pItemFarAttack = CCMenuItemImage::create("icons/range_attack.png","icons/range_attack_selected.png",this,menu_selector(FullDemoUILayer::menuCallback_farAttack) );

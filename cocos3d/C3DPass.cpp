@@ -171,8 +171,7 @@ void C3DPass::setupParametersFromEffect()
     }
 
 	//..
-
-	for (std::list<MaterialParameter*>::iterator iter = _parameters.begin();iter != _parameters.end();iter)
+	for (std::list<MaterialParameter*>::iterator iter = _parameters.begin();iter != _parameters.end();)
 	{
 		if(_effect->getUniform((*iter)->getName()) == NULL)
 		{
@@ -187,7 +186,6 @@ void C3DPass::setupParametersFromEffect()
 			++iter;
 		}
 	}
-
 	//..
 }
 

@@ -26,14 +26,13 @@ PESpaceWrap::PESpaceWrap(C3DPostProcess* postProcess, const std::string& name)
 	int w = 256, h = 256;
 
 	unsigned int* data = new unsigned int[w * h];
-    int count = sizeof(unsigned int);
+    
 	for(int y = 0; y < h; y++)
 	{
 		for(int x = 0; x < w; x++)
 		{
 			float fx = x * (1.0f / 256) - 0.5f;
 			float fy = y * (1.0f / 256) - 0.5f;
-			float r  = sqrtf(fx * fx + fy * fy);
 
 			int iDu = (int)(32 * cosf(4.0f * (fx + fy) * MATH_PI)) + 128;
 			int iDv = (int)(32 * sinf(4.0f * (fx + fy) * MATH_PI)) + 128;

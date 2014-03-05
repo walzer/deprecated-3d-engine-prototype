@@ -364,7 +364,6 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 	int nCol = nRow * 2 + 2;
 	if(nCol < 3) nCol = 3;
 
-	float fStep = r / nRow;
 	int vertCount = (nRow * 2 - 1) * nCol + 2;
 	BBVertex* verts = new BBVertex[vertCount];
 	std::vector<unsigned short> Indices;
@@ -385,7 +384,6 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 			verts[vIdx++].position = vec+vPos;
 			idx1 = 0;
 			idx2 = 1;
-			lastIdx = vIdx;
 
 			continue;
 		}

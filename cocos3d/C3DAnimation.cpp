@@ -247,7 +247,6 @@ bool C3DAnimation::replaceClip(const std::string& name, unsigned int startFrame,
 
 bool C3DAnimation::removeClip(const std::string& name)
 {
-	C3DAnimationClip* clip = findClip(name);
 	std::vector<C3DAnimationClip*>::iterator clipIter = _clips->begin();
 	while (clipIter != _clips->end())
 	{

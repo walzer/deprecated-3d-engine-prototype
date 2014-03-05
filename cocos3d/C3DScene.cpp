@@ -569,7 +569,8 @@ C3DShadowMap* C3DScene::setActiveShadowMap(int index)
     {
         SAFE_RELEASE(_activeShadowMap);
         _activeShadowMap = sm;
-        _activeShadowMap->retain();
+        if(_activeShadowMap)
+            _activeShadowMap->retain();
     }
 
     return _activeShadowMap;
@@ -593,27 +594,6 @@ void C3DScene::setActivePostProcess( C3DPostProcess* process)
 		_activePostProcess = process;
 		_activePostProcess->retain();
 	}
-
-	/**
-    C3DPostProcess* pp;
-    if (index >= 0 && index < (int)_postProcesss.size())
-        pp = _postProcesss[index];
-    else
-        pp = NULL;
-
-	if(pp == NULL)
-	{
-		SAFE_RELEASE(_activePostProcess);
-	}
-    else if (pp != _activePostProcess)
-    {
-        SAFE_RELEASE(_activePostProcess);
-        _activePostProcess = pp;
-        _activePostProcess->retain();
-    }
-
-    return _activePostProcess;
-	//*/
 }
 
 C3DLayer* C3DScene::getLayer() const
@@ -657,5 +637,4 @@ const C3DVector4& C3DScene::getTimeParam(void) const
 		return zero;
 	}
 }
-
 }

@@ -13,7 +13,6 @@ StringTool::~StringTool()
 std::vector<std::string> StringTool::StringSplitByString(const std::string &str, const std::string &strKey, int IgnoreCase /* = false */)
 {
     std::vector<std::string> Result;
-    const char *cpPos    = NULL;
     const char *pLastPos = NULL;
     char *pStart = new char[str.size() + 1];
 
@@ -41,7 +40,6 @@ std::vector<std::string> StringTool::StringSplitByString(const std::string &str,
             if (pLastPos)
             {
                 Result.push_back(std::string(pLastPos) );
-                pLastPos = pStart + i + strKey.size();
                 pLastPos = NULL;
             }
             i += strKey.size() - 1;
@@ -67,7 +65,7 @@ std::vector<std::string> StringTool::StringSplitByString(const std::string &str,
 std::vector<std::string> StringTool::StringSplitByChar(const std::string &str, char cKey, int IgnoreCase /* = false */)
 {
     std::vector<std::string> Result;
-    const char *cpPos    = NULL;
+    
     const char *pLastPos = NULL;
     char *pStart = new char[str.size() + 1];
 
@@ -95,7 +93,6 @@ std::vector<std::string> StringTool::StringSplitByChar(const std::string &str, c
             if (pLastPos)
             {
                 Result.push_back(std::string(pLastPos) );
-                pLastPos = pStart + i + 1;
                 pLastPos = NULL;
             }
         }

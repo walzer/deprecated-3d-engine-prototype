@@ -126,9 +126,8 @@ void AnimLightTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, u
     case TouchEvent_MOVE:
         {
             int deltaX = x - _touchX;
+            
             _touchX = x;
-
-            int deltaY = y - _touchY;
             _touchY = y;
 
             {

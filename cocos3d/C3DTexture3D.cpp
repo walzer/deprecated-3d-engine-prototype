@@ -38,7 +38,7 @@ namespace cocos3d
 		if (_handle)
 		{
 			glDeleteTextures(1, &_handle);
-			_handle = NULL;
+			_handle = 0;
 		}
     }
 
@@ -97,7 +97,6 @@ namespace cocos3d
 		unsigned char*            inPixel8 = NULL;
 		unsigned short*           outPixel16 = NULL;
 		bool                      hasAlpha = image->hasAlpha();
-		CCSize                    imageSize = CCSizeMake((float)(image->getWidth()), (float)(image->getHeight()));
 
 		size_t                    bpp = image->getBitsPerComponent();
 
@@ -143,7 +142,7 @@ namespace cocos3d
 			}
 			else
 			{
-				// Convert "RRRRRRRRRGGGGGGGGBBBBBBBB" to "RRRRRGGGGGGBBBBB"
+				// Convert "RRRRRRRRGGGGGGGGBBBBBBBB" to "RRRRRGGGGGGBBBBB"
 
 				tempData = new unsigned char[width * height * 2];
 				outPixel16 = (unsigned short*)tempData;
@@ -151,10 +150,14 @@ namespace cocos3d
 
 				for(unsigned int i = 0; i < length; ++i)
 				{
+                    unsigned char R = *inPixel8++;
+                    unsigned char G = *inPixel8++;
+                    unsigned char B = *inPixel8++;
+                    
 					*outPixel16++ =
-						(((*inPixel8++ & 0xFF) >> 3) << 11) |  // R
-						(((*inPixel8++ & 0xFF) >> 2) << 5)  |  // G
-						(((*inPixel8++ & 0xFF) >> 3) << 0);    // B
+						(( R >> 3) << 11) |  // R
+						(( G >> 2) << 5)  |  // G
+						(( B >> 3) << 0);    // B
 				}
 			}
 		}

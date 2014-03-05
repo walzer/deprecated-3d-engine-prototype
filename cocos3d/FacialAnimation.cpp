@@ -22,8 +22,6 @@ SheetAnimation::SheetAnimation()
 
 	mat = NULL;
 	enable = false;
-
-	int frameSerialNum = 0;
 }
 
 SheetAnimation::~SheetAnimation()

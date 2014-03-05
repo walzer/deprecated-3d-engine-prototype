@@ -75,7 +75,7 @@ void FacialAnimManager::addTextureAnim(string partName,string typeName,int frame
 	list<SheetAnimation*>* partAnims = mapIter->second;
 
 	std::list<SheetAnimation*>::iterator iter;
-	for(iter=partAnims->begin();iter!=partAnims->end();iter)
+	for(iter=partAnims->begin();iter!=partAnims->end();)
 	{
 		SheetAnimation* anim = *iter;
 		if(anim->typeName==typeName)
@@ -112,7 +112,7 @@ void FacialAnimManager::addUVAnim(string partName,string typeName,int tileX,int 
 	list<SheetAnimation*>* partAnims = mapIter->second;
 
 	std::list<SheetAnimation*>::iterator iter;
-	for(iter=partAnims->begin();iter!=partAnims->end();iter)
+	for(iter=partAnims->begin(); iter!=partAnims->end();)
 	{
 		SheetAnimation* anim = *iter;
 		if(anim->typeName==typeName)

@@ -55,7 +55,6 @@ C3DPostEffect* PEBloom::create( const std::string& name, const std::string& mate
 bool PEBloom::initBloomParam()
 {
     unsigned int fmtColor = C3DTexture::RGBA;
-    unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
 
     _brightFrameBuffer = C3DFrameBuffer::create("bloom_postprocess_bright", _postProcess->getFBWidth(), _postProcess->getFBHeight(), fmtColor/*, fmtDepth*/);
     _blurFrameBufferX = C3DFrameBuffer::create("bloom_postprocess_blurX", _postProcess->getFBWidth(), _postProcess->getFBHeight(), fmtColor/*, fmtDepth*/);
@@ -74,12 +73,11 @@ bool PEBloom::initBloomParam()
     C3DSampler* sampler = _postProcess->getFramebufferSampler();
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
-    //C3DPass* pass0 = _material->getTechnique(0u)->getPass(0u);
+    
     C3DPass* pass1 = _material->getTechnique(1u)->getPass(0u);
     C3DPass* pass2 = _material->getTechnique(2u)->getPass(0u);
     C3DPass* pass3 = _material->getTechnique(3u)->getPass(0u);
 
-    //pass0->getParameter("u_texture")->setValue(sampler);
     pass3->getParameter("u_texture")->setValue(sampler);
 
     sampler = C3DSampler::create(_brightFrameBuffer->getRenderTarget()->getTexture());

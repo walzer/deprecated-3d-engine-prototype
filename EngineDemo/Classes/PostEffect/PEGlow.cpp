@@ -50,7 +50,6 @@ bool PEGlow::init(const std::string& szMaterial)
 bool PEGlow::initGlowaram()
 {
 	unsigned int fmtColor = C3DTexture::RGBA;
-	unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
 
 	_blurFrameBufferX = C3DFrameBuffer::create("glow_postprocess_blurX", _postProcess->getFBWidth()*0.5, _postProcess->getFBHeight()*0.5, fmtColor/*, fmtDepth*/);
 	_blurFrameBufferY = C3DFrameBuffer::create("glow_postprocess_blurY", _postProcess->getFBWidth()*0.5, _postProcess->getFBHeight()*0.5, fmtColor/*, fmtDepth*/);
@@ -66,7 +65,7 @@ bool PEGlow::initGlowaram()
 	C3DSampler* sampler = _postProcess->getFramebufferSampler();
 	sampler->setFilterMode(Texture_Filter_NEAREST, Texture_Filter_NEAREST);
 	sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
-	C3DPass* pass0 = _material->getTechnique(0u)->getPass(0u);
+
 	C3DPass* pass1 = _material->getTechnique(1u)->getPass(0u);
 	C3DPass* pass2 = _material->getTechnique(2u)->getPass(0u);
 

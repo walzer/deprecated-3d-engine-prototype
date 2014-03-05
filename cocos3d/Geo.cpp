@@ -123,36 +123,7 @@ C3DMesh* Geo::createQuadFullscreen( unsigned int sizeX , unsigned int sizeY )
 
 bool Geo::CreateSphere(float radius, std::vector< BBVertex > &ppVertices, std::vector< unsigned short > &ppIndices, const C3DVector4& color, int stacks, int slices)
 {
-	//*ppVertices = NULL;
-	//*ppIndices = NULL;
-
 	int base = ppVertices.size();
-
-	int num_vertices = (stacks+1)*(slices+1);
-	int num_triangles = stacks*slices*2;
-
-	/*Vertex_VC *pVertices = new Vertex_VC[num_vertices];
-	if ( pVertices==NULL )
-		return false;
-
-	unsigned short *pIndices = new unsigned short[num_triangles*3];
-	if ( pIndices==NULL )
-	{
-		delete [] pVertices;
-		return false;
-	}
-
-	*ppVertices = pVertices;
-	*ppIndices = pIndices;
-
-	g_iNumSphereVertices = num_vertices;
-	g_iNumSphereTriangles = num_triangles;
-	g_iNumSphereIndices = num_triangles * 3;*/
-
-	//float default_color[] = {1.0f, 1.0f, 1.0f, 1.0f};
-	//C3DVector4 default_color(1.0f, 1.0f, 1.0f, 1.0f);
-	//if ( color==NULL )
-	//	color = default_color;
 
 	const float theta_start_degree = 0.0f;
 	const float theta_end_degree = 360.0f;

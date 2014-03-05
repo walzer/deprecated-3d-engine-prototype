@@ -337,7 +337,7 @@ void C3DElementNode::readFlag(C3DStream* stream)
             // or it might be a key/value pair without '='.
 
             // Check for '{' on same line.
-            rc = strchr(line, '<');
+            strchr(line, '<');
 
             // Get the name of the namespace.
             name = strtok(line, " \t\n<");
@@ -683,7 +683,7 @@ C3DElementNode::ElementType C3DElementNode::getElementType(const std::string& el
     unsigned int commaCount = 1;
     //unsigned int length = strlen(value);
     const char* valuePtr = val.c_str();
-    while (valuePtr = strchr(valuePtr, ','))
+    while ((valuePtr = strchr(valuePtr, ',')))
     {
         valuePtr++;
         commaCount++;

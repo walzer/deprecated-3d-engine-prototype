@@ -233,10 +233,13 @@ void MainPlayer::update(long elapsedTime)
 				}
 
 				// 计算目标end
-
 				bullet->spell( this, _targetActor);
 				_bullets.push_back(bullet);
 			}break;
+            
+            default:
+            {
+            }break;
 		}
 	}
 

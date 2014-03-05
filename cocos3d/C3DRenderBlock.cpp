@@ -210,8 +210,9 @@ const std::string blendToString(C3DStateBlock::Blend blend)
         return "ONE_MINUS_CONSTANT_ALPHA";
     case C3DStateBlock::BLEND_SRC_ALPHA_SATURATE:
         return "SRC_ALPHA_SATURATE";
+    default:
+        return "ONE";
     }
-    return "ONE";
 }
 
 void C3DStateBlock::setState(const std::string& name, const std::string& val)

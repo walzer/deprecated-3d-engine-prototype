@@ -296,8 +296,6 @@ void ParticleTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, un
         {
             int deltaX = x - _touchX;
             _touchX = x;
-
-            int deltaY = y - _touchY;
             _touchY = y;
 
             {

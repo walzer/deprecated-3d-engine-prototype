@@ -155,7 +155,7 @@ void C3DNode::removeChild(C3DNode* child)
 void C3DNode::removeAllChildren()
 {
 	_notifyHierarchyChanged = false;
-	for(std::vector<C3DNode*>::iterator iter=_children.begin(); iter!=_children.end(); iter)
+	for(std::vector<C3DNode*>::iterator iter=_children.begin(); iter!=_children.end();)
 	{
 		C3DNode* child = *iter;
 		if (child == NULL || child->_parent != this)
@@ -165,10 +165,6 @@ void C3DNode::removeAllChildren()
 		}
 		else
 		{
-			/*if (child->_parent && child->_parent->_notifyHierarchyChanged)
-			{
-				child->_parent->hierarchyChanged();
-			}*/
 			onChildChanged(REMOVE, child);
 			child->_parent = NULL;
 			SAFE_RELEASE(child);

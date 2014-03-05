@@ -1342,15 +1342,14 @@ bool C3DResourceLoader::loadAnimation2(C3DSprite* superModel)
                 // Found a match
                 if (_stream->seek(ref->offset, SEEK_SET) == false)
                 {
-					bHasAnimation = false;
                     LOG_ERROR_VARG("Failed to seek to object '%s' in bundle '%s'.", ref->id.c_str(), _path.c_str());
                     return false ;
                 }
+                
                 bool bRet = readAnimationCurves();
                 if (!bRet)
                 {
-					bHasAnimation = false;
-                 //   LOG_ERROR_VARG("Failed to seek to object animation curves in bundle '%s'.",  _path.c_str());
+                    //LOG_ERROR_VARG("Failed to seek to object animation curves in bundle '%s'.",  _path.c_str());
                     return false;
                 }
             }
@@ -1370,8 +1369,7 @@ bool C3DResourceLoader::loadAnimation2(C3DSprite* superModel)
     // assign animation data
     C3DAnimationCurveMgr* mgr = C3DAnimationCurveMgr::sharedAnimationCurveMgr();
     C3DAnimationCurveMgr::CurveMap* curvemap = mgr->getAnimationCurves(animationpath);
-	// C3DAnimation* animation = new C3DAnimation("movements");
-
+	
     unsigned int nFrame = 0;
 	if (curvemap)
 	{
@@ -1387,11 +1385,10 @@ bool C3DResourceLoader::loadAnimation2(C3DSprite* superModel)
 				nFrame = nPoint;
 
 			superModel->_animation->createChannel(static_cast<C3DBone*>(targetNode),  curve);
-			//readAnimationChannelData(animation, animationId, target);
 		}
 	}
+    
     superModel->_animation->setFrameCount(nFrame);
-
 	return true;
 }
 

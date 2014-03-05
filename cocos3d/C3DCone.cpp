@@ -6,10 +6,12 @@
 namespace cocos3d
 {
 C3DCone::C3DCone(const C3DVector3& center, align dim, float radius, float height)
-				: _center(center), _dim(dim), _radius(radius), _height(height)
+    : _center(center),
+    _dim(dim),
+    _radius(radius),
+    _height(height)
 {
-	dim = yAxis;
-};
+}
 
 bool C3DCone::Intersect(const C3DRay *ray)const
 {
