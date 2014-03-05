@@ -10,13 +10,12 @@
 USING_NS_CC;
 
 class TunnelTestLayer :  public TestLayer
-{  
-
+{
 public:
     TunnelTestLayer();
-    virtual ~TunnelTestLayer();   
-	virtual bool init();   
-		
+    virtual ~TunnelTestLayer();
+	virtual bool init();
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents

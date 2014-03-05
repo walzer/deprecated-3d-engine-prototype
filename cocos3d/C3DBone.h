@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-	
 class C3DAnimation;
 
 class AnimationValue;
@@ -29,11 +28,11 @@ public:
 
     /**
      * Returns the inverse bind pose matrix for this joint.
-     * 
+     *
      * @return Inverse bind pose matrix.
      */
     const C3DMatrix& getInverseBindPose();
-	
+
 	/**
      * Get animation by id.
      */
@@ -53,7 +52,6 @@ public:
      * Get AnimationChannel by specified  id.
      */
     C3DAnimationChannel* getChannel(const std::string& id) const;
-
 
 	void applyAnimationValueRotation(float* value, unsigned int index, float blendWeight);
 
@@ -82,14 +80,14 @@ protected:
 
     /**
      * Sets the inverse bind pose matrix.
-     * 
+     *
      * @param m C3DMatrix representing the inverse bind pose for this Joint.
      */
     void setInverseBindPose(const C3DMatrix& m);
 
     /**
      * Updates the joint matrix.
-     * 
+     *
      * @param bindShape The bind shape matrix.
      * @param matrixPalette The matrix palette to update.
      */
@@ -98,15 +96,14 @@ protected:
     /**
      * Called when this Joint's transform changes.
      */
-    void transformChanged();	
+    void transformChanged();
 
 	 /**
      * Clone.
      */
-    virtual C3DNode* clone(C3DNode::CloneContext& context) const;    
+    virtual C3DNode* clone(C3DNode::CloneContext& context) const;
 
-
-protected:   
+protected:
 	/**
      * Copy frome other.
      */
@@ -114,27 +111,25 @@ protected:
 
 protected:
 
-    /** 
+    /**
      * The C3DMatrix representation of the Joint's bind pose.
      */
     C3DMatrix _bindPose;
-    
-    /** 
+
+    /**
      * Flag used to mark if the Joint's matrix is dirty.
      */
     bool _jointMatrixDirty;
-    
-    /** 
+
+    /**
      * The number of MeshSkin's influencing the Joint.
      */
     unsigned int _skinCount;
-	
+
 	std::vector<C3DAnimationChannel*>* _animationChannels;   // Collection of all animation channels
 
 	bool _bSelect; // for editor
-    
 };
-
 }
 
 #endif

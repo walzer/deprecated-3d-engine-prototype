@@ -2,7 +2,6 @@
 #include "C3DQuaternion.h"
 #include "Base.h"
 
-
 #ifndef NULL
 #define NULL 0
 #endif
@@ -11,7 +10,7 @@
 #define MATH_PI 3.14159265358979323846f
 #endif
 
-#ifndef MATH_PIOVER2 
+#ifndef MATH_PIOVER2
 #define MATH_PIOVER2 1.57079632679489661923f
 #endif
 
@@ -39,10 +38,8 @@
     }
 #endif
 
-
 namespace cocos3d
 {
-
 C3DAnimationCurve* C3DAnimationCurve::create(unsigned int pointCount)
 {
     return new C3DAnimationCurve(pointCount);
@@ -56,7 +53,6 @@ C3DAnimationCurve::C3DAnimationCurve(unsigned int pointCount)
     {
         _points[i].time = 0.0f;
         _points[i].value = new float[10];
-
     }
     _points[_pointCount - 1].time = 1.0f;
 }
@@ -67,7 +63,6 @@ C3DAnimationCurve::~C3DAnimationCurve()
         SAFE_DELETE_ARRAY(_points[i].value);
     }
     SAFE_DELETE_ARRAY(_points);
-
 }
 
 C3DAnimationCurve::Point::Point()
@@ -78,14 +73,12 @@ C3DAnimationCurve::Point::Point()
 C3DAnimationCurve::Point::~Point()
 {
     SAFE_DELETE_ARRAY(value);
-
 }
 
 unsigned int C3DAnimationCurve::getPointCount() const
 {
     return _pointCount;
 }
-
 
 float C3DAnimationCurve::getStartTime() const
 {
@@ -97,20 +90,15 @@ float C3DAnimationCurve::getEndTime() const
     return _points[_pointCount-1].time;
 }
 
-
 void C3DAnimationCurve::setPoint(unsigned int index, float time, float* value)
 {
     //assert(index < _pointCount && time >= 0.0f && time <= 1.0f && !(index == 0 && time != 0.0f) && !(_pointCount != 1 && index == _pointCount - 1 && time != 1.0f));
 
     _points[index].time = time;
 
-
     if (value)
         memcpy(_points[index].value, value, _componentSize);
-
-
 }
-
 
 void C3DAnimationCurve::evaluate(float time, float* dst, C3DAnimationCurve::InterpolationMode mode) const
 {
@@ -128,7 +116,7 @@ void C3DAnimationCurve::evaluate(float time, float* dst, C3DAnimationCurve::Inte
     }
 
     unsigned int index = determineIndex(time);
-    
+
     Point* from = _points + index;
     Point* to = _points + (index + 1);
 
@@ -144,14 +132,12 @@ void C3DAnimationCurve::evaluate(float time, float* dst, C3DAnimationCurve::Inte
         else
             memcpy(dst, to->value, _componentSize);
     }
-
 }
 
 float C3DAnimationCurve::lerp(float t, float from, float to)
 {
     return from + (to-from) * t;
 }
-
 
 void C3DAnimationCurve::interpolateLinear(float t, Point* from, Point* to, float* dst) const
 {
@@ -167,9 +153,8 @@ void C3DAnimationCurve::interpolateLinear(float t, Point* from, Point* to, float
             dst[i] = fromValue[i] + (toValue[i] - fromValue[i]) * t;
     }
 
-
     interpolateQuaternion(t, (fromValue + i), (toValue + i), (dst + i));
-        
+
     for (i += 4; i < 10; i++)
     {
         if (fromValue[i] == toValue[i])
@@ -177,7 +162,6 @@ void C3DAnimationCurve::interpolateLinear(float t, Point* from, Point* to, float
         else
             dst[i] = fromValue[i] + (toValue[i] - fromValue[i]) * t;
     }
-    
 }
 
 void C3DAnimationCurve::interpolateQuaternion(float t, float* from, float* to, float* dst) const
@@ -199,7 +183,7 @@ int C3DAnimationCurve::determineIndex(float time) const
     unsigned int max = _pointCount - 1;
     unsigned int mid = 0;
 
-    do 
+    do
     {
         mid = (min + max) >> 1;
 
@@ -210,14 +194,13 @@ int C3DAnimationCurve::determineIndex(float time) const
         else
             min = mid + 1;
     } while (min <= max);
-    
+
     // We should never hit this!
     return -1;
 }
 
-
     ///////////////////implementation of animation manager////////////
-    
+
     C3DAnimationCurveMgr* C3DAnimationCurveMgr::_instance = NULL;
     C3DAnimationCurveMgr::C3DAnimationCurveMgr()
     {
@@ -231,13 +214,13 @@ int C3DAnimationCurve::determineIndex(float time) const
             for (CurveMap::iterator itor = curvemap->begin(); itor != curvemap->end(); itor++) {
                 itor->second->release();
             }
-            
+
 			curvemap->clear();
             delete curvemap;
         }
         _curves.clear();
     }
-    
+
     C3DAnimationCurveMgr* C3DAnimationCurveMgr::sharedAnimationCurveMgr()
     {
         if (_instance == NULL)
@@ -245,10 +228,10 @@ int C3DAnimationCurve::determineIndex(float time) const
             static C3DAnimationCurveMgr mgr;
             _instance = &mgr;
         }
-        
+
         return _instance;
     }
-    
+
     const C3DAnimationCurve* C3DAnimationCurveMgr::getAnimationCurve(const std::string& path, const std::string& boneId)
     {
         CurvesMap::iterator it = _curves.find(path);
@@ -259,7 +242,7 @@ int C3DAnimationCurve::determineIndex(float time) const
             if (itor != curvemap->end())
                 return itor->second;
         }
-        
+
         return NULL;
     }
     C3DAnimationCurveMgr::CurveMap* C3DAnimationCurveMgr::getAnimationCurves(const std::string& path)
@@ -276,10 +259,9 @@ int C3DAnimationCurve::determineIndex(float time) const
         CurveMap* &curvemap = _curves[path];
         if (curvemap == NULL)
             curvemap = new CurveMap();
-        
+
         curve->retain();
         curvemap->insert(std::pair<std::string, C3DAnimationCurve*>(boneId, curve) );
-        
     }
     void C3DAnimationCurveMgr::addAnimationCurves(const std::string& path, CurveMap* curvemap)
     {
@@ -288,7 +270,6 @@ int C3DAnimationCurve::determineIndex(float time) const
         for (CurveMap::iterator itor = curvemap->begin(); itor != curvemap->end(); itor++) {
             itor->second->retain();
         }
-        
     }
     C3DAnimationCurveMgr::CurveMap* C3DAnimationCurveMgr::createAnimationCurves(const std::string& path)
     {
@@ -323,20 +304,19 @@ int C3DAnimationCurve::determineIndex(float time) const
             _curves.erase(it1);
         }
     }
-    
+
     C3DAnimationCurve* C3DAnimationCurveMgr::createAniamationCurve(unsigned int keyCount, unsigned long* keyTimes, float* keyValues)
     {
         C3DAnimationCurve* curve = C3DAnimationCurve::create(keyCount);
-        
-        
+
         unsigned long lowest = keyTimes[0];
         unsigned long duration = keyTimes[keyCount-1] - lowest;
-        
+
         float keytime;
-        
+
         keytime = 0.0f;
         curve->setPoint(0, keytime, keyValues);
-        
+
         unsigned int pointOffset = 10;
         unsigned int i = 1;
         for (; i < keyCount - 1; i++)
@@ -348,10 +328,9 @@ int C3DAnimationCurve::determineIndex(float time) const
         i = keyCount - 1;
         keytime = 1.0f;
         curve->setPoint(i, keytime, keyValues + pointOffset);
-        
+
         curve->_dur = duration;
-        
+
         return curve;
     }
-
 }

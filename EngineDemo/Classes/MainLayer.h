@@ -5,7 +5,7 @@
 
 USING_NS_CC;
 
-// Main layer for executing demos 
+// Main layer for executing demos
 
 namespace cocos3d
 {
@@ -17,7 +17,7 @@ class MainLayer : public cocos2d::CCLayer
 	friend class Npc;
 public:
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();  
+    virtual bool init();
 
     // there's no 'id' in cpp, so we recommand to return the exactly class pointer
     static cocos2d::CCScene* scene();
@@ -46,4 +46,4 @@ public:
 	static MainLayer* _instance;
 };
 
-#endif 
+#endif

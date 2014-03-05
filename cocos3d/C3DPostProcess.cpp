@@ -20,19 +20,14 @@
 
 namespace cocos3d
 {
-   
 
-
-C3DPostProcess::C3DPostProcess(const std::string& id,C3DFrameBuffer* buffer) 
+C3DPostProcess::C3DPostProcess(const std::string& id,C3DFrameBuffer* buffer)
 	: C3DNode(id)
 	, _framebuffer(buffer)
 	, _isDraw( false )
-{	
-	
+{
 	_curPostEffect = NULL;
 
-	
-	
 }
 
 C3DPostProcess::~C3DPostProcess()
@@ -40,7 +35,7 @@ C3DPostProcess::~C3DPostProcess()
 	PostEffects::iterator ite = _postEffects.begin();
 	for ( ; ite != _postEffects.end(); ++ite )
 	{
-		SAFE_RELEASE( (*ite).second ); 
+		SAFE_RELEASE( (*ite).second );
 		_postEffects.erase( ite );
 	}
 	_postEffects.clear();
@@ -67,32 +62,29 @@ C3DPostProcess* C3DPostProcess::create(const std::string& id, unsigned int texWi
 	C3DFrameBuffer* framebuffer = C3DFrameBuffer::create(id, texWidth, texHeight, fmtColor, fmtDepth);
 	if (!framebuffer)
 		return NULL;
-	framebuffer->retain();		
+	framebuffer->retain();
 
-		
 	C3DPostProcess* pp = new C3DPostProcess(id,framebuffer);
 	pp->_fbWidth = texWidth;
 	pp->_fbHeight = texHeight;
 	pp->autorelease();
-    
+
     C3DSampler* sampler = C3DSampler::create(pp->_framebuffer->getRenderTarget()->getTexture());
 	sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pp->_sampler = sampler;
-    
-	return pp; 
+
+	return pp;
 }
-    
 
 void C3DPostProcess::preChannelDraw()
 {
     if (_curPostEffect == NULL)
         return;
-    
+
     CCAssert(_framebuffer, "Empty frame buffer");;
     _framebuffer->bind();
-        
-		
+
 	static C3DVector4 clearColor =  C3DVector4::zero();
 	C3DRenderSystem::getInstance()->clear(CLEAR_COLOR_DEPTH,&clearColor,1.0f,0);
 }
@@ -101,10 +93,9 @@ void C3DPostProcess::postChannelDraw()
 {
     if (_curPostEffect == NULL)
         return;
-    
+
     CCAssert(_framebuffer, "Empty frame buffer");;
     _framebuffer->unbind();
-
 }
 void C3DPostProcess::beginDraw()
 {
@@ -149,7 +140,7 @@ void C3DPostProcess::removePostEffect( const std::string& name )
 	PostEffects::iterator ite = _postEffects.find( name );
 	if ( ite != _postEffects.end() )
 	{
-		SAFE_RELEASE( (*ite).second ); 
+		SAFE_RELEASE( (*ite).second );
 		_postEffects.erase( ite );
 	}
 }
@@ -188,7 +179,7 @@ C3DPostEffect* C3DPostProcess::setActiveEffect( const std::string& name )
             return;
         }
     }
-    
+
     _curPostEffect = C3DPostEffect::create(type, this, "");
     _postEffects.push_back(_curPostEffect);
 	//*/
@@ -208,7 +199,6 @@ void C3DPostProcess::transformChanged()
 {
     C3DNode::transformChanged();
     //  _dirty |= DIRTY_MATRIX;
-
 }
 
 std::vector<std::string> C3DPostProcess::getEffectNames(void) const
@@ -220,6 +210,4 @@ std::vector<std::string> C3DPostProcess::getEffectNames(void) const
 	}
 	return names;
 }
-
-
 }

@@ -19,7 +19,7 @@ namespace cocos3d
 {
 static C3DRenderSystem* __renderSystemInstance = NULL;
 
-C3DRenderSystem::C3DRenderSystem()        
+C3DRenderSystem::C3DRenderSystem()
 {
 	_clearColor = NULL;
 	_clearDepth = 1.0f;
@@ -31,14 +31,10 @@ C3DRenderSystem::C3DRenderSystem()
 	_materialManager = C3DMaterialManager::getInstance();
 	_materialManager->retain();
 
-
 	_renderChannelManager = RenderChannelManager::getInstance();
 	_renderChannelManager->retain();
 
-
     initialize();
-
-
 
 }
 
@@ -53,7 +49,7 @@ C3DRenderSystem* C3DRenderSystem::create()
 }
 
 C3DRenderSystem* C3DRenderSystem::getInstance()
-{	
+{
  //   CCAssert(__renderSystemInstance, "Render system not created");
 	//return __renderSystemInstance;
 
@@ -66,13 +62,12 @@ C3DRenderSystem* C3DRenderSystem::getInstance()
 }
 
 C3DRenderSystem::~C3DRenderSystem()
-{       
+{
 	finalize();
 	__renderSystemInstance = NULL;
 	SAFE_RELEASE( _renderChannelManager );
 	SAFE_RELEASE(_effectManager);
 	SAFE_RELEASE(_materialManager);
-		
 }
 
 void C3DRenderSystem::initialize()
@@ -86,18 +81,14 @@ void C3DRenderSystem::initialize()
     _viewport = new C3DViewport(0, 0, (int)size.width, (int)size.height);
 
 	C3DEffectManager::getInstance()->preload("config/effect.config");
-
 }
 
 void C3DRenderSystem::finalize()
 {
 
-
-
 	_renderChannelManager->clear();
 
-
-    C3DStateBlock::finalize();  
+    C3DStateBlock::finalize();
 
 	C3DEffectManager::getInstance()->removeAll();
 	C3DMaterialManager::getInstance()->removeAll();
@@ -106,7 +97,7 @@ void C3DRenderSystem::finalize()
 }
 
 void C3DRenderSystem::setViewport(float x, float y, float width, float height)
-{	
+{
     _viewport->x = (int)x;
 	_viewport->y = (int)y;
 	_viewport->width = (int)width;
@@ -115,7 +106,7 @@ void C3DRenderSystem::setViewport(float x, float y, float width, float height)
 }
 
 void C3DRenderSystem::setViewport(const C3DViewport* viewport)
-{	
+{
 	if (viewport)
 		*_viewport = *viewport;
     _viewport->apply();
@@ -126,18 +117,15 @@ const C3DViewport* C3DRenderSystem::getViewport() const
     return _viewport;
 }
 
-
 RenderChannelManager* C3DRenderSystem::getRenderChannelManager() const
 {
     return _renderChannelManager;
 }
 
-
 void C3DRenderSystem::update(long elapsedTime)
 {
 	C3DEffectManager::getInstance()->update(elapsedTime);
 }
-
 
 void C3DRenderSystem::clear(ClearFlags flags, const C3DVector4* clearColor, float clearDepth, int clearStencil)
 {
@@ -173,7 +161,7 @@ void C3DRenderSystem::clear(ClearFlags flags, const C3DVector4* clearColor, floa
         bits |= GL_DEPTH_BUFFER_BIT;
 
         // We need to explicitly call the static enableDepthWrite() method on StateBlock
-        // to ensure depth writing is enabled before clearing the depth buffer (and to 
+        // to ensure depth writing is enabled before clearing the depth buffer (and to
         // update the global StateBlock render state to reflect this).
         C3DStateBlock::enableDepthWrite();
     }
@@ -190,7 +178,4 @@ void C3DRenderSystem::clear(ClearFlags flags, const C3DVector4* clearColor, floa
     glClear(bits);
 }
 
-
-
 }
-

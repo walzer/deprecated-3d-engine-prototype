@@ -5,7 +5,6 @@
 
 namespace cocos2d
 {
-
 class LightingBullet : public BaseBullet
 {
 public:
@@ -16,7 +15,6 @@ public:
 
 	LightingBullet(std::string& name,cocos3d::C3DNode* node,cocos3d::C3DLayer* layer);
 	virtual ~LightingBullet();
-
 
 	bool addTargets( C3DActor* target )
 	{
@@ -51,9 +49,7 @@ private:
 	float _flyTime;
 	float _maxFlyTime;
 	float _spellDelty;
-
 };
-
 }	// namespace cocos2d
 
 #endif	// #define LIGHTING_H

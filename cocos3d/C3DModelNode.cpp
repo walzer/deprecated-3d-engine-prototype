@@ -7,11 +7,9 @@
 
 namespace cocos3d
 {
-
 C3DModelNode::C3DModelNode(const std::string& id)
     : C3DNode(id), _model(NULL)
 {
-	
 }
 
 C3DModelNode::~C3DModelNode()
@@ -25,8 +23,6 @@ C3DModelNode* C3DModelNode::create(const std::string& id)
 {
     return new C3DModelNode(id);
 }
-
-
 
 C3DNode::Type C3DModelNode::getType() const
 {
@@ -51,7 +47,6 @@ void C3DModelNode::setModel(C3DModel* model)
             _model->setNode(this);
         }
     }
-
 }
 
 C3DModel* C3DModelNode::getModel()
@@ -62,7 +57,7 @@ C3DModel* C3DModelNode::getModel()
 void C3DModelNode::draw()
 {
 	if (_model)
-	{		
+	{
 		C3DRenderChannel* channel = _model->getRenderChannel();
 		if(channel != NULL && !_scene->isInShadowPass() )
 		{
@@ -88,17 +83,14 @@ const C3DMatrix& C3DModelNode::getWorldMatrix()
         C3DNode* parent = getParent();
 		if (parent)
         {
-
 			if(parent->getType()==C3DNode::NodeType_SuperModel)
 			{
 				_world = getMatrix();
-				
 			}
 			else
 			{
 				C3DMatrix::multiply(parent->getWorldMatrix(), getMatrix(), &_world);
 			}
-            
         }
         else
         {
@@ -107,9 +99,9 @@ const C3DMatrix& C3DModelNode::getWorldMatrix()
 
         // Our world matrix was just updated, so call getWorldMatrix() on all child nodes
         // to force their resolved world matrices to be updated.
-		for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)       
+		for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)
         {
-			(*iter)->getWorldMatrix();           
+			(*iter)->getWorldMatrix();
         }
     }
 
@@ -126,9 +118,5 @@ C3DNode* C3DModelNode::clone(CloneContext& context) const
 	other->autorelease();
 	return other;
 }
-
-
-
-
 
 }

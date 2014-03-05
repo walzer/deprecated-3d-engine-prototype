@@ -11,7 +11,6 @@
 
 namespace cocos3d
 {
-
 	// C3DNode dirty flags
 #define NODE_DIRTY_WORLD 1
 #define NODE_DIRTY_BOUNDS_AABB 2
@@ -35,11 +34,10 @@ class C3DNode : public C3DTransform, public virtual cocos2d::CCObject
 {
 	friend class C3DStaticObj;
 	friend class C3DRenderNode;
-    friend class C3DScene;   
+    friend class C3DScene;
     friend class C3DMeshSkin;
 	friend class C3DSkeleton;
 	friend class C3DParticleSystem;
-	    
 
 public:
 	C3DNode();
@@ -74,8 +72,8 @@ public:
 		NodeType_SuperModel = 2,
 		NodeType_SceneModel = 3,
 		NodeType_Camera = 4,
-		NodeType_Light = 5,		
-		NodeType_Bone = 6,		
+		NodeType_Light = 5,
+		NodeType_Bone = 6,
 		NodeType_Normal = 7,
 		NodeType_ParticleSystem = 8,
         NodeType_ShadowMap = 9,
@@ -160,7 +158,7 @@ public:
      * Removes all child nodes.
      */
     virtual void removeAllChildren();
-    
+
     /**
      * Update routine
      */
@@ -174,14 +172,14 @@ public:
 	virtual void drawDebug();
 
 	virtual unsigned int getTriangleCount() const;
- 
+
     /**
      * Returns the parent of this node.
      *
      * @return The parent.
      */
     C3DNode* getParent();
-	
+
 	/**
      * Find the C3DNode by the specified id.
      */
@@ -332,7 +330,7 @@ public:
      *
      * @return The translation vector of the scene's active camera, in view-space.
      */
-    const C3DVector3 getActiveCameraTranslationView();	
+    const C3DVector3 getActiveCameraTranslationView();
 
     /**
      * Called when this Node's transform changes.
@@ -352,10 +350,10 @@ public:
     /**
      *  Set screen position, screen coordinate(x, y)
      *  depth 0-1, 0 near plane, 1 far plane
-     *  
+     *
      */
     void setScreenPos(int x, int y, float depthZ);
-    
+
     /**
      *  Set screen position, screen coordinate(x, y)
      *  use default depthZ of scene
@@ -372,7 +370,7 @@ public:
      *  Checks active
      */
 	virtual bool active();
-	
+
 	/**
      *  Gets child list
      */
@@ -383,18 +381,18 @@ public:
 	 * @return New node
 	 */
 	virtual C3DNode* clone(CloneContext& context) const;
-	
+
 	/**
 	 * clone this node
 	 * @return New node
 	 */
-    C3DNode* clone(const std::string& idSuffix) const;	
-	
+    C3DNode* clone(const std::string& idSuffix) const;
+
 	// compute aabb
 	virtual void calculateBoundingBox();
     // compute obb, init obb from aabb by default, may import obb from model or mesh latter
     virtual void calculateOrientedBoundingBox();
-	
+
 	// just comput aabb
 	virtual void calculateBoundingBox_();
 
@@ -404,20 +402,18 @@ public:
 	virtual C3DAABB* getAABB();
 	virtual void showAABB(bool show);
 	virtual bool showAABB();
-	    
+
     virtual C3DOBB* getOBB();
     virtual void showOBB(bool show);
 	virtual bool showOBB();
 
-	virtual void drawAABB();    
+	virtual void drawAABB();
     virtual void drawOBB();
-	
 
 	void setParent(C3DNode* parent)
 	{
 		_parent = parent;
 	}
-		
 
 	const C3DVector4& getTimeParam(void);
 
@@ -426,7 +422,7 @@ protected:
 	 * clone from other
 	 */
 	virtual void copyFrom(const C3DTransform* other, CloneContext& context);
-	
+
 	/**
 	 * Change event type
 	 */
@@ -441,24 +437,21 @@ protected:
 	 */
 	virtual void onChildChanged(ChangeEvent eventType, C3DNode* child);
 
-
-
-	
 protected:
 
     C3DScene* _scene;
-	
+
     std::string _id;
 
     C3DNode* _parent;
 
-	std::vector< C3DNode * >  _children;  // Child nodes	
+	std::vector< C3DNode * >  _children;  // Child nodes
 
-	/** 
+	/**
      * List of TransformListener's on the C3DTransform.
     */
     std::list<Listener*>* _listeners;
-		        
+
     /**
      * World C3DMatrix representation of the C3DNode.
      */
@@ -468,26 +461,22 @@ protected:
      * Dirty bits flag for the C3DNode.
      */
     mutable int _dirtyBits;
-    
+
     /**
      * A flag indicating if the Node's hierarchy has changed.
-     */ 
+     */
     bool _notifyHierarchyChanged;
 	bool _active;
 
 	C3DAABB* _bb;
     C3DAABB* _bbOrigin; // original bounding box
-	
+
     C3DOBB _obb;
     C3DOBB _obbOrigin;// original obb
 
 	bool _showAABB;
 	bool _showOBB;
-	
-
 };
-
-
 }
 
 #endif

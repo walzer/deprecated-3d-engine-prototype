@@ -9,7 +9,6 @@
 
 namespace cocos3d
 {
-
 C3DBone::C3DBone(const std::string& id)
     : C3DNode(id), _jointMatrixDirty(true), _skinCount(0), _bSelect(false)/*, _animTarget(NULL)*/
 {
@@ -39,8 +38,6 @@ C3DBone* C3DBone::create(const std::string& id)
 {
     return new C3DBone(id);
 }
-
-
 
 C3DNode::Type C3DBone::getType() const
 {
@@ -84,9 +81,8 @@ void C3DBone::setInverseBindPose(const C3DMatrix& m)
     _jointMatrixDirty = true;
 }
 
-
 C3DAnimation* C3DBone::getAnimation(const std::string& id)
-{	
+{
    if (_animationChannels)
     {
         std::vector<C3DAnimationChannel*>::iterator itr = _animationChannels->begin();
@@ -126,7 +122,6 @@ void C3DBone::setAnimationValue( float* value, float blendWeight)
 		applyAnimationValueRotation(value, 3, blendWeight);
 		setPosition(C3DAnimationCurve::lerp(blendWeight, getPositionX(), value[7]), C3DAnimationCurve::lerp(blendWeight, getPositionY(), value[8]), C3DAnimationCurve::lerp(blendWeight, getPositionZ(), value[9]));
 	}
-          
 }
 
 void C3DBone::applyAnimationValueRotation(float* value, unsigned int index, float blendWeight)
@@ -135,7 +130,6 @@ void C3DBone::applyAnimationValueRotation(float* value, unsigned int index, floa
     C3DQuaternion::slerp(_rotation, q, blendWeight, &q);
     setRotation(q);
 }
-
 
 void C3DBone::addChannel(C3DAnimationChannel* channel)
 {
@@ -188,29 +182,29 @@ C3DAnimationChannel* C3DBone::getChannel(const std::string& id) const
 
     return NULL;
 }
-    
+
 void C3DBone::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context)
 {
     if (this == other)
         return;
-        
+
     C3DNode::copyFrom(other, context);
     const C3DBone* otherNode = static_cast<const C3DBone*>(other);
 
 	_id = otherNode->_id;;
-    
+
     _bindPose = otherNode->_bindPose;
     _jointMatrixDirty = true;
     _skinCount = 0;
     if (otherNode->_animationChannels)
-	{    
+	{
 		C3DAnimationChannel* channel = NULL;
 
 		std::vector<C3DAnimationChannel*>::iterator itr = otherNode->_animationChannels->begin();
 		for (; itr != otherNode->_animationChannels->end(); itr++)
 		{
 			channel = (C3DAnimationChannel*)(*itr);
-        
+
 			C3DAnimation* animation = NULL;
 			std::map<const C3DAnimation*, C3DAnimation*>::iterator itor = context.clonedAnim.find(channel->_animation);
 			if (itor == context.clonedAnim.end())
@@ -225,7 +219,7 @@ void C3DBone::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context
 		}
 	}
 }
-    
+
 C3DNode* C3DBone::clone(C3DNode::CloneContext& context) const
 {
 	C3DBone* other = new C3DBone("");
@@ -233,6 +227,4 @@ C3DNode* C3DBone::clone(C3DNode::CloneContext& context) const
 	other->autorelease();
 	return other;
 }
-
-
 }

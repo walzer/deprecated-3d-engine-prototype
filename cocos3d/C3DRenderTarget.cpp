@@ -4,7 +4,6 @@
 
 namespace cocos3d
 {
-
 static std::vector<C3DRenderTarget*> __renderTargets;
 
 C3DRenderTarget::C3DRenderTarget(const std::string& id)
@@ -38,7 +37,7 @@ C3DRenderTarget* C3DRenderTarget::create(const std::string& id, unsigned int wid
 	texture->retain();
 
     __renderTargets.push_back(renderTarget);
-    
+
     renderTarget->autorelease();
     return renderTarget;
 }
@@ -63,10 +62,9 @@ const std::string& C3DRenderTarget::getID() const
 {
     return _id;
 }
-     
+
 C3DTexture* C3DRenderTarget::getTexture() const
 {
     return _texture;
 }
-
 }

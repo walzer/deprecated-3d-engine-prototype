@@ -4,10 +4,8 @@
 #include "C3DModel.h"
 #include "C3DLight.h"
 
-
 namespace cocos3d
 {
-
 /**
  * Defines a class for Light Filter
  */
@@ -19,7 +17,6 @@ class C3DLightFilter
         */
         C3DLightFilter()
         {
-            
         }
 
 		/**
@@ -27,9 +24,8 @@ class C3DLightFilter
 		 */
         virtual ~C3DLightFilter()
         {
-            
         }
-        
+
         /**
          * Is light validate for this model
          */
@@ -38,8 +34,6 @@ class C3DLightFilter
             return true;
         }
     };
-
 }
-
 
 #endif

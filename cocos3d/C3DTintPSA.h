@@ -7,8 +7,6 @@
 
 namespace cocos3d
 {
-
-
 class C3DElementNode;
 class C3DParticleSystem;
 
@@ -28,18 +26,18 @@ public:
 };
 
 /**
-Defines a particle action that the particle color varying over time 
+Defines a particle action that the particle color varying over time
 */
 class C3DTintPSA : public C3DBaseParticleAction
 {
 public:
-	
+
 	/**
      * Constructor & Destructor
      */
 	C3DTintPSA(C3DParticleSystem* system);
 	virtual ~C3DTintPSA();
-	
+
 	/**
      * load & save Tint particle action
      */
@@ -61,7 +59,6 @@ public:
      */
 	void clearAllTints( void );
 
-	
 	/**
      * get & set period of tint
      */
@@ -77,7 +74,7 @@ public:
      * remove tint by index
      */
 	void removeTint(int index);
-    
+
 	/**
      * clone method
      */
@@ -92,10 +89,7 @@ protected:
 private:
 	std::vector<C3DTint*> _tints;
 	float _period;
-
-
 };
-
 }
 
 #endif

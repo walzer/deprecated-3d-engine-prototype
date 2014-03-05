@@ -5,15 +5,16 @@
 #include "C3DCylinder.h"
 namespace cocos3d
 {
-	
 C3DCone::C3DCone(const C3DVector3& center, align dim, float radius, float height)
-				: _center(center), _dim(dim), _radius(radius), _height(height)
+    : _center(center),
+    _dim(dim),
+    _radius(radius),
+    _height(height)
 {
-	dim = yAxis;
-};
+}
 
 bool C3DCone::Intersect(const C3DRay *ray)const
-{   
+{
 	if (!ray) return false;
 
 	float ray_t = 100000.f;
@@ -23,54 +24,54 @@ bool C3DCone::Intersect(const C3DRay *ray)const
     * (x^2 + y^2) = (h/r)^2 * (z - h)^2
     * with ray = org + t * dir, we obtain a quadratic equation
     */
-    
+
     // side
     C3DVector3 diff = ray->getOrigin() - _center;
     C3DVector3 dir  = ray->getDirection();
-                
+
     float ratio = _radius / _height;
-        
+
     C3DVector3 help = C3DVector3(1.0, 1.0, 1.0);/*C3DVector3(1.0);*/
     // help[dim] = -powf(ratio,2.0);
 	setVector(help, _dim, -powf(ratio, 2.0));
-        
+
 	C3DVector3 tmp;
 	C3DVector3::cross(dir, help, &tmp);
     float a = /*Dot*/C3DVector3::dot(dir, tmp/*dir * help*/);
     float b = /*Dot*/C3DVector3::dot(diff, tmp/*dir * help*/) + _height * powf(ratio, 2.0) * getVector(dir, _dim)/*dir[dim]*/;
-    b *= 2.0;       
-        
+    b *= 2.0;
+
 	//C3DVector3::cross(dir, help, &tmp);
     float c = /*Dot*/C3DVector3::dot( diff, tmp/*diff * help*/ );
     c += 2.0 * _height * powf(ratio, 2.0) * getVector(diff, _dim)/*diff[dim]*/;
     c -= powf(ratio, 2.0) * powf(_height, 2.0);
-        
+
     /**
     * use 'abc'-formula for finding root t_1,2 = (-b +/- sqrt(b^2-4ac))/(2a)
     */
     float inRoot = b*b - 4*a*c;
-    if (inRoot < 0) 
+    if (inRoot < 0)
         return false;
     float root = sqrt(inRoot);
-        
+
     float dist = (-b - root)/(2*a);
     if (dist > ray_t)
         return false;
-        
-    if (dist < FLT_EPSILON) 
+
+    if (dist < FLT_EPSILON)
     {
         dist = (-b + root)/(2*a);
         if (dist < FLT_EPSILON || dist > ray_t)
             return false;
     }
 
-    /** 
+    /**
     * compute where the hitpoint is lying
     * side of cone is hit between 0 and height in dim direction
     */
     C3DVector3 hitpoint = ray->getOrigin() + dist * ray->getDirection();
     float t1 = /*(hitpoint - center)[dim]*/getVector((hitpoint - _center), _dim);
-        
+
     if ( 0 < t1 && t1 < _height )
     {
         //ray.t = dist;
@@ -88,7 +89,7 @@ bool C3DCone::Intersect(const C3DRay *ray)const
 	setVector(normal, _dim, 1.0);
 
     C3DRay clone = *ray;
-        
+
     //Primitive* plane = new InfinitePlane( center, normal );
 	C3DPlane *plane = new C3DPlane(normal, _center);
     float t = clone.dist(plane);
@@ -97,23 +98,23 @@ bool C3DCone::Intersect(const C3DRay *ray)const
         /**
         * is the distance of the hitpoint on the plane to the center smaller than radius^2 ?
         * then part of the base found
-        * otherwise the ray neither hits the cone's side nor its base 
-        */             
+        * otherwise the ray neither hits the cone's side nor its base
+        */
         C3DVector3 hitpoint = clone.intersects(plane);;
 
         if ( /*Length*/(hitpoint - _center).length() < powf(_radius, 2) )
-        {       
+        {
             //ray.t = clone.t;
             //ray.hit = this;
 
             return true;
         }
-        else 
+        else
             return false;
     }
 
 	delete plane;
-        
+
     return false;
 };
 
@@ -141,5 +142,4 @@ float C3DCone::getVector(const C3DVector3& src, unsigned int nIndex)const
 		assert(0);
 	return 0.0f;
 }
-
 }

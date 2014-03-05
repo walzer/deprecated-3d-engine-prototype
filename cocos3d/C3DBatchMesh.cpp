@@ -6,9 +6,8 @@
 
 namespace cocos3d
 {
-
 C3DBatchMesh::C3DBatchMesh(C3DVertexFormat* vertexFormat, PrimitiveType primitiveType, bool bIndex, unsigned int initialCapacity, unsigned int growSize)
-    : C3DBaseMesh(vertexFormat,primitiveType)  
+    : C3DBaseMesh(vertexFormat,primitiveType)
 	/*, _primitiveType(primitiveType)*/
 	, _growSize(growSize)
 	, _vertexCapacity(initialCapacity)
@@ -28,16 +27,15 @@ C3DBatchMesh::C3DBatchMesh(C3DVertexFormat* vertexFormat, PrimitiveType primitiv
 	{
 		resizeIndex( _indexCapacity );
 	}
-}	
+}
 
 C3DBatchMesh::~C3DBatchMesh()
-{   
+{
     SAFE_DELETE_ARRAY(_vertices);
     SAFE_DELETE_ARRAY(_indices);
 
 	_verticesPtr = NULL;
 	_indicesPtr = NULL;
-	
 }
 
 void C3DBatchMesh::setVertexCapacity(unsigned int capacity)
@@ -51,7 +49,7 @@ void C3DBatchMesh::setIndexCapacity(unsigned int capacity)
 }
 
 bool C3DBatchMesh::resizeVertex(unsigned int capacity)
-{   
+{
     if (capacity == 0)
 	{
 		return false;
@@ -61,8 +59,8 @@ bool C3DBatchMesh::resizeVertex(unsigned int capacity)
 	{
 		return true;
 	}
-    
-    unsigned char* oldVertices = _vertices;    
+
+    unsigned char* oldVertices = _vertices;
 
     // Allocate new data and reset pointers
     unsigned int voffset = _verticesPtr - _vertices;
@@ -72,46 +70,45 @@ bool C3DBatchMesh::resizeVertex(unsigned int capacity)
 	{
         voffset = vBytes - 1;
 	}
-    _verticesPtr = _vertices + voffset;   
+    _verticesPtr = _vertices + voffset;
 
     // Copy old data back in
     if (oldVertices)
 	{
         memcpy(_vertices, oldVertices, std::min(_vertexCapacity, capacity) * _vertexFormat->getVertexSize());
 	}
-	
-	SAFE_DELETE_ARRAY(oldVertices); 
+
+	SAFE_DELETE_ARRAY(oldVertices);
 
     // Assign new capacities
     _vertexCapacity = capacity;
-    
+
     return true;
 }
-    
+
 bool C3DBatchMesh::resizeIndex(unsigned int capacity)
 {
     if (_bUseIndex)
     {
-        
         unsigned short* oldIndex = _indices;
         unsigned int voffset = _indicesPtr - _indices;
-        
+
         _indices = new unsigned short[capacity];
-        
+
         _indicesPtr = _indices + voffset;
-        
+
         if (oldIndex)
         {
             if (voffset)
 			{
 				memcpy(_indices, oldIndex, std::min(_indexCapacity, capacity) * sizeof(_indices[0]) );
 			}
-			
+
 			SAFE_DELETE_ARRAY(oldIndex);
         }
         _indexCapacity = capacity;
     }
-    
+
     return true;
 }
 void C3DBatchMesh::add(const unsigned char* vertices, unsigned int vertexCount)
@@ -126,17 +123,16 @@ void C3DBatchMesh::add(const unsigned char* vertices, unsigned int vertexCount, 
 	addIndex( indices, indexCount, vertexOffset );
 }
 
-
 void C3DBatchMesh::addVertex( const unsigned char* vertices, unsigned int vertexCount )
 {
-	unsigned int newVertexCount = _vertexCount + vertexCount; 
+	unsigned int newVertexCount = _vertexCount + vertexCount;
 
 	if (newVertexCount > _vertexCapacity)
 	{
 		if (_growSize == 0)
 		{
 			LOG_ERROR( "growSize is 0" );
-			return; 
+			return;
 		}
 
 		unsigned int capacity( _vertexCapacity );
@@ -153,7 +149,7 @@ void C3DBatchMesh::addVertex( const unsigned char* vertices, unsigned int vertex
 	}
 
 	unsigned int vBytes = vertexCount * _vertexFormat->getVertexSize();
-	memcpy(_verticesPtr, vertices, vBytes);   
+	memcpy(_verticesPtr, vertices, vBytes);
 
 	_verticesPtr += vBytes;
 	_vertexCount = newVertexCount;
@@ -168,7 +164,7 @@ void C3DBatchMesh::addIndex( const unsigned short* indices, unsigned int indexCo
 		if (_growSize == 0)
 		{
 			LOG_ERROR( "growSize is 0" );
-			return; 
+			return;
 		}
 
 		unsigned int capacity( _indexCapacity );
@@ -184,7 +180,6 @@ void C3DBatchMesh::addIndex( const unsigned short* indices, unsigned int indexCo
 		}
 	}
 
-
 	for (unsigned int i = 0; i < indexCount; ++i)
 	{
 		*_indicesPtr = indices[i] + vertexOffset;
@@ -192,14 +187,12 @@ void C3DBatchMesh::addIndex( const unsigned short* indices, unsigned int indexCo
 	}
 	_indexCount = newIndexCount;
 }
-    
+
 void C3DBatchMesh::clear()
 {
-    _vertexCount = 0;  
+    _vertexCount = 0;
     _verticesPtr = _vertices;
     _indicesPtr = _indices;
     _indexCount = 0;
 }
-
-
 }

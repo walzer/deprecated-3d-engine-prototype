@@ -1,11 +1,9 @@
 #include "BaseBullet.h"
 
-
 using namespace cocos3d;
 
 namespace cocos2d
 {
-
 BaseBullet::BaseBullet(std::string& name,cocos3d::C3DNode* node,cocos3d::C3DLayer* layer)
 	: C3DActor(name, node, layer)
 	, _casterActor( NULL )
@@ -13,7 +11,6 @@ BaseBullet::BaseBullet(std::string& name,cocos3d::C3DNode* node,cocos3d::C3DLaye
 	, _state( State_None )
 {
 }
-
 
 BaseBullet::~BaseBullet(void)
 {
@@ -24,10 +21,8 @@ C3DActor::Type BaseBullet::getType()
 	return C3DActor::ActorType_Bullet;
 }
 
-
 void BaseBullet::init()
 {
-
 }
 
 void BaseBullet::moveTo(cocos3d::C3DVector3& target)
@@ -68,7 +63,6 @@ void BaseBullet::updateState(long elapsedTime)
 	}
 }
 
-
 BaseBullet::State BaseBullet::getState()
 {
 	return _state;
@@ -106,8 +100,6 @@ void BaseBullet::changeStateTo( State state )
 			// do nothing
 		}break;
 	}
-
-
 }
 
 void BaseBullet::spell(C3DActor* caster, C3DActor* target)
@@ -116,24 +108,20 @@ void BaseBullet::spell(C3DActor* caster, C3DActor* target)
 	_targetActor = target;
 
 	_target = _targetActor->getNode()->getTranslationWorld();
-	
 
 	changeStateTo( State_Spell );
 }
 
 void BaseBullet::onSpell(void)
 {
-
 }
 
 void BaseBullet::onFly()
 {
-
 }
 
 void BaseBullet::onHit()
 {
-
 }
 void BaseBullet::onFinish()
 {
@@ -147,19 +135,13 @@ void BaseBullet::stateSpell(long elapsedTime)
 
 void BaseBullet::stateFly(long elapsedTime)
 {
-
 }
 
 void BaseBullet::stateHit(long elapsedTime)
 {
-
 }
 
 void BaseBullet::stateFinish(long elapsedTime)
 {
-
 }
-
-
 }	// namespace cocos2d
-

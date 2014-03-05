@@ -10,13 +10,12 @@
 USING_NS_CC;
 
 class  ColorTestLayer :  public TestLayer
-{  
-
+{
 public:
     ColorTestLayer();
-    virtual ~ColorTestLayer();   
-	virtual bool init();   
-		
+    virtual ~ColorTestLayer();
+	virtual bool init();
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents
@@ -29,7 +28,7 @@ public:
     void setUpCamera();
     //setup initialize light
     void setUpLight();
-	
+
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
 
     // optional

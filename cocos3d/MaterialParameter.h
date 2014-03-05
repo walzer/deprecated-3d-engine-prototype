@@ -11,7 +11,6 @@
 
 namespace cocos3d
 {
-
 class C3DSamplerCube;
 /**
  * Defines a material parameter.
@@ -125,12 +124,11 @@ public:
     void setValue(ClassType* classInstance, ParameterType (ClassType::*valueMethod)());
 
     /**
-     * Binds the return value of a class method to this material parameter.     
+     * Binds the return value of a class method to this material parameter.
     */
 	template <class ClassType, class ParameterType>
-    void setValue(ClassType* classInstance, ParameterType (ClassType::*valueMethod)(unsigned int index), 
+    void setValue(ClassType* classInstance, ParameterType (ClassType::*valueMethod)(unsigned int index),
 		unsigned int (ClassType::*countMethod)(unsigned int index),unsigned int (ClassType::*indexMethod)());
-
 
 	Uniform* getUniform();
 
@@ -161,11 +159,11 @@ public:
 		METHOD_PARAM
 	} _type;
 private:
-   
+
     MaterialParameter(const std::string& name);
-    
+
     ~MaterialParameter();
-    
+
     /**
      * Interface implemented by templated method bindings for simple storage and iteration.
      */
@@ -198,7 +196,6 @@ private:
         MaterialParameter* _parameter;
         ClassType* _instance;
         ValueMethod _valueMethod;
-
     };
 
 	template <class ClassType, class ParameterType>
@@ -237,7 +234,7 @@ private:
 		const C3DTexture* textureValue;
         MethodBinding* method;
     } _value;
-    
+
     unsigned int _count;
     bool _dynamic;
     std::string _name;
@@ -255,7 +252,7 @@ void MaterialParameter::setValue(ClassType* classInstance, ParameterType (ClassT
 }
 
 template <class ClassType, class ParameterType>
-void MaterialParameter::setValue(ClassType* classInstance, ParameterType (ClassType::*valueMethod)(unsigned int index), 
+void MaterialParameter::setValue(ClassType* classInstance, ParameterType (ClassType::*valueMethod)(unsigned int index),
 	unsigned int (ClassType::*countMethod)(unsigned int index), unsigned int (ClassType::*indexMethod)())
 {
     clearValue();
@@ -277,7 +274,6 @@ MaterialParameter::MethodBinding* cocos3d::MaterialParameter::MethodValueBinding
 	MethodValueBinding<ClassType, ParameterType>* other = new MethodValueBinding<ClassType, ParameterType>(_parameter, _instance, _valueMethod);
 	return other;
 }
-
 
 template <class ClassType, class ParameterType>
 void MaterialParameter::MethodValueBinding<ClassType, ParameterType>::bindValue(C3DEffect* effect)
@@ -304,7 +300,6 @@ MaterialParameter::MethodBinding* cocos3d::MaterialParameter::MethodArrayBinding
 	MethodArrayBinding<ClassType, ParameterType>* other = new MethodArrayBinding<ClassType, ParameterType>(_parameter, _instance, _valueMethod, _countMethod, _indexMethod);
 	return other;
 }
-
-}	
+}
 
 #endif

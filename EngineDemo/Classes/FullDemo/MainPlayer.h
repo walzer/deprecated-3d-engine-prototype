@@ -1,19 +1,17 @@
 ﻿#ifndef __MainPlayer_H__
 #define __MainPlayer_H__
 
-
 #include "C3DActor.h"
 #include "C3DVector2.h"
 #include <list>
 
 namespace cocos3d
-{  
-	class C3DSprite; 
+{
+	class C3DSprite;
 	class C3DVector2;
 	class C3DCamera;
 	class C3DStaticObj;
 }
-
 
 enum EAttackType
 {
@@ -24,7 +22,6 @@ enum EAttackType
 	AT_Melee	= (1<<AT_Shift) | AT_MeleeMask,	// 近战
 	AT_Range	= (2<<AT_Shift) | AT_RangeMask,	// 远程
 	AT_Lighting	= (3<<AT_Shift) | AT_RangeMask,	// 闪电
-
 };
 
 namespace cocos2d
@@ -42,47 +39,43 @@ public:
 		AnimListenerObject(MainPlayer* mainPlayer);
 		void onMeleeAttackEnd();
 		void onRemoteAttackEnd();
-		
-    
+
 	protected:
 		MainPlayer* _mainPlayer;
 	};
-	
+
 	enum State
 	{
 		State_None = 0,
 		State_Idle = 0x01,
-		State_Move = 0x02,		
+		State_Move = 0x02,
 		State_Rotate = 0x04,
 		State_Speak = 0x08,
 		State_MeleeAttack = 0x10,
 		State_RemoteAttack = 0x20,
-		
+
 		State_Attack = 0x40,
 	};
 
 	virtual C3DActor::Type getType();
-	
+
 	virtual void init();
-		
 
 	virtual void moveTo(cocos3d::C3DVector3& target);
-	
+
 	virtual void update(long elapsedTime);
-	
+
 	void speak(C3DActor* targetActor);
 	void meleeAttack(C3DActor* targetActor);
 	void meleeAttack();
 	void remoteAttack(C3DActor* targetActor);
 
-	
 	bool isState(unsigned int state,unsigned int bit) const
 	{
 		return (state & bit) == bit;
 	}
-	
 
-	C3DActor* getTargetActor() 
+	C3DActor* getTargetActor()
 	{
 		return _targetActor;
 	}
@@ -97,14 +90,12 @@ public:
 		return _attackType;
 	}
 
-
 private:
 	void updateState(long elapsedTime);
 	void move2D(long elapsedTime);
 	void move3D(long elapsedTime);
 	void rotate(long elapsedTime);
-	
-		
+
 private:
 	C3DActor* _targetActor;
 	cocos3d::C3DVector2 _velocity;
@@ -122,11 +113,7 @@ private:
 	cocos3d::C3DVector3 _offset;
 
 	cocos3d::C3DStaticObj* _terrainFlag;
-	
-
 };
 
-
-
 }
-#endif 
+#endif

@@ -12,7 +12,6 @@
 
 namespace cocos3d
 {
-
 class Uniform;
 class C3DTexture;
 class C3DSampler;
@@ -27,23 +26,22 @@ class C3DEffect: public C3DResource
 {
 friend class C3DEffectManager;
 
-public:		
+public:
 
 	C3DEffect(const std::string& name);
 
-    virtual ~C3DEffect();	
-	
+    virtual ~C3DEffect();
 
 	 /**
-     * load cur effect    
+     * load cur effect
      */
 	bool load(C3DElementNode* node);
-	 
+
     /**
      * Returns the vertex attribute handle for the vertex attribute with the specified name.
      *
      * @param name The name of the vertex attribute to return.
-     * 
+     *
      * @return The vertex attribute, or -1 if no such vertex attribute exists.
      */
     VertexAttribute getVertexAttribute(const std::string& name) const;
@@ -52,23 +50,23 @@ public:
      * Returns the uniform handle for the uniform with the specified name.
      *
      * @param name The name of the uniform to return.
-     * 
+     *
      * @return The uniform, or NULL if no such uniform exists.
      */
     Uniform* getUniform(const std::string& name) const;
 
     /**
      * Returns the specified active uniform.
-     * 
+     *
      * @param index The index of the uniform to return.
-     * 
+     *
      * @return The uniform, or NULL if index is invalid.
      */
     Uniform* getUniform(unsigned int index) const;
 
     /**
      * Returns the number of active uniforms in this effect.
-     * 
+     *
      * @return The number of active uniforms.
      */
     unsigned int getUniformCount() const;
@@ -196,21 +194,21 @@ public:
     static void setCurrentEffect(C3DEffect* effect);
 
 private:
-    
+
 	 /**
      * load an effect from the given vertex and fragment shader source code.
      *
      * @param vshSource The vertex shader source code.
      * @param fshSource The fragment shader source code.
      * @param defines A new-line delimited list of preprocessor defines. May be NULL.
-     * 
+     *
      * @return The created effect.
      */
 
 	bool load(const std::string& vshSource, const std::string& fshSource, const std::string& defines);
 
     GLuint _program;
-  
+
     std::map<std::string, VertexAttribute> _vertexAttributes;
     std::map<std::string, Uniform*> _uniforms;
     static Uniform _emptyUniform;
@@ -231,14 +229,14 @@ public:
 
     /**
      * Returns the name of this uniform.
-     * 
+     *
      * @return The name of the uniform.
      */
     const std::string& getName() const;
 
     /**
      * Returns the OpenGL uniform type.
-     * 
+     *
      * @return The OpenGL uniform type.
      */
     const GLenum getType() const;
@@ -273,7 +271,6 @@ private:
     unsigned int _index;
     C3DEffect* _effect;
 };
-
 }
 
 #endif

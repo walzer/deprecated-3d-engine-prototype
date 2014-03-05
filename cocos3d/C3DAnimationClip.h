@@ -54,7 +54,7 @@ public:
      * Gets repeat count.
      */
     float getRepeatCount() const;
-	   
+
 	/**
      * Gets duration.
      */
@@ -84,7 +84,7 @@ public:
      *  Is Playeing?.
      */
     bool isPlaying() const;
-	
+
 	/**
      *  Is Paused.
      */
@@ -107,7 +107,7 @@ public:
      *  Do stop.
      */
     void stop();
-	
+
 	/**
      *  Do pause.
      */
@@ -116,7 +116,7 @@ public:
 	/**
      *  Do resume.
      */
-	void resume();   
+	void resume();
 
 	/**
      *  Check Resumed.
@@ -145,24 +145,24 @@ public:
 	* Gets Current Frame
 	*/
 	int getCurrentFrame();
-	
+
 	/**
 	* clone
 	*/
 	C3DAnimationClip* clone(C3DAnimation* animation);
 
 private:
-    
+
 	static const unsigned short CLIP_IS_NONE = 0;
-    static const unsigned short CLIP_IS_PLAYING = 0x01;             
-    static const unsigned short CLIP_IS_STARTED = 0x02;            
-    static const unsigned short CLIP_IS_MARKED_FOR_REMOVAL = 0x04; 
-    static const unsigned short CLIP_IS_RESTARTED = 0x08;  
+    static const unsigned short CLIP_IS_PLAYING = 0x01;
+    static const unsigned short CLIP_IS_STARTED = 0x02;
+    static const unsigned short CLIP_IS_MARKED_FOR_REMOVAL = 0x04;
+    static const unsigned short CLIP_IS_RESTARTED = 0x08;
 
     static const unsigned short CLIP_IS_PAUSED = 0x10;
-	static const unsigned short CLIP_IS_FADING_OUT = 0x20;  
-    static const unsigned short CLIP_IS_FADING_OUT_STARTED = 0x40;         
-    static const unsigned short CLIP_IS_FADING_IN = 0x80;  
+	static const unsigned short CLIP_IS_FADING_OUT = 0x20;
+    static const unsigned short CLIP_IS_FADING_OUT_STARTED = 0x40;
+    static const unsigned short CLIP_IS_FADING_IN = 0x80;
 
 	static const unsigned short CLIP_IS_RESUME= 0x100;
 
@@ -172,7 +172,7 @@ private:
      * Constructor.
      */
     C3DAnimationClip(const std::string& id, C3DAnimation* animation, unsigned long startTime, unsigned long endTime);
-   
+
 	/**
      * Destructor.
      */
@@ -202,7 +202,7 @@ private:
 	*/
     void resetState(unsigned short bit);
 
-    std::string _id;                                 
+    std::string _id;
     C3DAnimation* _animation;                              // The C3DAnimation this clip is created from.
     unsigned long _startTime;                           // Start time of the clip.
     unsigned long _endTime;                             // End time of the clip.
@@ -219,16 +219,14 @@ private:
     long _elapsedTime;                                  // Time elapsed while the clip is running.
 
     float _blendWeight;                                 // The clip's blendweight.
-	
+
 	C3DAnimationClip* _crossFadeToClip;                    // The clip to cross fade to.
     unsigned long _crossFadeOutElapsed;                 // The amount of time that has elapsed for the crossfade.
     unsigned long _crossFadeOutDuration;                // The duration of the cross fade.
-		
+
 	std::list<C3DActionEvent*>* _actionEvents;
 
 	unsigned int _frameCount;// 当前剪辑总帧数 lvlong
-  
 };
-
 }
 #endif

@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 class MaterialParameter;
 
 class PEVortex : public C3DPostEffect
@@ -22,11 +21,9 @@ public:
 
 	virtual bool init(const std::string& szMaterial);
 
-
 	void update( float dt );
 
 	virtual void setShaderParameter();
-
 
 	void setAngle( float f )
 	{
@@ -55,10 +52,8 @@ private:
 	float _angle;
 	float _radius;
 
-
 	MaterialParameter* _paramRadus;
 	MaterialParameter* _paramAngle;
 };
-
 }	//namespace cocos3d
 #endif	//#define PEVortex_h

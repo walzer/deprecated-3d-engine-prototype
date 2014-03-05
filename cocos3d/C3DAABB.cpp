@@ -4,7 +4,6 @@
 
 namespace cocos3d
 {
-
 C3DAABB::C3DAABB()
 {
 }
@@ -19,11 +18,9 @@ C3DAABB::C3DAABB(const C3DAABB& box)
 	set(box._min,box._max);
 }
 
-
 C3DAABB::~C3DAABB()
 {
 }
-
 
 C3DVector3 C3DAABB::getCenter()
 {
@@ -31,7 +28,7 @@ C3DVector3 C3DAABB::getCenter()
 	center.x = 0.5f*(_min.x+_max.x);
 	center.y = 0.5f*(_min.y+_max.y);
 	center.z = 0.5f*(_min.z+_max.z);
-  
+
     return center;
 }
 
@@ -45,7 +42,7 @@ C3DVector3 C3DAABB::getSize()
 float C3DAABB::getLength()
 {
 	C3DVector3 offset;
-	
+
 	offset.x = _max.x - _min.x;
 	offset.y = _max.y - _min.y;
 	offset.z = _max.z - _min.z;
@@ -78,7 +75,6 @@ void C3DAABB::getCorners(C3DVector3* dst) const
     dst[7].set(_min.x, _max.y, _min.z);
 }
 
-
 bool C3DAABB::intersects(const C3DAABB& box) const
 {
     return ((_min.x >= box._min.x && _min.x <= box._max.x) || (box._min.x >= _min.x && box._min.x <= _max.x)) &&
@@ -95,9 +91,8 @@ bool C3DAABB::containPoint( const C3DVector3& point) const
 	if (point.y > _max.y) return false;
 	if (point.z > _max.z) return false;
 	return true;
-
 }
-	
+
 bool C3DAABB::containSphere( const C3DVector3 &center,float radius ) const
 {
 	if (center.x+radius < _min.x) return false;
@@ -109,14 +104,14 @@ bool C3DAABB::containSphere( const C3DVector3 &center,float radius ) const
 	return true;
 }
 
-float C3DAABB::distance( const C3DVector3& vPoint) 
-{	
+float C3DAABB::distance( const C3DVector3& vPoint)
+{
 	float fDist = 0;
 	float m = 0;
 	for(int i=0; i<3; ++i)
 	{
 		if(vPoint[i] < _min[i])
-		{			
+		{
 			m = vPoint[i]-_min[i];
 			fDist += m*m;
 		}
@@ -133,7 +128,6 @@ float C3DAABB::distance( const C3DVector3& vPoint)
 
 bool C3DAABB::intersects(const C3DPlane* plane,int type)
 {
-	
 	C3DVector3 center = getCenter();
 	float length = 0;
 
@@ -155,8 +149,6 @@ bool C3DAABB::intersects(const C3DPlane* plane,int type)
 		return true;
 	else
 		return false;
-	
-
 }
 
 void C3DAABB::merge(const C3DAABB& box)
@@ -223,12 +215,9 @@ void updateMinMax(C3DVector3* point, C3DVector3* min, C3DVector3* max)
     }
 }
 
-
-
 void C3DAABB::transform(const C3DMatrix& matrix)
 {
-   
-    C3DVector3 corners[8];  
+    C3DVector3 corners[8];
 	 // Near face, specified counter-clockwise
     // Left-top-front.
     corners[0].set(_min.x, _max.y, _max.z);
@@ -261,5 +250,4 @@ void C3DAABB::transform(const C3DMatrix& matrix)
     _min = newMin;
     _max = newMax;
 }
-
 }

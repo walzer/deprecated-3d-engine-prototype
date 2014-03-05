@@ -2,7 +2,6 @@
 
 namespace cocos3d
 {
-
 inline const C3DQuaternion C3DQuaternion::operator*(const C3DQuaternion& q) const
 {
     C3DQuaternion result(*this);
@@ -15,5 +14,4 @@ inline C3DQuaternion& C3DQuaternion::operator*=(const C3DQuaternion& q)
     multiply(q);
     return *this;
 }
-
 }

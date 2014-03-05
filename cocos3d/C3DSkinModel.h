@@ -6,8 +6,6 @@
 
 namespace cocos3d
 {
-
-
 class C3DMeshSkin;
 
 /**
@@ -27,17 +25,14 @@ public:
 
 	void draw(void);
 	//void channelDraw();
-    
+
     virtual C3DSkinModel* clone(C3DNode::CloneContext& context) const;
 
 	virtual std::string getDefaultMaterialName();
-    
+
 private:
 	 C3DMeshSkin* _skin;
-
 };
-
-
 }
 
 #endif

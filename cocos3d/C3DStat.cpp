@@ -5,24 +5,21 @@
 
 namespace cocos3d
 {
-
     C3DStat::C3DStat():_nTriangleDraw(0), _nTriangleTotal(0), _nDrawCall(0), _bStart(false), _bEnable(true)
     {
-     
     }
-    
+
     C3DStat::~C3DStat()
     {
-        
     }
 
     C3DStat* C3DStat::getInstance()
     {
         static C3DStat instance;
-        
+
         return &instance;
     }
-    
+
 void C3DStat::beginStat()
     {
         _nTriangleDraw = 0;
@@ -34,15 +31,14 @@ void C3DStat::endStat()
     {
         _bStart = false;
     }
-    
+
 void C3DStat::setStatEnable(bool bEnable)
     {
         if (_bEnable == bEnable)
             return;
-        
-        _bEnable = bEnable; 
+
+        _bEnable = bEnable;
     }
-  
 
 ////////////////////////////////Implement of C3DStatRender//////////////////////////////////////////
 C3DStatRender::C3DStatRender(cocos2d::CCNode* parent, float statfont):_parent(parent), _fontSize(statfont), _UpdateInterval(200), _UpdateIntervalAcc(0)
@@ -71,7 +67,7 @@ C3DStatRender::~C3DStatRender()
 
 void C3DStatRender::setStatLabelPos(const cocos2d::CCPoint& point)
 {
-	cocos2d::CCPoint pt = point;        
+	cocos2d::CCPoint pt = point;
 	_DrawCallLabel->setPosition(pt);
 	pt.y += _fontSize;
 	_TriangleDrawLabel->setPosition(pt);
@@ -121,9 +117,6 @@ void C3DStatRender::update(long elapsedTime)
 		_TriangleDrawLabel->setString(str);
 		sprintf(str, "total triangles: %d", statInstance->getTriangleTotal());
 		_TriangleTotalLabel->setString(str);
-
-
 	}
 }
-
 }

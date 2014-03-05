@@ -26,18 +26,16 @@
 
 namespace cocos3d
 {
-    
 C3DPostEffect::C3DPostEffect(C3DPostProcess* postProcess, const std::string& szName)
 	: _model( NULL )
 {
     _name = szName;
-    
+
     _postProcess = postProcess;
     //_postProcess->retain();
     _material = NULL;
-    
 }
-    
+
 bool C3DPostEffect::init(const std::string& szMaterial)
 {
     SAFE_RELEASE(_material);
@@ -45,18 +43,16 @@ bool C3DPostEffect::init(const std::string& szMaterial)
 	_material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(szMaterial));
     if (_material == NULL)
         return false;
-    
+
     _material->retain();
     C3DTechnique* technique = _material->getTechnique(0u);
-    
-	technique->getPass(0u)->getParameter("u_texture")->setValue(_postProcess->getFramebufferSampler());
 
+	technique->getPass(0u)->getParameter("u_texture")->setValue(_postProcess->getFramebufferSampler());
 
 	C3DMesh* mesh = Geo::createQuadFullscreen( 1, 1 );
 	_model = C3DSkinlessModel::create();
 	_model->setMesh( mesh );
 	SAFE_RELEASE(mesh);
-
 
 	_model->setNode(_postProcess);
 
@@ -77,22 +73,19 @@ C3DPostEffect::~C3DPostEffect()
 	//SAFE_RELEASE(_postProcess);
 }
 
-    
 void C3DPostEffect::draw()
 {
     if (_material == NULL)
         return;
-    
+
     if( _model->getMaterial() != _material)
     {
         _model->setMaterial(_material);
     }
-    
+
     setShaderParameter();
-    
+
     _model->draw();
-}    
-
-
+}
 
 }

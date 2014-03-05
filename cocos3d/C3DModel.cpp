@@ -28,13 +28,12 @@
 namespace cocos3d
 {
 C3DLightFilter* C3DModel::s_lightFilter = NULL;
-    
 
 C3DModel::C3DModel() :
     _mesh(NULL), _material(NULL), _partCount(0), _partMaterials(NULL), _node(NULL), _wireframe(false)
-{	
+{
 	_morph = NULL;
-	_materialName = "";	        
+	_materialName = "";
 }
 
 C3DModel::~C3DModel()
@@ -50,15 +49,13 @@ C3DModel::~C3DModel()
         SAFE_DELETE_ARRAY(_partMaterials);
     }
 
-    SAFE_RELEASE(_mesh);   
+    SAFE_RELEASE(_mesh);
 
 	SAFE_DELETE(_morph);
-
-
 }
 
 C3DModel* C3DModel::create()
-{   
+{
     return new C3DModel();
 }
 
@@ -76,7 +73,7 @@ void C3DModel::setMesh(C3DMesh* mesh)
 			mesh->retain();
 
 			_partCount = mesh->getPartCount();
-		}       
+		}
     }
 }
 
@@ -207,7 +204,7 @@ C3DMaterial* C3DModel::setMaterial(const std::string& vshPath, const std::string
 
     // Assign the material to us.
     setMaterial(material, partIndex);
-	
+
     return material;
 }
 
@@ -215,7 +212,7 @@ C3DMaterial* C3DModel::setMaterial(const std::string& materialPath, int partInde
 {
     // Try to create a C3DMaterial from the specified material file.
 	C3DMaterial* material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(materialPath));
-	
+
     if (material == NULL)
     {
         return NULL;
@@ -279,11 +276,11 @@ bool C3DModel::hasMaterial(unsigned int partIndex) const
 
 C3DRenderChannel* C3DModel::getRenderChannel()
 {
-	C3DRenderChannel* channel = NULL;	
+	C3DRenderChannel* channel = NULL;
 
-	unsigned int partCount = _mesh->getPartCount();    
-    
-    C3DMaterial::TechniqueUsage techUsage = 
+	unsigned int partCount = _mesh->getPartCount();
+
+    C3DMaterial::TechniqueUsage techUsage =
         _node->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
 
     if (partCount == 0)
@@ -293,21 +290,19 @@ C3DRenderChannel* C3DModel::getRenderChannel()
         {
             C3DTechnique* technique = _material->getTechnique(techUsage);
 
-			channel = technique->getChannel();	
-			
+			channel = technique->getChannel();
+
 			if (channel == NULL)
 			{
 				RenderChannelManager* mgr = C3DRenderSystem::getInstance()->getRenderChannelManager();
 				channel = mgr->getRenderChannel(RenderChannelManager::CN_Opacity);
-			}			
-
+			}
         }
     }
     else
 	{
-		
         for (unsigned int i = 0; i < partCount; ++i)
-        {			
+        {
             // Get the material for this mesh part.
             C3DMaterial* material = getMaterial(i);
 
@@ -315,7 +310,7 @@ C3DRenderChannel* C3DModel::getRenderChannel()
 			channel = technique->getChannel();
 
 			if(channel != NULL)
-				break;					
+				break;
         }
     }
 
@@ -327,8 +322,6 @@ C3DRenderChannel* C3DModel::getRenderChannel()
 
 	return channel;
 }
-
-
 
 C3DNode* C3DModel::getNode() const
 {
@@ -359,7 +352,6 @@ void C3DModel::setNode(C3DNode* node)
     }
 }
 
-
 void C3DModel::validatePartCount()
 {
     unsigned int partCount = _mesh->getPartCount();
@@ -384,7 +376,6 @@ void C3DModel::validatePartCount()
     }
 }
 
-
 void C3DModel::setMaterialNodeBinding(C3DMaterial *material)
 {
     if (_node)
@@ -395,7 +386,7 @@ void C3DModel::setMaterialNodeBinding(C3DMaterial *material)
         for (unsigned int i = 0; i < techniqueCount; ++i)
         {
             C3DTechnique* technique = material->getTechnique(i);
-            
+
             technique->setNodeAutoBinding(_node);
 
             unsigned int passCount = technique->getPassCount();
@@ -426,12 +417,12 @@ void C3DModel::applyFogParam(C3DPass* pass)
 	//C3DVector4 fogparam(env._fogDensity, env._fogStart, env._fogEnd, (float)((int)env._fogType));
 	pass->getParameter("u_fogparam")->setValue(&env._fogParam);
 }
-    
+
 void C3DModel::applyLightParam(C3DPass* pass)
 {
     if (_node == NULL)
         return;
-    
+
     int nDirlight = 0, nPointlight = 0, nSpotlight = 0, nAnimlight = 0;
     int nMaxDirLight = pass->getMaxDirLight();
     int nMaxPointLight = pass->getMaxPointLight();
@@ -469,13 +460,13 @@ void C3DModel::applyLightParam(C3DPass* pass)
                     pass->getParameter(paraName)->setValue(pDirLight->getColor());
                     nDirlight++;
                     break;
-                    
+
                 case C3DLight::POINT:
                     if (nPointlight >= nMaxPointLight)
                         break;
 					pPointLight = static_cast<C3DPointLight*> (lightComp);
 
-                    sprintf(paraName, "u_pointlight[%d].position", nPointlight);                    
+                    sprintf(paraName, "u_pointlight[%d].position", nPointlight);
                     pass->getParameter(paraName)->setValue(light->getTranslationView());
 					//pass->getParameter(paraName)->setValue(light->getTranslationWorld());
                     sprintf(paraName, "u_pointlight[%d].color", nPointlight);
@@ -485,7 +476,7 @@ void C3DModel::applyLightParam(C3DPass* pass)
                     nPointlight++;
 
                     break;
-                    
+
                 case C3DLight::SPOT:
                     if (nSpotlight >= nMaxSpotLight)
                         break;
@@ -529,7 +520,7 @@ void C3DModel::applyLightParam(C3DPass* pass)
 					pass->getParameter(paraName)->setValue(pAnimLight->getUV1RotScale());
 					sprintf(paraName, "u_animLightTexRotScale2");
 					pass->getParameter(paraName)->setValue(pAnimLight->getUV2RotScale());
-					
+
 					sprintf(paraName, "u_animLightIntensity");
 					pass->getParameter(paraName)->setValue(pAnimLight->getIntensity());
 					sprintf(paraName, "u_lightTexture");
@@ -538,13 +529,13 @@ void C3DModel::applyLightParam(C3DPass* pass)
 					nAnimlight++;
 
 					break;
-                    
+
                 default:
                     break;
             }
         }
     }
-    
+
     if (nMaxDirLight > 0)
         pass->getParameter("u_ndirlight")->setValue(nDirlight);
     if (nMaxPointLight > 0)
@@ -587,9 +578,9 @@ void C3DModel::copyFrom(const C3DModel* other)
 	_partCount = other->_partCount;
 
 	//C3DMaterial* newMaterial = other->_material ? other->_material->clone() : NULL;
-	
+
 	C3DMaterial* newMaterial = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(other->_material->getID()));
-	
+
 	setMaterial(newMaterial, -1);
 
 	if (other->_partMaterials)
@@ -600,10 +591,9 @@ void C3DModel::copyFrom(const C3DModel* other)
 			setMaterial(newMaterial, i);
 		}
 	}
-		
+
 	setMorph(other->_morph);
 	setNode(other->_node);
-	
 }
 
 C3DModel* C3DModel::clone(C3DNode::CloneContext& context) const
@@ -618,15 +608,13 @@ void C3DModel::setMaterialName(const std::string& matName)
 	_materialName = matName;
 }
 
-
 void C3DModel::draw(void)
 {
 	unsigned int partCount = _mesh->getPartCount();
 	bool bStatEnable = C3DStat::getInstance()->isStatEnable();
 
-	C3DMaterial::TechniqueUsage techUsage = 
+	C3DMaterial::TechniqueUsage techUsage =
 		_node->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
-
 
 	if ( partCount == 0 )
 	{
@@ -634,7 +622,7 @@ void C3DModel::draw(void)
 		if (_material)
 		{
 			C3DTechnique* technique = _material->getTechnique(techUsage);
-	
+
 			unsigned int passCount = technique->getPassCount();
 			if (bStatEnable)
 			{
@@ -652,7 +640,7 @@ void C3DModel::draw(void)
 				//applyShadowMap(pass);
 				applyInternalParam(pass);
 				pass->bind();
-				GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );  
+				GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
 				if (_wireframe && (_mesh->getPrimitiveType() == GL_TRIANGLES || _mesh->getPrimitiveType() == GL_TRIANGLE_STRIP))
 				{
 					unsigned int vertexCount = _mesh->getVertexCount();
@@ -679,13 +667,10 @@ void C3DModel::draw(void)
 	}
 }
 
-
 void C3DModel::channelDrawPart( int partIndex )
 {
-
-	C3DMaterial::TechniqueUsage techUsage = 
+	C3DMaterial::TechniqueUsage techUsage =
 		getNode()->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
-
 
 	C3DMaterial* material = getMaterial(partIndex);
 	MeshPart* meshPart = _mesh->getPart(partIndex);
@@ -695,16 +680,14 @@ void C3DModel::channelDrawPart( int partIndex )
 		C3DTechnique* technique = material->getTechnique(techUsage);
 		unsigned int passCount = technique->getPassCount();
 
-
 		for (unsigned int j = 0; j < passCount; ++j)
 		{
-
 			C3DPass* pass = technique->getPass(j);
 			//applyLightParam(pass);
 			//applyShadowMap(pass);
 			applyInternalParam(pass);
 			pass->bind();
-			GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshPart->getIndexBuffer()) );                    
+			GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshPart->getIndexBuffer()) );
 
 			// check whether show the wireframe
 			if (_wireframe && (_mesh->getPrimitiveType() == PrimitiveType_TRIANGLES || _mesh->getPrimitiveType() == PrimitiveType_TRIANGLE_STRIP))
@@ -741,7 +724,7 @@ void C3DModel::channelDrawPart( int partIndex )
 float C3DModel::distanceToCamera(void)
 {
 	C3DAABB worldSpaceBox(*(_mesh->getBoundingBox()));
-		
+
 	worldSpaceBox.transform(_node->getWorldMatrix());
 
 	worldSpaceBox.transform(_node->getViewMatrix());
@@ -749,6 +732,5 @@ float C3DModel::distanceToCamera(void)
 	C3DVector3 center = C3DVector3((worldSpaceBox.getCenter()).x,(worldSpaceBox.getCenter()).y,(worldSpaceBox.getCenter()).z);
 
 	return abs( center.z );
-
 }
 }

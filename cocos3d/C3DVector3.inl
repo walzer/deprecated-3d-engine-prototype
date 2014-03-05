@@ -2,7 +2,6 @@
 
 namespace cocos3d
 {
-
 inline const C3DVector3 C3DVector3::operator+(const C3DVector3& v) const
 {
     C3DVector3 result(*this);
@@ -79,9 +78,8 @@ inline const C3DVector3 operator*(float x, const C3DVector3& v)
     return result;
 }
 
-inline float C3DVector3::operator[](int index) const 
-{ 	
-	return ((float*)this)[index]; 
+inline float C3DVector3::operator[](int index) const
+{
+	return ((float*)this)[index];
 }
-
 }

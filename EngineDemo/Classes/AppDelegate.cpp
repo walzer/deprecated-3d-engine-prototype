@@ -3,23 +3,19 @@
 #include <vector>
 #include <string>
 
-
 #include "MainLayer.h"
 #include "AppMacros.h"
 #include "cocos3d.h"
-
 
 USING_NS_CC;
 using namespace std;
 
 cocos3d::C3DSprite* g_entity;
 AppDelegate::AppDelegate() {
-
 }
 
-AppDelegate::~AppDelegate() 
+AppDelegate::~AppDelegate()
 {
-
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -33,7 +29,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
 
 	CCSize frameSize = pEGLView->getFrameSize();
-    
+
     vector<string> searchPath;
 
     // In this demo, we select resource according to the frame's height.
@@ -58,7 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // set searching path
     CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
-	
+
     // turn on display FPS
     //pDirector->setDisplayStats(true);
 

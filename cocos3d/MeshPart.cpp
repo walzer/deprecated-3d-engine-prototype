@@ -1,14 +1,11 @@
 #include "MeshPart.h"
 
-
 namespace cocos3d
 {
-
 MeshPart::MeshPart() :
     _mesh(NULL), _meshIndex(0), _primitiveType(PrimitiveType_TRIANGLES), _indexCount(0), _indexBuffer(0), _dynamic(false)
 {
 }
-
 
 MeshPart::~MeshPart()
 {
@@ -56,7 +53,6 @@ MeshPart* MeshPart::create(C3DMesh* mesh, unsigned int meshIndex, PrimitiveType 
         return NULL;
     }
 	 GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
-
 
     MeshPart* part = new MeshPart();
     part->_mesh = mesh;
@@ -134,5 +130,4 @@ void MeshPart::setIndexData(void* indexData, unsigned int indexStart, unsigned i
 
 	GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
 }
-
 }

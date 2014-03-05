@@ -7,14 +7,13 @@
 #include "cocos2d.h"
 namespace cocos3d
 {
-
 /**
  * Represents an n-dimensional curve.
  */
 class C3DAnimationCurve : public cocos2d::CCObject
 {
     friend class C3DAnimation;
-    friend class C3DAnimationClip;   
+    friend class C3DAnimationClip;
     friend class C3DMeshSkin;
     friend class C3DAnimationCurveMgr;
     friend class C3DAnimationChannel;
@@ -36,7 +35,6 @@ public:
     */
     unsigned int getPointCount() const;
 
-	
 	/**
     * get start time.
     */
@@ -109,18 +107,18 @@ private:
      * Interpolate by C3DQuaternion.
      */
     void interpolateQuaternion(float s, float* from, float* to, float* dst) const;
-    
+
 	/**
      * Determine index by time.
      */
     int determineIndex(float time) const;
 
     unsigned int _pointCount;           // Number of points on the curve.
-   
+
     unsigned int _componentSize;        // The component size (in bytes).
 
     Point* _points;                     // The points on the curve.
-    
+
     unsigned long _dur;                          //  duration of the animation curve, ms
 };
 
@@ -132,44 +130,43 @@ private:
     public:
         typedef std::map<std::string, C3DAnimationCurve*> CurveMap;//boneId, animation curve for this bone
         typedef std::map<std::string, CurveMap* > CurvesMap;//animation path, animation curve collection
-        
-        
+
 		/**
 		 * get the share AnimationCurveMgr.
 		 */
         static C3DAnimationCurveMgr* sharedAnimationCurveMgr();
-        
+
 		/**
 		 * get the AnimationCurve.
 		 */
         const C3DAnimationCurve* getAnimationCurve(const std::string& path, const std::string& boneId);
         CurveMap* getAnimationCurves(const std::string& path);
-        
+
 		/**
 		 * C3DAnimationCurve auto add, should release outside if not used.
 		 */
         void addAnimationCurve(const std::string& path, const std::string& boneId, C3DAnimationCurve* curve);
         void addAnimationCurves(const std::string& path, CurveMap* curves);
-        
+
 		/**
 		 * create the CurveMap.
 		 */
         CurveMap* createAnimationCurves(const std::string& path);
-        
+
 		/**
 		 * remove target animation curve.
 		 */
         void removeAnimationCurve(const std::string& path, const std::string& boneId);
         void removeAnimationCurves(const std::string& path);
-        
+
 		/**
 		 * create aniamation curve.
 		 */
         static C3DAnimationCurve* createAniamationCurve(unsigned int keyCount, unsigned long* keyTimes, float* keyValues);
-        
+
     protected:
         static C3DAnimationCurveMgr* _instance;
-        
+
         /**
 		 * Constructor.
 		 */
@@ -179,14 +176,11 @@ private:
 		 * Destructor.
 		 */
         virtual ~C3DAnimationCurveMgr();
-        
-        
+
         //attribute
         //map key animation file path, value curves
         CurvesMap _curves;
     };
-
 }
-
 
 #endif

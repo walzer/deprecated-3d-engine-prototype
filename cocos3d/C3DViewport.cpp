@@ -2,23 +2,21 @@
 
 namespace cocos3d
 {
-   
     //---------------------------------------------------------------------
     C3DViewport::C3DViewport(int left, int top, int width1, int height1)
         : x(left)
         , y(top)
         , width(width1)
-        , height(height1)  
-    {     
+        , height(height1)
+    {
     }
 
     C3DViewport::C3DViewport(const C3DViewport& viewport)
         : x(viewport.x)
         , y(viewport.y)
         , width(viewport.width)
-        , height(viewport.height)  
+        , height(viewport.height)
     {
-
     }
 
     //---------------------------------------------------------------------
@@ -38,8 +36,6 @@ namespace cocos3d
 
     void C3DViewport::apply()
     {
-        glViewport((GLuint)x, (GLuint)y, (GLuint)width, (GLuint)height);  
+        glViewport((GLuint)x, (GLuint)y, (GLuint)width, (GLuint)height);
     }
-
-
 }

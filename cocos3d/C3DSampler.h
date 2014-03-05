@@ -8,7 +8,7 @@ namespace cocos3d
 {
 class C3DTexture;
 class C3DElementNode;
-    
+
     enum
     {
        Texture_None_Dirty = 0,
@@ -90,15 +90,15 @@ public:
 
 	bool load(C3DElementNode* node);
 	bool save(C3DElementNode* node);
-    
+
 private:
-	
+
     C3DTexture* _texture;
     Texture_Wrap _wrapS;
     Texture_Wrap _wrapT;
     Texture_Filter _minFilter;
     Texture_Filter _magFilter;
-    
+
     int _dirtyBit;
 };
 

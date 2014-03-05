@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 MaterialParameter::MaterialParameter(const std::string& name) :
     _type(MaterialParameter::NONE), _count(1), _dynamic(false), _name(name), _uniform(NULL)
 {
@@ -38,6 +37,8 @@ void MaterialParameter::clearValue()
 		case MaterialParameter::METHOD_PARAM:
             SAFE_RELEASE(_value.method);
             break;
+        default:
+            break;
         }
 
         _dynamic = false;
@@ -60,13 +61,10 @@ void MaterialParameter::clearValue()
 				const_cast<C3DSamplerCube*>(_value.samplerCubeValue)->release();
 			}
 			break;
-		 //case MaterialParameter::TEXTURE:
-   //         if (_value.textureValue)
-   //         {				
-			//	const_cast<C3DTexture*>(_value.textureValue)->release();
-			//	
-   //         }
-   //         break;
+        default:
+            {
+                
+            }break;
         }
     }
 
@@ -334,6 +332,8 @@ void MaterialParameter::bind(C3DEffect* effect)
         assert(_value.method);
         _value.method->bindValue(effect);
         break;
+    default:
+        break;
     }
 }
 
@@ -358,6 +358,8 @@ void MaterialParameter::setParamMethonAutoUniform(C3DEffect* effect)
     case MaterialParameter::METHOD_PARAM:
         assert(_value.method);
         _value.method->bindValue(effect);
+        break;
+    default:
         break;
     }
 }
@@ -414,6 +416,8 @@ MaterialParameter* MaterialParameter::clone() const
 		case METHOD_PARAM:
 			other->_value.method = _value.method->clone();
 			break;
+        default:
+            break;
 		}
 	}
 	else
@@ -432,9 +436,10 @@ MaterialParameter* MaterialParameter::clone() const
 				const_cast<C3DSamplerCube*>(_value.samplerCubeValue)->retain();
 			}
 			break;
+        default:
+            break;
 		}
 	}
 	return other;
 }
-
 }

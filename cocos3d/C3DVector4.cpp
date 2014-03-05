@@ -3,7 +3,6 @@
 
 namespace cocos3d
 {
-
 C3DVector4::C3DVector4()
     : x(0.0f), y(0.0f), z(0.0f), w(0.0f)
 {
@@ -105,8 +104,6 @@ float C3DVector4::angle(const C3DVector4& v1, const C3DVector4& v2)
 
     return atan2f(sqrt(dx * dx + dy * dy + dz * dz) + MATH_FLOAT_SMALL, dot(v1, v2));
 }
-
-
 
 void C3DVector4::add(const C3DVector4& v1, const C3DVector4& v2, C3DVector4* dst)
 {
@@ -216,7 +213,6 @@ float C3DVector4::length() const
     return sqrt(x * x + y * y + z * z + w * w);
 }
 
-
 float C3DVector4::lengthSquared() const
 {
     return (x * x + y * y + z * z + w * w);
@@ -324,6 +320,4 @@ void C3DVector4::subtract(const C3DVector4& v1, const C3DVector4& v2, C3DVector4
     dst->z = v1.z - v2.z;
     dst->w = v1.w - v2.w;
 }
-
-
 }

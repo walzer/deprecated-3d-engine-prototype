@@ -32,7 +32,7 @@ public:
         */
     void bind();
 
- 	static bool isSupport(); 
+ 	static bool isSupport();
 
 	const std::string& getPathLeft() const{return _path_left;}
 	const std::string& getPathRight() const{return _path_right;}
@@ -45,9 +45,9 @@ public:
 	bool save(C3DElementNode* node);
 
 private:
-	
+
     C3DTexture3D* _texture;
-    
+
     std::string _path_left;
     std::string _path_right;
     std::string _path_top;
@@ -55,7 +55,6 @@ private:
     std::string _path_front;
     std::string _path_back;
 };
-
 }
 
 #endif

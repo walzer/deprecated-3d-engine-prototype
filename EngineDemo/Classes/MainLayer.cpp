@@ -16,8 +16,6 @@
 #include "FullDemo/UI3DLayer.h"
 //#include "PhysicsTest/PhysicsTestLayer.h"
 
-
-
 #define LINE_SPACE          50
 
 using namespace cocos3d;
@@ -48,7 +46,7 @@ bool MainLayer::init()
         //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
         // #else
         CCLabelTTF* label = CCLabelTTF::create(g_aTestNames[i].c_str(), "Arial", 60);
-        // #endif        
+        // #endif
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuCallback));
 
         m_pItemMenu->addChild(pMenuItem, i + 10000);
@@ -58,7 +56,7 @@ bool MainLayer::init()
     m_pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (TESTS_COUNT + 1) * (LINE_SPACE)));
     m_pItemMenu->setPosition(s_tCurPos);
     addChild(m_pItemMenu);
-    
+
     setTouchEnabled(true);
 
     addChild(pMenu, 1);
@@ -105,7 +103,6 @@ void MainLayer::closeCallback(CCObject* pSender)
     exit(0);
 #endif
 }
-
 
 void MainLayer::menuCallback(CCObject * pSender)
 {
@@ -163,14 +160,13 @@ void MainLayer::menuCallback(CCObject * pSender)
     m_pUILayer = layer->createUILayer();
     addChild(layer);
     addChild(m_pUILayer);
-		
 
     //m_pUILayer->addChild(layer);
-    
+
    // CCScene* scene = CCScene::create();
    // scene->addChild(layer);
    // scene->addChild(m_pUILayer);
-    
+
      //  CCDirector::sharedDirector()->replaceScene(scene);
 
     m_pItemMenu->setEnabled(false);
@@ -191,7 +187,7 @@ void MainLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator it = pTouches->begin();
     CCTouch* touch = (CCTouch*)(*it);
 
-    m_tBeginPos = touch->getLocation();   
+    m_tBeginPos = touch->getLocation();
 }
 
 void MainLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -199,7 +195,7 @@ void MainLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator it = pTouches->begin();
     CCTouch* touch = (CCTouch*)(*it);
 
-    CCPoint touchLocation = touch->getLocation();    
+    CCPoint touchLocation = touch->getLocation();
     float nMoveY = touchLocation.y - m_tBeginPos.y;
 
     CCPoint curPos  = m_pItemMenu->getPosition();
@@ -225,13 +221,13 @@ void MainLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
 void MainLayer::menuBackCallback(CCObject * pSender)
 {
     ccGLUseProgram(0);
-    
+
     //CCScene* scene = MainLayer::scene();
-    
+
     //CCDirector::sharedDirector()->replaceScene(scene);
-    
+
    // return;
-    
+
     if (m_pLayer3D)
     {
       //  m_pLayer3D->endRender();
@@ -252,4 +248,3 @@ void MainLayer::menuBackCallback(CCObject * pSender)
 
     setTouchEnabled(true);
 }
-

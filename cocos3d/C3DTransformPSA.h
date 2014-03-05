@@ -14,8 +14,6 @@
 #include "C3DParticleSystemCommon.h"
 namespace cocos3d
 {
-
-
 class C3DElementNode;
 class C3DParticleSystem;
 
@@ -27,13 +25,13 @@ It updates particle rotation, age, size, frame, velocity, and so on
 class C3DTransformPSA : public C3DBaseParticleAction
 {
 public:
-	
+
 	/**
      * Constructor & Destructor
      */
 	C3DTransformPSA(C3DParticleSystem* system);
 	virtual ~C3DTransformPSA();
-	
+
 	/**
      * load & save particle action
      */
@@ -56,7 +54,7 @@ public:
      */
 	void setSizeRate( float rate) { _sizeRate = rate; }
 	float getSizeRate() const { return _sizeRate; }
-    
+
 	/**
      * clone method
      */
@@ -69,10 +67,7 @@ private:
 
 	float _endSize;		// Eventual size of the particles.
 	float _sizeRate;		// Increment per second towards the size.
-
-
 };
-
 }
 
 #endif

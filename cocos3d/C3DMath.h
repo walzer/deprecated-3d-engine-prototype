@@ -1,8 +1,8 @@
 //
 //  3D math lib header
-//  
 //
-//  
+//
+//
 //
 //
 #ifndef CocosMath_H_
@@ -17,7 +17,6 @@
 #include "C3DQuaternion.h"
 #include "C3DMatrix.h"
 #include "C3DMathUtilty.h"
-
 
 #define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
 #define MATH_RAD_TO_DEG(x)          ((x)* 57.29577951f)

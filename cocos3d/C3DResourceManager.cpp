@@ -5,25 +5,22 @@
 
 namespace cocos3d
 {
-   
 C3DResourceManager::C3DResourceManager():_memoryUsage(0)
 {
 	_usedPool = new C3DUsedResourcePool(this);
-	_waitPool = new C3DWaitResourcePool(this);  
+	_waitPool = new C3DWaitResourcePool(this);
 
 	_intervalCheckTime = 1000;
 	_checkTime = 0;
 }
-    
+
 C3DResourceManager::~C3DResourceManager()
 {
 	removeAll();
-	
+
 	SAFE_DELETE(_usedPool);
 	SAFE_DELETE(_waitPool);
 }
-
-
 
 C3DResource* C3DResourceManager::findResource(const std::string& name)
 {
@@ -33,31 +30,29 @@ C3DResource* C3DResourceManager::findResource(const std::string& name)
 		res = _waitPool->getItem(name);
 	return  res;
 }
-      
-    
+
 bool C3DResourceManager::load(const std::string& name)
 {
     return false;
 }
 
-	
 void C3DResourceManager::addResource( C3DResource* res )
 {
 	if(res->getState() == C3DResource::State_Used)
-	{		
+	{
 		_usedPool->addItem(res);
 	}
 	else if(res->getState() == C3DResource::State_Wait)
-	{		
-		_waitPool->addItem(res);		
+	{
+		_waitPool->addItem(res);
 	}
 }
 
 C3DResource* C3DResourceManager::getResource(const std::string& name)
 {
-	C3DResource* resource = findResource(name);  
+	C3DResource* resource = findResource(name);
 	if(resource != NULL)
-    {					
+    {
 		return cloneResource(resource);
     }
     else
@@ -65,23 +60,21 @@ C3DResource* C3DResourceManager::getResource(const std::string& name)
 		return createResource(name);
 	}
 }
-      
+
 void C3DResourceManager::removeResource(C3DResource* res)
 {
 	if(res == NULL)
 		return;
 
 	if(res->getState() == C3DResource::State_Used)
-	{		
+	{
 		_usedPool->removeItem(res->getID());
 	}
 	else if(res->getState() == C3DResource::State_Wait)
-	{		
-		_waitPool->removeItem(res->getID());		
+	{
+		_waitPool->removeItem(res->getID());
 	}
-        
 }
-	
 
 void C3DResourceManager::removeResource(const std::string& name)
 {
@@ -92,8 +85,7 @@ void C3DResourceManager::removeResource(const std::string& name)
 		this->removeResource(res);
 	}
 }
-	
-	
+
 void C3DResourceManager::removeAll(void)
 {
 	if(_usedPool != NULL)
@@ -101,7 +93,6 @@ void C3DResourceManager::removeAll(void)
 
 	if(_waitPool != NULL)
 		_waitPool->clear();
-		
 }
 
 void C3DResourceManager::setResourceState(C3DResource* res,C3DResource::State state )
@@ -114,15 +105,14 @@ void C3DResourceManager::setResourceState(C3DResource* res,C3DResource::State st
 	{
 		res->retain();
 		if(res->getState()==C3DResource::State_Init && state==C3DResource::State_Used)
-		{			
+		{
 			_usedPool->addItem(res);
 		}
 
 		if(res->getState()==C3DResource::State_Used && state==C3DResource::State_Wait)
 		{
 			_usedPool->removeItem(res->getID());
-			_waitPool->addItem(res);			
-
+			_waitPool->addItem(res);
 		}
 		else if(res->getState()==C3DResource::State_Wait && state==C3DResource::State_Used)
 		{
@@ -133,8 +123,6 @@ void C3DResourceManager::setResourceState(C3DResource* res,C3DResource::State st
 		res->release();
 	}
 }
-  
-  
 
 void C3DResourceManager::update(long elapsedTime)
 {
@@ -148,13 +136,6 @@ void C3DResourceManager::update(long elapsedTime)
 
 		if(_waitPool != NULL)
 			_waitPool->update(elapsedTime);
-		
-
 	}
 }
-			
 }
-
-
-
-

@@ -2,20 +2,17 @@
 
 namespace cocos3d
 {
-
 StringTool::StringTool()
-{	
+{
 }
 
 StringTool::~StringTool()
 {
-
 }
 
 std::vector<std::string> StringTool::StringSplitByString(const std::string &str, const std::string &strKey, int IgnoreCase /* = false */)
 {
     std::vector<std::string> Result;
-    const char *cpPos    = NULL;
     const char *pLastPos = NULL;
     char *pStart = new char[str.size() + 1];
 
@@ -43,7 +40,6 @@ std::vector<std::string> StringTool::StringSplitByString(const std::string &str,
             if (pLastPos)
             {
                 Result.push_back(std::string(pLastPos) );
-                pLastPos = pStart + i + strKey.size();
                 pLastPos = NULL;
             }
             i += strKey.size() - 1;
@@ -69,7 +65,7 @@ std::vector<std::string> StringTool::StringSplitByString(const std::string &str,
 std::vector<std::string> StringTool::StringSplitByChar(const std::string &str, char cKey, int IgnoreCase /* = false */)
 {
     std::vector<std::string> Result;
-    const char *cpPos    = NULL;
+    
     const char *pLastPos = NULL;
     char *pStart = new char[str.size() + 1];
 
@@ -81,7 +77,7 @@ std::vector<std::string> StringTool::StringSplitByChar(const std::string &str, c
     for (unsigned int i = 0; i < str.size(); i++)
     {
         int nCompareResult = -1;
-        
+
         if (IgnoreCase)
         {
             nCompareResult = toupper(pStart[i]) - toupper(cKey);
@@ -89,9 +85,7 @@ std::vector<std::string> StringTool::StringSplitByChar(const std::string &str, c
         else
         {
             nCompareResult = pStart[i] - cKey;
-           
         }
-        
 
         if (!nCompareResult)
         {
@@ -99,7 +93,6 @@ std::vector<std::string> StringTool::StringSplitByChar(const std::string &str, c
             if (pLastPos)
             {
                 Result.push_back(std::string(pLastPos) );
-                pLastPos = pStart + i + 1;
                 pLastPos = NULL;
             }
         }
@@ -128,7 +121,7 @@ std::string StringTool::getFileName(const std::string& filepath)
     size_t index = (index1 != -1 && index1 > index2 ? index1 : index2);
 	size_t length = filepath.length();
     std::string output = filepath.substr(index + 1, length);
-  
+
     return output;
 }
 
@@ -140,11 +133,10 @@ std::string StringTool::getFileName(const std::string& filepath,const std::strin
 	size_t length = filepath.length();
     std::string filename = filepath.substr(index + 1, length);
     length = filename.length();
-	
+
     std::string output = filename.substr(0, (length-expName.length()-1));
     return output;
 }
-
 
 std::string StringTool::getFilePath(const std::string& filename)
 {
@@ -152,11 +144,9 @@ std::string StringTool::getFilePath(const std::string& filename)
     int index2 = filename.find_last_of('/');
     int index = (index1 != -1 && index1 > index2 ? index1 : index2);
     std::string filepath = filename.substr(0,index+1);
-    
+
     return filepath;
 }
-
-
 
 std::string StringTool::toString(bool b)
 {
@@ -167,12 +157,5 @@ void StringTool::fromString(const std::string &str, bool& b)
 {
     b = str == "true";
 }
-
-
-
-
-
-
-
 
 }

@@ -3,7 +3,6 @@
 
 #include "C3DElementNode.h"
 
-
 // Render state override bits
 #define RS_BLEND 1
 #define RS_BLEND_FUNC 2
@@ -13,16 +12,13 @@
 
 namespace cocos3d
 {
-
 C3DStateBlock* C3DStateBlock::_defaultState = NULL;
-
 
 C3DStateBlock::C3DStateBlock()
     : _blendEnabled(false), _cullFaceEnabled(false), _depthTestEnabled(false), _depthWriteEnabled(false),
       _srcBlend(C3DStateBlock::BLEND_ONE), _dstBlend(C3DStateBlock::BLEND_ONE), _bits(0L)
 {
 }
-
 
 C3DStateBlock::~C3DStateBlock()
 {
@@ -135,7 +131,6 @@ void C3DStateBlock::restore(long stateOverrideBits)
         _defaultState->_bits &= ~RS_DEPTH_WRITE;
         _defaultState->_depthWriteEnabled = false;
     }
-
 }
 
 void C3DStateBlock::enableDepthWrite()
@@ -215,8 +210,9 @@ const std::string blendToString(C3DStateBlock::Blend blend)
         return "ONE_MINUS_CONSTANT_ALPHA";
     case C3DStateBlock::BLEND_SRC_ALPHA_SATURATE:
         return "SRC_ALPHA_SATURATE";
+    default:
+        return "ONE";
     }
-    return "ONE";
 }
 
 void C3DStateBlock::setState(const std::string& name, const std::string& val)
@@ -252,42 +248,41 @@ void C3DStateBlock::setState(const std::string& name, const std::string& val)
         WARN_VARG("Warning: Invalid render state: %s", name.c_str());
     }
 }
-    
+
 void C3DStateBlock::backUpGLState()
 {
     // States
     _blendEnabled = glIsEnabled(GL_BLEND);
-    
+
     _cullFaceEnabled = glIsEnabled(GL_CULL_FACE);
     _depthTestEnabled = glIsEnabled(GL_DEPTH_TEST);
     GLint writemask;
     glGetIntegerv(GL_DEPTH_WRITEMASK, &writemask);
     _depthWriteEnabled = writemask;
-    
+
     GLint blend;
     glGetIntegerv(GL_BLEND_SRC_ALPHA, &blend);
     _srcBlend = (Blend)blend;
     glGetIntegerv(GL_BLEND_DST_ALPHA, &blend);
     _dstBlend = (Blend)blend;
-    
+
     _bits = 0L;
-    
+
     if (_blendEnabled)
         _bits |= RS_BLEND;
-    
+
     if (_cullFaceEnabled)
         _bits |= RS_CULL_FACE;
-    
+
     if (_depthTestEnabled)
         _bits |= RS_DEPTH_TEST;
-    
-    
+
     if (_depthWriteEnabled)
         _bits |= RS_DEPTH_WRITE;
-    
+
     if (_srcBlend == BLEND_ONE || _dstBlend != BLEND_ONE)
         _bits |= RS_BLEND_FUNC;
-    
+
     //update current opengl state
     *_defaultState = *this;
 }
@@ -308,15 +303,13 @@ void C3DStateBlock::restoreGLState(bool bforce)
             glEnable(GL_DEPTH_TEST);
         else
             glDisable(GL_DEPTH_TEST);
-        
-        
+
         if (_depthWriteEnabled)
             glDepthMask(GL_TRUE);
         else
             glDepthMask(GL_FALSE);
-        
+
         glBlendFunc(_srcBlend, _dstBlend);
-        
     }
     else
     {
@@ -341,7 +334,7 @@ void C3DStateBlock::restoreGLState(bool bforce)
             else
                 glDisable(GL_DEPTH_TEST);
         }
-        
+
         if (_depthWriteEnabled != _defaultState->_depthWriteEnabled)
         {
             if (_depthWriteEnabled)
@@ -354,25 +347,24 @@ void C3DStateBlock::restoreGLState(bool bforce)
             glBlendFunc(_srcBlend, _dstBlend);
         }
     }
-    
+
     _bits = 0L;
-    
+
     if (_blendEnabled)
         _bits |= RS_BLEND;
-    
+
     if (_cullFaceEnabled)
         _bits |= RS_CULL_FACE;
-    
+
     if (_depthTestEnabled)
         _bits |= RS_DEPTH_TEST;
-    
-    
+
     if (_depthWriteEnabled)
         _bits |= RS_DEPTH_WRITE;
-    
+
     if (_srcBlend == BLEND_ONE || _dstBlend != BLEND_ONE)
         _bits |= RS_BLEND_FUNC;
-    
+
     *_defaultState = *this;
 }
 
@@ -455,7 +447,7 @@ void C3DStateBlock::setDepthWrite(bool enabled)
 }
 
 bool C3DStateBlock::load(C3DElementNode* node)
-{  
+{
 	node->rewind();
 	std::string name;
 	while (!(name = node->getNextElement()).empty())
@@ -467,7 +459,7 @@ bool C3DStateBlock::load(C3DElementNode* node)
 }
 
 bool C3DStateBlock::save(C3DElementNode* node)
-{   
+{
     if (_bits & RS_BLEND)
         node->setElement("blend", &_blendEnabled);
     if (_bits & RS_BLEND_FUNC)
@@ -484,7 +476,5 @@ bool C3DStateBlock::save(C3DElementNode* node)
 
     return true;
 }
-
-
 
 }

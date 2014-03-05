@@ -6,39 +6,33 @@
 #include "C3DParticleSystemCommon.h"
 #include "C3DParticleRender.h"
 
-
 #define PARTICLE_COUNT_MAX                       100
 #define PARTICLE_EMISSION_RATE                   10
 #define PARTICLE_EMISSION_RATE_TIME_INTERVAL     1000.0f / (float)PARTICLE_EMISSION_RATE
 
 namespace cocos3d
 {
-
 C3DParticleEmitter::C3DParticleEmitter(C3DParticleSystem* system) :
-    _system(system),   
+    _system(system),
     _emissionRate(PARTICLE_EMISSION_RATE), _started(false), _ellipsoid(false),
     _sizeStartMin(1.0f), _sizeStartMax(1.0f),
-    _ageMin(1000L), _ageMax(1000L),   
+    _ageMin(1000L), _ageMax(1000L),
     _position(C3DVector3::zero()), _positionVar(C3DVector3::zero()),
     _velocity(C3DVector3::zero()), _velocityVar(C3DVector3::one()),
     _rotationPerParticleSpeedMin(0.0f), _rotationPerParticleSpeedMax(0.0f),
     _rotationSpeedMin(0.0f), _rotationSpeedMax(0.0f),
-    _rotationAxis(C3DVector3::zero()), _rotation(C3DMatrix::identity()),    
+    _rotationAxis(C3DVector3::zero()), _rotation(C3DMatrix::identity()),
     _orbitPosition(false), _orbitVelocity(false), _orbitAcceleration(false),
     _timePerEmission(PARTICLE_EMISSION_RATE_TIME_INTERVAL), _timeLast(0L), _timeRunning(0L)
 {
-   
-
 }
 
 C3DParticleEmitter::~C3DParticleEmitter()
 {
-       
 }
 
-
 void C3DParticleEmitter::load(C3DElementNode* properties)
-{ 
+{
     int emissionRate = (unsigned int)properties->getElement("emissionRate",(int*)0);
     if (emissionRate == 0)
     {
@@ -49,23 +43,23 @@ void C3DParticleEmitter::load(C3DElementNode* properties)
 
     float sizeStartMin = properties->getElement("sizeStartMin",(float*)0);
     float sizeStartMax = properties->getElement("sizeStartMax",(float*)0);
-   
+
     long ageMin = properties->getElement("ageMin",(long*)0);
-    long ageMax = properties->getElement("ageMax",(long*)0);	   
+    long ageMax = properties->getElement("ageMax",(long*)0);
 
     C3DVector3 position;
     C3DVector3 positionVar;
     C3DVector3 velocity;
     C3DVector3 velocityVar;
-   
+
     C3DVector3 rotationAxis;
-    C3DVector3 rotationAxisVar;	
-	
+    C3DVector3 rotationAxisVar;
+
     properties->getElement("position", &position);
     properties->getElement("positionVar", &positionVar);
     properties->getElement("velocity", &velocity);
     properties->getElement("velocityVar", &velocityVar);
-   
+
     float rotationPerParticleSpeedMin = properties->getElement("rotationPerParticleSpeedMin",&rotationPerParticleSpeedMin);
     float rotationPerParticleSpeedMax = properties->getElement("rotationPerParticleSpeedMax",&rotationPerParticleSpeedMax);
     float rotationSpeedMin = properties->getElement("rotationSpeedMin",&rotationSpeedMin);
@@ -75,20 +69,19 @@ void C3DParticleEmitter::load(C3DElementNode* properties)
     bool orbitPosition = properties->getElement("orbitPosition",(bool*)0);
     bool orbitVelocity = properties->getElement("orbitVelocity",(bool*)0);
     bool orbitAcceleration = properties->getElement("orbitAcceleration",(bool*)0);
-	
+
     setEmissionRate(emissionRate);
     setEllipsoid(ellipsoid);
     setSize(sizeStartMin, sizeStartMax);
     setAge(ageMin, ageMax);
-   
+
     setPosition(position, positionVar);
     setVelocity(velocity, velocityVar);
-  
+
     setRotationPerParticle(rotationPerParticleSpeedMin, rotationPerParticleSpeedMax);
     setRotation(rotationSpeedMin, rotationSpeedMax, rotationAxis, rotationAxisVar);
-	
+
     setOrbit(orbitPosition, orbitVelocity, orbitAcceleration);
-	    
 }
 
 void C3DParticleEmitter::save(C3DElementNode* properties)
@@ -129,7 +122,6 @@ void C3DParticleEmitter::setEmissionRate(unsigned int rate)
     _timePerEmission = 1000.0f / (float)_emissionRate;
 }
 
-
 void C3DParticleEmitter::setEllipsoid(bool ellipsoid)
 {
     _ellipsoid = ellipsoid;
@@ -160,7 +152,6 @@ float C3DParticleEmitter::getSizeStartMax() const
     return _sizeStartMax;
 }
 
-
 void C3DParticleEmitter::setAge(long ageMin, long ageMax)
 {
     _ageMin = ageMin;
@@ -185,7 +176,6 @@ long C3DParticleEmitter::getAgeMax() const
 {
     return _ageMax;
 }
-
 
 void C3DParticleEmitter::setPosition(const C3DVector3& position, const C3DVector3& positionVar)
 {
@@ -302,8 +292,6 @@ const C3DVector3& C3DParticleEmitter::getRotationAxisVariance() const
     return _rotationAxisVar;
 }
 
-
-
 void C3DParticleEmitter::setOrbit(bool orbitPosition, bool orbitVelocity, bool orbitAcceleration)
 {
     _orbitPosition = orbitPosition;
@@ -351,7 +339,7 @@ void C3DParticleEmitter::generateVectorInEllipsoid(const C3DVector3& center, con
         dst->y = MATH_RANDOM_MINUS1_1();
         dst->z = MATH_RANDOM_MINUS1_1();
     } while (dst->length() > 1.0f);
-    
+
     // Scale this point by the scaling vector.
     dst->x *= scale.x;
     dst->y *= scale.y;
@@ -382,7 +370,7 @@ void C3DParticleEmitter::emit(unsigned int particleCount)
     }
 
     C3DVector3 translation;
-	
+
     C3DMatrix world = _system->getWorldMatrix();
     world.getPosition(&translation);
 
@@ -390,16 +378,15 @@ void C3DParticleEmitter::emit(unsigned int particleCount)
     world.m[12] = 0.0f;
     world.m[13] = 0.0f;
     world.m[14] = 0.0f;
-	
 
     // Emit the new particles.
 	C3DParticle**& _particles = _system->_particles;
 	int& _validParticleCount = _system->_validParticleCount;
-	
+
     for (unsigned int i = 0; i < particleCount; i++)
     {
-		C3DParticle* p = _particles[_validParticleCount++];				
-		
+		C3DParticle* p = _particles[_validParticleCount++];
+
         p->_age = generateScalar(_ageMin, _ageMax);
 		p->_ageStart = p->_age;
 		int Frm = _system->getParticleRender()->getSpriteFrameRandomOffset();
@@ -411,7 +398,7 @@ void C3DParticleEmitter::emit(unsigned int particleCount)
 
         // Only initial position can be generated within an ellipsoidal domain.
         generateVector(_position, _positionVar, &p->_position, _ellipsoid);
-        generateVector(_velocity, _velocityVar, &p->_velocity, false);    
+        generateVector(_velocity, _velocityVar, &p->_velocity, false);
         generateVector(_rotationAxis, _rotationAxisVar, &p->_rotationAxis, false);
 
         // Initial position, velocity and acceleration can all be relative to the emitter's transform.
@@ -425,7 +412,6 @@ void C3DParticleEmitter::emit(unsigned int particleCount)
         {
             world.transformPoint(p->_velocity, &p->_velocity);
         }
-		     
 
         // The rotation axis always orbits the node.
         if (p->_rotationSpeed != 0.0f && !p->_rotationAxis.isZero())
@@ -433,32 +419,29 @@ void C3DParticleEmitter::emit(unsigned int particleCount)
             world.transformPoint(p->_rotationAxis, &p->_rotationAxis);
         }
 
-
         // Translate position relative to the node's world space.
-        p->_position.add(translation);                
+        p->_position.add(translation);
     }
 }
 
 void C3DParticleEmitter::update(long elapsedTime)
-{  
+{
     // Calculate how much time has passed since we last emitted particles.
     _timeRunning += elapsedTime;
 
     // How many particles should we emit this frame?
-    unsigned int emitCount = _timeRunning / _timePerEmission;            
-   
-    _timeRunning -= (int) (emitCount * _timePerEmission);    
+    unsigned int emitCount = _timeRunning / _timePerEmission;
+
+    _timeRunning -= (int) (emitCount * _timePerEmission);
 
 	if(emitCount > 0)
 		emit(emitCount);
-   
-	
 }
 
 C3DParticleEmitter* C3DParticleEmitter::clone(C3DParticleSystem* system) const
 {
     C3DParticleEmitter* emitter = new C3DParticleEmitter(system);
-    
+
     emitter->_emissionRate = _emissionRate;
     emitter->_started = _started;
     emitter->_ellipsoid = _ellipsoid;
@@ -466,12 +449,12 @@ C3DParticleEmitter* C3DParticleEmitter::clone(C3DParticleSystem* system) const
     emitter->_sizeStartMax = _sizeStartMax;
     emitter->_ageMin = _ageMin;
     emitter->_ageMax = _ageMax;
-    
+
     emitter->_position = _position;
     emitter->_positionVar = _positionVar;
     emitter->_velocity = _velocity;
     emitter->_velocityVar = _velocityVar;
-    
+
     emitter->_rotationPerParticleSpeedMin = _rotationPerParticleSpeedMin;
     emitter->_rotationPerParticleSpeedMax = _rotationPerParticleSpeedMax;
     emitter->_rotationSpeedMin = _rotationSpeedMin;
@@ -479,7 +462,7 @@ C3DParticleEmitter* C3DParticleEmitter::clone(C3DParticleSystem* system) const
     emitter->_rotationAxis = _rotationAxis;
     emitter->_rotationAxisVar = _rotationAxisVar;
     emitter->_rotation = _rotation;
-    
+
     emitter->_orbitPosition = _orbitPosition;
     emitter->_orbitVelocity = _orbitVelocity;
     emitter->_orbitAcceleration = _orbitAcceleration;
@@ -489,5 +472,4 @@ C3DParticleEmitter* C3DParticleEmitter::clone(C3DParticleSystem* system) const
 
     return emitter;
 }
-
 }

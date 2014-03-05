@@ -13,11 +13,10 @@
 
 namespace cocos3d
 {
-
 bool greater( const BaseChannelDrawItem* a, const BaseChannelDrawItem* b )
 {
 	return a->getSortParam() > b->getSortParam();
-}  
+}
 bool less(const BaseChannelDrawItem* a, const BaseChannelDrawItem* b)
 {
 	return a->getSortParam() < b->getSortParam();
@@ -27,8 +26,6 @@ void ModelDrawItem::draw()
 {
 	_model->draw();
 }
-
-
 
 C3DRenderChannel::ChannelDrawItems C3DRenderChannel::ItemPool;
 
@@ -45,7 +42,6 @@ void C3DRenderChannel::resetChannelSize()
 	}
 	ItemPool.clear();
 }
-
 
 void C3DRenderChannel::addItem( C3DBaseModel* model, float sortParam )
 {
@@ -65,7 +61,7 @@ void C3DRenderChannel::addItem( C3DBaseModel* model, float sortParam )
 		ItemPool.pop_front();
 		item->setModel( model );
 		item->setSortParam( sortParam );
-	} 
+	}
 
 	_drawItems.push_back( item );
 }
@@ -113,7 +109,6 @@ void C3DRenderChannel::postDraw(void)
 	_drawItems.clear();
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////////
 
 const std::string RenderChannelManager::ChannelBackground = std::string( "background" );
@@ -123,9 +118,7 @@ const std::string RenderChannelManager::ChannelDebug = std::string( "debug" );
 
 const std::string RenderChannelManager::SceneBufferName = std::string( "@SceneBuffer" );
 
-
 RenderChannelManager* RenderChannelManager::_instance = NULL;
-
 
 RenderChannelManager* RenderChannelManager::getInstance()
 {
@@ -163,7 +156,6 @@ void RenderChannelManager::clear()
 {
 	SAFE_RELEASE( _frameBuffer );
 }
-
 
 C3DRenderChannel* RenderChannelManager::getRenderChannel( const std::string& name )
 {
@@ -233,13 +225,11 @@ void RenderChannelManager::draw( /*C3DScene* scene*/ )
 		//_frameBuffer->unbind();
 		//process->draw();
 
-		process->endDraw(); 
+		process->endDraw();
 		process->draw();
 	}
 	//*/
 }
-
-
 
 C3DTexture* RenderChannelManager::getSceneTexture(void)
 {
@@ -250,5 +240,4 @@ C3DTexture* RenderChannelManager::getSceneTexture(void)
 
 	return _frameBuffer->getRenderTarget()->getTexture();
 }
-
 } 

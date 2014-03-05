@@ -116,7 +116,6 @@
 		A99FAC6618BF373D00388FA7 /* MaterialParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A99FABF918BF373D00388FA7 /* MaterialParameter.cpp */; };
 		A99FAC6718BF373D00388FA7 /* MeshPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A99FABFB18BF373D00388FA7 /* MeshPart.cpp */; };
 		A99FAC6818BF373D00388FA7 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A99FABFF18BF373D00388FA7 /* RigidBody.cpp */; };
-		A99FAC7618BF376200388FA7 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A99FAC6B18BF376200388FA7 /* RigidBody.cpp */; };
 		A99FAC7A18BF376200388FA7 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A99FAC7118BF376200388FA7 /* Rectangle.cpp */; };
 		A99FAC7B18BF376200388FA7 /* StringTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A99FAC7318BF376200388FA7 /* StringTool.cpp */; };
 		A99FAC7C18BF377700388FA7 /* libcocos2dx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A99FAB2E18BF371200388FA7 /* libcocos2dx.a */; };
@@ -986,7 +985,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = U7E7529TA5;
@@ -1186,7 +1185,6 @@
 				A99FAC6618BF373D00388FA7 /* MaterialParameter.cpp in Sources */,
 				A99FAC6718BF373D00388FA7 /* MeshPart.cpp in Sources */,
 				A99FAC6818BF373D00388FA7 /* RigidBody.cpp in Sources */,
-				A99FAC7618BF376200388FA7 /* RigidBody.cpp in Sources */,
 				A99FAC7A18BF376200388FA7 /* Rectangle.cpp in Sources */,
 				A99FAC7B18BF376200388FA7 /* StringTool.cpp in Sources */,
 			);
@@ -1199,7 +1197,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1245,7 +1242,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -1289,7 +1285,6 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "iPhone Developer: 国华 侯 (569CD3CC26)";
@@ -1298,6 +1293,7 @@
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "269096E3-F020-46AA-AAE2-10B9441150FA";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
@@ -1308,7 +1304,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CODE_SIGN_IDENTITY = "iPhone Developer: 国华 侯 (569CD3CC26)";

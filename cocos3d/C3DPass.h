@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 class C3DTechnique;
 class C3DVertexDeclaration;
 class C3DEffect;
@@ -14,7 +13,7 @@ class C3DEffect;
  * Defines a pass for an model to be rendered.
  *
  * This class includes an effect and a vertexattribute declaration.This class is the direct
- * render interface,you can set all the shader values by which.  
+ * render interface,you can set all the shader values by which.
  */
 class C3DPass : public C3DRenderState
 {
@@ -40,7 +39,7 @@ public:
 	void setParamMethonAutoUniform();
 
     void unbind();
-    
+
     // get max support lights each type
     int getMaxDirLight() const { return _nMaxDirLight; }
     int getMaxPointLight() const  { return _nMaxPointLight; }
@@ -55,16 +54,16 @@ public:
 	 /**
      * load info from the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool load(C3DElementNode* node);
 
 	 /**
      * save the pass info into the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool save(C3DElementNode* node);
 
@@ -72,8 +71,8 @@ public:
 	std::string getFshPath()const{return _fshPath;}
 	std::string getDefines()const{return _defines;}
 
-private:	
-   
+private:
+
     std::string _id;
     C3DTechnique* _technique;
     C3DEffect* _effect;
@@ -82,7 +81,7 @@ private:
     std::string _vshPath;
     std::string _fshPath;
     std::string _defines;
-    
+
     //max support lights
     int _nMaxDirLight;
     int _nMaxPointLight;
@@ -91,7 +90,6 @@ private:
 
     int _nMaxShadowMap;
 };
-
 }
 
 #endif

@@ -14,7 +14,6 @@
 
 namespace cocos3d
 {
-
 class Node;
 class C3DElementNode;
 class C3DParticleSystem;
@@ -32,7 +31,6 @@ public:
 	{
 		_visible = true;
 		_frame = 0;
-
 	};
 	virtual ~C3DParticle(){};
 
@@ -46,7 +44,7 @@ public:
     float _rotationSpeed;
     float _angle;
     long _age;
-    float _size;   
+    float _size;
     bool _visible;
 	int _frame;
 	int _frameStart;
@@ -63,8 +61,8 @@ public:
 	/**
      * Constructor & Destructor
      */
-	C3DBaseParticleAction(C3DParticleSystem* system);	
-	virtual ~C3DBaseParticleAction();	
+	C3DBaseParticleAction(C3DParticleSystem* system);
+	virtual ~C3DBaseParticleAction();
 
 	/**
      * load & particle action property
@@ -76,14 +74,14 @@ public:
      * particle action, affect particle movement
      */
 	virtual void action(long elapsedTime){};
-    
+
 	/**
      * particle action clone method
      */
     virtual C3DBaseParticleAction* clone(C3DParticleSystem* system) const;
-    
+
 protected:
-    
+
 	/**
      * copy particle action
      */
@@ -93,8 +91,6 @@ public:
 	C3DParticleSystem* _system;
 	char* _name;
 };
-
-
 }
 
 #endif

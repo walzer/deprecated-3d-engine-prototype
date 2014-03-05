@@ -5,20 +5,16 @@
 
 namespace cocos3d
 {
-
-C3DMorphMesh::C3DMorphMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType) 
+C3DMorphMesh::C3DMorphMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType)
     : C3DMesh(vertexFormat,primitiveType)
 {
 	_vertexData = NULL;
 }
 
-
-
 C3DMorphMesh::~C3DMorphMesh()
 {
 	SAFE_DELETE_ARRAY(_vertexData);
 }
-
 
 C3DMorphMesh* C3DMorphMesh::createMesh(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic)
 {
@@ -53,8 +49,6 @@ C3DMorphMesh* C3DMorphMesh::createMesh(C3DVertexFormat* vertexFormat, unsigned i
     return mesh;
 }
 
-
-
 void C3DMorphMesh::setVertexData(void* vertexData, unsigned int vertexStart, unsigned int vertexCount)
 {
     GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );
@@ -71,13 +65,11 @@ void C3DMorphMesh::setVertexData(void* vertexData, unsigned int vertexStart, uns
         }
 
         GL_ASSERT( glBufferSubData(GL_ARRAY_BUFFER, vertexStart * _vertexFormat->getVertexSize(), vertexCount * _vertexFormat->getVertexSize(), vertexData) );
-    }	
+    }
 
 	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
 
-	
 	setMorphVertexData(vertexData);
-
 }
 
 void C3DMorphMesh::setMorphVertexData(void* vertexData)
@@ -92,7 +84,7 @@ void C3DMorphMesh::clearMorph(C3DMorph* morph)
 	if(_vertexData == NULL)
 		return;
 
-	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );  
+	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );
 
     GL_ASSERT( glBufferSubData(GL_ARRAY_BUFFER, 0, _vertexCount * _vertexFormat->getVertexSize(), _vertexData) );
 	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
@@ -102,8 +94,8 @@ void C3DMorphMesh::clearMorph(C3DMorph* morph)
 void C3DMorphMesh::applyMorph(C3DMorph* morph)
 {
 	if(_vertexData == NULL)
-		return;	
-	
+		return;
+
 	int vertexByteCount = _vertexCount*_vertexFormat->getVertexSize();
 	unsigned char* vertexData = new unsigned char[vertexByteCount];
 	memcpy(vertexData,_vertexData,vertexByteCount);
@@ -134,7 +126,7 @@ void C3DMorphMesh::applyMorph(C3DMorph* morph)
 		}
 	}
 
-	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );  
+	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );
 
 	GL_ASSERT( glBufferSubData(GL_ARRAY_BUFFER, 0, _vertexCount * _vertexFormat->getVertexSize(), vertexData) );
 	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
@@ -142,27 +134,23 @@ void C3DMorphMesh::applyMorph(C3DMorph* morph)
 }
 
 void C3DMorphMesh::pushMorph(C3DMorph* morph,int morphTargetIndex,float weight)
-{		
-
+{
 	bool res = morph->pushTarget(morphTargetIndex);
 	if(res==false)
 		return;
 
 	MorphTarget* morphTarget = morph->getMorphTarget(morphTargetIndex);
 	morphTarget->weight = weight;
-	applyMorph(morph);	
-   
+	applyMorph(morph);
 }
 
 void C3DMorphMesh::popMorph(C3DMorph* morph,int morphTargetIndex)
-{		
-
+{
 	bool res = morph->popTarget(morphTargetIndex);
 	if(res==false)
 		return;
 
-	applyMorph(morph);	
-   
+	applyMorph(morph);
 }
 
 void C3DMorphMesh::changeMorph(C3DMorph* morph,int morphTargetIndex,float weight)
@@ -172,6 +160,4 @@ void C3DMorphMesh::changeMorph(C3DMorph* morph,int morphTargetIndex,float weight
 
 	applyMorph(morph);
 }
-   
-
 }

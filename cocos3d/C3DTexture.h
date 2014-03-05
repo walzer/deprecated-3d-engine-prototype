@@ -10,11 +10,9 @@ namespace cocos2d {
 
 namespace cocos3d
 {
-    
-    
-    
+
     class Image;
-    
+
     /**
      * Represents a texture.
 	 It wraps the cocos2d::ccTexture
@@ -22,9 +20,9 @@ namespace cocos3d
     class C3DTexture : public cocos2d::CCObject
     {
         friend class C3DSampler;
-        
+
     public:
-        
+
         /**
          * Defines the set of supported texture formats.
          */
@@ -41,8 +39,7 @@ namespace cocos3d
             COMPRESSED_RGBA_PVRTC_2BPP = GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG
 #endif
         };
-        
-        
+
         /**
          * Creates a texture from the given image resource.
          *
@@ -54,17 +51,17 @@ namespace cocos3d
         static C3DTexture* create(const std::string& path, bool generateMipmaps = false);
         static C3DTexture* create(int width, int height, Format fmt, bool generateMipmaps = false);
 		static C3DTexture* create(int width, int height, Format fmt, const void* data, bool generateMipmaps = false);
-        
+
         /**
          * Returns the texture width.
          */
         unsigned int getWidth() const;
-        
+
         /**
          * Returns the texture height.
          */
         unsigned int getHeight() const;
-        
+
         /**
          * Sets the wrap mode for this texture.
          *
@@ -72,7 +69,7 @@ namespace cocos3d
          * @param wrapT Vertical wrapping mode for the texture.
          */
         void setWrapMode(Texture_Wrap wrapS, Texture_Wrap wrapT);
-        
+
         /**
          * Sets the minification and magnification filter modes for this texture.
          *
@@ -80,52 +77,52 @@ namespace cocos3d
          * @param magnificationFilter New texture magnification filter.
          */
         void setFilterMode(Texture_Filter minificationFilter, Texture_Filter magnificationFilter);
-        
+
         /**
          * Generates a full mipmap chain for this texture if it isn't already mipmapped.
          */
         void generateMipmaps();
-        
+
         /**
          * Determines if this texture currently contains a full mipmap chain.
          *
          * @return True if this texture is currently mipmapped, false otherwise.
          */
         bool isMipmapped() const;
-        
+
         /**
          * Returns the texture handle.
          *
          * @return The texture handle.
          */
         GLuint getHandle() const;
-        
+
 		/**
          * get texture path
          */
         const std::string& getPath() const { return _path; };
-        
+
     private:
-        
+
         /**
          * Constructor.
          */
         C3DTexture();
-        
+
         /**
          * Copy constructor.
          */
         C3DTexture(const C3DTexture& copy);
-        
+
         /**
          * Destructor.
          */
         virtual ~C3DTexture();
-        
+
 #ifdef USE_PVRTC
         static C3DTexture* createCompressedPVRTC(const std::string& path);
 #endif
-        
+
 		//properties
         std::string _path;
         GLuint _handle;
@@ -135,7 +132,6 @@ namespace cocos3d
 
         cocos2d::CCTexture2D * _texture;
     };
-    
 }
 
 #endif

@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DMaterial;
 class C3DRenderChannel;
 
@@ -28,7 +27,7 @@ public:
 	C3DTechnique();
 
 	C3DTechnique(const std::string& id, C3DMaterial* material);
-	
+
     ~C3DTechnique();
 
     const std::string& getId() const;
@@ -46,31 +45,28 @@ public:
 	 /**
      * load info from the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool load(C3DElementNode* node);
 
 	 /**
      * save the technique info into the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool save(C3DElementNode* node);
 
 private:
 
-
-
     std::string _id;
     C3DMaterial* _material;
     std::vector<C3DPass*> _passes;
-	
+
 	std::string _renderChannelName;
 	//C3DRenderChannel* _renderChannel;
 };
-
 }
 
 #endif

@@ -2,7 +2,6 @@
 #define MESHPART_H_
 #include "EnumDef_GL.h"
 
-
 namespace cocos3d
 {
 class C3DMesh;
@@ -21,42 +20,34 @@ class MeshPart
 
 public:
 
-
     ~MeshPart();
-
 
     unsigned int getMeshIndex() const;
 
-
     PrimitiveType getPrimitiveType() const;
 
-
     unsigned int getIndexCount() const;
-    
+
     inline unsigned int getTriangleCount() const
     {
         if (_primitiveType == PrimitiveType_TRIANGLES)
             return _indexCount / 3;
-        
+
         if (_primitiveType == PrimitiveType_TRIANGLE_STRIP)
             return _indexCount - 2;
-        
+
         return 0;
     }
 
- 
    IndexFormat getIndexFormat() const;
 
-
     IndexBufferHandle getIndexBuffer() const;
-
 
     bool isDynamic() const;//Determines if the indices are dynamic.
 
     void setIndexData(void* indexData, unsigned int indexStart, unsigned int indexCount);
 
 private:
-
 
     MeshPart();
 
@@ -70,7 +61,6 @@ private:
     IndexBufferHandle _indexBuffer;
     bool _dynamic;
 };
-
 }
 
 #endif

@@ -8,10 +8,8 @@
 
 namespace cocos3d
 {
-
 void skipWhiteSpace(C3DStream* stream);
 char* trimWhiteSpace(char* str);
-
 
 void skipWhiteSpace(C3DStream* stream)
 {
@@ -30,7 +28,7 @@ void skipWhiteSpace(C3DStream* stream)
         {
             WARN("Failed to seek backwards one character after skipping whitespace.");
         }
-	}       
+	}
 }
 
 char* trimWhiteSpace(char *str)
@@ -47,7 +45,7 @@ char* trimWhiteSpace(char *str)
         str++;
 
     // All spaces?
-    if (*str == 0)  
+    if (*str == 0)
     {
         return str;
     }
@@ -67,7 +65,6 @@ C3DElementNode::C3DElementNode()
 {
 }
 
-
 C3DElementNode::C3DElementNode(C3DStream* stream)
 {
     read(stream);
@@ -85,7 +82,6 @@ C3DElementNode::C3DElementNode(C3DStream* stream, const std::string& name, const
     rewind();
 }
 
-
 void C3DElementNode::readContents(C3DStream* stream, char* name, char* id)
 {
 	if (name)
@@ -99,9 +95,9 @@ void C3DElementNode::readContents(C3DStream* stream, char* name, char* id)
     }
 
     char line[2048];
-    char c;   
-    char* value;   
-    char* rc;    
+    char c;
+    char* value;
+    char* rc;
 
     while (true)
     {
@@ -125,8 +121,7 @@ void C3DElementNode::readContents(C3DStream* stream, char* name, char* id)
 			//delete line;
 			continue;
 		}
-        
-    
+
         // If an '=' appears on this line, parse it as a name/value pair.
         // Note: strchr() has to be called before strtok(), or a backup of line has to be kept.
         rc = strchr(line, '=');
@@ -166,15 +161,13 @@ void C3DElementNode::readContents(C3DStream* stream, char* name, char* id)
             }
         }
         else
-        {           
-
+        {
             // This line might begin or end a namespace,
             // or it might be a key/value pair without '='.
 
             // Check for '{' on same line.
             rc = strchr(line, '{');
 
-            
             // Get the name of the namespace.
             name = strtok(line, " \t\n{");
             name = trimWhiteSpace(name);
@@ -193,7 +186,6 @@ void C3DElementNode::readContents(C3DStream* stream, char* name, char* id)
             // Get its ID if it has one.
             value = strtok(NULL, "{");
             value = trimWhiteSpace(value);
-            
 
             if (value != NULL && value[0] == '{')
             {
@@ -225,12 +217,12 @@ void C3DElementNode::readContents(C3DStream* stream, char* name, char* id)
                     }
                     else
                     {
-                        // Back up from fgetc()                      
+                        // Back up from fgetc()
 						if(stream->seek(-1,SEEK_CUR) == false)
 						{
 							//delete line;
 							WARN("Failed to seek backwards a single character");
-						
+
 							return;
 						}
 
@@ -239,12 +231,11 @@ void C3DElementNode::readContents(C3DStream* stream, char* name, char* id)
                     }
                 }
             }
-        }    
+        }
     }
     rewind();
 	//delete line;
 }
-
 
 C3DElementNode* C3DElementNode::create(const std::string& fileName)
 {
@@ -254,8 +245,8 @@ C3DElementNode* C3DElementNode::create(const std::string& fileName)
     {
         WARN("Attempting to create a Properties object from an empty URL!");
         return NULL;
-    }  
-      
+    }
+
 	C3DStream* stream = C3DStreamManager::openStream(fileName, "rb");
     if (!stream)
     {
@@ -264,7 +255,7 @@ C3DElementNode* C3DElementNode::create(const std::string& fileName)
     }
 
     C3DElementNode* properties = new C3DElementNode(stream);
-	
+
     SAFE_DELETE(stream);
     return properties;
 }
@@ -272,10 +263,10 @@ C3DElementNode* C3DElementNode::create(const std::string& fileName)
 void C3DElementNode::readFlag(C3DStream* stream)
 {
 	char line[2048];
-   
+
     char* name;
-    char* value;   
-    char* rc;    
+    char* value;
+    char* rc;
 
     while (true)
     {
@@ -285,8 +276,8 @@ void C3DElementNode::readFlag(C3DStream* stream)
         if (stream->eof())
             break;
 
-        // Read the next line.    
-		
+        // Read the next line.
+
 		 rc = stream->readLine(2048,line);
         if (rc == NULL)
         {
@@ -300,8 +291,7 @@ void C3DElementNode::readFlag(C3DStream* stream)
 			//delete line;
 			continue;
 		}
-        
-    
+
         // If an '=' appears on this line, parse it as a name/value pair.
         // Note: strchr() has to be called before strtok(), or a backup of line has to be kept.
         rc = strchr(line, '=');
@@ -342,15 +332,13 @@ void C3DElementNode::readFlag(C3DStream* stream)
             }
         }
         else
-        {           
-
+        {
             // This line might begin or end a namespace,
             // or it might be a key/value pair without '='.
 
             // Check for '{' on same line.
-            rc = strchr(line, '<');
+            strchr(line, '<');
 
-            
             // Get the name of the namespace.
             name = strtok(line, " \t\n<");
             name = trimWhiteSpace(name);
@@ -365,13 +353,10 @@ void C3DElementNode::readFlag(C3DStream* stream)
 				//delete line;
                 // End of namespace.
                 return;
-            }          
-
-
-        }    
+            }
+        }
     }
 	//delete line;
-
 }
 
 void C3DElementNode::read(C3DStream* stream)
@@ -379,8 +364,8 @@ void C3DElementNode::read(C3DStream* stream)
     char line[2048];
     char c;
     char* name;
-    char* value;   
-    char* rc;    
+    char* value;
+    char* rc;
 
     while (true)
     {
@@ -389,13 +374,12 @@ void C3DElementNode::read(C3DStream* stream)
         // Stop when we have reached the end of the file.
 		if (stream->eof())
 		{
-			
 			//SAFE_DELETE_ARRAY(line);
             break;
 		}
 
         // Read the next line.
-		 rc = stream->readLine(2048,line);    
+		 rc = stream->readLine(2048,line);
         if (rc == NULL)
         {
 			//SAFE_DELETE_ARRAY(line);
@@ -408,8 +392,7 @@ void C3DElementNode::read(C3DStream* stream)
 			//SAFE_DELETE_ARRAY(line);
 			continue;
 		}
-        
-    
+
         // If an '=' appears on this line, parse it as a name/value pair.
         // Note: strchr() has to be called before strtok(), or a backup of line has to be kept.
         rc = strchr(line, '=');
@@ -430,7 +413,7 @@ void C3DElementNode::read(C3DStream* stream)
             // Scan for next token, the property's value.
             value = strtok(NULL, "=");
             if (value == NULL)
-            {		
+            {
 				//SAFE_DELETE_ARRAY(line);
                 LOG_ERROR("Error parsing properties file: name without value.");
 				return;
@@ -450,15 +433,13 @@ void C3DElementNode::read(C3DStream* stream)
             }
         }
         else
-        {           
-
+        {
             // This line might begin or end a namespace,
             // or it might be a key/value pair without '='.
 
             // Check for '{' on same line.
             rc = strchr(line, '{');
 
-            
             // Get the name of the namespace.
             name = strtok(line, " \t\n{");
             name = trimWhiteSpace(name);
@@ -478,7 +459,6 @@ void C3DElementNode::read(C3DStream* stream)
             // Get its ID if it has one.
             value = strtok(NULL, "{");
             value = trimWhiteSpace(value);
-            
 
             if (value != NULL && value[0] == '{')
             {
@@ -511,7 +491,7 @@ void C3DElementNode::read(C3DStream* stream)
 
 						stream->read(&c);
 						space->readContents(stream, name, value);
-						
+
                         _childs.push_back(space);
 					}
                     else if (c == '{')
@@ -542,7 +522,7 @@ void C3DElementNode::read(C3DStream* stream)
                     }
                 }
             }
-        }    
+        }
     }
 
 	//SAFE_DELETE_ARRAY(line);
@@ -629,7 +609,7 @@ C3DElementNode* C3DElementNode::getChild(const std::string& chileName) const
 {
     C3DElementNode* ret = NULL;
     std::vector<C3DElementNode*>::const_iterator it;
-    
+
     for (it = _childs.begin(); it < _childs.end(); it++)
     {
         ret = *it;
@@ -637,7 +617,7 @@ C3DElementNode* C3DElementNode::getChild(const std::string& chileName) const
         {
             return ret;
         }
-        
+
         // Search recursively.
         ret = ret->getChild(chileName);
         if (ret != NULL)
@@ -703,7 +683,7 @@ C3DElementNode::ElementType C3DElementNode::getElementType(const std::string& el
     unsigned int commaCount = 1;
     //unsigned int length = strlen(value);
     const char* valuePtr = val.c_str();
-    while (valuePtr = strchr(valuePtr, ','))
+    while ((valuePtr = strchr(valuePtr, ',')))
     {
         valuePtr++;
         commaCount++;
@@ -866,7 +846,6 @@ float C3DElementNode::getElement(const std::string& name, float* out) const
     return 0.0f;
 }
 
-
 bool C3DElementNode::getElement(const std::string& name, C3DMatrix* out) const
 {
     assert(out);
@@ -915,7 +894,7 @@ bool C3DElementNode::getElement(const std::string& name, C3DVector2* out) const
         out->set(x, y);
         return true;
     }
-    
+
     out->set(0.0f, 0.0f);
     return false;
 }
@@ -940,7 +919,7 @@ bool C3DElementNode::getElement(const std::string& name, C3DVector3* out) const
         out->set(x, y, z);
         return true;
     }
-    
+
     out->set(0.0f, 0.0f, 0.0f);
     return false;
 }
@@ -965,7 +944,7 @@ bool C3DElementNode::getElement(const std::string& name, C3DVector4* out) const
         out->set(x, y, z, w);
         return true;
     }
-    
+
     out->set(0.0f, 0.0f, 0.0f, 0.0f);
     return false;
 }
@@ -990,12 +969,12 @@ bool C3DElementNode::getElement(const std::string& name, C3DQuaternion* out) con
         out->set(C3DVector3(x, y, z), MATH_DEG_TO_RAD(theta));
         return true;
     }
-    
+
     out->set(0.0f, 0.0f, 0.0f, 1.0f);
     return false;
 }
 */
-    
+
 bool C3DElementNode::writeToFile(const std::string& fileName)
 {
     if (fileName.empty())
@@ -1003,16 +982,16 @@ bool C3DElementNode::writeToFile(const std::string& fileName)
         WARN("Attempting to write a Properties object to an empty URL!");
         return false;
     }
-    
+
 	C3DStream* stream = C3DStreamManager::openStream(fileName, "wb", C3DStreamManager::StreamType_File);
     if (!stream)
     {
 		WARN("Failed to open file");
         return false;
     }
-    
+
     write(stream, "");
-    
+
     SAFE_DELETE(stream);
 
     /***
@@ -1023,23 +1002,21 @@ bool C3DElementNode::writeToFile(const std::string& fileName)
     C3DMemoryStream* pMemFile = C3DMemoryStream::create(buf, len);
     write(pMemFile, "");
     ****/
-    
-    return true;
 
+    return true;
 }
 
 void C3DElementNode::write(C3DStream* stream, const std::string& indent)
 {
-    
     assert(stream);
-    
+
     std::string nextIdent = indent;
     if (!_nodeType.empty())
     {
         nextIdent += "\t";
         // write header
         stream->write(indent + _nodeType + " " + _nodeName + "\n");
-    
+
         // write flags
         if (!_flags.empty())
         {
@@ -1050,24 +1027,24 @@ void C3DElementNode::write(C3DStream* stream, const std::string& indent)
             }
             stream->write(indent + ">\n");
         }
-        
+
         // write elements
         stream->write(indent + "{\n");
         for (size_t i = 0; i < _elements.size(); ++i)
         {
             stream->write(nextIdent + _elements[i].key + " = " + _elements[i].value + "\n");
         }
-        
+
         if (!_childs.empty())
             stream->write('\n');
     }
-    
+
     // write children
     for (size_t i = 0; i < _childs.size(); ++i)
     {
         _childs[i]->write(stream, nextIdent);
     }
-    
+
     if (!_nodeType.empty())
     {
         stream->write(indent + "}\n\n");
@@ -1093,6 +1070,4 @@ int C3DElementNode::getElementCount() const
 {
     return (int)_elements.size();
 }
-
-
 }

@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 class C3DAABB;
 class C3DPlane;
 class C3DOBB;
@@ -50,17 +49,17 @@ public:
      * Gets the ray's origin.
      */
     const C3DVector3& getOrigin() const;
-	
+
 	/**
      * Sets the ray's origin.
      */
     void setOrigin(const C3DVector3& origin);
-	
+
 	/**
      * Gets the ray's direction.
      */
     const C3DVector3& getDirection() const;
-	
+
 	/**
      * sets the ray's direction.
      */
@@ -70,7 +69,7 @@ public:
      * Check whether this ray intersects the specified bounding box.
      */
     bool intersects(const C3DAABB* box) const;
-    
+
 	/**
      * Check whether this ray intersects the specified obb.
      */
@@ -84,7 +83,7 @@ public:
  //    * from the origin of the ray to the plane.
  //    *
  //    * @param plane The plane to test intersection with.
- //    * 
+ //    *
  //    * @return The distance from the origin of this ray to the plane or
  //    *     INTERSECTS_NONE if this ray does not intersect the plane.
  //    */
@@ -112,7 +111,7 @@ public:
      * @param direction The ray's direction.
      */
     void set(const C3DVector3& origin, const C3DVector3& direction);
-	
+
 	 /**
      * Sets this ray to the given ray.
      *
@@ -129,7 +128,7 @@ public:
 
     /**
      * Transforms this ray by the given matrix.
-     * 
+     *
      * @param matrix The matrix to transform by.
      * @return This ray, after the transformation occurs.
      */
@@ -145,32 +144,28 @@ private:
     C3DVector3 _origin;        // The ray origin position.
     C3DVector3 _direction;     // The ray direction vector.
 };
-    
+
 inline C3DRay& C3DRay::operator*=(const C3DMatrix& matrix)
 {
     transform(matrix);
     return *this;
 }
-    
-
 
 /**
  * Transforms the given ray by the given matrix.
- * 
+ *
  * @param matrix The matrix to transform by.
  * @param ray The ray to transform.
  * @return The resulting transformed ray.
  */
 inline const C3DRay operator*(const C3DMatrix& matrix, const C3DRay& ray);
-    
+
     inline const C3DRay operator*(const C3DMatrix& matrix, const C3DRay& ray)
     {
         C3DRay r(ray);
         r.transform(matrix);
         return r;
     }
-
 }
-
 
 #endif

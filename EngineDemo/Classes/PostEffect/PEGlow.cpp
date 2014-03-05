@@ -15,8 +15,6 @@
 
 namespace cocos3d
 {
-    
-
 PEGlow::PEGlow(C3DPostProcess* postProcess, const std::string& name)
 	: C3DPostEffect(postProcess, name)
 	, _blurFrameBufferX(NULL)
@@ -26,7 +24,6 @@ PEGlow::PEGlow(C3DPostProcess* postProcess, const std::string& name)
 	, _densityScale(1.0f)
 	, _glowIntensity( 1.0 )
 {
-
 }
 
 C3DPostEffect* PEGlow::create( const std::string& name, const std::string& materialName, C3DPostProcess* postProcess )
@@ -53,7 +50,6 @@ bool PEGlow::init(const std::string& szMaterial)
 bool PEGlow::initGlowaram()
 {
 	unsigned int fmtColor = C3DTexture::RGBA;
-	unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
 
 	_blurFrameBufferX = C3DFrameBuffer::create("glow_postprocess_blurX", _postProcess->getFBWidth()*0.5, _postProcess->getFBHeight()*0.5, fmtColor/*, fmtDepth*/);
 	_blurFrameBufferY = C3DFrameBuffer::create("glow_postprocess_blurY", _postProcess->getFBWidth()*0.5, _postProcess->getFBHeight()*0.5, fmtColor/*, fmtDepth*/);
@@ -62,17 +58,17 @@ bool PEGlow::initGlowaram()
 	{
 		return  false;
 	}
-	
+
 	_blurFrameBufferX->retain();
 	_blurFrameBufferY->retain();
 
 	C3DSampler* sampler = _postProcess->getFramebufferSampler();
 	sampler->setFilterMode(Texture_Filter_NEAREST, Texture_Filter_NEAREST);
 	sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
-	C3DPass* pass0 = _material->getTechnique(0u)->getPass(0u);
+
 	C3DPass* pass1 = _material->getTechnique(1u)->getPass(0u);
 	C3DPass* pass2 = _material->getTechnique(2u)->getPass(0u);
-	
+
 	//pass0->getParameter("u_texture")->setValue(sampler);
 	pass2->getParameter("u_texture")->setValue(sampler);
 
@@ -94,20 +90,20 @@ bool PEGlow::initGlowaram()
 	return true;
 }
 
-void PEGlow::setTintColor(const C3DVector4& color) 
-{ 
-	_tintColor = color; 
+void PEGlow::setTintColor(const C3DVector4& color)
+{
+	_tintColor = color;
 
 	if (_material)
-	{	
+	{
 		C3DPass* pass2 = _material->getTechnique(2u)->getPass(0u);
 		pass2->getParameter("u_tintColor")->setValue(_tintColor);
 	}
 }
 
-void PEGlow::setDensityScale(float density) 
-{ 
-	_densityScale = density; 
+void PEGlow::setDensityScale(float density)
+{
+	_densityScale = density;
 	if (_material)
 	{
 		C3DPass* pass0 = _material->getTechnique(0u)->getPass(0u);
@@ -123,13 +119,12 @@ void PEGlow::setDensityScale(float density)
 	}
 }
 
-
 void PEGlow::setGlowIntensity( float f )
 {
 	_glowIntensity = f;
-	
+
 	if (_material)
-	{	
+	{
 		C3DPass* pass2 = _material->getTechnique(2u)->getPass(0u);
 		pass2->getParameter("u_glowIntensity")->setValue(_glowIntensity);
 	}
@@ -141,7 +136,7 @@ PEGlow::~PEGlow()
 	SAFE_RELEASE(_blurFrameBufferY);
 	SAFE_RELEASE(_glowFrameBuffer);
 }
-	
+
 void PEGlow::draw()
 {
 	if (_material == NULL)
@@ -168,12 +163,7 @@ void PEGlow::draw()
 	_model->draw();
 	_blurFrameBufferY->unbind();
 
-
 	_material->setTechnique(C3DMaterial::TECH_USAGE_SCREEN, 2u);
 	_model->draw();
-
-
-}   
-
-
+}
 }

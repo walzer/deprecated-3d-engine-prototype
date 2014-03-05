@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 class C3DVertexFormat;
 class MeshPart;
 class C3DAABB;
@@ -29,23 +28,23 @@ public:
 	@param dynamic dynamic increase the vertex number or not
 	*/
     static  C3DMesh* createMesh(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic = false);
-   
+
     const std::string& getUrl() const;
-			
+
     unsigned int getVertexCount() const;
-		
+
     VertexBufferHandle getVertexBuffer() const;
 
     bool isDynamic() const;
-	
+
     virtual void setVertexData(void* vertexData, unsigned int vertexStart = 0, unsigned int vertexCount = 0);
-	
+
     MeshPart* addPart(PrimitiveType primitiveType, IndexFormat indexFormat, unsigned int indexCount, bool dynamic = false);
-	
+
     unsigned int getPartCount() const;
 
     MeshPart* getPart(unsigned int index);
-	
+
     virtual unsigned int getTriangleCount() const;
 
     virtual ~C3DMesh();
@@ -55,18 +54,16 @@ public:
 protected:
 	C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);
 
-protected:    
+protected:
 
-    std::string _url;  
+    std::string _url;
     unsigned int _vertexCount;
-    VertexBufferHandle _vertexBuffer;   
+    VertexBufferHandle _vertexBuffer;
     unsigned int _partCount;
     MeshPart** _parts;
-    bool _dynamic;	
+    bool _dynamic;
 	C3DAABB* _boundingBox;
-
 };
-
 }
 
 #endif

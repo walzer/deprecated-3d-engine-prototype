@@ -43,12 +43,10 @@ static const char* colorTypes[COLOR_NUM] =
 
 ColorTestLayer::ColorTestLayer()
 {
-
 }
 
 ColorTestLayer::~ColorTestLayer()
 {
-
 }
 
 bool ColorTestLayer::init()
@@ -57,7 +55,7 @@ bool ColorTestLayer::init()
 
     setUpCamera();
     setUpLight();
-    setUpScene();   
+    setUpScene();
 
     return r;
 }
@@ -85,14 +83,13 @@ void ColorTestLayer::setUpScene()
     C3DSprite* sm = C3DSprite::create("hua");
 
     sm->loadFromFile("demores/hua_01/hua_01.ckb", true);
-    sm->addAnimationClip("all", 0 , 240, 0, 1.0f);			
+    sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
     sm->setMaterial("body", "demores/hua_01/hua_01.material");
     sm->playAnimationClip("all");
     sm->setPosition(0.0f, -50, -30.0f);
     sm->setScale(3.0f);
 
     _scene->addChild(sm);
-
 }
 
 void ColorTestLayer::setUpCamera()
@@ -106,8 +103,6 @@ void ColorTestLayer::setUpCamera()
 
 void ColorTestLayer::setUpLight()
 {
-
-
 }
 
 void ColorTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
@@ -131,17 +126,15 @@ void ColorTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsig
     case TouchEvent_MOVE:
         {
             int deltaX = x - _touchX;
+            
             _touchX = x;
-
-            int deltaY = y - _touchY;
             _touchY = y;
 
-            {				
+            {
                 C3DCamera* camera = _scene->getActiveCamera();
                 if (camera)
                     camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-
-            }	
+            }
         }
         break;
     default:
@@ -155,12 +148,11 @@ void ColorTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
-    }    
 
+        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
+    }
 }
 
 void ColorTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -171,12 +163,9 @@ void ColorTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y , pTouch->getID());
-
-
     }
-
 }
 
 void ColorTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
@@ -187,15 +176,13 @@ void ColorTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x, touchPoint.y, pTouch->getID());
     }
-
 }
 
 void ColorTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
 {
-
 }
 
 void ColorTestLayer::menuCallback( CCObject * pSender )
@@ -204,7 +191,6 @@ void ColorTestLayer::menuCallback( CCObject * pSender )
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSender);
     int nIdx = pMenuItem->getZOrder() - 10000;
 
-    TestLayer* layer = NULL;
 
     C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("hua");
 
@@ -238,14 +224,13 @@ CCLayer* ColorTestLayer::createUILayer()
 
     CCMenu* pItemMenu = CCMenu::create();
 
-
     for (int i = 0; i < COLOR_NUM; ++i)
     {
         // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
         //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
         // #else
         CCLabelTTF* label = CCLabelTTF::create(colorTypes[i], "Arial", 20);
-        // #endif        
+        // #endif
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(ColorTestLayer::menuCallback));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
@@ -255,7 +240,6 @@ CCLayer* ColorTestLayer::createUILayer()
     //pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (MATERIAL_NUM + 1) * (40)));
     pItemMenu->setPosition(0, 0);
     layer->addChild(pItemMenu, 1000);
-
 
     return layer;
 }

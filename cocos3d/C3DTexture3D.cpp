@@ -7,15 +7,13 @@
 #include "support/ccUtils.h"
 #include "platform/CCImage.h"
 
-
 using namespace std;
 using namespace cocos2d;
 
 namespace cocos3d
 {
-    
     static std::vector<C3DTexture3D*> __textureCache;
-    
+
     C3DTexture3D::C3DTexture3D() : _handle(0)
     {
 		for (int i = 0; i < 6; i++)
@@ -23,7 +21,7 @@ namespace cocos3d
 			_image[i] = NULL;
 		}
     }
-    
+
     C3DTexture3D::~C3DTexture3D()
     {
         std::vector<C3DTexture3D*>::iterator itr = std::find(__textureCache.begin(), __textureCache.end(), this);
@@ -31,7 +29,7 @@ namespace cocos3d
         {
             __textureCache.erase(itr);
         }
-        
+
 		for (int i = 0; i < 6; i++)
 		{
 			CC_SAFE_RELEASE(_image[i]);
@@ -40,7 +38,7 @@ namespace cocos3d
 		if (_handle)
 		{
 			glDeleteTextures(1, &_handle);
-			_handle = NULL;
+			_handle = 0;
 		}
     }
 
@@ -99,8 +97,7 @@ namespace cocos3d
 		unsigned char*            inPixel8 = NULL;
 		unsigned short*           outPixel16 = NULL;
 		bool                      hasAlpha = image->hasAlpha();
-		CCSize                    imageSize = CCSizeMake((float)(image->getWidth()), (float)(image->getHeight()));
-		
+
 		size_t                    bpp = image->getBitsPerComponent();
 
 		int width = image->getWidth();
@@ -116,11 +113,10 @@ namespace cocos3d
 			{
 				pixelFormat = kCCTexture2DPixelFormat_RGB888;
 			}
-			else 
+			else
 			{
 				pixelFormat = kCCTexture2DPixelFormat_RGB565;
 			}
-
 		}
 
 		// Repack the pixel data into the right format
@@ -138,15 +134,15 @@ namespace cocos3d
 
 				for(unsigned int i = 0; i < length; ++i, ++inPixel32)
 				{
-					*outPixel16++ = 
+					*outPixel16++ =
 						((((*inPixel32 >>  0) & 0xFF) >> 3) << 11) |  // R
 						((((*inPixel32 >>  8) & 0xFF) >> 2) << 5)  |  // G
 						((((*inPixel32 >> 16) & 0xFF) >> 3) << 0);    // B
 				}
 			}
-			else 
+			else
 			{
-				// Convert "RRRRRRRRRGGGGGGGGBBBBBBBB" to "RRRRRGGGGGGBBBBB"
+				// Convert "RRRRRRRRGGGGGGGGBBBBBBBB" to "RRRRRGGGGGGBBBBB"
 
 				tempData = new unsigned char[width * height * 2];
 				outPixel16 = (unsigned short*)tempData;
@@ -154,24 +150,28 @@ namespace cocos3d
 
 				for(unsigned int i = 0; i < length; ++i)
 				{
-					*outPixel16++ = 
-						(((*inPixel8++ & 0xFF) >> 3) << 11) |  // R
-						(((*inPixel8++ & 0xFF) >> 2) << 5)  |  // G
-						(((*inPixel8++ & 0xFF) >> 3) << 0);    // B
+                    unsigned char R = *inPixel8++;
+                    unsigned char G = *inPixel8++;
+                    unsigned char B = *inPixel8++;
+                    
+					*outPixel16++ =
+						(( R >> 3) << 11) |  // R
+						(( G >> 2) << 5)  |  // G
+						(( B >> 3) << 0);    // B
 				}
-			}    
+			}
 		}
 		else if (pixelFormat == kCCTexture2DPixelFormat_RGBA4444)
 		{
 			// Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRGGGGBBBBAAAA"
 
-			inPixel32 = (unsigned int*)image->getData();  
+			inPixel32 = (unsigned int*)image->getData();
 			tempData = new unsigned char[width * height * 2];
 			outPixel16 = (unsigned short*)tempData;
 
 			for(unsigned int i = 0; i < length; ++i, ++inPixel32)
 			{
-				*outPixel16++ = 
+				*outPixel16++ =
 					((((*inPixel32 >> 0) & 0xFF) >> 4) << 12) | // R
 					((((*inPixel32 >> 8) & 0xFF) >> 4) <<  8) | // G
 					((((*inPixel32 >> 16) & 0xFF) >> 4) << 4) | // B
@@ -181,13 +181,13 @@ namespace cocos3d
 		else if (pixelFormat == kCCTexture2DPixelFormat_RGB5A1)
 		{
 			// Convert "RRRRRRRRRGGGGGGGGBBBBBBBBAAAAAAAA" to "RRRRRGGGGGBBBBBA"
-			inPixel32 = (unsigned int*)image->getData();   
+			inPixel32 = (unsigned int*)image->getData();
 			tempData = new unsigned char[width * height * 2];
 			outPixel16 = (unsigned short*)tempData;
 
 			for(unsigned int i = 0; i < length; ++i, ++inPixel32)
 			{
-				*outPixel16++ = 
+				*outPixel16++ =
 					((((*inPixel32 >> 0) & 0xFF) >> 3) << 11) | // R
 					((((*inPixel32 >> 8) & 0xFF) >> 3) <<  6) | // G
 					((((*inPixel32 >> 16) & 0xFF) >> 3) << 1) | // B
@@ -239,10 +239,10 @@ namespace cocos3d
 
         glGenTextures(1, &texture->_handle);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, texture->_handle);
-		
+
 		for (int i=0; i<6; i++) {
 			CCImage* image = texture->_image[i];
-			
+
 			CCTexture2DPixelFormat    pixelFormat;
 			unsigned char* data = getImageData(image, pixelFormat);
 			if (pixelFormat == kCCTexture2DPixelFormat_RGBA8888)
@@ -269,19 +269,14 @@ namespace cocos3d
 			}
 			if (data != image->getData())
                 delete[] data;
-            
 		}
-		
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER,  
-                        GL_LINEAR);  
-		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER,  
-                        GL_LINEAR);  
-        
-		
+
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER,
+                        GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER,
+                        GL_LINEAR);
+
 		return texture;
 	}
-    
-    
-    
-    
+
 }

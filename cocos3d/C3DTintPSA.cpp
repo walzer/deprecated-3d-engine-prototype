@@ -7,17 +7,14 @@
 
 namespace cocos3d
 {
-
-C3DTintPSA::C3DTintPSA(C3DParticleSystem* system) :   
-     C3DBaseParticleAction(system),_period( 1.0f )  
+C3DTintPSA::C3DTintPSA(C3DParticleSystem* system) :
+     C3DBaseParticleAction(system),_period( 1.0f )
 {
-   
 }
 
 C3DTintPSA::~C3DTintPSA()
-{   
+{
 	this->clearAllTints();
-   
 }
 
 void C3DTintPSA::save(C3DElementNode* tintPSANode)
@@ -27,7 +24,7 @@ void C3DTintPSA::save(C3DElementNode* tintPSANode)
 	C3DBaseParticleAction::save(tintPSANode);
 
 	tintPSANode->setElement("period",&_period);
-	
+
 	C3DElementNode* node = C3DElementNode::createEmptyNode("Tints", "Tints");
 	tintPSANode->addChildNode(node);
 
@@ -43,7 +40,7 @@ void C3DTintPSA::save(C3DElementNode* tintPSANode)
 void C3DTintPSA::load(C3DElementNode* tintPSANode)
 {
 	C3DBaseParticleAction::load(tintPSANode);
-	
+
 	_period = tintPSANode->getElement("period",&_period);
 
 	C3DElementNode* tintNodes = tintPSANode->getNextChild();
@@ -53,24 +50,20 @@ void C3DTintPSA::load(C3DElementNode* tintPSANode)
         return ;
     }
 	else
-	{		
+	{
 		tintNodes->rewind();
 		C3DElementNode* tintNode = NULL;
-		C3DBaseParticleAction* action = NULL;
 		while ((tintNode = tintNodes->getNextChild()))
 		{
 			if (tintNode->getNodeType() == "Tint")
-			{	
+			{
 				float time = tintNode->getElement("time",(float*)0);
 				C3DVector4 color;
 				tintNode->getElement("color", &color);
 				this->addTint(time,color);
-				
 			}
-			
 		}
-	}	
-    
+	}
 }
 
 void C3DTintPSA::addTint( float time, const C3DVector4 &color )
@@ -82,7 +75,7 @@ void C3DTintPSA::addTint( float time, const C3DVector4 &color )
 		if (_tints[i]->_time > time)
 			break;
 	}
-	
+
 	_tints.insert(_tints.begin() + i, tint);
 
 	if ( time > _period )
@@ -119,13 +112,13 @@ int C3DTintPSA::determineIndex(float time) const
 	unsigned int max = _tints.size() - 1;
     unsigned int mid = 0;
 
-    do 
+    do
     {
 		if (min == max)
 			return min;
 
         mid = (min + max) >> 1;
-		
+
         if (time >= _tints[mid]->_time && time <= _tints[mid + 1]->_time)
             return mid;
         else if (time < _tints[mid]->_time)
@@ -133,21 +126,20 @@ int C3DTintPSA::determineIndex(float time) const
         else
             min = mid + 1;
     } while (min <= max);
-    
+
     return -1;
 }
 
 void C3DTintPSA::action(long elapsedTime)
-{    
+{
 	if (_tints.size() == 0)
 		return;
 
     // Calculate the time passed since last update.
-    float elapsedSecs = (float)elapsedTime / 1000.0f;
 	C3DParticle**& _particles = _system->_particles;
 	int& _validParticleCount = _system->_validParticleCount;
 	C3DVector4 color;
-    float weight = 1.0f / (float)_system->_numTintAction; 
+    float weight = 1.0f / (float)_system->_numTintAction;
 	for (int i = 0; i < _validParticleCount; ++i)
     {
 		C3DParticle*& p = _particles[i];
@@ -167,24 +159,21 @@ void C3DTintPSA::action(long elapsedTime)
 			color = from->_color + (to->_color - from->_color) * t;
 		}
 		color *= weight;
-		p->_color += color; 
-		
+		p->_color += color;
     }
-
 }
-    
+
 C3DBaseParticleAction* C3DTintPSA::clone(C3DParticleSystem* system) const
 {
     C3DTintPSA* psa = new C3DTintPSA(system);
     psa->copyFrom(this);
-    
+
     psa->_period = _period;
     for (size_t i = 0; i < _tints.size(); i++) {
         C3DTint* tint = new C3DTint(_tints[i]->_time, _tints[i]->_color);
         psa->_tints.push_back(tint);
     }
-    
+
     return psa;
 }
-
 }

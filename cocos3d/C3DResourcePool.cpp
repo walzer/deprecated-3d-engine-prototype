@@ -3,14 +3,11 @@
 #include "C3DResourceManager.h"
 #include "Base.h"
 namespace cocos3d
-{   
-		
-
+{
 C3DResourcePool::C3DResourcePool(C3DResourceManager* manager)
 {
 	_manager = manager;
 }
-
 
 C3DResourcePool::~C3DResourcePool()
 {
@@ -19,15 +16,13 @@ C3DResourcePool::~C3DResourcePool()
 	_manager = NULL;
 }
 
-
 void C3DResourcePool::clear()
 {
 	for (std::map<std::string,C3DResource*>::iterator iter = _items.begin(); iter != _items.end(); ++iter)
 	{
-		iter->second->release();		
+		iter->second->release();
 	}
 	_items.clear();
-
 }
 
 bool C3DResourcePool::addItem(C3DResource* item)
@@ -40,18 +35,16 @@ bool C3DResourcePool::addItem(C3DResource* item)
 	}
 	else
 		return false;
-	
 }
-
 
 bool C3DResourcePool::removeItem(const std::string& name)
 {
 	std::map<std::string,C3DResource*>::iterator iter = _items.find(name);
-	
+
 	if(iter != _items.end())
 	{
 		iter->second->release();
-		_items.erase(iter);		
+		_items.erase(iter);
 		return true;
 	}
 	else
@@ -59,7 +52,7 @@ bool C3DResourcePool::removeItem(const std::string& name)
 }
 
 C3DResource* C3DResourcePool::getItem(const std::string& name)
-{	
+{
 	std::map<std::string,C3DResource*>::iterator iter = _items.find(name);
 	if(iter != _items.end())
 	{
@@ -67,7 +60,6 @@ C3DResource* C3DResourcePool::getItem(const std::string& name)
 	}
 	else
 		return NULL;
-	
 }
 
 C3DUsedResourcePool::C3DUsedResourcePool(C3DResourceManager* manager)
@@ -81,10 +73,10 @@ void C3DUsedResourcePool::update(long elapsedTime)
 	C3DResource* item = NULL;
 	for (std::map<std::string,C3DResource*>::iterator iter = _items.begin(); iter != _items.end(); )
 	{
-		item = iter->second;		
+		item = iter->second;
 
-		if(item->retainCount() ==1)		
-		{			
+		if(item->retainCount() ==1)
+		{
 			item->setState(C3DResource::State_Wait);
 			_manager->addResource(item);
 			item->release();
@@ -95,7 +87,6 @@ void C3DUsedResourcePool::update(long elapsedTime)
 			++iter;
 		}
 	}
-
 }
 
 //.............................
@@ -111,7 +102,7 @@ void C3DWaitResourcePool::update(long elapsedTime)
 	for (std::map<std::string,C3DResource*>::iterator iter = _items.begin(); iter != _items.end(); )
 	{
 		item = iter->second;
-		
+
 		item->_checkWaitTime += elapsedTime;
 		if(item->_checkWaitTime > item->_waitTime)
 		{
@@ -119,14 +110,11 @@ void C3DWaitResourcePool::update(long elapsedTime)
 
 			item->release();
 			_items.erase(iter++);
-		}		
+		}
 		else
 		{
 			++iter;
 		}
 	}
-
 }
-
 }
-

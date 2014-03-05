@@ -6,7 +6,6 @@
 
 #include "C3DNode.h"
 
-
 namespace cocos3d
 {
 class C3DFrameBuffer;
@@ -16,14 +15,14 @@ class C3DSampler;
 /**
 *Defines the shadow map.
 *One model casts the shadow through rendering the depth of models into texture.
-*One model receive the shadow through compare the value between self depth and the depth from the depth textue. 
+*One model receive the shadow through compare the value between self depth and the depth from the depth textue.
 */
 class C3DShadowMap : public C3DNode
 {
-public:  
-	
+public:
+
     static C3DShadowMap* create(const std::string& id, unsigned int texWidth, unsigned int texHeight);
-        
+
     C3DTexture* getDepthTexture() const;
     C3DSampler* getSampler() const;
     const C3DMatrix& getViewProjectionMatrix();
@@ -32,7 +31,7 @@ public:
     void setDimension(float width, float height, float depth);
     bool beginDraw();
     void endDraw();
-        
+
     virtual void transformChanged();
 
     void updateMatrix();

@@ -7,7 +7,6 @@ using namespace std;
 
 namespace cocos3d
 {
-
 /**
  * Defines structure to describe vertex offset.
  */
@@ -23,7 +22,7 @@ struct VertexOffset
  * Defines structure to describe target morph.
  */
 struct MorphTarget
-{	
+{
 	unsigned int index;
 	float weight;
 	std::string name;
@@ -34,7 +33,7 @@ struct MorphTarget
      */
 	MorphTarget()
 	{
-		weight = 1.0f;		
+		weight = 1.0f;
 	}
 
 	/**
@@ -42,9 +41,8 @@ struct MorphTarget
      */
 	~MorphTarget()
 	{
-
 	}
-};	
+};
 
 /**
  * Defines structure to describe morph.
@@ -71,7 +69,7 @@ public:
      * Gets target morph by specified index.
      */
 	MorphTarget* getMorphTarget(int index);
-   
+
 	/**
      * Adds a target morph.
      */
@@ -80,7 +78,7 @@ public:
 	/**
      * Clears current target vector list.
      */
-	void clearCurTarget();	
+	void clearCurTarget();
 
 	/**
      * Gets current target vector list.
@@ -102,9 +100,7 @@ private:
 	std::vector<MorphTarget*>* _morphTargets;
 
 	std::vector<unsigned int>* _curTargets;
-  
 };
-
 }
 
 #endif

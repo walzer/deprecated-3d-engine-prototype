@@ -4,7 +4,6 @@
 #include <vector>
 namespace cocos3d
 {
-
 	  /**
      * Defines a set of usages for vertex elements.
      */
@@ -54,12 +53,11 @@ namespace cocos3d
         bool operator != (const C3DVertexElement& e) const;
     };
 
-
 //Defines the format of a vertex layout used by a mesh.
 class C3DVertexFormat
 {
 public:
-	
+
     C3DVertexFormat(const C3DVertexElement* elements, unsigned int elementCount);
 
 	C3DVertexFormat(const C3DVertexFormat* vertexformat);
@@ -87,7 +85,6 @@ public:
 
     bool operator == (const C3DVertexFormat& f) const;
 
-
     bool operator != (const C3DVertexFormat& f) const;
 
     /**
@@ -100,7 +97,6 @@ private:
     std::vector<C3DVertexElement*> _elements;
     unsigned int _vertexSize;
 };
-
 }
 
 #endif

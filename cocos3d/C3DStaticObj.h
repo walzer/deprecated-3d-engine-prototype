@@ -5,7 +5,6 @@
 using namespace std;
 namespace cocos3d
 {
-
 class C3DMaterial;
 class C3DScene;
 class C3DNode;
@@ -16,19 +15,19 @@ class MeshBatch;
 */
 class C3DStaticObj : public C3DRenderNode
 {
-	friend class C3DScene; 
+	friend class C3DScene;
 public:
 
-    static C3DStaticObj* create(const std::string& id); 
+    static C3DStaticObj* create(const std::string& id);
 
 	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false);
 	virtual bool load(bool isLoadAll=false);
 	virtual bool load(const std::string& fileName);
 
 	C3DNode::Type getType() const;
-			
+
 	void calculateBoundingBox_();
-	    
+
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
 	virtual C3DNode* clone(CloneContext& context) const;
 
@@ -37,11 +36,7 @@ private:
     C3DStaticObj(const std::string& id);
 
     ~C3DStaticObj();
-	
-
 };
-
-
 }
 
 #endif

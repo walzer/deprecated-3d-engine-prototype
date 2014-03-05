@@ -6,8 +6,6 @@
 
 namespace cocos3d
 {
-
-	
 /**
  * Defines a model which doesn't have skin mesh.
  */
@@ -28,14 +26,7 @@ public:
 	virtual C3DModel* clone(C3DNode::CloneContext& context) const;
 
 private:
-
-
 };
-
-
-
-
-
 
 }
 

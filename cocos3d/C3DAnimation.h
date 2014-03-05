@@ -8,7 +8,6 @@
 
 namespace cocos3d
 {
-
 class C3DAnimationChannel;
 class C3DAnimationClip;
 class C3DActionListener;
@@ -45,7 +44,7 @@ public:
      * Gets the animation's ID.
      */
     const std::string& getId() const;
-	
+
 	/**
      * Gets the animation's duration.
      */
@@ -79,7 +78,7 @@ public:
 	 * @param name The name of the target animation clip.
      */
 	bool removeClip(const std::string& name);
-    
+
 	/**
      * Gets target animation clip by the specifiedID.
 	 *
@@ -98,7 +97,7 @@ public:
      * Gets the count of the animation clip.
      */
     unsigned int getClipCount() const;
-    
+
 	/**
      * Plays the animation clip by the specified id.
 	 *
@@ -143,7 +142,7 @@ public:
      * Gets the animation's frame count
      */
 	unsigned int getFrameCount();
-    
+
 	/**
      * Gets the current animation clip
      */
@@ -157,7 +156,7 @@ public:
     void setQuality(Quality quality) { _quality = quality; }
 
     Quality getQuality() const { return _quality; }
-	
+
 public:
 
 	enum State
@@ -176,7 +175,7 @@ public:
 	/**
      * Resumes all animation clip
      */
-	void resumeAll();    
+	void resumeAll();
 
 	/**
      * Pauses all animation clip
@@ -197,29 +196,28 @@ public:
      * Removes target animation clip from runing animation clip list
      */
     void removeRunClip(C3DAnimationClip* clip);
-    
+
 	/**
      * Called per frame to update this animation when it is active.
      */
     void update(long elapsedTime, bool updatePose = true);
-
 
 private:
 	/**
      * Constructor.
      */
 	C3DAnimation(const std::string& id);
-   
+
 	/**
      * Destructor.
      */
     ~C3DAnimation();
-    
+
 	/**
      * Creates animation clip by default param.
      */
-    void createDefaultClip();    
-	
+    void createDefaultClip();
+
 	/**
      * Creates a new animation clip.
 	 *
@@ -228,7 +226,7 @@ private:
 	 * @param end The end frame.
 	 */
 	C3DAnimationClip* createClip(const std::string& id, unsigned long start, unsigned long end);
-    
+
 	/**
      * Adds a animation clip.
 	 */
@@ -243,7 +241,7 @@ private:
      * Creates AnimationChannel.
 	 */
     C3DAnimationChannel* createChannel(C3DBone* bone, unsigned int keyCount, unsigned long* keyTimes, float* keyValues);
-    
+
 	/**
      * Creates AnimationChannel.
 	 */
@@ -259,21 +257,20 @@ private:
 	 */
     void removeChannel(C3DAnimationChannel* channel);
 
-    std::string _id;                       
+    std::string _id;
     unsigned long _duration;                // length(in milliseconds).
 	unsigned int _frameCount;
-    std::vector<C3DAnimationChannel*> _channels;    
-    C3DAnimationClip* _defaultClip;           
+    std::vector<C3DAnimationChannel*> _channels;
+    C3DAnimationClip* _defaultClip;
     std::vector<C3DAnimationClip*>* _clips;
 
 	C3DAnimationClip* _currentClip;
 
 	State _state;
 	std::list<C3DAnimationClip*> _runningClips;
-	
+
     Quality _quality;
 };
-
 }
 
 #endif

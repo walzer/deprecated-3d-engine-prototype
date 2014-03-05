@@ -9,10 +9,8 @@
 
 namespace cocos3d
 {
-
 class C3DVertexFormat;
 class C3DMorph;
-
 
 /**
  * Defines a mesh supporting morph deform.
@@ -26,25 +24,23 @@ class C3DMorphMesh : public C3DMesh
 public:
 	static C3DMorphMesh* createMesh(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic);
     virtual void setVertexData(void* vertexData, unsigned int vertexStart = 0, unsigned int vertexCount = 0);
-	
+
 	void pushMorph(C3DMorph* morph,int morphTargetIndex,float weight);
 	void popMorph(C3DMorph* morph,int morphTargetIndex);
 	void changeMorph(C3DMorph* morph,int morphTargetIndex,float weight);
 	void clearMorph(C3DMorph* morph);
-	
+
     virtual ~C3DMorphMesh();
-	
+
 private:
 	void setMorphVertexData(void* vertexData);
 	C3DMorphMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);
 	void applyMorph(C3DMorph* morph);
 
-private:	 
+private:
 
 	unsigned char* _vertexData;
-
 };
-
 }
 
 #endif

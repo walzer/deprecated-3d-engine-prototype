@@ -11,13 +11,11 @@
 
 namespace cocos3d
 {
-
 C3DPass::C3DPass() :
     _id(""), _technique(NULL), _effect(NULL),_vaBinding(NULL), _nMaxDirLight(0), _nMaxPointLight(0), _nMaxSpotLight(0), _nMaxShadowMap(0)
 {
 	_id = "";
 }
-
 
 C3DPass::C3DPass(const std::string& id, C3DTechnique* technique, C3DEffect* effect) :
     _id(id), _technique(technique), _effect(effect), _vaBinding(NULL), _nMaxDirLight(0), _nMaxPointLight(0), _nMaxSpotLight(0), _nMaxShadowMap(0)
@@ -90,7 +88,7 @@ C3DPass* C3DPass::clone() const
 	C3DPass* other = new C3DPass(_id, _technique, _effect);
 	if (_effect)
 		_effect->retain();
-	
+
 	other->copyFrom(this);
 	other->_nMaxAnimLight = _nMaxAnimLight;
 	other->_nMaxDirLight = _nMaxDirLight;
@@ -105,22 +103,21 @@ void C3DPass::setupParametersFromEffect()
 {
     static int zeros[4] = {0};
 
-	
     for ( unsigned int i = 0; i < _effect->getUniformCount(); i++)
     {
         Uniform* uniform = _effect->getUniform(i);
         MaterialParameter* parameter = findParameter(uniform->getName(), true);
         // already in material script, skip
         if (parameter)
-		{			
+		{
 			 continue;
 		}
-           
+
        /* if (getAutoBinding(uniform->getName()))
             continue;*/
 
         C3DRenderState::AutoBinding binding = C3DRenderState::getAutoBindingOfVariable(uniform->getName());
-        
+
         if (binding)
         {
             setParameterAutoBinding(uniform->getName(), binding);
@@ -167,34 +164,29 @@ void C3DPass::setupParametersFromEffect()
 					parameter->setValue(sampler);
 					sampler->release();
 				}
-                
+
                 break;
             }
         }
     }
 
 	//..
-
-
-	for (std::list<MaterialParameter*>::iterator iter = _parameters.begin();iter != _parameters.end();iter)
+	for (std::list<MaterialParameter*>::iterator iter = _parameters.begin();iter != _parameters.end();)
 	{
 		if(_effect->getUniform((*iter)->getName()) == NULL)
 		{
-			MaterialParameter* parameter = *iter;       
-       
+			MaterialParameter* parameter = *iter;
+
             SAFE_RELEASE(parameter);
 
 			iter = _parameters.erase(iter);
-
 		}
 		else
 		{
 			++iter;
 		}
 	}
-
 	//..
-
 }
 
 bool C3DPass::load(C3DElementNode* node)
@@ -206,26 +198,26 @@ bool C3DPass::load(C3DElementNode* node)
 	assert(vshPath.c_str());
 
 	m = node->getElement("fragmentShader");
-    std::string fshPath = m;	
+    std::string fshPath = m;
     assert(fshPath.c_str());
 
 	m = node->getElement("defines");
     std::string defines;
 	if(!m.empty())
 		defines = m;
-	
+
 	std::string uniqueId = C3DEffectManager::generateID(vshPath, fshPath, defines);
-    
+
 	C3DEffect* effect = static_cast<C3DEffect*>(C3DEffectManager::getInstance()->getResource(uniqueId));
 
-    assert(effect);   
-	
+    assert(effect);
+
 	this->_effect = effect;
-   
+
    	this->_vshPath = vshPath;
-    this->_fshPath = fshPath;    
+    this->_fshPath = fshPath;
 	this->_defines = defines;
-  
+
 	 if (_defines.c_str())
     {
         const char* ptr = strstr(_defines.c_str(), "MAXDIRLIGHT");
@@ -253,29 +245,27 @@ bool C3DPass::load(C3DElementNode* node)
         {
             this->_nMaxShadowMap = 1;
         }
-    }   
-	 
+    }
+
     // Load render state
     C3DRenderState::load(node);
 
 	if(_stateBlock == NULL)
 		_stateBlock = C3DStateBlock::create();
-		
+
     return true;
 }
 
 bool C3DPass::save(C3DElementNode* node)
-{  
+{
     node->setElement("vertexShader", &this->_vshPath);
     node->setElement("fragmentShader", &this->_fshPath);
     if (this->_defines.length() > 0)
         node->setElement("defines", &this->_defines);
-    
+
 	C3DRenderState::save(node);
 
     return node;
 }
-
-
 
 }

@@ -8,8 +8,6 @@
 namespace cocos3d
 {
 
-
-
 class C3DMesh;
 class BBVertex;
 class C3DVector4;
@@ -32,7 +30,7 @@ class C3DGeoWireRender : public C3DNode
     friend class C3DModel;
     friend class C3DResourceLoader;
 
-public:  
+public:
 	C3DGeoWireRender();
 	virtual ~C3DGeoWireRender();
 
@@ -69,7 +67,7 @@ public:
 	 * @param color, color of rectangle
 	 */
 	void add3DRect(const C3DVector3& v0, const C3DVector3& v1, const C3DVector3& v2, const C3DVector3& v3, const C3DVector4& color, const C3DMatrix* pMat = NULL);
-	
+
 	/**
 	 * add 3D triangle
 	 * @param v0, v1, v2,  triangle corner
@@ -112,24 +110,22 @@ public:
 	void addLinesRenderData(const C3DVector3* verts, int vertCount, const unsigned short* index, int indexCount, const C3DVector4& color, const C3DMatrix* pMat = NULL);
 
 	/**
-	 * finish draw 
+	 * finish draw
 	 */
 	void flush();
 
 	/**
-	 * begin draw 
+	 * begin draw
 	 */
 	void begin();
 
 protected:
-	
+
 	C3DBatchModel* _model_3D;
 
 	// support 2D geometry maybe
 	C3DBatchModel* _model_2D;
-
 };
-
 }
 
 #endif

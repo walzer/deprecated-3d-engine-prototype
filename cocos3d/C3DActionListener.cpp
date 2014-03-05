@@ -1,10 +1,7 @@
-
 #include "C3DActionListener.h"
-
 
 namespace cocos3d
 {
-
 C3DActionListener::C3DActionListener(): _object(NULL),_function(NULL)
 {
 }
@@ -17,26 +14,24 @@ C3DActionListener::C3DActionListener(const C3DActionListener& actionListener)
 
 C3DActionListener::~C3DActionListener()
 {
-	_object = NULL;   
+	_object = NULL;
 	_function = NULL;
-}    
-   
+}
 
-C3DActionListener * C3DActionListener::create(ListenerObject* object, ListenerFunction function) 
+C3DActionListener * C3DActionListener::create(ListenerObject* object, ListenerFunction function)
 {
     C3DActionListener *res = new C3DActionListener();
-	   
+
 	res->_object = object;
 
 	res->_function = function;
 
-	return res;  
-
+	return res;
 }
 
-void C3DActionListener::action() 
+void C3DActionListener::action()
 {
-    if (_function) 
+    if (_function)
 	{
         (_object->*_function)();
     }
@@ -56,15 +51,12 @@ C3DActionEvent::C3DActionEvent(const C3DActionEvent& actionEvent)
 
 	_listener = new C3DActionListener(*actionEvent._listener);
 
-	_eventTime = actionEvent._eventTime; 
-
+	_eventTime = actionEvent._eventTime;
 }
 
 C3DActionEvent::~C3DActionEvent()
 {
 	delete _listener;
 	_listener = NULL;
-
 }
-
 }

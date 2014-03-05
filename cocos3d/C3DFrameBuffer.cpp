@@ -5,10 +5,8 @@
 #include "ccMacros.h"
 #include "C3DRenderSystem.h"
 
-
 namespace cocos3d
 {
-
 static std::vector<C3DFrameBuffer*> __frameBuffers;
 
 C3DFrameBuffer::C3DFrameBuffer(const std::string& id) :
@@ -35,12 +33,11 @@ C3DFrameBuffer::~C3DFrameBuffer()
     }
 }
 
-
 C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width, unsigned int height, unsigned int fmtColor, unsigned int fmtDepth)
 {
     // Create C3DRenderTarget with same ID
     C3DRenderTarget* renderTarget = NULL;
-    
+
     if (fmtColor)
     {
         renderTarget = C3DRenderTarget::create(id, width, height, fmtColor);
@@ -51,7 +48,7 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
     }
 
     C3DDepthStencilTarget* depthTarget = NULL;
-    
+
     if (fmtDepth)
     {
         depthTarget = C3DDepthStencilTarget::create(id, (C3DDepthStencilTarget::Format) fmtDepth, width, height);
@@ -72,7 +69,7 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
         LOG_ERROR("Failed to create frame buffer object");
         return NULL;
     }
-    
+
     frameBuffer->_handle = handle;
 
     // Add the render target as the first color attachment
@@ -81,7 +78,7 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
 
     if (depthTarget)
         frameBuffer->setDepthStencilTarget(depthTarget);
-    
+
     // Add to the global list of managed frame buffers
     __frameBuffers.push_back(frameBuffer);
     frameBuffer->_width = width;
@@ -110,7 +107,6 @@ const std::string& C3DFrameBuffer::getID() const
 {
     return _id;
 }
-
 
 void C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
 {
@@ -154,7 +150,7 @@ void C3DFrameBuffer::setDepthStencilTarget(C3DDepthStencilTarget* target)
 {
     if (_depthStencilTarget == target)
     {
-        return; 
+        return;
     }
 
     // Release our existing depth stencil target
@@ -204,7 +200,6 @@ void C3DFrameBuffer::bind()
 {
     CCAssert(!_isBind, "Already bind framebuffer");
 
-    
     GL_ASSERT( glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_oldFBO));
 
     // Bind this C3DFrameBuffer for rendering.
@@ -212,7 +207,7 @@ void C3DFrameBuffer::bind()
 
     _oldViewport = *C3DRenderSystem::getInstance()->getViewport();
     C3DRenderSystem::getInstance()->setViewport(0, 0, _width, _height);
-    
+
     _isBind = true;
 }
 
@@ -228,7 +223,6 @@ void C3DFrameBuffer::bindDefault()
         fb->_isBind = false;
         fb->_oldFBO = 0;
     }
-
 }
 
 void C3DFrameBuffer::unbind()
@@ -238,5 +232,4 @@ void C3DFrameBuffer::unbind()
     C3DRenderSystem::getInstance()->setViewport(&_oldViewport);
     _isBind = false;
 }
-
 }

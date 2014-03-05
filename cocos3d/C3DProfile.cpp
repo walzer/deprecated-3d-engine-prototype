@@ -5,12 +5,10 @@
 
 namespace cocos3d
 {
-
     C3DProfile::C3DProfile()
     {
-     
     }
-    
+
     C3DProfile::~C3DProfile()
     {
         removeAllProfile();
@@ -19,10 +17,10 @@ namespace cocos3d
     C3DProfile* C3DProfile::getInstance()
     {
         static C3DProfile instance;
-        
+
         return &instance;
     }
-    
+
     void C3DProfile::beginProfile(const std::string& itemname)
     {
 #ifdef ENABLE_C3D_PROFILE
@@ -38,7 +36,7 @@ namespace cocos3d
         item->_startTime = 1000000 * (now.tv_sec) + (now.tv_usec);
 #endif
     }
-        
+
     void C3DProfile::endProfile(const std::string& itemname)
     {
 #ifdef ENABLE_C3D_PROFILE
@@ -46,17 +44,17 @@ namespace cocos3d
         cocos2d::CCTime::gettimeofdayCocos2d( &now, NULL);
         ProfileItem*& item = _profileItems[itemname];
         //CCAssert(item, "profile item null");
-        item->_accTime += 1000000 * (now.tv_sec) + (now.tv_usec) - item->_startTime; 
+        item->_accTime += 1000000 * (now.tv_sec) + (now.tv_usec) - item->_startTime;
 #endif
     }
-        
+
     void C3DProfile::update()
     {
 #ifdef ENABLE_C3D_PROFILE
         for (std::map<std::string, ProfileItem*>::iterator it = _profileItems.begin(); it != _profileItems.end(); it++)
         {
             ProfileItem*& item = it->second;
-            
+
             if (item->numberOfCalls != 0)
             {
                 item->_durTime = item->_accTime;
@@ -73,20 +71,18 @@ namespace cocos3d
 
             item->_accTime = 0;
             item->numberOfCalls++;
-    
         }
 #endif
     }
 
     void C3DProfile::removeAllProfile()
-    {    
+    {
         for (std::map<std::string, ProfileItem*>::iterator it = _profileItems.begin(); it != _profileItems.end(); it++)
         {
             delete it->second;
         }
         _profileItems.clear();
     }
-  
 
 ////////////////////////////////Implement of C3DProfileDisplay//////////////////////////////////////////
 C3DProfileDisplay::C3DProfileDisplay():_label(NULL)
@@ -125,11 +121,8 @@ void C3DProfileDisplay::update()
         C3DProfile::ProfileItem*& item = it->second;
         sprintf(str, "%10s, frame time: %5d, average frame time: %5d, min: %5d, max: %5d\n", item->_name.c_str(), item->_durTime, item->_avgTime, item->minTime, item->maxTime);
         strlabel += str;
-
     }
     _label->setString(strlabel.c_str());
 #endif
-	
 }
-
 }

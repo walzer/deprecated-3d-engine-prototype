@@ -73,7 +73,6 @@ private:
     C3DTexture* _depthTexture;
     RenderBufferHandle _stencilBuffer;
 };
-
 }
 
 #endif

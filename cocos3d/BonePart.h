@@ -1,7 +1,6 @@
 #ifndef BONEPART_H_
 #define BONEPART_H_
 
-
 namespace cocos3d
 {
 class C3DNode;
@@ -44,9 +43,7 @@ public:
 	unsigned int _offsetVertexIndex;
 	unsigned int _numVertexIndex;
 	std::vector<unsigned int> _indices;
-
 };
-
 }
 
 #endif

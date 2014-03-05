@@ -10,13 +10,12 @@
 USING_NS_CC;
 
 class AnimLightTestLayer :  public TestLayer
-{  
-
+{
 public:
     AnimLightTestLayer();
-    virtual ~AnimLightTestLayer();   
-	virtual bool init();   
-		
+    virtual ~AnimLightTestLayer();
+	virtual bool init();
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents
@@ -31,7 +30,6 @@ public:
     void setUpLight();
 
     void createAnimLight();
-
 
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
 

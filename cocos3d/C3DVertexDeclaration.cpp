@@ -15,12 +15,10 @@
 
 namespace cocos3d
 {
-
 static GLuint __maxVertexAttribs = 0;
 static std::vector<C3DVertexDeclaration*> __vertexAttributeBindingCache;
-    
+
 static int __curvaEnableMask = 0;
-    
 
 C3DVertexDeclaration::C3DVertexDeclaration() :
     _handle(0), _attributes(NULL), _mesh(NULL), _effect(NULL), _vaEnableMask(0)
@@ -145,7 +143,7 @@ C3DVertexDeclaration* C3DVertexDeclaration::create(C3DMesh* mesh, const C3DVerte
         b->_mesh = mesh;
         mesh->retain();
     }
-    
+
     b->_effect = effect;
     //effect->retain();
 
@@ -191,7 +189,7 @@ C3DVertexDeclaration* C3DVertexDeclaration::create(C3DMesh* mesh, const C3DVerte
                 name += "0";
                 attrib = effect->getVertexAttribute(name);
             }
-            break; 
+            break;
         case Vertex_Usage_TEXCOORD1:
         case Vertex_Usage_TEXCOORD2:
         case Vertex_Usage_TEXCOORD3:
@@ -235,7 +233,7 @@ C3DVertexDeclaration* C3DVertexDeclaration::create(C3DMesh* mesh, const C3DVerte
 void C3DVertexDeclaration::setVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalize, GLsizei stride, void* pointer)
 {
     assert(indx < (GLuint)__maxVertexAttribs);
-    
+
     _vaEnableMask |= 1 << indx;
 
     if (_handle)
@@ -243,7 +241,6 @@ void C3DVertexDeclaration::setVertexAttribPointer(GLuint indx, GLint size, GLenu
         // Hardware mode
 		GL_ASSERT( glEnableVertexAttribArray(indx) );
         GL_ASSERT( glVertexAttribPointer(indx, size, type, normalize, stride, pointer) );
-
     }
     else
     {
@@ -297,7 +294,6 @@ void C3DVertexDeclaration::bind()
                     GL_ASSERT(glDisableVertexAttribArray(i));
                 }
             }
-
         }
         __curvaEnableMask = _vaEnableMask;
     }
@@ -319,22 +315,21 @@ void C3DVertexDeclaration::unbind()
         {
             GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
         }
-        
     }
 }
-    
+
 int C3DVertexDeclaration::getCurVertAttEnables()
 {
     return __curvaEnableMask;
 }
-    
+
 void C3DVertexDeclaration::setCurVertAttEnables(int enableMask, bool force)
 {
     if (!force)
     {
         int mask = __curvaEnableMask ^ enableMask;
-        
-        for (size_t i = 0; i < __maxVertexAttribs; i++) 
+
+        for (size_t i = 0; i < __maxVertexAttribs; i++)
 		{
             if (mask & (1 << i))
             {
@@ -347,12 +342,11 @@ void C3DVertexDeclaration::setCurVertAttEnables(int enableMask, bool force)
                     GL_ASSERT(glEnableVertexAttribArray(i));
                 }
             }
-            
         }
     }
     else
 	{
-        for (size_t i = 0; i < __maxVertexAttribs; i++) 
+        for (size_t i = 0; i < __maxVertexAttribs; i++)
 		{
             if (enableMask & (1 << i))
             {
@@ -366,5 +360,4 @@ void C3DVertexDeclaration::setCurVertAttEnables(int enableMask, bool force)
     }
     __curvaEnableMask = enableMask;
 }
-
 }

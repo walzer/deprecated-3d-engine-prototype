@@ -3,7 +3,6 @@
 
 namespace cocos3d
 {
-
 C3DQuaternion::C3DQuaternion()
     : x(0.0f), y(0.0f), z(0.0f), w(1.0f)
 {
@@ -429,5 +428,4 @@ cocos3d::C3DVector3 C3DQuaternion::operator*(const C3DVector3& v) const
 
     return v + uv + uuv;
 }
-
 }

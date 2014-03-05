@@ -5,10 +5,8 @@
 #include "C3DVector3.h"
 #include "C3DVector4.h"
 
-
 namespace cocos3d
 {
-
 class C3DPostProcess;
 class C3DTechnique;
 class C3DSampler;
@@ -16,9 +14,8 @@ class C3DMaterial;
 class C3DFrameBuffer;
 class C3DModel;
 
-
 /**
-  Base class of post effect 
+  Base class of post effect
 */
 class C3DPostEffect : public cocos2d::CCObject
 {
@@ -27,29 +24,26 @@ protected:
 	/**
      * Constructor & Destructor
      */
-	
+
     C3DPostEffect(C3DPostProcess* postProcess, const std::string& szName);
     virtual ~C3DPostEffect();
-    
-    
-    
+
 public:
-    
+
     /**
      * draw routine
      */
     virtual void draw();
 
 	virtual void setGridSize( unsigned int x, unsigned int y );
-	
+
 	/**
      * set post effect shader parameter
      */
 	virtual void setShaderParameter(){};
-    
 
 	virtual void update( float dt ){}
-    
+
     virtual bool init(const std::string& szMaterial);
 
 	std::string getName(void) const
@@ -63,10 +57,7 @@ public:
     std::string _name;
     C3DMaterial* _material;
 	C3DModel* _model;
-    
 };
-
 }
 
 #endif
-

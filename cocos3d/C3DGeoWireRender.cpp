@@ -19,7 +19,6 @@
 
 namespace cocos3d
 {
-
 C3DGeoWireRender::C3DGeoWireRender():_model_3D(NULL), _model_2D(NULL)
 {
 }
@@ -36,8 +35,8 @@ bool C3DGeoWireRender::init()
 	if (_model_2D)
 		delete (_model_2D);
 
-	_model_3D = C3DBatchModel::createDebugModel(this);	
-		
+	_model_3D = C3DBatchModel::createDebugModel(this);
+
 	return _model_3D != NULL;
 }
 
@@ -60,7 +59,7 @@ void C3DGeoWireRender::addOBB(const C3DOBB* obb,const C3DVector4& color, const C
 		static C3DVector3 corners[8];
 		static unsigned short index[] = {0,1, 1,2, 2,3, 3,0, 4,5, 5,6, 6,7, 7,4, 0,4, 1,5, 2,6, 3,7};
 		obb->getVertices(corners);
-		
+
 		addLinesRenderData(corners, 8, index, 24, color, pMat);
 	}
 }
@@ -100,7 +99,7 @@ void C3DGeoWireRender::add3DLine(const C3DVector3& start, const C3DVector3& end,
 		static C3DVector3 verts[2];
 		verts[0] = start;
 		verts[1] = end;
-		
+
 		addLinesRenderData(verts, 2, index, 2, color, pMat);
 	}
 }
@@ -138,7 +137,6 @@ void C3DGeoWireRender::addCollitionBox(const C3DCollitionBox* box, const C3DVect
 
 		addLinesRenderData(corners, 8, index, 24, color, pMat);
 	}
-	
 }
 
 void C3DGeoWireRender::addCylinder(const C3DCylinder* cylinder, const C3DVector4& color, const C3DMatrix* pMat)
@@ -208,99 +206,99 @@ void C3DGeoWireRender::addCylinder(const C3DCylinder* cylinder, const C3DVector4
 	}
 	_model_3D->add((unsigned char*)(&aVerts[0]), aVerts.size(), &aIndices[0], aIndices.size());
 }
-    
+
 void C3DGeoWireRender::addCapsule(const C3DCapsule* capsule, const C3DVector4& color, const C3DMatrix* pMat)
 {
     float halfHei = capsule->getCylinderHeight() / 2.0f;
     float radius = capsule->getRadius();
     if (radius == 0.0f)
 		return;
-    
+
     if (halfHei == 0.0f)
         return addSphere(capsule->getCenterPos(), capsule->getRadius(), color);
-    
+
     std::vector<BBVertex> aVerts;
     std::vector<unsigned short> aIndices;
 	BBVertex bbvertex;
 	bbvertex.color = color;
-    
+
 	int i, j, iNumRow=4, iNumCol;
     iNumCol = log(50 * radius);
 	if (iNumCol < 10)
 		iNumCol = 10;
-    
+
     const C3DVector3& vLenAxis = capsule->getAxisY();
     const C3DVector3& vCapusleCenter = capsule->getCenterPos();
-	
+
     const C3DVector3& vAxisX = capsule->getAxisX();
     const C3DVector3& vAxisY = capsule->getAxisY();
     const C3DVector3& vAxisZ = capsule->getAxisZ();
-    
+
 	//	Top hemisphere's center
 	C3DVector3 vCenter = vCapusleCenter + vLenAxis * halfHei;
-    
+
 	//	Top vertex of top hemisphere
     bbvertex.position = vCenter + vLenAxis * radius;
 	aVerts.push_back(bbvertex);
-    
+
 	C3DVector3 vPos, vOff;
-    
+
 	//	Vertices of top hemisphere
 	for (i=0; i < iNumRow; i++)
 	{
 		float fPitch = MATH_DEG_TO_RAD(90.0f - (i+1) * 90.0f / iNumRow);
 		vOff.y = radius * sin(fPitch);
-        
+
 		float fYawStep = MATH_DEG_TO_RAD(360.0f / iNumCol);
 		float fRadius = radius * cos(fPitch);
-        
+
 		for (j=0; j < iNumCol; j++)
 		{
 			float fYaw = j * fYawStep;
-            
+
 			vOff.x = fRadius * cos(fYaw);
 			vOff.z = fRadius * sin(fYaw);
-            
+
 			bbvertex.position = vCenter + vOff.x * vAxisX + vOff.y * vAxisY + vOff.z * vAxisZ;
 			aVerts.push_back(bbvertex);
 		}
 	}
-    
+
 	//	Bottom hemisphere's center
 	vCenter = capsule->getCenterPos() - vLenAxis * halfHei;
-    
+
 	//	Vertices of bottom hemisphere
 	for (i=0; i < iNumRow; i++)
 	{
 		float fPitch = MATH_DEG_TO_RAD(i * 90.0f / iNumRow);
 		vOff.y = radius * sin(fPitch);
-        
+
 		float fYawStep = MATH_DEG_TO_RAD(360.0f / iNumCol);
 		float fRadius = radius * cos(fPitch);
-        
+
 		for (j=0; j < iNumCol; j++)
 		{
 			float fYaw = j * fYawStep;
-            
+
 			vOff.x = fRadius * cos(fYaw);
 			vOff.z = fRadius * sin(fYaw);
-            
+
 			bbvertex.position = vCenter + vOff.x * vAxisX - vOff.y * vAxisY + vOff.z * vAxisZ;
 			aVerts.push_back(bbvertex);
 		}
 	}
-    
+
 	//	Top vertex of bottom hemisphere
     bbvertex.position = vCenter - vLenAxis * radius;
 	aVerts.push_back(bbvertex);
-    
+
 	unsigned short wBaseIdx = 1;
-	
+
 	for (i=0; i < iNumCol; i++)
 	{
 		aIndices.push_back(0);
 		aIndices.push_back(wBaseIdx + i);
-        
+
 		if (i == iNumCol - 1)
 		{
 			aIndices.push_back(wBaseIdx + iNumCol - 1);
@@ -312,9 +310,9 @@ void C3DGeoWireRender::addCapsule(const C3DCapsule* capsule, const C3DVector4& c
 			aIndices.push_back(wBaseIdx + i + 1);
 		}
 	}
-    
+
 	wBaseIdx += iNumCol;
-    
+
 	int iLoop = iNumRow * 2 - 2 + 1;
 	for (j=0; j < iLoop; j++)
 	{
@@ -322,7 +320,7 @@ void C3DGeoWireRender::addCapsule(const C3DCapsule* capsule, const C3DVector4& c
 		{
 			aIndices.push_back(wBaseIdx + i - iNumCol);
 			aIndices.push_back(wBaseIdx + i);
-            
+
 			if (i == iNumCol - 1)
 			{
 				aIndices.push_back(wBaseIdx + iNumCol - 1);
@@ -334,10 +332,10 @@ void C3DGeoWireRender::addCapsule(const C3DCapsule* capsule, const C3DVector4& c
 				aIndices.push_back(wBaseIdx + i + 1);
 			}
 		}
-        
+
 		wBaseIdx += iNumCol;
 	}
-    
+
 	for (i=0; i < iNumCol; i++)
 	{
 		aIndices.push_back(wBaseIdx + i - iNumCol);
@@ -351,7 +349,7 @@ void C3DGeoWireRender::addCapsule(const C3DCapsule* capsule, const C3DVector4& c
 			aVerts[k].position = (*pMat) * aVerts[k].position;
 		}
 	}
-    
+
     _model_3D->add((unsigned char*)(&aVerts[0]), aVerts.size(), &aIndices[0], aIndices.size());
 }
 
@@ -366,12 +364,11 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 	int nCol = nRow * 2 + 2;
 	if(nCol < 3) nCol = 3;
 
-	float fStep = r / nRow;
 	int vertCount = (nRow * 2 - 1) * nCol + 2;
 	BBVertex* verts = new BBVertex[vertCount];
 	std::vector<unsigned short> Indices;
-	
-	float angelStep = MATH_PI * 2.0f / nCol;	
+
+	float angelStep = MATH_PI * 2.0f / nCol;
 	int i,vIdx = 0, j;
 	int idx1 = -1,idx2= -1;
 	int lastIdx = -1;
@@ -387,8 +384,7 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 			verts[vIdx++].position = vec+vPos;
 			idx1 = 0;
 			idx2 = 1;
-			lastIdx = vIdx;
-			
+
 			continue;
 		}
 
@@ -397,7 +393,6 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 		tmp *= r;
 		for(j = 0; j < nCol; j++)
 		{
-
 			float z = sin(MATH_PI * 2.0f/nCol*j)*tmp;
 			float x = cos(MATH_PI * 2.0f/nCol*j)*tmp;
 			float y = sqrt(r*r- x*x - z*z);
@@ -448,7 +443,7 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 		C3DVector3 vec(x,y,z);
 		verts[vIdx].color = color;
 		verts[vIdx++].position = vec + vPos;
-		
+
 		if(nRow == 1)
 		{
 			Indices.push_back(0);
@@ -464,7 +459,6 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 			Indices.push_back(lastIdx + i);
 		}
 
-		
 		if(i == 0)
 		{
 			Indices.push_back(lastIdx);
@@ -484,7 +478,7 @@ void C3DGeoWireRender::addSphere(const C3DVector3& vPos, float radius, const C3D
 			verts[k].position = (*pMat) * verts[k].position;
 		}
 	}
-	
+
 	_model_3D->add((unsigned char*)(verts), vertCount, &Indices[0], Indices.size());
 	delete[] verts;
 }
@@ -504,7 +498,7 @@ void C3DGeoWireRender::begin()
 void C3DGeoWireRender::flush()
 {
 	if (_model_3D)
-	{		
+	{
 	//	_model_3D->draw();
 		//_model_3D->end();
 
@@ -518,12 +512,11 @@ void C3DGeoWireRender::flush()
 			_model_3D->draw();
 		}
 	}
-	
+
 	if (_model_2D)
 	{
 		_model_2D->draw();
 		//_model_2D->end();
 	}
 }
-
 }

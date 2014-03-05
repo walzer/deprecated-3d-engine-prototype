@@ -5,7 +5,6 @@
 #include "StringTool.h"
 namespace cocos3d
 {
-
 class C3DMatrix;
 class C3DVector2;
 class C3DVector3;
@@ -30,7 +29,7 @@ public:
         VECTOR4,
         MATRIX
     };
-	
+
 	/**
      * Creates ElementNode.
      */
@@ -60,7 +59,7 @@ public:
      * Get next element from current iterator.
      */
     std::string getNextElement(char** value = NULL);
-	
+
 	/**
      * Get next child from current iterator.
      */
@@ -70,7 +69,7 @@ public:
      * Get childs count.
      */
 	int getChildCount() const { return (int)_childs.size(); }
-	
+
 	/**
 	 * Moves the iterator to the start.
 	 */
@@ -90,11 +89,11 @@ public:
 	 * Gets node type.
 	 */
 	const std::string& getNodeType() const;
-	
+
 	/**
 	 * Gets node name.
 	 */
-    const std::string& getNodeName() const;	
+    const std::string& getNodeName() const;
 
 	/**
 	 * Gets node flag.
@@ -110,7 +109,7 @@ public:
 	 * Gets the element type by specified name.
 	 */
     ElementType getElementType(const std::string& elementName = "") const;
-	 
+
 	/**
 	 * Gets the element value by specified name.
 	 */
@@ -184,7 +183,7 @@ public:
 	* Writes ElementNode to file.
 	*/
     bool writeToFile(const std::string& fileName);
-    
+
 	/**
 	* Gets element count.
 	*/
@@ -199,12 +198,12 @@ private:
      * Constructor.
      */
     C3DElementNode(C3DStream* stream);
-	
+
 	/**
      * Constructor.
      */
     C3DElementNode(C3DStream* stream, const std::string& nodeType, const std::string& id = "");
-	
+
 	/**
      * read contents from the stream.
      */
@@ -232,13 +231,13 @@ private:
     {
         std::string key;
         std::string value;
-        
+
         KeyValue(const std::string& k, const std::string& v) : key(k), value(v){}
     };
-    
+
     std::string _nodeType;
     std::string _nodeName;
-   
+
     std::vector<KeyValue> _elements;
     std::vector<KeyValue>::const_iterator _elementsItr;
     std::vector<C3DElementNode*> _childs;
@@ -247,7 +246,6 @@ private:
 	std::vector<KeyValue> _flags;
 	std::vector<KeyValue>::const_iterator _flagsItr;
 };
-
 }
 
 #endif

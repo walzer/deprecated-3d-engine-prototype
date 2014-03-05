@@ -8,20 +8,16 @@
 
 namespace cocos3d
 {
-
-C3DTransformPSA::C3DTransformPSA(C3DParticleSystem* system) :   
+C3DTransformPSA::C3DTransformPSA(C3DParticleSystem* system) :
      C3DBaseParticleAction(system),
 	 _rotation(C3DMatrix::identity())
-     
+
 {
-   
 }
 
 C3DTransformPSA::~C3DTransformPSA()
-{   
-   
+{
 }
-
 
 void C3DTransformPSA::load(C3DElementNode* properties)
 {
@@ -29,7 +25,6 @@ void C3DTransformPSA::load(C3DElementNode* properties)
 
 	_endSize = properties->getElement("endSize",&_endSize);
 	_sizeRate = properties->getElement("sizeRate",&_sizeRate);
-    
 }
 
 void C3DTransformPSA::save(C3DElementNode* properties)
@@ -43,7 +38,7 @@ void C3DTransformPSA::save(C3DElementNode* properties)
 }
 
 void C3DTransformPSA::action(long elapsedTime)
-{    
+{
 	// Calculate the time passed since last update.
     float elapsedSecs = (float)elapsedTime * 0.001f;
 	C3DParticle**& _particles = _system->_particles;
@@ -53,8 +48,7 @@ void C3DTransformPSA::action(long elapsedTime)
     {
 		C3DParticle*& p = _particles[i];
 
-        p->_age -= elapsedTime;   
-
+        p->_age -= elapsedTime;
 
         if (p->_age > 0L)
         {
@@ -77,7 +71,6 @@ void C3DTransformPSA::action(long elapsedTime)
 			else
 				p->_color = C3DVector4(0.0f, 0.0f, 0.0f, 0.0f);
 
-
 			if ( p->_size > _endSize )
 			{
 				p->_size -= _sizeRate * elapsedSecs;
@@ -95,13 +88,12 @@ void C3DTransformPSA::action(long elapsedTime)
 				}
 			}
 
-			
 			if (_system->getParticleRender()->isSpriteAnimated())
 			{
 				if (!_system->getParticleRender()->isSpriteLoop())
 				{
 					// The last frame should finish exactly when the particle dies.
-					float percent = 1 - (float)p->_age / (float)p->_ageStart; 
+					float percent = 1 - (float)p->_age / (float)p->_ageStart;
 					int frameCount = _system->getParticleRender()->getFrameCount();
 					p->_frame = (int)(percent * frameCount) + p->_frameStart;
 
@@ -129,7 +121,7 @@ void C3DTransformPSA::action(long elapsedTime)
 			 // Particle is dead.  Move the particle furthest from the start of the array
             // down to take its place, and re-use the slot at the end of the list of living particles.
             if (i != _validParticleCount - 1)
-            {			
+            {
 				C3DParticle* temp = _particles[i];
                 _particles[i] = _particles[_validParticleCount - 1];
 				_particles[_validParticleCount - 1] = temp;
@@ -138,20 +130,17 @@ void C3DTransformPSA::action(long elapsedTime)
             --_validParticleCount;
 		}
     }
-
-    
 }
-    
+
 C3DBaseParticleAction* C3DTransformPSA::clone(C3DParticleSystem* system) const
 {
     C3DTransformPSA* psa = new C3DTransformPSA(system);
-    
+
     psa->copyFrom(this);
-    
+
     psa->_endSize = _endSize;
     psa->_sizeRate = _sizeRate;
-    
+
     return psa;
 }
-
 }

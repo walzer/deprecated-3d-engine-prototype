@@ -14,26 +14,24 @@ namespace cocos3d {
 	class C3DLineRender;
 }
 
-
 class AnimListenerObject : public cocos3d::ListenerObject
 {
 public:
     AnimListenerObject(cocos3d::C3DParticleSystem* particle);
     void onFlowerStart();
     void onFlowerEnd();
-    
+
 protected:
     cocos3d::C3DParticleSystem* _particle;
 };
 
 class ParticleTestLayer :  public TestLayer
-{  
-
+{
 public:
     ParticleTestLayer();
     virtual ~ParticleTestLayer();
-	virtual bool init();   
-		
+	virtual bool init();
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents
@@ -46,7 +44,7 @@ public:
     void setUpCamera();
     //setup initialize light
     void setUpLight();
-	
+
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
 
     // optional
@@ -69,6 +67,5 @@ protected:
 
     AnimListenerObject* _listenerObj;
 	cocos3d::C3DLineRender* _lighting;
-	
 };
 #endif 

@@ -3,7 +3,6 @@
 
 namespace cocos3d
 {
-
 C3DVertexFormat::C3DVertexFormat(const C3DVertexElement* elements, unsigned int elementCount)
     : _vertexSize(0)
 {
@@ -12,7 +11,7 @@ C3DVertexFormat::C3DVertexFormat(const C3DVertexElement* elements, unsigned int 
     {
 		_elements.push_back( new C3DVertexElement());
 
-		memcpy(_elements.back(), &elements[i], sizeof(C3DVertexElement));       
+		memcpy(_elements.back(), &elements[i], sizeof(C3DVertexElement));
 
         _vertexSize += elements[i].size * sizeof(float);
     }
@@ -26,11 +25,10 @@ C3DVertexFormat::C3DVertexFormat(const C3DVertexFormat* vertexformat)
     {
 		_elements.push_back( new C3DVertexElement() );
 
-		memcpy(_elements.back(), vertexformat->getElement(i), sizeof(C3DVertexElement));       
+		memcpy(_elements.back(), vertexformat->getElement(i), sizeof(C3DVertexElement));
 
         _vertexSize += vertexformat->getElement(i)->size * sizeof(float);
     }
-
 }
 
 C3DVertexFormat::~C3DVertexFormat()
@@ -42,7 +40,6 @@ C3DVertexFormat::~C3DVertexFormat()
 		delete element;
 	}
 	_elements.clear();
-
 }
 
 const C3DVertexElement* C3DVertexFormat::getElement(unsigned int index) const
@@ -75,7 +72,6 @@ bool C3DVertexFormat::operator == (const C3DVertexFormat& f) const
 
     return true;
 }
-
 
 bool C3DVertexFormat::operator != (const C3DVertexFormat& f) const
 {
@@ -131,9 +127,8 @@ C3DVertexElement::C3DVertexElement(Vertex_Usage usage, unsigned int size) :
 {
 }
 
-C3DVertexElement::~C3DVertexElement()    
+C3DVertexElement::~C3DVertexElement()
 {
-
 }
 
 bool C3DVertexElement::operator == (const C3DVertexElement& e) const
@@ -145,7 +140,5 @@ bool C3DVertexElement::operator != (const C3DVertexElement& e) const
 {
     return !(*this == e);
 }
-
-
 
 }

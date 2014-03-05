@@ -8,7 +8,6 @@
 #include "C3DVector4.h"
 namespace cocos3d
 {
-
 class C3DNode;
 class C3DAnimation;
 class C3DBone;
@@ -29,12 +28,12 @@ public:
      * Destructor.
      */
     virtual ~C3DSkeleton();
-		
+
 	/**
      * Creates C3DBone.
      */
     C3DBone* createBone(const std::string& name);
-	
+
 	/**
      * Get root bone.
      */
@@ -44,7 +43,7 @@ public:
      * Get root by specified name.
      */
     C3DBone* getBone(const std::string& name) const;
-	
+
 	/**
      * Creates C3DAnimation.
      */
@@ -54,7 +53,7 @@ public:
      * Gets C3DAnimation by specified name.
      */
     C3DAnimation* getAnimation(const std::string& name) const;
-	
+
 	/**
      * Removes C3DAnimation by specified name.
      */
@@ -79,17 +78,11 @@ private:
 	C3DBone* _rootBone;
     /// Lookup by bone name
     std::map<std::string, C3DBone*> _bones;
-	
+
     /// Storage of animations, lookup by name
     std::map<std::string, C3DAnimation*> _animations;
-
-   
 };
-
-	
 
 }
 
-
 #endif
-

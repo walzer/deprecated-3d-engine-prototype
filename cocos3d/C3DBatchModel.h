@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DMaterial;
 class C3DBatchMesh;
 class C3DNode;
@@ -25,14 +24,14 @@ public:
 
     virtual ~C3DBatchModel();
 
-	static C3DBatchModel* createDebugModel(C3DNode* node);   
+	static C3DBatchModel* createDebugModel(C3DNode* node);
 
     C3DBatchMesh* getMesh() const;
 	void setMesh(C3DBatchMesh* mesh);
 
 	C3DMaterial* getMaterial();
-    void setMaterial(C3DMaterial* material);    
-	
+    void setMaterial(C3DMaterial* material);
+
 	void add(const unsigned char* vertices, unsigned int vertexCount);
 	void add(const unsigned char* vertices, unsigned int vertexCount, const unsigned short* indices, unsigned int indexCount);
 
@@ -43,7 +42,7 @@ public:
 	void setIndexCapacity(unsigned int capacity);
 
 	void clear();
-		
+
 	virtual	void draw(void);
 
 	C3DRenderChannel* getRenderChannel();
@@ -57,8 +56,6 @@ private:
 	C3DBatchMesh* _mesh;
     C3DMaterial* _material;
 };
-
-
 }
 
 #endif

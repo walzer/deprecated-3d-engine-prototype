@@ -2,7 +2,6 @@
 
 namespace cocos3d
 {
-
 inline const C3DMatrix C3DMatrix::operator+(const C3DMatrix& m) const
 {
     C3DMatrix result(*this);
@@ -74,5 +73,4 @@ inline const C3DVector4 operator*(const C3DMatrix& m, const C3DVector4& v)
     m.transformVector(v, &x);
     return x;
 }
-
 }

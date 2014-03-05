@@ -12,43 +12,34 @@ cocos3d-x is a multi-platform game framework for building 3d games,which is base
 ### Main features
 
    * Math : vector,matrix,quaternion
-   * Mesh ：
+   * Mesh
      * general mesh
-         supporting various vertex formats and 1 or more MeshPart to define how the vertices are connected.
      * morph mesh
-         supporting morph deform
      * batch mesh
-         rendering multiple mesh into a single draw call
    * Material
-        one material contains several techniques for render an model.
-        when multiple techniques are loaded from a material file
-        the current technique can be set at runtime
    * Model
-     a model which contains a Mesh and a material
-     * skinmodel : a model which have skin mesh
-     * skinlessmodel : a model which doesn't have skin mesh
-     * batchmodel :  contain a C3DBatchMesh and a material
+     * skinmodel
+     * skinlessmodel
+     * batchmodel
    * Texture
-     * 2D texture : represents a 2d texture.It wraps the cocos2d::ccTexture
-     * 3D texture : represents a cube map.It wraps the cocos2d::ccTexture
-   * Stream : the interface for reading and writing a sequence of bytes
-     * filestream : support the file data stream
-     * memorystream : suppert the memory data stream
+     * 2D texture
+     * 3D texture
+   * FileSystem
+     * filestream
+     * memorystream
    * ResourceManager
      * resource
      * resourepool
      * resourcemanager
-   * Scene : a scene node includes all the scene object,for example,light,camera,sprite,and so on
+   * Scene items
      * camera
      * light
      * dynamic sprite
      * static sprite
    * ParticleSystem
-     represents a 3D particle system. It is loaded from .particle files.
-	   It is made up of one emitter, one render, some actions
-     * emitter : defines the emission rate, particle start size, end size, age,position, velocity, rotation and so on...
-     * render : render the particle with the batch render technique
-     * action : affect the particle's movement
+     * emitter
+     * render
+     * affect
    * PostEffect
    * Geo ：box,plane,ray...
    * shader lib

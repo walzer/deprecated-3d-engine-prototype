@@ -1,6 +1,6 @@
 //
 //  MathUtility
-//  
+//
 //
 //  utitlity function, such as approximate sin, cos
 //
@@ -9,18 +9,15 @@
 #ifndef __MathUtilty__
 #define __MathUtilty__
 
-
-
 namespace cocos3d
 {
-
 class C3DMathUtility
 {
 public:
     ~C3DMathUtility();
-    
+
     static C3DMathUtility& getInstance();
-    
+
     /**
      * approximate value of sin(rad), precision 1 degree
      *
@@ -28,7 +25,7 @@ public:
      * @param isUseTable use look up table retrive sin value.
      */
     float sin(float rad, bool isUseTable = false);
-    
+
     /**
      * approximate value of cos(rad), precision 1 degree
      *
@@ -36,7 +33,7 @@ public:
      * @param isUseTable use look up table retrive sin value.
      */
     float cos(float rad, bool isUseTable = false);
-    
+
     /**
      * approximate value of cos(rad), precision 1 degree
      *
@@ -47,12 +44,11 @@ public:
      */
     void sincos(float rad, float *sinvalue, float* cosvalue, bool isUseTable = false);
 
-    
 private:
     C3DMathUtility();
-    
+
     void initMathUtility();
-    
+
     /**
      * convert rad to degree
      *
@@ -60,11 +56,9 @@ private:
      * @return degree [0, 360)
      */
     int rad2degree(float rad);
-    
+
     float *_costab;
     float *_sintab;
-    
 };
-
 }
 #endif /* defined(__C3DUtilty__) */

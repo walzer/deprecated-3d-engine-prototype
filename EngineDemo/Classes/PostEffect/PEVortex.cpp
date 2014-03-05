@@ -5,10 +5,8 @@
 #include "MaterialParameter.h"
 #include "C3DTexture.h"
 
-
 namespace cocos3d
 {
-
 PEVortex::PEVortex(C3DPostProcess* postProcess, const std::string& name)
 	: C3DPostEffect( postProcess, name )
 	, _angle( 0.f )
@@ -21,7 +19,6 @@ PEVortex::PEVortex(C3DPostProcess* postProcess, const std::string& name)
 	, _maxTime( 2.0 )
 {
 }
-
 
 PEVortex::~PEVortex(void)
 {
@@ -59,7 +56,6 @@ bool PEVortex::init(const std::string& szMaterial)
 	_paramAngle = pass->getParameter( "angle" );
 
 	return _paramRadus!=NULL && _paramAngle != NULL;
-	
 }
 
 void PEVortex::update( float dt )
@@ -78,7 +74,6 @@ void PEVortex::update( float dt )
 	}
 }
 
-
 void PEVortex::setShaderParameter()
 {
 	if ( _paramRadus != NULL )
@@ -91,6 +86,4 @@ void PEVortex::setShaderParameter()
 		_paramAngle->setValue( _angle );
 	}
 }
-
 }	//namespace cocos3d
-

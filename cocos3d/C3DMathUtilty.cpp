@@ -10,8 +10,6 @@
 
 namespace cocos3d
 {
-    
-    
 C3DMathUtility::C3DMathUtility(): _costab(NULL), _sintab(NULL)
 {
 }
@@ -20,7 +18,6 @@ C3DMathUtility::~C3DMathUtility()
 {
     delete[] _costab;
     delete[] _sintab;
-        
 }
 
 C3DMathUtility& C3DMathUtility::getInstance()
@@ -29,37 +26,35 @@ C3DMathUtility& C3DMathUtility::getInstance()
     return instance;
 }
 
-
-
 // approximate value of sin(rad), precision 1 degree
 float C3DMathUtility::sin(float rad, bool isUseTable)
 {
     if (isUseTable)
     {
         initMathUtility();
-            
+
         int degree = rad2degree(rad);
-            
+
         return _sintab[degree];
     }
-        
+
     return sinf(rad);
 }
-    
+
 // approximate value of sin(rad), precision 1 degree
 float C3DMathUtility::cos(float rad, bool isUseTable)
 {
     if (isUseTable)
     {
         initMathUtility();
-            
+
         int degree = rad2degree(rad);
-            
+
         return _costab[degree];
     }
     return cosf(rad);
 }
-    
+
 int C3DMathUtility::rad2degree(float rad)
 {
     int degree = (int)(MATH_RAD_TO_DEG(rad) + 0.5f);
@@ -69,19 +64,18 @@ int C3DMathUtility::rad2degree(float rad)
     }
     if (degree < 0)
         degree += 360;
-	
+
     return degree;
 }
-    
+
 void C3DMathUtility::sincos(float rad, float *sinvalue, float* cosvalue, bool isUseTable)
 {
     if (isUseTable)
     {
         initMathUtility();
-            
+
         int degree = rad2degree(rad);
-            
-            
+
         if (sinvalue)
             *sinvalue = _sintab[degree];
         if (cosvalue)
@@ -98,22 +92,20 @@ void C3DMathUtility::sincos(float rad, float *sinvalue, float* cosvalue, bool is
 
 void C3DMathUtility::initMathUtility()
 {
-    
     if (_sintab && _costab)
         return;
-    
+
     delete[] _sintab;
     delete[] _costab;
-    
+
     const int count = 360;
     _costab = new float[count];
     _sintab = new float[count];
-    
+
     for (int i = 0; i < count; i++) {
         float rad = MATH_DEG_TO_RAD(i);
         _sintab[i] = sinf(rad);
         _costab[i] = cosf(rad);
     }
 }
-
 }

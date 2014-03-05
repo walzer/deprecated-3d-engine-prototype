@@ -9,8 +9,6 @@
 
 namespace cocos3d
 {
-
-	
 class C3DTexture;
 class C3DFrameBuffer;
 
@@ -37,7 +35,6 @@ public:
 	}
 public:
 
-
 	virtual float getSortParam(void) const
 	{
 		return _sortParam;
@@ -52,14 +49,12 @@ protected:
 	float _sortParam;
 };
 
-
 class C3DBaseModel;
 
 class ModelDrawItem : public BaseChannelDrawItem
 {
 public:
 	typedef std::vector<ModelDrawItem*> ModelItems;
-
 
 public:
 	ModelDrawItem( C3DBaseModel* model, float sortParam )
@@ -71,7 +66,6 @@ public:
 	virtual ~ModelDrawItem()
 	{
 	}
-
 
 protected:
 	virtual void draw();
@@ -97,12 +91,11 @@ public:
 
 class C3DBatchModel;
 
-
 /**
- * This class is the base class and the manager for the visual channels. A 
+ * This class is the base class and the manager for the visual channels. A
  * channel is essentially a bucket of objects with similar rendering rules.
  * The channels are traversed fixed global order, and within each channel items
- * are drawn, possibly in a sorted order. 
+ * are drawn, possibly in a sorted order.
  */
 class C3DRenderChannel
 {
@@ -116,7 +109,6 @@ public:
 	};
 	typedef std::list<BaseChannelDrawItem*> ChannelDrawItems;
 
-
 public:
 	/**
 	 * Constructor & Destructor
@@ -126,7 +118,6 @@ public:
 		, _sortType( ST_None )
 		, _enable(true)
 	{
-
 	}
 
 	virtual ~C3DRenderChannel();
@@ -168,7 +159,7 @@ public:
 	{
 		return _drawItems.size();
 	}
-	
+
 	bool getEnable(void) const
 	{
 		return _enable;
@@ -187,7 +178,6 @@ private:
 
 public:
 	static ChannelDrawItems ItemPool;
-
 };
 
 /**
@@ -208,7 +198,6 @@ public:
 
 	static const std::string SceneBufferName;
 
-
 	static const std::string ChannelBackground;
 	static const std::string ChannelOpacity;
 	static const std::string ChannelTransparency;
@@ -216,14 +205,13 @@ public:
 
 public:
 
-
 	static RenderChannelManager* getInstance();
 
 	/**
 	 * Constructor & Destructor
 	 */
 	RenderChannelManager();
-	virtual ~RenderChannelManager();	
+	virtual ~RenderChannelManager();
 
 	void init();
 	void clear();
@@ -233,22 +221,18 @@ public:
 	 */
 
 	C3DRenderChannel* getRenderChannel( const std::string& name );
-	
+
 	C3DRenderChannel* getRenderChannel( ChannelName channel )
 	{
 		return &(_channels[channel]);
 	}
-
 
 	/**
 	 * draw routine
 	 */
 	void draw( /*C3DScene* scene*/ );
 
-
 	C3DTexture* getSceneTexture(void);
-
-
 
 private:
 	void createFrameBuffer(void);
@@ -258,14 +242,8 @@ private:
 	C3DRenderChannel _channels[CN_Count];
 	C3DFrameBuffer* _frameBuffer;
 
-
 	static RenderChannelManager* _instance;
 };
-
-
- 
-
-
 
 }
 #endif // VISUAL_CHANNELS_H

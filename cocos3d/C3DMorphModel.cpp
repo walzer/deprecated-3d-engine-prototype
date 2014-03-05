@@ -5,8 +5,6 @@
 namespace cocos3d
 {
 
-
-
 C3DMorph* C3DModel::getMorph()
 {
 	return _morph;
@@ -21,7 +19,6 @@ void C3DModel::setMorph(C3DMorph* morph)
 		_morph = morph;
 	}
 }
-
 
 void C3DModel::pushMorph(int morphTargetIndex,float weight)
 {
@@ -45,8 +42,5 @@ void C3DModel::changeMorph(int morphTargetIndex,float weight)
 	{
 		static_cast<C3DMorphMesh*>(_mesh)->changeMorph(_morph,morphTargetIndex,weight);
 	}
-
 }
-
-
 }

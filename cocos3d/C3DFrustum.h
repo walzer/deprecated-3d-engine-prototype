@@ -7,14 +7,13 @@
 
 namespace cocos3d
 {
-
     class C3DCamera;
     /**
 	* Defines a 3-dimensional frustum.
 	*/
 	/**
 	Defines a frustum created from camera
-	It is used for camera culling 
+	It is used for camera culling
 	*/
     class C3DFrustum
     {
@@ -25,7 +24,7 @@ namespace cocos3d
 		 */
         C3DFrustum(): _bInit(true), _bClipZ(true){}
 		~C3DFrustum(){}
-        
+
 		/**
 		 * init frustum from camera.
 		 */
@@ -39,24 +38,23 @@ namespace cocos3d
 		 * is obb out of frustum
 		 */
         bool isOutFrustum(const C3DOBB& obb) const;
-        
+
 		/**
 		 * get & set z clip. if bclipZ == true use near and far plane
 		 */
         void setClipZ(bool bclipZ) { _bClipZ = bclipZ; }
         bool isClipZ() { return _bClipZ; }
-        
+
     protected:
 		/**
 		 * create clip plane
 		 */
         void createPlane(C3DCamera* pcamera);
-        
+
         C3DPlane _plane[6];// clip plane, left, right, top, bottom, near, far
         bool _bClipZ;//use near and far clip plane
         bool _bInit;
     };
-
 }
 
 #endif

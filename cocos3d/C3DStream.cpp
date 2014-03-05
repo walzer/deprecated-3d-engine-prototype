@@ -10,7 +10,7 @@ extern void printError(const char* format, ...)
     va_start(argptr, format);
     LOGI(format, argptr);
     va_end(argptr);
-}  
+}
 PFNGLBINDVERTEXARRAYOESPROC glBindVertexArray = NULL;
 PFNGLDELETEVERTEXARRAYSOESPROC glDeleteVertexArrays = NULL;
 PFNGLGENVERTEXARRAYSOESPROC glGenVertexArrays = NULL;
@@ -41,7 +41,7 @@ extern void printError(const char* format, ...)
     vfprintf(stderr, format, argptr);
     fprintf(stderr, "\n");
     va_end(argptr);
-}   
+}
 #endif
 
 std::string C3DStream::readString()
@@ -76,7 +76,7 @@ bool C3DStream::writeString(const std::string& str)
     {
         return false;
     }
-    
+
     if (length > 0)
     {
         return write(str);
@@ -93,10 +93,10 @@ bool C3DStream::write(const std::string& str)
 {
     return write(str.c_str(), str.length(), 1) == 1;
 }
-    
+
 //...
 
-C3DFileStream::C3DFileStream(FILE* file)   
+C3DFileStream::C3DFileStream(FILE* file)
 {
     _file = file;
 }
@@ -114,13 +114,12 @@ C3DFileStream* C3DFileStream::create(const std::string& filePath, const std::str
     FILE* file = fopen(filePath.c_str(), mode.c_str());
     if (file)
     {
-        C3DFileStream* stream = new C3DFileStream(file);      
+        C3DFileStream* stream = new C3DFileStream(file);
 
         return stream;
     }
     return NULL;
 }
-
 
 void C3DFileStream::close()
 {
@@ -137,7 +136,7 @@ size_t C3DFileStream::read(void* ptr, size_t size, size_t count)
 }
 
 char* C3DFileStream::readLine(int num,char* line)
-{	
+{
     if (!_file)
         return 0;
     return fgets(line, num, _file);
@@ -203,10 +202,9 @@ char* C3DFileStream::readAll(int* fileSize)
 	{
 		LOG_ERROR("Failed to load file");
         return NULL;
-	}   
+	}
 
-	long int curpos = ftell(_file);      
-   
+	long int curpos = ftell(_file);
 
     // Obtain file length.
     fseek(_file, 0, SEEK_END);
@@ -229,7 +227,7 @@ char* C3DFileStream::readAll(int* fileSize)
 
     if (fileSize)
     {
-        *fileSize = size; 
+        *fileSize = size;
     }
     return buffer;
 }
@@ -239,19 +237,16 @@ char* C3DFileStream::readAll(int* fileSize)
 C3DMemoryStream::C3DMemoryStream()
 {
 	m_buffer = NULL;
-	m_position = 0;	
+	m_position = 0;
 	m_length = 0;
 }
-
 
 C3DMemoryStream::C3DMemoryStream(char* lpbuffer, unsigned int length)
 {
 	m_position = 0;
-	m_buffer  = lpbuffer; 	
+	m_buffer  = lpbuffer;
 	m_length = length;
-
-	
-}; 
+};
 
 C3DMemoryStream::~C3DMemoryStream()
 {
@@ -262,13 +257,12 @@ C3DMemoryStream* C3DMemoryStream::create(char* lpbuffer, unsigned int length)
 {
     if (lpbuffer)
     {
-        C3DMemoryStream* stream = new C3DMemoryStream(lpbuffer, length);      
+        C3DMemoryStream* stream = new C3DMemoryStream(lpbuffer, length);
 
         return stream;
     }
     return NULL;
 }
-
 
 void C3DMemoryStream::close()
 {
@@ -279,7 +273,7 @@ size_t C3DMemoryStream::read(void* ptr, size_t size, size_t count)
 {
     if (!m_buffer || eof())
         return 0;
-	
+
 	size_t validCount;
 	size_t validLength = m_length - m_position;
 	size_t needLength = size*count;
@@ -289,7 +283,7 @@ size_t C3DMemoryStream::read(void* ptr, size_t size, size_t count)
 		validCount = validLength/size;
 		size_t readLength = size*validCount;
 		memcpy(ptr1,(char*)m_buffer+m_position,readLength);
-		ptr1 += readLength;	
+		ptr1 += readLength;
 		m_position += readLength;
 		readLength = validLength - readLength;
 		if(readLength>0)
@@ -298,7 +292,6 @@ size_t C3DMemoryStream::read(void* ptr, size_t size, size_t count)
 		    m_position += readLength;
 			validCount+=1;
 		}
-	
 	}
 	else
 	{
@@ -308,40 +301,38 @@ size_t C3DMemoryStream::read(void* ptr, size_t size, size_t count)
 	}
 	//*ptr1 = 0;
 
-	return validCount;	
-
+	return validCount;
 }
 
 char* C3DMemoryStream::readLine(int num,char* line)
 {
     if (!m_buffer)
         return 0;
-		
+
 	//char* str = new char[num];
 	char* buffer = (char*)m_buffer+m_position;
-	
+
 	char* p = line;
 	char c;
 	size_t readNum = 0;
 	while((c=*buffer) != 10 && readNum < (size_t)num && m_position<(long int)m_length)
-	{		
+	{
 		*p = c;
 		p++;
 		buffer++;
-		m_position++; 
+		m_position++;
 		readNum++;
 	}
 	*p = '\0';
 
 	return line;
-
 }
 
 size_t C3DMemoryStream::write(const void* ptr, size_t size, size_t count)
 {
     if (!m_buffer)
         return 0;
-    
+
 	size_t validCount;
 	size_t validLength = m_length - m_position;
 	size_t needLength = size*count;
@@ -360,7 +351,6 @@ size_t C3DMemoryStream::write(const void* ptr, size_t size, size_t count)
 		    m_position += readLength;
 			validCount += 1;
 		}
-        
 	}
 	else
 	{
@@ -368,11 +358,9 @@ size_t C3DMemoryStream::write(const void* ptr, size_t size, size_t count)
 		m_position += needLength;
 		validCount = count;
 	}
-    
+
 	return validCount;
 }
-    
-
 
 bool C3DMemoryStream::eof()
 {
@@ -414,7 +402,6 @@ bool C3DMemoryStream::seek(long int offset, int origin)
 		return false;
 
 	return true;
-   
 }
 
 bool C3DMemoryStream::rewind()
@@ -434,11 +421,11 @@ char* C3DMemoryStream::readAll(int* fileSize)
 	{
 		LOG_ERROR("Failed to load file");
         return NULL;
-	} 	
+	}
 
     if (fileSize)
     {
-        *fileSize = m_length; 
+        *fileSize = m_length;
     }
     return m_buffer;
 }
@@ -452,11 +439,10 @@ C3DStreamManager::~C3DStreamManager()
 {
 }
 
-
 char* C3DStreamManager::readAll(const std::string& filePath, int* fileSize)
 {
     // Open file for reading.
-	
+
 	C3DStream* stream = C3DStreamManager::openStream(filePath, "rb");
     if (stream == NULL)
     {
@@ -464,11 +450,11 @@ char* C3DStreamManager::readAll(const std::string& filePath, int* fileSize)
         return NULL;
     }
 	size_t size = stream->length();
-	
+
     // Read entire file contents.
     char* buffer = new char[size + 1];
 	size_t read = stream->read(buffer, 1, size);
- 
+
     assert(read == size);
     if (read != size)
     {
@@ -480,11 +466,10 @@ char* C3DStreamManager::readAll(const std::string& filePath, int* fileSize)
     // Force the character buffer to be NULL-terminated.
     buffer[size] = '\0';
 
-
 	delete stream;
     if (fileSize)
     {
-        *fileSize = size+1; 
+        *fileSize = size+1;
     }
     return buffer;
 }
@@ -497,8 +482,8 @@ C3DStream* C3DStreamManager::openStream(const std::string& fileName, const std::
     if (fullpath.size() == 0)
     {
         return NULL;
-    }   
-	   
+    }
+
 	C3DStream* stream = NULL;
 	if(streamType == StreamType_File)
 	{
@@ -511,10 +496,8 @@ C3DStream* C3DStreamManager::openStream(const std::string& fileName, const std::
 		stream = C3DMemoryStream::create(pBuffer,nSize);
 	}
 	else{}
-	
+
 	return stream;
 }
-
-
 
 }

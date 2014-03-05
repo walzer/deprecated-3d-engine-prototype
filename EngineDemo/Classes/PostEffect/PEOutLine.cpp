@@ -15,11 +15,8 @@
 
 namespace cocos3d
 {
-   
-
 PEOutLine::~PEOutLine()
 {
-  
 }
 
 C3DPostEffect* PEOutLine::create( const std::string& name, const std::string& materialName, C3DPostProcess* postProcess )
@@ -38,6 +35,4 @@ void PEOutLine::setShaderParameter()
 	_material->getTechnique(0u)->getPass(0u)->getParameter("u_w")->setValue(2.0f/(float)_postProcess->getFBWidth());
 	_material->getTechnique(0u)->getPass(0u)->getParameter("u_h")->setValue(2.0f/(float)_postProcess->getFBHeight());
 }
-
-
 }

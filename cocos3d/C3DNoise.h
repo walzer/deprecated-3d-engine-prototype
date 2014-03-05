@@ -3,7 +3,6 @@
 
 namespace cocos3d
 {
-
 class C3DNoise
 {
 public:
@@ -13,7 +12,6 @@ public:
 	virtual double generateNoise1D(double x) = 0;
 	// between -1 and 1
 	virtual double generateNoise2D(double x, double y) = 0;
-
 };
 
 class C3DPerlinNoise : public C3DNoise
@@ -34,6 +32,5 @@ protected:
 	double _factorScale;
 	double _factorAdd;
 };
-
 }
 #endif

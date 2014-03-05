@@ -8,20 +8,20 @@ class C3DNode;
 class C3DSprite;
 
 /**
-*Defines a logic attach point.one 
+*Defines a logic attach point.one
 */
 class AttachNode
 {
 public:
-    
+
     friend class C3DRenderNode;
-	   
+
     AttachNode( C3DNode* pNode, C3DNode* pOwner );
 
-    ~AttachNode(); 	
+    ~AttachNode();
 
 	C3DNode*		node()				{ return _node; }
-	
+
 	void attach( C3DNode* pAttachment );
 
     bool detach( C3DNode* pAttachment );
@@ -30,19 +30,12 @@ public:
 
 	void draw();
 
-
 private:
 
 	C3DNode* _owner;
 	C3DNode* _node;
-	std::vector<C3DNode*> _attachments;		
-
-
+	std::vector<C3DNode*> _attachments;
 };
-
-
 }
-
-
 
 #endif

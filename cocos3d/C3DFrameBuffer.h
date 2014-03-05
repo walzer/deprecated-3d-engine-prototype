@@ -8,7 +8,6 @@
 
 namespace cocos3d
 {
-
 class C3DRenderTarget;
 class C3DDepthStencilTarget;
 
@@ -16,10 +15,10 @@ class C3DDepthStencilTarget;
  * Defines a frame buffer object that may contain one or more render targets and optionally
  * a depth-stencil target.
  *
- * Frame buffers can be created and used for off-screen rendering, which is useful for 
- * techniques such as shadow mapping and post-processing. 
+ * Frame buffers can be created and used for off-screen rendering, which is useful for
+ * techniques such as shadow mapping and post-processing.
  *
- * When binding a custom frame buffer, you should always store the return value of 
+ * When binding a custom frame buffer, you should always store the return value of
  * C3DFrameBuffer::bind and restore it when you are finished drawing to your frame buffer.
  *
  * To bind the default frame buffer, call C3DFrameBuffer::bindDefault.
@@ -44,13 +43,13 @@ public:
      */
     void setRenderTarget(C3DRenderTarget* target);
     C3DRenderTarget* getRenderTarget() const;
- 
+
 	/**
      * get & set DepthStencilTarget
      */
     void setDepthStencilTarget(C3DDepthStencilTarget* target);
     C3DDepthStencilTarget* getDepthStencilTarget() const;
- 
+
 	/**
      * bind this frame buffer and render to it.
      */
@@ -65,7 +64,7 @@ public:
      * restore to frame buffer before bind.
      */
     void unbind(); //restore framebuffer
-	
+
 	/**
      * get fbo handle.
      */
@@ -73,19 +72,19 @@ public:
 	{
 		return _handle;
 	}
-    
+
     unsigned int getWidth() const
     {
         return _width;
     }
-    
+
     unsigned int getHeight() const
     {
         return  _height;
     }
-     
+
 private:
- 
+
 	/**
      * Constructor & Destructor.
      */
@@ -104,7 +103,6 @@ private:
     C3DViewport _oldViewport;
     GLint _oldFBO;
 };
-
 }
 
 #endif

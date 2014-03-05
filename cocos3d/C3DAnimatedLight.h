@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DTexture;
 class C3DSampler;
 
@@ -41,9 +40,9 @@ public:
 	void setScaleUV(float scaleU1, float scaleV1, float scaleU2, float scaleV2);
 	void setRotateUV(float rotate1, float rotate2);
 	void setRotateSpeedUV(float rotate1, float rotate2);
-	
+
 	/**
-     * get uv offset {x, y} : uv1 offset, {z, w} uv2 offset 
+     * get uv offset {x, y} : uv1 offset, {z, w} uv2 offset
      */
 	const C3DVector4& getUVOffset() const { return _offsetUV; }
 
@@ -72,7 +71,6 @@ public:
      */
 	C3DSampler* getSampler() const { return _sampler; };
 
-
 protected:
 	/**
      * Constructor.
@@ -93,8 +91,6 @@ protected:
 	C3DVector4 _uv2RotScale;
 
 	void updateRotScale();
-
 };
-
 }
 #endif

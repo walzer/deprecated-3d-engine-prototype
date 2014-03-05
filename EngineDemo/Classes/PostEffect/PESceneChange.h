@@ -10,7 +10,6 @@ class C3DPostEffect;
 class C3DPostProcess;
 class MaterialParameter;
 
-
 class PESceneChange : public C3DPostEffect
 {
 	friend class C3DPostEffect;
@@ -21,13 +20,11 @@ protected:
 
 	virtual ~PESceneChange();
 
-
 public:
 	static C3DPostEffect* create( const std::string& name,const std::string& materialName, C3DPostProcess* postProcess );
 
 	virtual bool init(const std::string& szMaterial);
 	virtual void draw();
-
 
 	void update( float dt );
 
@@ -51,7 +48,6 @@ public:
 		return _radius;
 	}
 
-
 	float _angleSpeed;
 	float _radiusSpeed;
 	float _Time;
@@ -66,7 +62,6 @@ private:
 
 	C3DMaterial* _matCopyToScreen;
 };
-
 }
 
 #endif	//#define PESceneChange_H

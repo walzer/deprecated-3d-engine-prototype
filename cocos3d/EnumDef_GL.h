@@ -4,7 +4,6 @@
 
 namespace cocos3d
 {
-
 /**
 * Defines supported index formats.
 */
@@ -62,7 +61,6 @@ enum Texture_Wrap
     Texture_Wrap_REPEAT = GL_REPEAT,
     Texture_Wrap_CLAMP = GL_CLAMP_TO_EDGE
 };
-
 }
 
 #endif

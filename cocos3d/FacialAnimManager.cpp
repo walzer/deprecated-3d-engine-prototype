@@ -5,12 +5,10 @@
 
 namespace cocos3d
 {
-
 FacialAnimManager::FacialAnimManager()
 {
 	_anims = new map<string,list<SheetAnimation*>*>();
 }
-
 
 FacialAnimManager::~FacialAnimManager()
 {
@@ -28,7 +26,7 @@ FacialAnimManager::~FacialAnimManager()
 			{
 				delete anim;
 				anim = NULL;
-			}			
+			}
 		}
 		partAnims->clear();
 
@@ -36,7 +34,6 @@ FacialAnimManager::~FacialAnimManager()
 	}
 	_anims->clear();
 	delete _anims;_anims = NULL;
-
 }
 
 void FacialAnimManager::update(long elapsedTime)
@@ -60,8 +57,7 @@ void FacialAnimManager::update(long elapsedTime)
 				break;
 			}
 		}
-	}			
-		
+	}
 }
 
 void FacialAnimManager::addTextureAnim(string partName,string typeName,int frameNum,string frameSerial)
@@ -71,7 +67,7 @@ void FacialAnimManager::addTextureAnim(string partName,string typeName,int frame
 	{
 		_anims->insert(map_pair(partName,new list<SheetAnimation*>()));
 	}
-		
+
 	mapIter = _anims->find(partName);
 	if(mapIter==_anims->end())
 		return;
@@ -79,7 +75,7 @@ void FacialAnimManager::addTextureAnim(string partName,string typeName,int frame
 	list<SheetAnimation*>* partAnims = mapIter->second;
 
 	std::list<SheetAnimation*>::iterator iter;
-	for(iter=partAnims->begin();iter!=partAnims->end();iter)
+	for(iter=partAnims->begin();iter!=partAnims->end();)
 	{
 		SheetAnimation* anim = *iter;
 		if(anim->typeName==typeName)
@@ -89,17 +85,16 @@ void FacialAnimManager::addTextureAnim(string partName,string typeName,int frame
 		else
 			iter++;
 	}
-				
+
 	TextureAnimation* sheetAnim = new TextureAnimation();
 	sheetAnim->enable = false;
 	sheetAnim->partName = partName;
 	sheetAnim->typeName = typeName;
-	sheetAnim->mat = NULL;	
+	sheetAnim->mat = NULL;
 	sheetAnim->frameNum = frameNum;
 	sheetAnim->generateFrameSerial(frameSerial);
 
-	(*_anims)[partName]->push_back(sheetAnim);		
-		
+	(*_anims)[partName]->push_back(sheetAnim);
 }
 
 void FacialAnimManager::addUVAnim(string partName,string typeName,int tileX,int tileY,int frameNum,string frameSerial)
@@ -109,7 +104,7 @@ void FacialAnimManager::addUVAnim(string partName,string typeName,int tileX,int 
 	{
 		_anims->insert(map_pair(partName,new list<SheetAnimation*>()));
 	}
-		
+
 	mapIter = _anims->find(partName);
 	if(mapIter==_anims->end())
 		return;
@@ -117,7 +112,7 @@ void FacialAnimManager::addUVAnim(string partName,string typeName,int tileX,int 
 	list<SheetAnimation*>* partAnims = mapIter->second;
 
 	std::list<SheetAnimation*>::iterator iter;
-	for(iter=partAnims->begin();iter!=partAnims->end();iter)
+	for(iter=partAnims->begin(); iter!=partAnims->end();)
 	{
 		SheetAnimation* anim = *iter;
 		if(anim->typeName==typeName)
@@ -127,19 +122,18 @@ void FacialAnimManager::addUVAnim(string partName,string typeName,int tileX,int 
 		else
 			iter++;
 	}
-				
+
 	UVAnimation* sheetAnim = new UVAnimation();
 	sheetAnim->enable = false;
 	sheetAnim->partName = partName;
 	sheetAnim->typeName = typeName;
-	sheetAnim->mat = NULL;	
+	sheetAnim->mat = NULL;
 	sheetAnim->tileX = tileX;
 	sheetAnim->tileY = tileY;
 	sheetAnim->frameNum = frameNum;
 	sheetAnim->generateFrameSerial(frameSerial);
 
-	(*_anims)[partName]->push_back(sheetAnim);		
-		
+	(*_anims)[partName]->push_back(sheetAnim);
 }
 
 bool FacialAnimManager::setAnim(string partName, string typeName,C3DMaterial* mat)
@@ -170,5 +164,4 @@ bool FacialAnimManager::setAnim(string partName, string typeName,C3DMaterial* ma
 
 	return found;
 }
-
 }

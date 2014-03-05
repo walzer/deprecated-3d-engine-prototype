@@ -9,7 +9,6 @@
 #include "C3DGeoWireRender.h"
 #include "C3DRenderSystem.h"
 
-
 // C3DCamera dirty bits
 #define CAMERA_DIRTY_VIEW 1
 #define CAMERA_DIRTY_PROJ 2
@@ -21,13 +20,12 @@
 
 namespace cocos3d
 {
-
 C3DCamera::C3DCamera(const std::string& id)
     :C3DNode(id),  _type(PERSPECTIVE), _fieldOfView(45.0f), _aspectRatio(0.75), _nearPlane(10.0f), _farPlane(1000.0f),
       _dirtyBits(CAMERA_DIRTY_ALL), _bEnableFrustum(true), _target(C3DVector3(0, 0, 0)), _bDrawCamera(false)
 {
     this->addListener(this);
-    
+
     if (_bEnableFrustum)
     _frustum.initFrustum(this);
 }
@@ -39,7 +37,6 @@ C3DCamera::C3DCamera(float fieldOfView, float aspectRatio, float nearPlane, floa
 
     if (_bEnableFrustum)
     _frustum.initFrustum(this);
-
 }
 
 C3DCamera::C3DCamera(float zoomX, float zoomY, float aspectRatio, float nearPlane, float farPlane, const std::string& strId)
@@ -50,10 +47,9 @@ C3DCamera::C3DCamera(float zoomX, float zoomY, float aspectRatio, float nearPlan
     _zoom[0] = zoomX;
     _zoom[1] = zoomY;
     this->addListener(this);
-    
+
     if (_bEnableFrustum)
     _frustum.initFrustum(this);
-
 }
 
 C3DCamera* C3DCamera::create(const std::string& id)
@@ -72,12 +68,11 @@ void C3DCamera::setPerspective(float fieldOfView, float aspectRatio, float nearP
 {
 	_fieldOfView = fieldOfView;
 	_aspectRatio = aspectRatio;
-	_nearPlane = nearPlane; 
+	_nearPlane = nearPlane;
 	_farPlane = farPlane;
-    
+
     if (_bEnableFrustum)
     _frustum.initFrustum(this);
-   
 }
 
 C3DCamera* C3DCamera::createPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane, const std::string& strId)
@@ -99,9 +94,9 @@ void C3DCamera::setOrthographic(float zoomX, float zoomY, float aspectRatio, flo
 	_zoom[0] = zoomX;
     _zoom[1] = zoomY;
 	_aspectRatio = aspectRatio;
-	_nearPlane = nearPlane; 
+	_nearPlane = nearPlane;
 	_farPlane = farPlane;
-    
+
     if (_bEnableFrustum)
     _frustum.initFrustum(this);
 }
@@ -197,7 +192,6 @@ void C3DCamera::setFarPlane(float farPlane)
     _dirtyBits |= CAMERA_DIRTY_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;
 }
 
-
 const C3DMatrix& C3DCamera::getViewMatrix()
 {
     if (_dirtyBits & CAMERA_DIRTY_VIEW)
@@ -264,51 +258,49 @@ const C3DMatrix& C3DCamera::getInverseViewProjectionMatrix()
     return _inverseViewProjection;
 }
 
-
 void C3DCamera::transformChanged(C3DTransform* transform)
 {
     _dirtyBits |= CAMERA_DIRTY_VIEW | CAMERA_DIRTY_INV_VIEW | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;
-    
+
     if (_bEnableFrustum)
         _frustum.initFrustum(this);
 }
-    
+
 void C3DCamera::project(const C3DViewport* viewport, C3DVector3* src, C3DVector2* dst)
 {
     assert(src);
     assert(dst);
-    
+
     // C3DTransform the point to clip-space.
     C3DVector4 clipPos;
     getViewProjectionMatrix().transformVector(C3DVector4(src->x, src->y, src->z, 1.0f), &clipPos);
-    
+
     // Compute normalized device coordinates.
     assert(clipPos.w != 0.0f);
     float ndcX = clipPos.x / clipPos.w;
     float ndcY = clipPos.y / clipPos.w;
-    
+
     // Compute screen coordinates by applying our viewport transformation.
     dst->x = viewport->x + (ndcX + 1.0f) * 0.5f * viewport->width;
     dst->y = viewport->y + (1.0f - (ndcY + 1.0f) * 0.5f) * viewport->height;
-   
 }
-    
+
 void C3DCamera::unproject(const C3DViewport* viewport, C3DVector3* src, C3DVector3* dst)
 {
     assert(dst);
-    
+
     // Create our screen space position in NDC.
     assert(viewport->width != 0.0f && viewport->height != 0.0f);
     C3DVector4 screen((src->x - viewport->x) / viewport->width, ((viewport->height - src->y) - viewport->y) / viewport->height, src->z, 1.0f);
-    
+
     // Map to range -1 to 1.
     screen.x = screen.x * 2.0f - 1.0f;
     screen.y = screen.y * 2.0f - 1.0f;
     screen.z = screen.z * 2.0f - 1.0f;
-    
+
     // C3DTransform the screen-space NDC by our inverse view projection matrix.
     getInverseViewProjectionMatrix().transformVector(screen, &screen);
-    
+
     // Divide by our W coordinate.
     if (screen.w != 0.0f)
     {
@@ -316,9 +308,8 @@ void C3DCamera::unproject(const C3DViewport* viewport, C3DVector3* src, C3DVecto
         screen.y /= screen.w;
         screen.z /= screen.w;
     }
-    
-    dst->set(screen.x, screen.y, screen.z);
 
+    dst->set(screen.x, screen.y, screen.z);
 }
 
 void C3DCamera::getAxes(const C3DViewport* viewport, float x, float y, C3DRay* dst)
@@ -341,9 +332,8 @@ void C3DCamera::getAxes(const C3DViewport* viewport, float x, float y, C3DRay* d
     dst->set(nearPoint, direction);
 }
 
-void C3DCamera::translateX(float tx) 
+void C3DCamera::translateX(float tx)
 {
-	
     C3DNode::translateX(tx);
     _dirtyBits |= CAMERA_DIRTY_VIEW | CAMERA_DIRTY_INV_VIEW | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;
 }
@@ -351,13 +341,13 @@ void C3DCamera::translateX(float tx)
 void C3DCamera::translateY(float ty)
 {
     C3DNode::translateY(ty);
-    _dirtyBits |= CAMERA_DIRTY_VIEW | CAMERA_DIRTY_INV_VIEW | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;   
+    _dirtyBits |= CAMERA_DIRTY_VIEW | CAMERA_DIRTY_INV_VIEW | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;
 }
 
 void C3DCamera::translateZ(float tz)
 {
     C3DNode::translateZ(tz);
-    _dirtyBits |= CAMERA_DIRTY_VIEW | CAMERA_DIRTY_INV_VIEW | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;   
+    _dirtyBits |= CAMERA_DIRTY_VIEW | CAMERA_DIRTY_INV_VIEW | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;
 }
 
 void C3DCamera::setPosition(float tx, float ty, float tz)
@@ -383,28 +373,28 @@ void C3DCamera::rotateZ(float angle)
     C3DNode::rotateZ(angle);
     _dirtyBits |= CAMERA_DIRTY_VIEW | CAMERA_DIRTY_INV_VIEW | CAMERA_DIRTY_INV_VIEW_PROJ | CAMERA_DIRTY_VIEW_PROJ | CAMERA_DIRTY_BOUNDS;
 }
-    
+
 bool C3DCamera::isVisible(const C3DAABB& aabb) const
 {
     if (_bEnableFrustum)
         return !_frustum.isOutFrustum(aabb);
-    
+
     return true;
 }
-    
+
 bool C3DCamera::isVisible(const C3DOBB& obb) const
 {
     if (_bEnableFrustum)
         return !_frustum.isOutFrustum(obb);
-    
+
     return true;
 }
-    
+
 void C3DCamera::enableFrustumCull(bool bEnalbe, bool bClipZ)
 {
     _bEnableFrustum = bEnalbe;
     _frustum.setClipZ(bClipZ);
-    
+
     if (bEnalbe)
         _frustum.initFrustum(this);
 }
@@ -448,7 +438,5 @@ void C3DCamera::drawDebug()
 }
 
 //..........
-
-
 
 }
