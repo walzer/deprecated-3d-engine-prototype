@@ -24,16 +24,13 @@ using namespace cocos3d;
 static bool s_lightTranslate = false;
 static bool s_lightRotate = false;
 
-
 AnimLightTestLayer::AnimLightTestLayer()
 	: _totalTime( 0.0 )
 {
-
 }
 
 AnimLightTestLayer::~AnimLightTestLayer()
 {
-
 }
 
 bool AnimLightTestLayer::init()
@@ -42,7 +39,7 @@ bool AnimLightTestLayer::init()
 
     setUpCamera();
     setUpLight();
-    setUpScene();   
+    setUpScene();
 
     return r;
 }
@@ -83,15 +80,13 @@ void AnimLightTestLayer::draw()
 void AnimLightTestLayer::setUpScene()
 {
     C3DStaticObj* sm = C3DStaticObj::create("1");
-    
+
     sm->loadFromFile("demores/materialtest/1.ckb");
     sm->setMaterial("demores/materialtest/1.material");
     sm->translate(0, 0, 0);
     sm->scale(50, 50, 50);
 
     _scene->addChild(sm);
-
-	
 }
 
 void AnimLightTestLayer::setUpCamera()
@@ -108,11 +103,7 @@ void AnimLightTestLayer::setUpCamera()
 void AnimLightTestLayer::setUpLight()
 {
     createAnimLight();
-
-
 }
-
-
 
 void AnimLightTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
 {
@@ -140,12 +131,11 @@ void AnimLightTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, u
             int deltaY = y - _touchY;
             _touchY = y;
 
-            {				
+            {
                 C3DCamera* camera = _scene->getActiveCamera();
                 if (camera)
                     camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-
-            }	
+            }
         }
         break;
     default:
@@ -159,12 +149,11 @@ void AnimLightTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
-    }    
 
+        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
+    }
 }
 
 void AnimLightTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -175,12 +164,9 @@ void AnimLightTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-       
+
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y, pTouch->getID());
-
-
     }
-
 }
 
 void AnimLightTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
@@ -191,17 +177,14 @@ void AnimLightTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x , touchPoint.y , pTouch->getID());
     }
-
 }
 
 void AnimLightTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
 {
-
 }
-
 
 CCLayer* AnimLightTestLayer::createUILayer()
 {
@@ -216,7 +199,7 @@ CCLayer* AnimLightTestLayer::createUILayer()
         //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
         // #else
         CCLabelTTF* label = CCLabelTTF::create(name[i], "Arial", 20);
-        // #endif        
+        // #endif
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(AnimLightTestLayer::menuCallback));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
@@ -252,7 +235,7 @@ void AnimLightTestLayer::menuCallback( CCObject * pSender )
     // get the userdata, it's the index of the menu item clicked
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSender);
     int nIdx = pMenuItem->getZOrder() - 10000;
-    
+
     if (nIdx == 0)
     {
         s_lightTranslate = !s_lightTranslate;

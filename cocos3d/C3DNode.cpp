@@ -10,16 +10,14 @@
 #include "C3DAABB.h"
 #include "C3DOBB.h"
 
-
 namespace cocos3d
 {
-
-C3DNode::C3DNode()   
+C3DNode::C3DNode()
 	  : _scene(NULL),_parent(NULL),_active(true),
     _dirtyBits(NODE_DIRTY_ALL), _notifyHierarchyChanged(true), _listeners(NULL)
 {
    _id = "";
-   	
+
 	_showAABB = false;
     _showOBB = false;
 
@@ -27,7 +25,6 @@ C3DNode::C3DNode()
     _bbOrigin = NULL;
 
     _obb.clear();
-		
 }
 
 C3DNode::C3DNode(const std::string& id)
@@ -38,7 +35,7 @@ C3DNode::C3DNode(const std::string& id)
     {
         _id = id;
     }
-	
+
 	_showAABB = false;
     _showOBB = false;
 
@@ -59,17 +56,16 @@ C3DNode::~C3DNode()
 		for(std::vector<C3DNode*>::iterator iter=_parent->_children.begin(); iter!=_parent->_children.end(); ++iter)
 		{
 			if(*iter==this)
-			{				
+			{
 				_parent->_children.erase(iter);
 				_parent = NULL;
 				break;
 			}
 		}
 	}
-	
+
 	SAFE_DELETE(_bb);
     SAFE_DELETE(_bbOrigin);
-	
 }
 
 C3DNode* C3DNode::create(const std::string& id)
@@ -114,9 +110,9 @@ void C3DNode::addChild(C3DNode* child)
     if (child->_parent)
     {
         child->_parent->removeChild(child);
-    }   
+    }
 
-    child->_parent = this;	
+    child->_parent = this;
 	_children.push_back( child );
 
     child->transformChanged();
@@ -146,7 +142,7 @@ void C3DNode::removeChild(C3DNode* child)
 			break;
 		}
 	}
-	
+
     if (_notifyHierarchyChanged)
     {
         hierarchyChanged();
@@ -160,7 +156,7 @@ void C3DNode::removeAllChildren()
 {
 	_notifyHierarchyChanged = false;
 	for(std::vector<C3DNode*>::iterator iter=_children.begin(); iter!=_children.end(); iter)
-	{	
+	{
 		C3DNode* child = *iter;
 		if (child == NULL || child->_parent != this)
 		{
@@ -174,12 +170,12 @@ void C3DNode::removeAllChildren()
 				child->_parent->hierarchyChanged();
 			}*/
 			onChildChanged(REMOVE, child);
-			child->_parent = NULL;		
+			child->_parent = NULL;
 			SAFE_RELEASE(child);
 			iter = _children.erase(iter);
 		}
 	}
-	_children.clear();	
+	_children.clear();
 
     _notifyHierarchyChanged = true;
     hierarchyChanged();
@@ -195,7 +191,7 @@ C3DNode* C3DNode::findNode(const std::string& id, bool recursive)
 	assert(!id.empty());
 
 	for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)
-	{		
+	{
 	    if((*iter)->_id.compare(id) == 0)
 		{
 			return *iter;
@@ -216,11 +212,11 @@ C3DNode* C3DNode::findNode(const std::string& id, bool recursive)
 
     return NULL;
 }
-    
+
 void C3DNode::update(long elapsedTime)
 {
     size_t i;
-    for (i = 0; i < _children.size(); ++i) 
+    for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
 		if(node->active())
@@ -231,7 +227,7 @@ void C3DNode::update(long elapsedTime)
 void C3DNode::draw()
 {
 	size_t i;
-    for (i = 0; i < _children.size(); ++i) 
+    for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
 		if(node->active())
@@ -280,9 +276,8 @@ const C3DMatrix& C3DNode::getWorldMatrix()
         // transform to obtain our final resolved world transform.
         C3DNode* parent = getParent();
 		if (parent)
-        {				
-			C3DMatrix::multiply(parent->getWorldMatrix(), getMatrix(), &_world);			
-            
+        {
+			C3DMatrix::multiply(parent->getWorldMatrix(), getMatrix(), &_world);
         }
         else
         {
@@ -291,9 +286,9 @@ const C3DMatrix& C3DNode::getWorldMatrix()
 
         // Our world matrix was just updated, so call getWorldMatrix() on all child nodes
         // to force their resolved world matrices to be updated.
-		for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)       
+		for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)
         {
-			(*iter)->getWorldMatrix();           
+			(*iter)->getWorldMatrix();
         }
     }
 
@@ -492,7 +487,7 @@ void C3DNode::setForwardVectorWorld(C3DVector3& forwardVector)
 	right.normalize();
     C3DVector3 pos = C3DVector3(0,0,0);
 	C3DMatrix m  = C3DMatrix::createFromVectors(right,up,forwardVector,pos);
-	
+
 	setRotation(m);
 }
 
@@ -536,7 +531,7 @@ void C3DNode::addListener(C3DNode::Listener* listener)
 {
     if (_listeners == NULL)
         _listeners = new std::list<C3DNode::Listener*>();
-	   
+
     _listeners->push_back(listener);
 }
 
@@ -544,7 +539,7 @@ void C3DNode::removeListener(C3DNode::Listener* listener)
 {
     if (_listeners)
     {
-        for (std::list<Listener*>::iterator itr = _listeners->begin(); itr != _listeners->end(); itr++)		
+        for (std::list<Listener*>::iterator itr = _listeners->begin(); itr != _listeners->end(); itr++)
         {
             if ((*itr) == listener)
             {
@@ -563,29 +558,27 @@ void C3DNode::transformChanged()
 	if (_listeners)
     {
         for (std::list<Listener*>::iterator itr = _listeners->begin(); itr != _listeners->end(); itr++)
-        {           
+        {
             (*itr)->transformChanged(this);
         }
     }
 
     // Notify our children that their transform has also changed (since transforms are inherited).
-	for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)       
+	for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)
     {
-		(*iter)->transformChanged();           
+		(*iter)->transformChanged();
     }
-	
 }
 
 void C3DNode::setBoundsDirty()
 {
     // Mark ourself and our parent nodes as dirty
    // _dirtyBits |= NODE_DIRTY_BOUNDS;
-	
+
     // Mark our parent bounds as dirty as well
     /*if (_parent)
         _parent->setBoundsDirty();*/
 }
-
 
 void C3DNode::setScreenPos(int x, int y, float depthZ)
 {
@@ -593,11 +586,11 @@ void C3DNode::setScreenPos(int x, int y, float depthZ)
     {
         const C3DViewport* pViewport = C3DRenderSystem::getInstance()->getViewport();
         C3DCamera* camera = _scene->getActiveCamera();
-       
+
         C3DVector3 src(x, y, depthZ), dst;
-        
+
         camera->unproject(pViewport, &src, &dst);
-        
+
         setPosition(dst);
     }
 }
@@ -618,7 +611,6 @@ bool C3DNode::active()
 void C3DNode::active(bool active)
 {
 	_active = active;
-
 }
 
 void C3DNode::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context)
@@ -634,7 +626,7 @@ void C3DNode::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context
 	_world = otherNode->_world;
 	_dirtyBits = otherNode->_dirtyBits;
 	_notifyHierarchyChanged = otherNode->_notifyHierarchyChanged;
-		
+
 	_showAABB = otherNode->_showAABB;
 	_showOBB = otherNode->_showOBB;
 
@@ -657,12 +649,10 @@ void C3DNode::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context
 		_bb->_max = otherNode->_bb->_max;
 	}
 
-	
-
 	if (context.cloneChildren)
 	{
 		removeAllChildren();
-		_notifyHierarchyChanged = false;	
+		_notifyHierarchyChanged = false;
 		for (size_t i = 0; i < otherNode->_children.size(); i++)
 		{
 			C3DNode* node = otherNode->_children[i];
@@ -724,15 +714,13 @@ C3DNode* C3DNode::clone(const std::string& idSuffix) const
     return clone(context);
 }
 
-
-
 void C3DNode::calculateBoundingBox_()
 {
 	C3DAABB box;
-	
+
 	box._min = C3DVector3(-1.0f, -1.0f, -1.0f);
 	box._max = C3DVector3(1.0f, 1.0f, 1.0f);
-	
+
 	if (!_bbOrigin)
 		_bbOrigin = new C3DAABB();
 	_bbOrigin->_min = box._min;
@@ -754,8 +742,6 @@ void C3DNode::calculateBoundingBox()
 	{
 		_bb->_min = _bbOrigin->_min;
 		_bb->_max = _bbOrigin->_max;
-		
-		
 	}
 	_bb->transform(getWorldMatrix());
 }
@@ -770,7 +756,7 @@ void C3DNode::calculateOrientedBoundingBox()
     {
         _obb = _obbOrigin;
 		C3DMatrix worldmat = getWorldMatrix();
-		
+
         _obb.transform(worldmat);
 
 		worldmat.transformPoint(_bbOrigin->getCenter(), &_obb.center);
@@ -788,15 +774,14 @@ void C3DNode::calculateOrientedBoundingBox_()
 	_obbOrigin.transform(mat);
 }
 
-
 C3DAABB* C3DNode::getAABB()
 {
 	if (_dirtyBits & NODE_DIRTY_BOUNDS_AABB)
     {
         _dirtyBits &= ~NODE_DIRTY_BOUNDS_AABB;
-		
-		calculateBoundingBox();     
-	 }  
+
+		calculateBoundingBox();
+	 }
 
      return _bb;
 }
@@ -820,13 +805,12 @@ bool C3DNode::showOBB()
     return _showOBB;
 }
 
-
 C3DOBB* C3DNode::getOBB()
 {
 	if (_dirtyBits & NODE_DIRTY_BOUNDS_OBB)
     {
         _dirtyBits &= ~NODE_DIRTY_BOUNDS_OBB;
-		            
+
         calculateOrientedBoundingBox();
     }
     return &_obb;
@@ -835,24 +819,24 @@ C3DOBB* C3DNode::getOBB()
 void C3DNode::drawAABB()
 {
 	if(_active == false)
-		return; 
+		return;
 
 	if(this->getAABB() == NULL)
-	{		
+	{
 		return;
-	}	
-    
+	}
+
 	_scene->getGeoWireRender()->addBoundingBox(_bb, C3DVector4(1.0f, 0.0f, 0.0f, 1.0f));
 }
-    
+
 void C3DNode::drawOBB()
 {
 	if(_active == false)
-		return; 
+		return;
 
     if (_obb.extents.isZero())
         return;
-    
+
     getOBB();
 
 	_scene->getGeoWireRender()->addOBB(&_obb, C3DVector4(1.0f, 0.0f, 0.0f, 1.0f));
@@ -871,7 +855,4 @@ const C3DVector4& C3DNode::getTimeParam(void)
 		return zero;
 	}
 }
-
-
 }
-

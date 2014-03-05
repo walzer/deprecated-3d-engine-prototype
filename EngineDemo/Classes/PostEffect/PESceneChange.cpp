@@ -15,8 +15,6 @@
 
 namespace cocos3d
 {
-
-
 PESceneChange::PESceneChange(C3DPostProcess* postProcess, const std::string& name)
 	: C3DPostEffect( postProcess, name )
 	, _angle( 0.f )
@@ -32,10 +30,8 @@ PESceneChange::PESceneChange(C3DPostProcess* postProcess, const std::string& nam
 {
 }
 
-
 PESceneChange::~PESceneChange(void)
 {
-
 	SAFE_RELEASE( _halfFrameBuffer );
 	SAFE_RELEASE( _matCopyToScreen );
 }
@@ -49,7 +45,6 @@ C3DPostEffect* PESceneChange::create( const std::string& name,const std::string&
 		SAFE_RELEASE(pe);
 	}
 	return pe;
-
 }
 
 bool PESceneChange::init(const std::string& szMaterial)
@@ -62,7 +57,6 @@ bool PESceneChange::init(const std::string& szMaterial)
 
 	_matCopyToScreen = C3DMaterial::create( "demores/posteffect/postprocess_scenecopy.material" );
 	_matCopyToScreen->retain();
-	
 
 	float fbScale = 0.5f;
 	_halfFrameBuffer = C3DFrameBuffer::create("PESceneChange::half", _postProcess->getFBWidth()*fbScale, _postProcess->getFBHeight()*fbScale);
@@ -80,20 +74,16 @@ bool PESceneChange::init(const std::string& szMaterial)
 		return false;
 	}
 
-
 	C3DSampler* samplerBase = _postProcess->getFramebufferSampler();
 	samplerBase->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	samplerBase->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 	pass->getParameter("u_texture")->setValue(samplerBase);
-
 
 	C3DSampler* samplerHalf = C3DSampler::create(_halfFrameBuffer->getRenderTarget()->getTexture());
 	samplerHalf->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	samplerHalf->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 	_matCopyToScreen->getTechnique(0u)->getPass( 0u )->getParameter("u_texture")->setValue( samplerHalf );
 	SAFE_RELEASE(samplerHalf);
-
-
 
 	_paramRadus = pass->getParameter( "radius" );
 	_paramAngle = pass->getParameter( "angle" );
@@ -130,17 +120,14 @@ void PESceneChange::update( float dt )
 	}
 }
 
-
 void PESceneChange::draw()
-{	
+{
 	if (_material == NULL || _postProcess == NULL )
 	{
 		return;
 	}
 
-
 	setShaderParameter();
-
 
 	// äÖµ½1/2³ß´çrtÉÏ
 	_halfFrameBuffer->bind();
@@ -154,5 +141,4 @@ void PESceneChange::draw()
 	_model->setMaterial( _matCopyToScreen );
 	_model->draw();
 }
-
 }

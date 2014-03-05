@@ -15,8 +15,6 @@
 
 namespace cocos3d
 {
-
-
 PEBloom::PEBloom(C3DPostProcess* postProcess, const std::string& name)
 	: C3DPostEffect(postProcess, name)
 	, _brightFrameBuffer(NULL)
@@ -24,20 +22,18 @@ PEBloom::PEBloom(C3DPostProcess* postProcess, const std::string& name)
 	, _blurFrameBufferY(NULL)
 	, _densityScale(1.5f)
 {
-        
 }
-    
+
 bool PEBloom::init(const std::string& szMaterial)
 {
     bool bRet = C3DPostEffect::init(szMaterial);
     if (!bRet)
         return false;
-    
+
     CCAssert(_material->getTechniqueCount() == 4, "material error");
     return initBloomParam();
 }
-    
-    
+
 PEBloom::~PEBloom()
 {
     SAFE_RELEASE(_blurFrameBufferX);
@@ -55,16 +51,16 @@ C3DPostEffect* PEBloom::create( const std::string& name, const std::string& mate
 	}
 	return pe;
 }
-    
+
 bool PEBloom::initBloomParam()
 {
     unsigned int fmtColor = C3DTexture::RGBA;
     unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
-    
+
     _brightFrameBuffer = C3DFrameBuffer::create("bloom_postprocess_bright", _postProcess->getFBWidth(), _postProcess->getFBHeight(), fmtColor/*, fmtDepth*/);
     _blurFrameBufferX = C3DFrameBuffer::create("bloom_postprocess_blurX", _postProcess->getFBWidth(), _postProcess->getFBHeight(), fmtColor/*, fmtDepth*/);
     _blurFrameBufferY = C3DFrameBuffer::create("bloom_postprocess_blurY", _postProcess->getFBWidth(), _postProcess->getFBHeight(), fmtColor/*, fmtDepth*/);
-        
+
     if (_brightFrameBuffer == NULL || _blurFrameBufferX == NULL || _blurFrameBufferY == NULL)
     {
         return  false;
@@ -72,9 +68,9 @@ bool PEBloom::initBloomParam()
     _brightFrameBuffer->retain();
     _blurFrameBufferX->retain();
     _blurFrameBufferY->retain();
-        
+
     setBloomThreshold(0.25f);
-        
+
     C3DSampler* sampler = _postProcess->getFramebufferSampler();
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
@@ -82,39 +78,38 @@ bool PEBloom::initBloomParam()
     C3DPass* pass1 = _material->getTechnique(1u)->getPass(0u);
     C3DPass* pass2 = _material->getTechnique(2u)->getPass(0u);
     C3DPass* pass3 = _material->getTechnique(3u)->getPass(0u);
-        
+
     //pass0->getParameter("u_texture")->setValue(sampler);
     pass3->getParameter("u_texture")->setValue(sampler);
-        
+
     sampler = C3DSampler::create(_brightFrameBuffer->getRenderTarget()->getTexture());
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pass1->getParameter("u_texture")->setValue(sampler);
     SAFE_RELEASE(sampler);
-        
+
     sampler = C3DSampler::create(_blurFrameBufferX->getRenderTarget()->getTexture());
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pass2->getParameter("u_texture")->setValue(sampler);
     SAFE_RELEASE(sampler);
-        
+
     sampler = C3DSampler::create(_blurFrameBufferY->getRenderTarget()->getTexture());
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pass3->getParameter("u_bloomTexture")->setValue(sampler);
     SAFE_RELEASE(sampler);
-    
+
     setDensityScale(_densityScale);
-        
+
     return true;
 }
-    
 
 void PEBloom::draw()
 {
     if (_material == NULL)
         return;
-    
+
     if(_model->getMaterial() != _material)
     {
         _model->setMaterial(_material);
@@ -127,36 +122,33 @@ void PEBloom::draw()
     _material->setTechnique(C3DMaterial::TECH_USAGE_SCREEN, 0u);
     _model->draw();
     _brightFrameBuffer->unbind();
-        
+
     //blur x
 	_blurFrameBufferX->bind();
 	C3DRenderSystem::getInstance()->clear(CLEAR_COLOR,&clearColor,1.0f,0);
     _material->setTechnique(C3DMaterial::TECH_USAGE_SCREEN, 1u);
     _model->draw();
     _blurFrameBufferX->unbind();
-        
+
     //blur y
 	_blurFrameBufferY->bind();
 	C3DRenderSystem::getInstance()->clear(CLEAR_COLOR,&clearColor,1.0f,0);
     _material->setTechnique(C3DMaterial::TECH_USAGE_SCREEN, 2u);
     _model->draw();
     _blurFrameBufferY->unbind();
-        
-        
+
     _material->setTechnique(C3DMaterial::TECH_USAGE_SCREEN, 3u);
     _model->draw();
-        
-        
 }
-    
+
 void PEBloom::setBloomThreshold(float threshold)
 {
     CCAssert(_material, "material null");
     _BloomThreshold = threshold;
-        
+
     C3DTechnique* tech = _material->getTechnique(0u);
     C3DPass* pass = tech->getPass(0u);
-        
+
     pass->getParameter("u_bloomThreshold")->setValue(_BloomThreshold);
 }
 
@@ -181,9 +173,6 @@ void PEBloom::setDensityScale(float scale)
 		vdelta.y = 1.0f / ((float)_postProcess->getFBHeight() / 2.0f);
 		pass2->getParameter("u_delta")->setValue(vdelta);
 	}
-	
 }
-
-
 
 }

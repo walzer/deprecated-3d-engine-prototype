@@ -3,7 +3,6 @@
 
 namespace cocos3d
 {
-
 C3DVector2::C3DVector2()
     : x(0.0f), y(0.0f)
 {
@@ -271,5 +270,4 @@ void C3DVector2::subtract(const C3DVector2& v1, const C3DVector2& v2, C3DVector2
     dst->x = v1.x - v2.x;
     dst->y = v1.y - v2.y;
 }
-
 }

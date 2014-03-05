@@ -5,10 +5,9 @@
 
 namespace cocos3d
 {
-
 class C3DElementNode;
 class C3DResourcePool;
-		
+
 /**
 Abstract class representing a loadable resource (e.g. textures, mesh etc)
 */
@@ -17,60 +16,58 @@ class C3DResource : public virtual cocos2d::CCObject
 friend class C3DUsedResourcePool;
 friend class C3DWaitResourcePool;
 
-public:	
+public:
 	enum State
-	{       
+	{
 		State_Init = 0,
 
-		State_Used,	
+		State_Used,
 
-		State_Wait,	
-        
+		State_Wait,
 	};
 
 	C3DResource();
 	C3DResource(const std::string& id);
 
-	virtual ~C3DResource();	
-	
-		
+	virtual ~C3DResource();
+
 	/** Calculate the size of a resource; this will only be called after 'load' */
 	virtual size_t calculateSize(void) const
 	{
 		return 0;
 	}
-		         
+
 	virtual bool load(const std::string& fileName){ return false; }
 	//virtual bool save(const std::string& fileName);
 
 	 /**
      * load resource info from the elementnode
      *
-     * @param nodes elementnode which contains the resource info.	 
-     *      
+     * @param nodes elementnode which contains the resource info.
+     *
      */
 	virtual bool load(C3DElementNode* node);
 
 	 /**
      * save the resource info into the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool save(C3DElementNode* node);
-	  
+
 	virtual void unload(){};
-	    
-    size_t getSize(void) const;   
-	 
+
+    size_t getSize(void) const;
+
 	/**
     * Returns the unique string identifier for the resource.
     */
     const std::string& getID(void) const ;
-	
+
 	void setID(std::string& id);
 
-    const C3DResource::State getState(void) const;	
+    const C3DResource::State getState(void) const;
 
 	void setState(C3DResource::State state);
 
@@ -85,21 +82,18 @@ public:
 
 	int getCloneNum();
 
+private:
 
-private:	
-	
     std::string _id;  // Unique id of the resource
-	
+
     size_t _size;  // The size of the resource in bytes
 
 	long _waitTime;
 	long _checkWaitTime;
-	State _state;	
+	State _state;
 
 	int _cloneNum;
-	
 };
-
 }
 
 #endif

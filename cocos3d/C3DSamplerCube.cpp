@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 C3DSamplerCube::C3DSamplerCube():_texture(NULL)
 {
 }
@@ -25,7 +24,6 @@ C3DSamplerCube::C3DSamplerCube(const std::string& path_left,const std::string& p
 ,_path_front(path_front)
 ,_path_back(path_back)
 {
-	
 	_texture = C3DTexture3D::create(_path_left, _path_right, _path_top, _path_bottom, _path_front, _path_back);
 }
 
@@ -39,7 +37,6 @@ bool C3DSamplerCube::isSupport()
 	return cocos2d::CCConfiguration::sharedConfiguration()->checkForGLExtension("GL_OES_texture_cube_map");
 }
 
-
 /**
 * Binds the texture of this sampler to the renderer and applies the sampler state.
 */
@@ -49,9 +46,9 @@ void C3DSamplerCube::bind()
 		return;
 
     //glEnable(GL_TEXTURE_CUBE_MAP);
-	
+
 	GL_ASSERT( glBindTexture(GL_TEXTURE_CUBE_MAP, _texture->getHandle()) );
-    
+
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
@@ -85,7 +82,6 @@ bool C3DSamplerCube::load(C3DElementNode* node)
 }
 bool C3DSamplerCube::save(C3DElementNode* node)
 {
-
 	node->setElement("path_left", _path_left);
     node->setElement("path_right", _path_right);
     node->setElement("path_top", _path_top);
@@ -94,5 +90,4 @@ bool C3DSamplerCube::save(C3DElementNode* node)
     node->setElement("path_back", _path_back);
 	return true;
 }
-
 }

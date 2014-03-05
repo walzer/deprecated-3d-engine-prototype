@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DElementNode;
 class C3DTechnique;
 class C3DRenderChannel;
@@ -42,7 +41,7 @@ public:
 
 	C3DMaterial(const std::string& name);
 
-    virtual ~C3DMaterial();	
+    virtual ~C3DMaterial();
 
 	 /**
      * create a material from the file.
@@ -50,17 +49,16 @@ public:
      * @param vshSource The vertex shader source code.
      * @param fshSource The fragment shader source code.
      * @param defines A new-line delimited list of preprocessor defines. May be NULL.
-     * 
+     *
      * @return The created material.
      */
     static C3DMaterial* create(const std::string& fileName);
-
 
 	/**
      * create a material from the material info of an elementnode.
      *
      * @param materialNodes the elementnode which contain the material info
-     * 
+     *
      * @return The created material.
      */
     static C3DMaterial* create(C3DElementNode* materialNodes);
@@ -71,11 +69,11 @@ public:
      * @param vshSource The vertex shader source code.
      * @param fshSource The fragment shader source code.
      * @param defines A new-line delimited list of preprocessor defines. May be NULL.
-     * 
+     *
      * @return The created material.
      */
     static C3DMaterial* create(const std::string& vshPath, const std::string& fshPath, const std::string& defines = "");
-	 
+
   //  static C3DMaterial* create(C3DEffect* effect);
 
     unsigned int getTechniqueCount() const;
@@ -84,7 +82,7 @@ public:
      * get the specified technique.
      *
      * @param index the index of the specified technqiue.
-     * 
+     *
      * @return The created material.
      */
     C3DTechnique* getTechnique(unsigned int index) const;
@@ -100,13 +98,12 @@ public:
      *
      * @param usage the usage of the specified technique channel.
 	 * @param index the index of the specified technqiue.
-     * 
+     *
      * @return The created material.
      */
     bool setTechnique(TechniqueUsage usage, unsigned int index);
 
     bool setTechnique(TechniqueUsage usage, const std::string& id);
-		
 
 	 /**
      * clone a material from current material.
@@ -114,30 +111,29 @@ public:
 	virtual C3DMaterial* clone() const;
 
 	//virtual void copyFrom(const C3DResource* other);
-	
+
 	 /**
      * load info from the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool load(C3DElementNode* nodes);
 
 	 /**
      * save the material info into the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool save(C3DElementNode* nodes);
 
 private:
-	
+
     std::vector<C3DTechnique*> _techniques;
-	
+
     C3DTechnique* _techniqueChannel[TECH_USAGE_NUM];
 };
-
 }
 
 #endif

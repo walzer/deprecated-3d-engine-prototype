@@ -3,7 +3,6 @@
 
 namespace cocos3d
 {
-
 static std::vector<C3DDepthStencilTarget*> __depthStencilTargets;
 
 C3DDepthStencilTarget::C3DDepthStencilTarget(const std::string& id, Format format)
@@ -98,5 +97,4 @@ C3DTexture* C3DDepthStencilTarget::getTexture() const
 {
     return _depthTexture;
 }
-
 }

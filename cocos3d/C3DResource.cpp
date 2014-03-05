@@ -2,9 +2,8 @@
 #include "C3DElementNode.h"
 #include "C3DResourcePool.h"
 #include "StringTool.h"
-namespace cocos3d 
+namespace cocos3d
 {
-
 C3DResource::C3DResource(): _id(""),_size(0)
 {
 	_checkWaitTime = 0;
@@ -19,25 +18,21 @@ C3DResource::C3DResource(const std::string& id): _id(id),_size(0)
 	_waitTime = 10000;
 	_state = State_Init;
 	_cloneNum = 0;
-	
 }
-	
 
-	
-C3DResource::~C3DResource() 
-{ 
-
+C3DResource::~C3DResource()
+{
 }
 
 size_t C3DResource::getSize(void) const
-{ 
-    return _size; 
+{
+    return _size;
 }
-	    
-const std::string& C3DResource::getID(void) const 
-{ 
-    return _id; 
-}	
+
+const std::string& C3DResource::getID(void) const
+{
+    return _id;
+}
 
 void C3DResource::setID(std::string& id)
 {
@@ -54,22 +49,18 @@ void C3DResource::setState(C3DResource::State state)
 	_state = state;
 }
 
-
 bool C3DResource::load(C3DElementNode* node)
 {
 	return false;
 }
-
 
 bool C3DResource::save(C3DElementNode* node)
 {
 	return false;
 }
 
-
 void C3DResource::update(long elapsedTime)
 {
-	
 	switch(_state)
 	{
 	case C3DResource::State_Init:
@@ -80,8 +71,6 @@ void C3DResource::update(long elapsedTime)
 			}
 		}
 		break;
-	
-	
 	}
 }
 
@@ -89,7 +78,7 @@ void C3DResource::copyFrom(const C3DResource* other)
 {
 	const_cast<C3DResource*>(other)->_cloneNum += 1;
 	_cloneNum = 0;
-	
+
 	_id = other->_id + "_" + StringTool::toString(other->_cloneNum);
 	_size = other->_size;
 	_state = C3DResource::State_Init;
@@ -99,7 +88,7 @@ void C3DResource::copyFrom(const C3DResource* other)
 C3DResource* C3DResource::clone() const
 {
 	C3DResource* other = new C3DResource("");
-	
+
 	other->_id = _id;
 	other->_size = _size;
 	other->_state = C3DResource::State_Init;
@@ -113,6 +102,4 @@ int C3DResource::getCloneNum()
 {
 	return _cloneNum;
 }
-		
-
 }

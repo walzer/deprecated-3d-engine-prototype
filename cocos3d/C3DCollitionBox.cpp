@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 	C3DCollitionBox::C3DCollitionBox(C3DRenderNode* pRenderNode, unsigned int nID, const std::string& strBone, const C3DVector3& offset, float fRadius)
 	:m_pParentNode(pRenderNode),
 	m_nID(nID),

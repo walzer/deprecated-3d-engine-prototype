@@ -7,7 +7,6 @@
 
 namespace cocos3d
 {
-
 C3DAnimationChannel::C3DAnimationChannel(C3DAnimation* animation, C3DBone* bone, C3DAnimationCurve* curve, unsigned long duration)
     : _animation(animation), _bone(bone),  _curve(curve), _duration(duration)
 {
@@ -15,7 +14,6 @@ C3DAnimationChannel::C3DAnimationChannel(C3DAnimation* animation, C3DBone* bone,
     _bone->addChannel(this);
     _animation->retain();
 }
-
 
 C3DAnimationChannel::~C3DAnimationChannel()
 {
@@ -27,6 +25,4 @@ C3DAnimationCurve* C3DAnimationChannel::getCurve() const
 {
     return _curve;
 }
-
-
 }

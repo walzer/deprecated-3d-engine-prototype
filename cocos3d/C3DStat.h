@@ -7,54 +7,52 @@
 
 namespace cocos3d
 {
-
     /**
      *  class for statistic the 3D scene
-	 *  stat the total triangles, drawing triangles, and draw calls 
+	 *  stat the total triangles, drawing triangles, and draw calls
      */
     class C3DStat
     {
-        
     public:
 	/**
      * Destructor
      */
         ~C3DStat();
-        
+
 		/**
          * get singleton
          */
         static C3DStat* getInstance();
 
 		static void destroyInstance();
-        
+
 		/**
          * begin & end stat
          */
         void beginStat();
         void endStat();
-        
+
 		/**
-         * add draw triangles 
+         * add draw triangles
          */
         void incTriangleDraw(int nTriangle){ if (_bStart) _nTriangleDraw += nTriangle; }
-        
+
 		/**
          * add total triangles
          */
         void incTriangleTotal(int nTriangle){ if (_bStart) _nTriangleTotal += nTriangle; }
-        
+
 		/**
          * add draw calls
          */
         void incDrawCall(int nDrawCall) { if (_bStart) _nDrawCall += nDrawCall; }
-        
+
 		/**
          * get & set stat enable
          */
         void setStatEnable(bool bEnable);
         bool isStatEnable() const { return _bEnable; }
-        
+
 		/**
          * get drawing triangles
          */
@@ -67,27 +65,24 @@ namespace cocos3d
          * get draw calls
          */
         int getDrawCall() const { return _nDrawCall; }
-        
-        
-        
+
     protected:
 		/**
          * Constructor
          */
         C3DStat();
-        
+
 		// properties
 
         int _nTriangleDraw; // triangle rendered (total triangle substract those culled by camera frustum)
-        
+
         int _nTriangleTotal; // total triangle in the scene
-        
+
         int _nDrawCall;
-        
+
         bool _bStart; // start stat
-        
+
         bool _bEnable; // enable stat or not
-        
     };
 
 	class C3DStatRender
@@ -121,9 +116,6 @@ namespace cocos3d
 
 		cocos2d::CCNode* _parent;
 	};
-
 }
-
-
 
 #endif

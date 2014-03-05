@@ -16,11 +16,10 @@
 
 namespace cocos3d
 {
-	
 C3DBatchModel* C3DBatchModel::createDebugModel(C3DNode* node)
 {
 	C3DBatchModel* model = new C3DBatchModel(node);
-			
+
 	C3DVertexElement elements[] =
 	{
 		C3DVertexElement(Vertex_Usage_POSITION, 3),
@@ -28,7 +27,7 @@ C3DBatchModel* C3DBatchModel::createDebugModel(C3DNode* node)
     };
     C3DVertexFormat v = C3DVertexFormat(elements, 2);
     C3DBatchMesh* mesh = new C3DBatchMesh(&v, PrimitiveType_LINES,true);
-		
+
     model->_mesh = mesh;
 	C3DMaterial* material = C3DMaterial::create("shaders/debug.vsh", "shaders/debug.fsh");
 
@@ -39,12 +38,11 @@ C3DBatchModel* C3DBatchModel::createDebugModel(C3DNode* node)
 	}
 
 	model->setMaterial(material);
-		
+
 	return model;
-		
 }
 
-C3DBatchModel::C3DBatchModel(C3DNode* node)   
+C3DBatchModel::C3DBatchModel(C3DNode* node)
 {
 	_material = NULL;
 	_mesh = NULL;
@@ -55,11 +53,10 @@ C3DBatchModel::C3DBatchModel(C3DNode* node)
 C3DBatchModel::~C3DBatchModel()
 {
     SAFE_RELEASE(_material);
-	   
-    SAFE_DELETE(_mesh); 
+
+    SAFE_DELETE(_mesh);
 	_node = NULL;
 }
-
 
 C3DBatchMesh* C3DBatchModel::getMesh() const
 {
@@ -72,7 +69,7 @@ void C3DBatchModel::setMesh(C3DBatchMesh* mesh)
 }
 
 C3DMaterial* C3DBatchModel::getMaterial()
-{  
+{
     return _material;
 }
 
@@ -109,8 +106,6 @@ void C3DBatchModel::setMaterial(C3DMaterial* material)
 		{
 			_material = material;
 			material->retain();
-
-
 		}
 		// Apply node binding for the new material.
 		setMaterialNodeBinding();
@@ -135,8 +130,6 @@ void C3DBatchModel::bindVertex(void)
 		}
 	}
 }
-
-
 
 void C3DBatchModel::add(const unsigned char* vertices, unsigned int vertexCount)
 {
@@ -163,7 +156,6 @@ void C3DBatchModel::add(const unsigned char* vertices, unsigned int vertexCount,
 			bindVertex();
 		}
 	}
-
 }
 
 void C3DBatchModel::clear()
@@ -185,7 +177,6 @@ C3DRenderChannel* C3DBatchModel::getRenderChannel()
 	}
 
 	return channel;
-
 }
 
 //void C3DBatchModel::draw( float sortParam )
@@ -226,7 +217,6 @@ C3DRenderChannel* C3DBatchModel::getRenderChannel()
 //	draw( pos.z );
 //}
 
-
 // ChannelDrawItem
 void C3DBatchModel::draw(void)
 {
@@ -242,7 +232,7 @@ void C3DBatchModel::draw(void)
 	{
 		C3DPass* pass = technique->getPass(i);
 		pass->bind();
-		
+
 		GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0 ) );
 		if (_mesh->_bUseIndex)
 		{
@@ -287,5 +277,4 @@ void C3DBatchModel::setIndexCapacity(unsigned int capacity)
 		_mesh->setIndexCapacity( capacity );
 	}
 }
-
 }

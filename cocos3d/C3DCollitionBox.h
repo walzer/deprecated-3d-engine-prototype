@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DRenderNode;
 class C3DCollitionBox : public C3DNode
 {
@@ -15,17 +14,17 @@ public:
      * Constructor.
      */
     C3DCollitionBox(C3DRenderNode* pRender, unsigned int nID, const std::string& strBoneName = "", const C3DVector3& offset = C3DVector3::zero(), float fRadius = 1.f);
-	
+
 	unsigned int getID(){return m_nID;}
 
 	std::string getBone(){return m_strBone;}
-    
+
 	float getRadius();
 
 	C3DVector3 getLocalPos();
 
 	void updatePosition();
-	
+
 	void getCorners(C3DVector3* dst) const;
 
 	void update();
@@ -63,10 +62,6 @@ protected:
 	C3DVector3 m_vRight;
 	C3DVector3 m_vForward;
 };
-
-
 }
-
-
 
 #endif//COLLITIONBOX_H_

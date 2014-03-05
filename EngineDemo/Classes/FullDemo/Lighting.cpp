@@ -5,7 +5,6 @@ using namespace cocos3d;
 
 namespace cocos2d
 {
-
 LightingBullet::LightingBullet(std::string& name,cocos3d::C3DNode* node,cocos3d::C3DLayer* layer)
 	: BaseBullet( name, node, layer )
 	, _lighting( NULL )
@@ -19,13 +18,10 @@ LightingBullet::LightingBullet(std::string& name,cocos3d::C3DNode* node,cocos3d:
 
 LightingBullet::~LightingBullet()
 {
-
 }
-
 
 void LightingBullet::onSpell(void)
 {
-
 	_lighting = C3DLineRender::create( "demores/effect/sceneEffect/lighting.material" );
 	_lighting->setForceTexLoop( false );
 	_lighting->setWidth( 2 );
@@ -40,18 +36,15 @@ void LightingBullet::onSpell(void)
 	_node->addChild( _lighting );
 }
 
-
 void LightingBullet::onFly(void)
 {
 	_flyTime = 0.0;
 }
 
-
 void LightingBullet::onHit(void)
 {
 	++_curTargetID;
 }
-
 
 void LightingBullet::onFinish(void)
 {
@@ -60,10 +53,9 @@ void LightingBullet::onFinish(void)
 	if ( _lighting != NULL && _node != NULL )
 	{
 		_node->removeChild( _lighting );
-		_lighting = NULL;	
+		_lighting = NULL;
 	}
 }
-
 
 void LightingBullet::stateSpell(long elapsedTime)
 {
@@ -71,9 +63,8 @@ void LightingBullet::stateSpell(long elapsedTime)
 	if ( _spellDelty < 0 )
 	{
 		changeStateTo( BaseBullet::State_Fly );
-	} 
+	}
 }
-
 
 void LightingBullet::stateFly(long elapsedTime)
 {
@@ -120,14 +111,12 @@ void LightingBullet::stateFly(long elapsedTime)
 			lines.push_back( C3DLineRender::Line( startPos, endPos, i*100+2000 ) );
 		}
 
-
 		if ( _lighting )
 		{
 			_lighting->setLines( lines );
 		}
 	}
 }
-
 
 void LightingBullet::stateHit(long elapsedTime)
 {
@@ -141,11 +130,8 @@ void LightingBullet::stateHit(long elapsedTime)
 	}
 }
 
-
 void LightingBullet::stateFinish(long elapsedTime)
 {
 	// do nothing
 }
-
-
 }

@@ -13,8 +13,6 @@
 
 namespace cocos3d
 {
-
-	
 class C3DSceneNode;
 class Rectangle;
 class C3DVector4;
@@ -37,20 +35,18 @@ enum TouchEvent
 *This class  is the 3D entry.One 3d layer have one scene.you can use 3d layer to interactive with 2d layer.
 */
 class  C3DLayer :  public cocos2d::CCLayer
-{  
-
+{
 public:
     C3DLayer();
-    virtual ~C3DLayer();   
+    virtual ~C3DLayer();
 	virtual bool init();
- 
-	CREATE_FUNC(C3DLayer);	
+
+	CREATE_FUNC(C3DLayer);
 
 	virtual void onEnter();
 
     virtual void onExit();
 
-	 		
     // optional
 	virtual void ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent){};
 	virtual void ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent){};
@@ -71,16 +67,14 @@ public:
 		MoveType_3D
 	};
 
+    State getState() const;
 
-    State getState() const;		
-   
     void pause();
     void resume();
-    void exit();	 
-	
+    void exit();
 
 	virtual MoveType getMoveType(){ return MoveType_2D; }
-	
+
     unsigned int getWidth() const;
     unsigned int getHeight() const;
 
@@ -90,9 +84,9 @@ public:
      * initialize callback that is called when the game on inits.
      */
 	void initialize();
-		
+
     void finalize();
-	  
+
 	virtual void update(long elapsedTime);
 	virtual void update(float delta);// overwrite CCLayer update
 	virtual void draw(void);//render the 3d contents
@@ -103,7 +97,7 @@ public:
 
 	/**
      * Gets the game main scene.
-     * 
+     *
      * @return The game main scene.
      */
 	cocos3d::C3DScene* getScene() { return _scene; };
@@ -112,7 +106,7 @@ public:
 
 	/**
      * Gets the total absolute running time (in milliseconds) since Game::run().
-     * 
+     *
      * @return The total absolute running time (in milliseconds).
      */
     static long getAbsoluteTime();
@@ -122,7 +116,7 @@ public:
      *
      * You would typically use things in your game that you want to stop when the game is paused.
      * This includes things such as game physics and animation.
-     * 
+     *
      * @return The total game time (in milliseconds).
      */
     static long getGameTime();
@@ -132,35 +126,34 @@ public:
     void setAsMainLayer();
 
     const C3DViewport* getViewport() const;
-	
+
 	C3DEnvConf& getEnvConf() { return _envConfig; }
 
 	void setEnvConf(const C3DEnvConf& conf) { _envConfig.set(conf); }
 
-
 	const C3DVector4& getTimeParam(void) const;
 public:
 
-private:	
+private:
     bool init3D();
 
 protected:
-    
-    bool startup();   
-    void shutdown();	
+
+    bool startup();
+    void shutdown();
 
     bool _initialized;                          // If game has initialized yet.
-     
+
     unsigned int _width;                        // The game's display width.
     unsigned int _height;                       // The game's display height.
-  
-    State _state;   
+
+    State _state;
 	C3DRenderSystem* _renderSystem;
 
 	C3DScene* _scene;   //The Game main scene.
-	
+
     C3DStateBlock* _2DState; // cocos2d opengl state backup
-	
+
 	// backup render states
 	GLint _enablePos;
 	GLint _enableColor;
@@ -168,17 +161,15 @@ protected:
 	GLint _texture;
     GLint _oldViewport[4];
 	float _oldClearColor[4];
- 
+
 	C3DEnvConf _envConfig;       //environment configuration
 	C3DStatRender* _statRender; // statistics info render
 
 	C3DSpriteManager* _spriteManager;
 
-
 	float _totalTimeSceond;
 	float _delatTimeSceond;
 	float _timeMinuteRound;
-
 };
 }
-#endif 
+#endif

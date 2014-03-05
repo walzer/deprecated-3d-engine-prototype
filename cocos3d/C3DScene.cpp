@@ -24,15 +24,13 @@
 #include "C3DPostProcess.h"
 #include "C3DGeoWireRender.h"
 
-
 namespace cocos3d
 {
-    
 C3DNode* C3DScene::findNode(const std::string& strId)
 {
     return C3DNode::findNode(strId, true);
 }
-    
+
 void C3DScene::removeAllNode()
 {
 	SAFE_RELEASE(_activeLight);
@@ -67,10 +65,8 @@ void C3DScene::removeAllNode()
 		SAFE_RELEASE(_postDrawNode[i]);
 	}
 	_postDrawNode.clear();
-		
 }
-    
-    
+
 C3DScene::C3DScene(const std::string& str) : C3DNode(str)
 {
 	_ambientColor = new C3DVector3();
@@ -80,8 +76,8 @@ C3DScene::C3DScene(const std::string& str) : C3DNode(str)
 	_showLightPos = false;
 
 	_activeCamera = NULL;
-	_activeLight = NULL;     
-    
+	_activeLight = NULL;
+
     _defDepthZ = 0.5f;
     _inShadowPass = false;
     _activeShadowMap = NULL;
@@ -90,21 +86,18 @@ C3DScene::C3DScene(const std::string& str) : C3DNode(str)
     _layer = NULL;
 	_geoWireRender = NULL;
     setScene(this);
-		
 }
-
 
 C3DScene::~C3DScene()
 {
 	SAFE_RELEASE(_activeCamera);
 	SAFE_RELEASE(_activeLight);
-		
+
 	SAFE_DELETE(_ambientColor);
 
-    removeAllNode();    
+    removeAllNode();
 
 	SAFE_DELETE(_geoWireRender);
-
 }
 
 C3DScene* C3DScene::createScene(C3DLayer* layer)
@@ -115,28 +108,26 @@ C3DScene* C3DScene::createScene(C3DLayer* layer)
     return scene;
 }
 
-
 C3DCamera* C3DScene::getActiveCamera() const
 {
 	return _activeCamera;
 }
-    
+
 //set active camera by index
 bool C3DScene::setActiveCamera(int index)
 {
     if (index < getCameraCount() )
-    {            
+    {
         if (_activeCamera != _cameras[index])
         {
             if (_activeCamera)
             _activeCamera->release();
             _activeCamera = _cameras[index];
             _activeCamera->retain();
-								
+
 			_activeCamera->setAspectRatio((float)C3DRenderSystem::getInstance()->getViewport()->width/(float)C3DRenderSystem::getInstance()->getViewport()->height);
-							
         }
-            
+
         return true;
     }
     return false;
@@ -148,10 +139,10 @@ int C3DScene::getCameraCount() const
     return (int)_cameras.size();
 }
 
-C3DLight* C3DScene::getLight(int index) 
+C3DLight* C3DScene::getLight(int index)
 {
 	if(index < (int)_lights.size())
-		return _lights[index]; 
+		return _lights[index];
 	else
 		return NULL;
 }
@@ -162,9 +153,7 @@ void C3DScene::setViewAspectRatio(float aspectRatio)
 	{
 		getActiveCamera()->setAspectRatio(aspectRatio);
 	}
-	
 }
-
 
 const C3DVector3* C3DScene::getAmbientColor() const
 {
@@ -181,7 +170,6 @@ void C3DScene::showBoundingBox(bool show)
 	_showBoundingBox = show;
 }
 
-
 C3DGeoWireRender* C3DScene::getGeoWireRender()
 {
 	if (_geoWireRender == NULL)
@@ -194,24 +182,20 @@ C3DGeoWireRender* C3DScene::getGeoWireRender()
 	return _geoWireRender;
 }
 
-
 void C3DScene::drawDebug()
-{	
-	for (size_t i = 0; i < _children.size(); i++) 
+{
+	for (size_t i = 0; i < _children.size(); i++)
 	{
-		_children[i]->drawDebug();		
-	}	
-	
+		_children[i]->drawDebug();
+	}
 
 	if (_geoWireRender)
 		_geoWireRender->flush();
-
 }
 
 void C3DScene::preDraw()
 {
     C3DStat::getInstance()->beginStat();
-    
 
     if (_activeShadowMap && _activeShadowMap->active())
     {
@@ -220,18 +204,17 @@ void C3DScene::preDraw()
         _activeShadowMap->beginDraw();
         //draw scene
 
-        bool bStatEnable = C3DStat::getInstance()->isStatEnable();        
+        bool bStatEnable = C3DStat::getInstance()->isStatEnable();
 
-		for (size_t i = 0; i < _children.size(); ++i) 
+		for (size_t i = 0; i < _children.size(); ++i)
 		{
 			C3DNode* node = _children[i];
 			if(node->active())
-			{			
+			{
 				node->draw();
 
 				if (bStatEnable)
 					C3DStat::getInstance()->incTriangleTotal(node->getTriangleCount());
-
 			}
 		}
 
@@ -240,70 +223,63 @@ void C3DScene::preDraw()
         _inShadowPass = false;
     }
 
-
 	//....posteffect start ....
 	/**
 	if (_activePostProcess && _activePostProcess->active())
     {
-        _activePostProcess->beginDraw();		       
+        _activePostProcess->beginDraw();
     }
 	//*/
 	//....posteffect end.......
-
 }
 
 void C3DScene::draw()
 {
-	bool bStatEnable = C3DStat::getInstance()->isStatEnable(); 
+	bool bStatEnable = C3DStat::getInstance()->isStatEnable();
 	size_t i;
-	for (i = 0; i < _children.size(); ++i) 
+	for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
 		if(node->active())
-		{			
+		{
 			node->draw();
 
 			if (bStatEnable)
 				C3DStat::getInstance()->incTriangleTotal(node->getTriangleCount());
-
 		}
-	}	
-        
+	}
 }
-    
 
 void C3DScene::postDraw()
 {
 	if (_activePostProcess && _activePostProcess->active())
 	{
-		_activePostProcess->preChannelDraw();		       
+		_activePostProcess->preChannelDraw();
 	}
 
 	C3DRenderSystem::getInstance()->getRenderChannelManager()->draw();
 
-
 	//....posteffect start ....
 
 	if (_activePostProcess && _activePostProcess->active())
-	{ 
+	{
 		_activePostProcess->postChannelDraw();
         _activePostProcess->beginDraw();
 		_activePostProcess->draw();
 		_activePostProcess->endDraw();
-
     }
 	//....posteffect end.......
 
-	for (unsigned int i = 0; i < _postDrawNode.size(); i++) 
+	for (unsigned int i = 0; i < _postDrawNode.size(); i++)
 	{
 		if(_postDrawNode[i]->active())
-		{			
+		{
 			_postDrawNode[i]->draw();
 		}
 	}
     C3DStat::getInstance()->endStat();
 }
-    
+
 // update routine
 void C3DScene::update(long elapsedTime)
 {
@@ -311,17 +287,16 @@ void C3DScene::update(long elapsedTime)
    // C3DNode::update(elapsedTime);
 
 	size_t i;
-    for (i = 0; i < _children.size(); ++i) 
+    for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
 		if(node->active())
 			node->update(elapsedTime);
     }
-	
+
 	if (_geoWireRender)
 		_geoWireRender->begin();
 }
-   
 
 C3DNode::Type C3DScene::getType() const
 {
@@ -333,9 +308,8 @@ void C3DScene::addNodeToRenderList(C3DNode* node)
 	node->setScene(this);
 
 	C3DNode::Type type = node->getType();
-	switch (type) 
+	switch (type)
 	{
-
 	case C3DNode::NodeType_Camera:
 		{
 			bool found = false;
@@ -456,7 +430,6 @@ void C3DScene::addNodeToRenderList(C3DNode* node)
 	{
 	//	addNodeToRenderList(node->_children[i]);
 	}
-	
 }
 
 void C3DScene::removeNodeFromRenderList(C3DNode* node)
@@ -468,9 +441,8 @@ void C3DScene::removeNodeFromRenderList(C3DNode* node)
 	}
 
 	C3DNode::Type type = node->getType();
-	switch (type) 
+	switch (type)
 	{
-	
 	case C3DNode::NodeType_Camera:
 		{
 			if ( _activeCamera == node)
@@ -517,7 +489,7 @@ void C3DScene::removeNodeFromRenderList(C3DNode* node)
                 assert(false && "unrefereed node");
             }
             break;
-        }	
+        }
 	case C3DNode::NodeType_PostProcess:
         {
             std::vector<C3DPostProcess*>::iterator it = find(_postProcesss.begin(), _postProcesss.end(), (C3DPostProcess*)node);
@@ -531,7 +503,7 @@ void C3DScene::removeNodeFromRenderList(C3DNode* node)
                 assert(false && "unrefereed node");
             }
             break;
-        }	
+        }
 	case C3DNode::NodeType_EditorNode:
 		{
 			std::vector<C3DNode*>::iterator it = find(_postDrawNode.begin(), _postDrawNode.end(), (C3DNode*)node);
@@ -545,7 +517,7 @@ void C3DScene::removeNodeFromRenderList(C3DNode* node)
 				assert(false && "unrefereed node");
 			}
 			break;
-		}	
+		}
 	default:
 		break;
 	}
@@ -571,7 +543,7 @@ const C3DMatrix& C3DScene::getViewProjectionMatrix() const
         CCAssert(_activeShadowMap, "active shadow map!");
         return _activeShadowMap->getViewProjectionMatrix();
     }
-    else 
+    else
     {
         if (_activeCamera)
             return _activeCamera->getViewProjectionMatrix();
@@ -644,7 +616,6 @@ void C3DScene::setActivePostProcess( C3DPostProcess* process)
 	//*/
 }
 
-
 C3DLayer* C3DScene::getLayer() const
 {
     return _layer;
@@ -666,17 +637,12 @@ void C3DScene::setLayer(C3DLayer* layer)
 void C3DScene::addChild(C3DNode* child)
 {
 	C3DNode::addChild(child);
-
- 
 }
 
 void C3DScene::removeChild(C3DNode* child)
 {
-
 	C3DNode::removeChild(child);
-
 }
-
 
 const C3DVector4& C3DScene::getTimeParam(void) const
 {
@@ -691,8 +657,5 @@ const C3DVector4& C3DScene::getTimeParam(void) const
 		return zero;
 	}
 }
-
-
-
 
 }

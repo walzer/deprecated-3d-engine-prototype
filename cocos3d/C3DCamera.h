@@ -4,20 +4,17 @@
 #include "C3DTransform.h"
 #include "C3DNode.h"
 
-
 #include "C3DAABB.h"
 #include "C3DFrustum.h"
 #include "C3DOBB.h"
 
 namespace cocos3d
 {
-
 class C3DCameraNode;
 class C3DViewport;
 class C3DVector3;
 class C3DVector2;
 class C3DRay;
-
 
 /**
  * Defines a camera which acts as a view of a scene to be rendered.
@@ -57,7 +54,6 @@ public:
      * set perspective camera parameter
      */
 	void setPerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
-
 
     /**
      * Creates an orthographic camera.
@@ -209,19 +205,18 @@ public:
      * @return The camera inverse view * projection matrix.
      */
     const C3DMatrix& getInverseViewProjectionMatrix();
-    
-    
+
     /**
      * Projects the specified world position into the viewport coordinates.
      *
      */
     void project(const C3DViewport* viewport, C3DVector3* src, C3DVector2* dst);
-    
+
     /**
-     * Converts a viewport-space coordinate to a world-space position for the given depth value.    
+     * Converts a viewport-space coordinate to a world-space position for the given depth value.
      */
     void unproject(const C3DViewport* viewport, C3DVector3* src, C3DVector3* dst);
-    
+
 	/**
      * Ray from camera to the screen position
      */
@@ -230,8 +225,8 @@ public:
 	/**
      * translate camera
      */
-	void translateX(float tx);   
-    void translateY(float ty);   
+	void translateX(float tx);
+    void translateY(float ty);
     void translateZ(float tz);
 
 	/**
@@ -245,22 +240,22 @@ public:
 	void rotateX(float angle);
 	void rotateY(float angle);
 	void rotateZ(float angle);
-    
+
     /**
      * is this aabb visible
      */
     bool isVisible(const C3DAABB& aabb) const;
-    
+
 	/**
      * is obb visible
      */
     bool isVisible(const C3DOBB& obb) const;
-    
+
     /**
      * enable frustum culling
      */
     void enableFrustumCull(bool bEnalbe, bool bClipZ);
-    
+
 	/**
      * is frustum culling enabled?
      */
@@ -282,13 +277,10 @@ private:
     C3DCamera(float zoomX, float zoomY, float aspectRatio, float nearPlane, float farPlane, const std::string& strId);
     virtual ~C3DCamera();
 
-
-
     /**
      * @see C3DTransform::Listener::transformChanged
      */
     void transformChanged(C3DTransform* transform);
-
 
 	// camera properties
     C3DCamera::Type _type;
@@ -304,7 +296,7 @@ private:
     mutable C3DMatrix _inverseViewProjection;
 
     mutable int _dirtyBits;
-    
+
     C3DFrustum _frustum;
 
     bool _bEnableFrustum;
@@ -312,8 +304,6 @@ private:
 
 	bool _bDrawCamera;
 };
-
-
 }
 
 #endif

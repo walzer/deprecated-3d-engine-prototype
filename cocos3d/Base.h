@@ -27,10 +27,8 @@
 #include "ccConfig.h"
 #include "CCGL.h"
 
-
 #define C3D_Max(a,b)            (((a) > (b)) ? (a) : (b))
 #define C3D_Min(a,b)            (((a) < (b)) ? (a) : (b))
-
 
 // Common
 #ifndef NULL
@@ -38,7 +36,7 @@
 #endif
 
 #ifndef FLT_EPSILON
-#define FLT_EPSILON     1.192092896e-07F 
+#define FLT_EPSILON     1.192092896e-07F
 #endif
 
 // Print logging (implemented per platform)
@@ -89,7 +87,6 @@ extern void printError(const char* format, ...);
 #define WARN(x) printError(x)
 #define WARN_VARG(x, ...) printError(x, __VA_ARGS__)
 #endif
-
 
 // Object deletion macro
 #define SAFE_DELETE(x) \
@@ -145,8 +142,6 @@ extern void printError(const char* format, ...);
     #define NOMINMAX
 #endif
 
-
-
 #define WINDOW_VSYNC        1
 #define WINDOW_FULLSCREEN   0
 
@@ -191,8 +186,6 @@ extern void printError(const char* format, ...);
         #error "Unsupported Apple Device"
     #endif
 #endif
-
-
 
 // Hardware buffer
 namespace cocos3d
@@ -256,7 +249,6 @@ extern GLenum __gl_error_code;
  */
 #define GL_LAST_ERROR() __gl_error_code
 
-
 #if defined(WIN32)
     #pragma warning( disable : 4172 )
     #pragma warning( disable : 4244 )
@@ -270,7 +262,6 @@ extern GLenum __gl_error_code;
 //#include <android_native_app_glue.h>
 //extern void amain(struct android_app* state);
 #endif
-
 
 // Assert has special behavior on Windows (for Visual Studio).
 #ifdef WIN32

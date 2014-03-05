@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 class C3DScene;
 class C3DNode;
 class C3DModel;
@@ -81,7 +80,7 @@ public:
      * Returns the unique identifier of the top-level object at the specified index in this bundle.
      *
      * @param index The index of the object.
-     * 
+     *
      * @return The ID of the object at the given index, or NULL if index is invalid.
      */
     const std::string getObjectID(unsigned int index) const;
@@ -99,7 +98,7 @@ private:
 
         ~Reference();
     };
-	
+
 	/**
      * Constructor & Destructor.
      */
@@ -119,7 +118,7 @@ private:
     /**
      * Returns the ID of the object at the current file position.
      * Returns NULL if not found.
-     * 
+     *
      * @return The ID string or NULL if not found.
      */
     const std::string getIdFromOffset() const;
@@ -129,7 +128,7 @@ private:
      * Returns NULL if not found.
      *
      * @param offset The file offset.
-     * 
+     *
      * @return The ID string or NULL if not found.
      */
     const std::string getIdFromOffset(unsigned int offset) const;
@@ -140,16 +139,16 @@ private:
      *
      * @param id The ID string to search for.
      * @param type The object type.
-     * 
+     *
      * @return The reference object or NULL if there was an error.
      */
     Reference* seekTo(const std::string& id, unsigned int type);
 
     /**
      * Seeks the file pointer to the first object that matches the given type.
-     * 
+     *
      * @param type The object type.
-     * 
+     *
      * @return The reference object or NULL if there was an error.
      */
     Reference* seekToFirstType(unsigned int type);
@@ -165,16 +164,16 @@ private:
      *
      * @param id The ID of the mesh to load.
      * @param nodeId The id of the mesh's model's parent node.
-     * 
+     *
      * @return The loaded mesh, or NULL if the mesh could not be loaded.
      */
     C3DMesh* loadMesh(const std::string& nodeId,bool hasMorph);
 
     /**
      * Reads an xref string from the current file position.
-     * 
+     *
      * @param id The string to load the ID string into.
-     * 
+     *
      * @return True if successful, false if an error occurred.
      */
     bool readXref(std::string& id);
@@ -182,11 +181,11 @@ private:
     /**
      * Recursively reads nodes from the current file position.
      * This method will load cameras, lights and models in the nodes.
-     * 
+     *
      * @return A pointer to new node or NULL if there was an error.
      */
 	C3DNode* readNode(C3DRenderNode* compoundModelContext);
-	
+
     /**
      * Reads a camera from the current file position.
      *
@@ -203,7 +202,7 @@ private:
 
     /**
      * Reads a model from the current file position.
-     * 
+     *
      * @return A pointer to a new model or NULL if there was an error.
      */
     C3DModel* readModel(const std::string& nodeId);
@@ -224,7 +223,7 @@ private:
      * read mesh morph.
      */
 	C3DMorph* readMeshMorph();
-   
+
     /**
      * Sets the transformation matrix.
      *
@@ -243,7 +242,7 @@ private:
      */
     void readAnimationChannelData(C3DAnimation* animation, const std::string& id, C3DBone* bone);
     void readAnimationChannel(C3DSprite* superModel, C3DAnimation* animation, const std::string& animationId);
-       
+
     void readAnimation(C3DSprite* superModel);
     void readAnimations(C3DSprite* superModel);
 

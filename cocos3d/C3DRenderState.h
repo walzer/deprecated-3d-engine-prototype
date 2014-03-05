@@ -7,7 +7,6 @@
 #include "C3DRenderBlock.h"
 namespace cocos3d
 {
-
 // Render state override bits
 enum
 {
@@ -17,7 +16,6 @@ enum
 	RS_DEPTH_TEST = 8,
 	RS_DEPTH_WRITE = 16
 };
-
 
 /**
  * Defines the render state of the graphics device.
@@ -104,18 +102,16 @@ public:
          * Binds the matrix palette of C3DMeshSkin attached to a node's model.
          */
         MATRIX_PALETTE,
-		
+
         /**
          * Binds the total time and delat time.
          */
 		TIME_PARAM,
 
-
         // Number of auto-binding types
         AUTO_BINDING_NUM
     };
-	  
-	
+
     MaterialParameter* getParameter(const std::string& name) const;
 
     MaterialParameter* findParameter(const std::string& name, bool findParent) const;
@@ -144,7 +140,7 @@ public:
      * Sets the fixed-function render state of this object to the state contained
      * in the specified StateBlock.
      *
-     * The passed in StateBlock is stored in this C3DRenderState object with an 
+     * The passed in StateBlock is stored in this C3DRenderState object with an
      * increased reference count and released when either a different StateBlock
      * is assigned, or when this C3DRenderState object is destroyed.
      *
@@ -169,9 +165,9 @@ public:
      * @return The StateBlock for this C3DRenderState.
      */
     C3DStateBlock* getStateBlock() const;
-    
+
 	virtual void copyFrom(const C3DRenderState* other);
-	    
+
     static void activeTexture(GLenum textrue);
 
     AutoBinding getAutoBinding(const std::string& name) const;
@@ -181,23 +177,23 @@ public:
 	 /**
      * load info from the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool load(C3DElementNode* nodes);
 
     /**
      * save the renderstate info into the elementnode
      *
-     * @param nodes elementnode which contains the renderstate info.	 
-     *      
+     * @param nodes elementnode which contains the renderstate info.
+     *
      */
 	virtual bool save(C3DElementNode* node);
 
 	static const std::string getAutoBindingName(AutoBinding autoBinding);
 
 	C3DRenderState* getParent();
-	
+
 protected:
 
     /**
@@ -209,12 +205,12 @@ protected:
      * Destructor.
      */
     virtual ~C3DRenderState();
-	
+
     /**
      * Sets the node that this render state is bound to.
      *
      * The specified node is used to apply auto-bindings for the render state.
-     * This is typically set to the node of the model that a material is 
+     * This is typically set to the node of the model that a material is
      * applied to.
      *
      * @param node The node to use for applying auto-bindings.
@@ -227,7 +223,7 @@ protected:
     void applyNodeAutoBinding(const std::string& uniformName, AutoBinding binding);
 
     /**
-     * Binds the render state for this C3DRenderState and any of its parents, top-down, 
+     * Binds the render state for this C3DRenderState and any of its parents, top-down,
      * for the given pass.
      */
     void bind(C3DPass* pass);
@@ -238,10 +234,6 @@ protected:
      * Returns the topmost C3DRenderState in the hierarchy below the given C3DRenderState.
      */
     C3DRenderState* getTopmost(C3DRenderState* below);
-
-    
-
-
 
 private:
 
@@ -260,7 +252,7 @@ protected:
      * Collection of MaterialParameter's to be applied to the gamplay::C3DEffect.
      */
     mutable std::list<MaterialParameter*> _parameters;
-    
+
     /**
      * Map of IDs to AutoBindings.
      */
@@ -280,11 +272,9 @@ protected:
      * The RenderState's parent.
      */
     C3DRenderState* _parent;
-    
+
     static GLint _activeTexture;// GL_TEXTURE0....
 };
-
 }
-
 
 #endif

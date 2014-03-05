@@ -8,52 +8,44 @@
 #include "TestLayer.h"
 
 namespace cocos3d {
-  
    class C3DAnimatedLight;
    class C3DPlane;
 }
 
-
 USING_NS_CC;
 namespace cocos2d
 {
-
 class C3DActor;
 class MainPlayer;
 class Npc;
 class Enemy;
 
-
-
 class  FullDemoLayer :  public TestLayer
-{  
+{
 public:
 
 public:
     FullDemoLayer();
-    virtual ~FullDemoLayer();   
-	bool init();   
-		
+    virtual ~FullDemoLayer();
+	bool init();
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents
-	
-	static FullDemoLayer* getInstance();  
+
+	static FullDemoLayer* getInstance();
 
 	 CREATE_FUNC(FullDemoLayer);
-	 
-	
 
-	
 	void createStaticModel();
 	void createParticleEffect();
-	void createEffect();	
-	
+	void createEffect();
+
 	void createMainPlayer();
 
 	void createLive();
 	void createEnemy();
-	void createNpc();	
+	void createNpc();
 
 	MainPlayer* getMainPlayer()
 	{
@@ -68,7 +60,7 @@ public:
     void setUpCamera();
     //setup initialize light
     void setUpLight();
-	
+
     void setUpShadowMap();
 
     void setUpProfile();
@@ -90,11 +82,10 @@ public:
 	}
 
 public:
-	    
+
     CCLayer* createUILayer();
 
-	
-private:	
+private:
 
 	bool _touched;
 	int _touchX;
@@ -102,10 +93,8 @@ private:
 
 	cocos3d::C3DPlane* _plane;
 	MainPlayer* _mainPlayer;
-	
-	std::list<C3DActor*> _actors;
-	
-};
 
+	std::list<C3DActor*> _actors;
+};
 }
-#endif 
+#endif

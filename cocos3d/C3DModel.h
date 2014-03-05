@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DResourceLoader;
 class C3DMeshSkin;
 class C3DModelNode;
@@ -27,9 +26,9 @@ class C3DModel : public C3DBaseModel
     friend class C3DMesh;
     friend class C3DResourceLoader;
 	friend class C3DPostProcess;
-	
+
 public:
-	
+
 	C3DModel();
 
     virtual ~C3DModel();
@@ -66,13 +65,13 @@ public:
 	void setMaterialName(const std::string& matName);
 	C3DMaterial* setDefaultMaterial(const std::string& path,int partIndex = -1);
 
-	/** 
-	* remove material 
+	/**
+	* remove material
 	* @param partIndex The index of the mesh part
 	*/
 	bool removeMaterial(int partIndex = -1);
 
-    bool hasMaterial(unsigned int partIndex) const;    
+    bool hasMaterial(unsigned int partIndex) const;
 
     C3DNode* getNode() const;
 
@@ -86,24 +85,23 @@ public:
      *
      */
 	virtual void draw(void);
-	
+
 	C3DRenderChannel* getRenderChannel();
 
 	C3DMorph* getMorph();
 	void setMorph(C3DMorph* morph);
-	
+
 	void pushMorph(int morphTargetIndex,float weight);
 	void popMorph(int morphTargetIndex);
 	void changeMorph(int morphTargetIndex,float weight);
-    	
 
     /**
      * get or set light filter
-     * subclass C3DLightFilter to determine wether light validate for this model 
+     * subclass C3DLightFilter to determine wether light validate for this model
      */
     static void setLightFilter(C3DLightFilter* lightFilter) { s_lightFilter = lightFilter; }
     static C3DLightFilter* getLightFilter() { return s_lightFilter; }
-    
+
 	virtual C3DModel* clone(C3DNode::CloneContext& context) const;
 
 	void showWireframe(bool show){_wireframe = show;}
@@ -113,7 +111,7 @@ public:
 	void setMesh(C3DMesh* mesh);
 
 protected:
-	virtual void copyFrom(const C3DModel* other); 
+	virtual void copyFrom(const C3DModel* other);
 
 	/**
 	 * apply shader parameter
@@ -130,8 +128,7 @@ protected:
 
 	void channelDrawPart( int partIndex );
 
-
-private:    
+private:
     /**
      * Sets the specified materia's node binding to this model's node.
      */
@@ -141,23 +138,22 @@ private:
 
     unsigned int _partCount;
     C3DMaterial** _partMaterials;
-    C3DNode* _node;   
+    C3DNode* _node;
 
 	C3DMorph* _morph;
-    
+
     static C3DLightFilter* s_lightFilter;
-	
-protected:    
+
+protected:
     bool _wireframe;
 
 public:
-	
+
 	C3DMesh* _mesh;
     C3DMaterial* _material;
 
 	std::string _materialName;
 };
-
 }
 
 #endif

@@ -24,7 +24,6 @@
 
 namespace cocos3d
 {
-
 MeshData::MeshData(C3DVertexElement* elements, unsigned int elementCount)
 	: vertexFormat(NULL), vertexCount(0), vertexData(NULL), boundingBox(NULL)
 {
@@ -42,7 +41,6 @@ MeshData::~MeshData()
         SAFE_DELETE(parts[i]);
     }
 	SAFE_DELETE(boundingBox);
-	
 }
 
 MeshSkinData::MeshSkinData()
@@ -54,7 +52,6 @@ MeshSkinData::~MeshSkinData()
 {
 	skin = NULL;
 }
-
 
 BonePartData::BonePartData()
 {
@@ -75,5 +72,4 @@ MeshPartData::~MeshPartData()
 {
     SAFE_DELETE_ARRAY(indexData);
 }
-
 }

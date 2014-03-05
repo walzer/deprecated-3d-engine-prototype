@@ -5,18 +5,17 @@ using namespace cocos3d;
 
 namespace cocos2d
 {
-
 Npc::Npc(std::string& name,cocos3d::C3DNode* node,cocos3d::C3DLayer* layer):C3DActor(name,node,layer)
 {
-	_state = Npc::State_Idle;	
+	_state = Npc::State_Idle;
 
 	//_animListener = new Npc::AnimListenerObject(this);
-	
+
 	/*C3DAnimationClip* speakClip = (static_cast<cocos3d::C3DSprite*>(_node))->getAnimationClip("speak");
 	if(speakClip != NULL)
-	{	
+	{
 		cocos3d::C3DActionListener* endAction = cocos3d::C3DActionListener::create(_animListener,((cocos3d::ListenerFunction)(&cocos2d::Npc::AnimListenerObject::onEnd)));
-		
+
 		speakClip->addActionEvent(endAction,speakClip->getDuration());
 	}*/
 }
@@ -38,7 +37,6 @@ Npc::AnimListenerObject::AnimListenerObject(Npc* npc)
 void Npc::AnimListenerObject::onEnd()
 {
 	_npc->_state = Npc::State_Idle;
-	
 }
 
 C3DActor::Type Npc::getType()
@@ -47,7 +45,7 @@ C3DActor::Type Npc::getType()
 }
 
 void Npc::speak()
-{	
+{
 	_state = Npc::State_Speak;
 	(static_cast<cocos3d::C3DSprite*>(_node))->playAnimationClip( "speak" );
 	CCLabelTTF* label = CCLabelTTF::create();
@@ -62,7 +60,6 @@ void Npc::speak()
 
 	label->setPosition(ccp(labelpos.x, labelpos.y));
 }
-
 
 void Npc::update(long elapsedTime)
 {
@@ -79,12 +76,11 @@ void Npc::update(long elapsedTime)
 		if (node)
 			MainLayer::getMainLayer()->removeChild(node);
 	}
-	
 }
 
 static float speakTime = 0;
 void Npc::updateState(long elapsedTime)
-{	
+{
 	if(_state == Npc::State_Idle)
 		return;
 
@@ -97,11 +93,6 @@ void Npc::updateState(long elapsedTime)
 			_state = Npc::State_Idle;
 		}
 	}
-	
-	
 
 }
-
-
 }
-

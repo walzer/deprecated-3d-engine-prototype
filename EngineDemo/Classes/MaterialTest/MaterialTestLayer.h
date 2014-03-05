@@ -10,13 +10,12 @@
 USING_NS_CC;
 
 class  MaterialTestLayer :  public TestLayer
-{  
-
+{
 public:
     MaterialTestLayer();
-    virtual ~MaterialTestLayer();   
-	virtual bool init();   
-		
+    virtual ~MaterialTestLayer();
+	virtual bool init();
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents
@@ -29,7 +28,7 @@ public:
     void setUpCamera();
     //setup initialize light
     void setUpLight();
-	
+
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
 
     // optional
@@ -46,7 +45,7 @@ protected:
 	bool _touched;
 	int _touchX;
 	int _touchY;
-    
+
     cocos3d::C3DStaticObj* _sm;
     cocos3d::C3DSprite* _fish;
 };

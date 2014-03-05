@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 /**
 * Defines a 3D plane.
 * a*x + b*y + c*z = d;
@@ -37,7 +36,7 @@ public:
     C3DPlane(const C3DVector3& normal, const C3DVector3& point);
     C3DPlane();
     ~C3DPlane();
-    
+
 	/**
      * init plane from tree point.
      */
@@ -52,18 +51,18 @@ public:
      * init plane from normal and a point on plane.
      */
     void initPlane(const C3DVector3& normal, const C3DVector3& point);
-    
+
 	 /**
      * Sets the plane's normal to the given vector.
      */
     void setNormal(const C3DVector3& normal);
-    
+
     // dist to plane, > 0 normal direction
     float dist2Plane(const C3DVector3& p) const;
-    
+
     // allowed error when point on plane
     static void setOnPlaneErr(float fError);
-    
+
 	 /**
      * Gets the plane's normal.
      */
@@ -73,19 +72,18 @@ public:
      * Gets the plane's distance to the origin along its normal.
      */
     float getDist() const  { return m_fDist; }
-    
+
 	/**
      * Return positon relatively to the plane.
      */
     POINT_CLASSIFICATION pointClassify(const C3DVector3& point) const;
-	
+
 protected:
     C3DVector3 m_vNormal;
     float m_fDist;
-	
+
     static float s_fOnPlaneErr;
 };
-
 }
 
 #endif

@@ -5,11 +5,8 @@
 namespace cocos3d
 {
 
-
-
     bool C3DFrustum::initFrustum(C3DCamera* pCamera)
     {
-        
         _bInit = true;
         createPlane(pCamera);
         return true;
@@ -18,10 +15,8 @@ namespace cocos3d
     {
         if (_bInit)
         {
-
             C3DVector3 point;
-            
-			
+
             int nplane = _bClipZ ? 6 : 4;
             for (int i = 0; i < nplane; i++) {
                 const C3DVector3& normal = _plane[i].getNormal();
@@ -34,30 +29,30 @@ namespace cocos3d
         }
         return false;
     }
-    
+
     bool C3DFrustum::isOutFrustum(const C3DOBB& obb) const
     {
         if (_bInit)
         {
             C3DVector3 point;
-            
+
             int nplane = _bClipZ ? 6 : 4;
-            
+
             for (int i = 0; i < nplane; i++) {
                 const C3DVector3& normal = _plane[i].getNormal();
-                
+
                 point = obb.center;
                 point = normal.dot(obb.xAxis) > 0 ? point - obb.extX : point + obb.extX;//obb.xAxis.dot()
                 point = normal.dot(obb.yAxis) > 0 ? point - obb.extY : point + obb.extY;
                 point = normal.dot(obb.zAxis) > 0 ? point - obb.extZ : point + obb.extZ;
-                
+
                 if (_plane[i].pointClassify(point) == C3DPlane::FRONT_PLANE )//kmPlaneClassifyPoint(&_plane[i], &point) == POINT_INFRONT_OF_PLANE)
                     return true;
             }
         }
         return  false;
     }
-    
+
     void C3DFrustum::createPlane(C3DCamera* pcamera)
     {
 		const C3DMatrix& mat = pcamera->getViewProjectionMatrix();
@@ -69,8 +64,5 @@ namespace cocos3d
 		_plane[3].initPlane(-C3DVector3(mat.m[3] - mat.m[1], mat.m[7] - mat.m[5], mat.m[11] - mat.m[9]), (mat.m[15] - mat.m[13]));//top
 		_plane[4].initPlane(-C3DVector3(mat.m[3] + mat.m[2], mat.m[7] + mat.m[6], mat.m[11] + mat.m[10]), (mat.m[15] + mat.m[14]));//near
 		_plane[5].initPlane(-C3DVector3(mat.m[3] - mat.m[2], mat.m[7] - mat.m[6], mat.m[11] - mat.m[10]), (mat.m[15] - mat.m[14]));//far
-
-		
     }
-
 }

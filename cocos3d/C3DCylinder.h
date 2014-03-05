@@ -6,14 +6,12 @@
 
 namespace cocos3d
 {
-
 class C3DRay;
 class C3DVector3;
 
 /**
  * axis aligned cylinder
- */ 
-
+ */
 
 /**
  * Defines a class describe 3-dimensional axis-aligned Cone.
@@ -68,7 +66,6 @@ private:
 	float radius;
 	float height;
 };
-
 }
 
 #endif//C3DCYLINDER_H_

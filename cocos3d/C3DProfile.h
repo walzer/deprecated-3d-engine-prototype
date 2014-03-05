@@ -7,28 +7,24 @@
 
 #define ENABLE_C3D_PROFILE
 
-
-
 namespace cocos3d
 {
-
     /**
      *  class for performance profile
-	 *  
+	 *
      */
     class C3DProfile
     {
         friend class C3DProfileDisplay;
 
-        struct ProfileItem 
+        struct ProfileItem
         {
             std::string _name;
             int _accTime; // accumulate time during frame
             int _durTime; //time current frame
             int _avgTime; // average time
             int _startTime;
-            
-            
+
             int minTime;
             int maxTime;
             int totalTime; // total time
@@ -54,13 +50,12 @@ namespace cocos3d
      * Destructor
      */
         ~C3DProfile();
-        
+
 		/**
          * get singleton
          */
         static C3DProfile* getInstance();
 
-        
 		/**
          * begin & end profile
          */
@@ -68,7 +63,7 @@ namespace cocos3d
         void endProfile(const std::string& itemname);
 
         void removeAllProfile();
-        
+
         void update();
 
     protected:
@@ -76,15 +71,13 @@ namespace cocos3d
          * Constructor
          */
         C3DProfile();
-        
-		std::map<std::string, ProfileItem*> _profileItems;
 
-        
+		std::map<std::string, ProfileItem*> _profileItems;
     };
 
     /**
      *  class for performance profile display
-	 *  
+	 *
      */
 	class C3DProfileDisplay
 	{
@@ -108,7 +101,6 @@ namespace cocos3d
 
 		cocos2d::CCLabelBMFont* _label;
 	};
-
 }
 
 #ifdef ENABLE_C3D_PROFILE

@@ -14,7 +14,6 @@
 
 namespace cocos3d
 {
-
 PEPointWarp::PEPointWarp(C3DPostProcess* postProcess, const std::string& name)
 	: C3DPostEffect( postProcess, name )
 	, _speed( 0.5f )
@@ -41,7 +40,7 @@ C3DPostEffect* PEPointWarp::create( const std::string& name, const std::string& 
 void PEPointWarp::resetClick( C3DVector4* click )
 {
 	click->x = 0.0;
-	click->y = 0.0; 
+	click->y = 0.0;
 	click->z = -1.0;
 	click->w = _maxRadius;
 }
@@ -70,8 +69,7 @@ bool PEPointWarp::init(const std::string& szMaterial)
 	}
 
 	_paramClicks = pass->getParameter( "u_clicks" );
-	
-	
+
 	return true;
 }
 
@@ -81,7 +79,6 @@ void PEPointWarp::setShaderParameter()
 	{
 		_paramClicks->setValue( &(_clicks[0]), MAX_CLICKS );
 	}
-
 }
 
 void PEPointWarp::update( float dt )
@@ -98,7 +95,6 @@ void PEPointWarp::update( float dt )
 		}
 	}
 }
-
 
 C3DVector4* PEPointWarp::getEmptyClick(void)
 {
@@ -131,7 +127,4 @@ void PEPointWarp::addClick( float x, float y )
 	clicks->z = 0;
 	clicks->w = _maxRadius;
 }
-
-
 }	//namespace cocos3d
-

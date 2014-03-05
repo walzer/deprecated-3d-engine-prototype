@@ -11,10 +11,8 @@
 #include "C3DVector4.h"
 #include "C3DRenderChannel.h"
 
-
 namespace cocos3d
 {
-
 C3DMaterial::C3DMaterial(const std::string& name) : C3DResource(name)
 {
     memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
@@ -36,7 +34,7 @@ C3DMaterial::~C3DMaterial()
 
 C3DMaterial* C3DMaterial::create(const std::string& fileName)
 {
-	assert(!fileName.empty());	
+	assert(!fileName.empty());
 
     // Load the material properties from file
     C3DElementNode* nodes = C3DElementNode::create(fileName);
@@ -44,8 +42,8 @@ C3DMaterial* C3DMaterial::create(const std::string& fileName)
     if (nodes == NULL)
     {
         return NULL;
-    }   
-	
+    }
+
     C3DElementNode* materialNodes = nodes->getNodeType().empty() ? nodes->getNextChild() : nodes;
     if (!materialNodes || materialNodes->getNodeType() != "material")
     {
@@ -79,10 +77,8 @@ C3DMaterial* C3DMaterial::create(C3DElementNode* materialNodes)
 
 	material->autorelease();
 	return material;
-
-   
 }
-    
+
 //C3DMaterial* C3DMaterial::create(C3DEffect* effect)
 //{
 //    CC_ASSERT(effect);
@@ -91,17 +87,17 @@ C3DMaterial* C3DMaterial::create(C3DElementNode* materialNodes)
 //        CCLOGERROR("effect null in C3DMaterial::create()");
 //        return NULL;
 //    }
-//        
+//
 //    // Create a new material with a single technique and pass for the given effect.
 //    C3DMaterial* material = new C3DMaterial();
-//        
+//
 //    C3DTechnique* technique = new C3DTechnique(NULL, material);
 //    material->_techniques.push_back(technique);
-//        
+//
 //    C3DPass* pass = new C3DPass(NULL, technique, effect);
 //    technique->_passes.push_back(pass);
 //    effect->retain();
-//        
+//
 //    material->_techniqueChannel[TECH_USAGE_SCREEN] = technique;
 //
 //	material->autorelease();
@@ -130,7 +126,7 @@ C3DMaterial* C3DMaterial::create(const std::string& vshPath, const std::string& 
 
 	material->load(tpMatNode);
 	material->autorelease();
-	
+
 	SAFE_DELETE(tpMatNode);
 
 	return material;
@@ -181,7 +177,7 @@ bool C3DMaterial::setTechnique(TechniqueUsage usage, const std::string& id)
     {
         _techniqueChannel[usage] = t;
     }
-    return t != NULL;    
+    return t != NULL;
 }
 
 bool C3DMaterial::setTechnique(TechniqueUsage usage, unsigned int index)
@@ -192,13 +188,13 @@ bool C3DMaterial::setTechnique(TechniqueUsage usage, unsigned int index)
     {
         _techniqueChannel[usage] = t;
     }
-    return t != NULL;    
+    return t != NULL;
 }
 
 bool C3DMaterial::save(C3DElementNode* nodes)
 {
     C3DRenderState::save(nodes);
-   
+
     for (size_t i = 0; i < this->_techniques.size(); i++)
     {
         C3DTechnique* technique = this->_techniques[i];
@@ -222,16 +218,16 @@ C3DMaterial* C3DMaterial::clone() const
 {
 	C3DMaterial* other = new C3DMaterial("");
 	((C3DRenderState*)other)->copyFrom(this);
-		
+
 	((C3DResource*)other)->copyFrom(this);
-	
+
 	for (size_t i = 0; i < _techniques.size(); i++)
 	{
 		other->_techniques.push_back(_techniques[i]->clone());
 		other->_techniques[i]->retain();
 		other->_techniques[i]->_parent = other;
 		other->_techniques[i]->_material = other;
-        
+
         for (int iUsage = 0; iUsage < TECH_USAGE_NUM; iUsage++)
         {
             if (_techniqueChannel[iUsage] == _techniques[i])
@@ -244,7 +240,7 @@ C3DMaterial* C3DMaterial::clone() const
 }
 
 bool C3DMaterial::load(C3DElementNode* materialNodes)
-{	
+{
     // Go through all the material properties and create techniques under this material.
     materialNodes->rewind();
 	C3DElementNode* techniqueNodes = NULL;
@@ -255,7 +251,7 @@ bool C3DMaterial::load(C3DElementNode* materialNodes)
 			C3DTechnique* technique = new C3DTechnique();
             if (technique->load(techniqueNodes) == false)
             {
-				SAFE_RELEASE(technique);                
+				SAFE_RELEASE(technique);
                 return false;
             }
 			else
@@ -289,8 +285,7 @@ bool C3DMaterial::load(C3DElementNode* materialNodes)
         this->setTechnique(TECH_USAGE_SCREEN, 0u);
         this->setTechnique(TECH_USAGE_SHADOWMAP, "_castshadow");
     }
-	
+
 	return true;
 }
-
 }

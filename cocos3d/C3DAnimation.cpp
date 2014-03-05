@@ -13,7 +13,6 @@ C3DAnimation::C3DAnimation(const std::string& id)
     : _id(id), _duration(0),
 	 _defaultClip(NULL), _clips(NULL),_currentClip(NULL), _state(STOPPED), _quality(C3DAnimation::High)
 {
-
 }
 
 C3DAnimation::~C3DAnimation()
@@ -28,23 +27,22 @@ C3DAnimation::~C3DAnimation()
 	if(_runningClips.size() > 0)
 	{
 		std::list<C3DAnimationClip*>::iterator clipIter = _runningClips.begin();
-    
+
         while (clipIter != _runningClips.end())
-        {   
+        {
             C3DAnimationClip* clip = *clipIter;
             SAFE_RELEASE(clip);
             clipIter++;
         }
         _runningClips.clear();
     }
-	
 
     if (_clips)
     {
         std::vector<C3DAnimationClip*>::iterator clipIter = _clips->begin();
-    
+
         while (clipIter != _clips->end())
-        {   
+        {
             C3DAnimationClip* clip = *clipIter;
             SAFE_RELEASE(clip);
             clipIter++;
@@ -61,7 +59,6 @@ C3DAnimation* C3DAnimation::create(const std::string& id)
 	return animation;
 }
 
-
 const std::string& C3DAnimation::getId() const
 {
     return _id;
@@ -72,13 +69,12 @@ unsigned long C3DAnimation::getDuration() const
     return _duration;
 }
 
-
 C3DAnimationClip* C3DAnimation::createClip(const std::string& id, unsigned long start, unsigned long end)
 {
 	C3DAnimationClip* clip = new C3DAnimationClip(id, this, start, end);
 
 	clip->autorelease();
-  
+
     return clip;
 }
 
@@ -131,7 +127,7 @@ void C3DAnimation::play(C3DAnimationClip* clip)
 
 	if(clip == _currentClip && clip->isResumed())
 		return;
-		
+
 	else if(_currentClip != NULL && clip != _currentClip && _currentClip->isPaused())
 	{
 		_currentClip->resetState(C3DAnimationClip::CLIP_IS_PAUSED);
@@ -157,7 +153,7 @@ void C3DAnimation::play(const std::string& clipId)
     {
         if (_defaultClip == NULL)
             createDefaultClip();
-        
+
 		play(_defaultClip);
     }
     else
@@ -201,7 +197,6 @@ void C3DAnimation::pause(const std::string& clipId)
     }
 }
 
-
 void C3DAnimation::resume(const std::string& clipId)
 {
     if (clipId.empty())
@@ -223,7 +218,7 @@ void C3DAnimation::createDefaultClip()
 }
 
 C3DAnimationClip* C3DAnimation::addClip(const std::string& name, unsigned int startFrame, unsigned int endFrame, float repeatCount, float speed)
-{	
+{
 	if (name.empty())
 		return NULL;
 
@@ -231,23 +226,22 @@ C3DAnimationClip* C3DAnimation::addClip(const std::string& name, unsigned int st
 	if (clip)return NULL;
 
 	clip = createClip(name, ((float) startFrame / _frameCount) * _duration, ((float) endFrame / _frameCount) * _duration);
-		
-    clip->setRepeatCount(repeatCount);
-    clip->setSpeed(speed);  
-	
-	addClip(clip);
-	
-	return clip;
 
+    clip->setRepeatCount(repeatCount);
+    clip->setSpeed(speed);
+
+	addClip(clip);
+
+	return clip;
 }
 
 bool C3DAnimation::replaceClip(const std::string& name, unsigned int startFrame, unsigned int endFrame, float repeatCount, float speed)
 {
 	removeClip(name);
 	C3DAnimationClip* clip = addClip(name, startFrame, endFrame, repeatCount, speed);
-	if (clip) 
+	if (clip)
 		return true;
-	else 
+	else
 		return false;
 }
 
@@ -256,7 +250,7 @@ bool C3DAnimation::removeClip(const std::string& name)
 	C3DAnimationClip* clip = findClip(name);
 	std::vector<C3DAnimationClip*>::iterator clipIter = _clips->begin();
 	while (clipIter != _clips->end())
-	{  
+	{
 		C3DAnimationClip* clip = *clipIter;
 		if (clip->getID()==name)
 		{
@@ -299,7 +293,7 @@ C3DAnimationClip* C3DAnimation::findClip(const std::string& id) const
 
 C3DAnimationChannel* C3DAnimation::createChannel(C3DBone* bone, unsigned int keyCount, unsigned long* keyTimes, float* keyValues)
 {
-	setFrameCount(keyCount);      
+	setFrameCount(keyCount);
 
     C3DAnimationCurve* curve = C3DAnimationCurve::create(keyCount);
 
@@ -322,28 +316,27 @@ C3DAnimationChannel* C3DAnimation::createChannel(C3DBone* bone, unsigned int key
     i = keyCount - 1;
     keytime = 1.0f;
     curve->setPoint(i, keytime, keyValues + pointOffset);
-	   
+
     curve->_dur = duration;
 
-    C3DAnimationChannel* channel = new C3DAnimationChannel(this, bone,curve, duration);   
+    C3DAnimationChannel* channel = new C3DAnimationChannel(this, bone,curve, duration);
     addChannel(channel);
     return channel;
 }
-    
+
 C3DAnimationChannel* C3DAnimation::createChannel(C3DBone* bone, C3DAnimationCurve* curve)
 {
     setFrameCount(curve->getPointCount());
-                
+
     C3DAnimationChannel* channel = new C3DAnimationChannel(this, bone,curve, curve->getDruationTime());
     addChannel(channel);
     return channel;
-        
 }
 
 void C3DAnimation::addChannel(C3DAnimationChannel* channel)
 {
     _channels.push_back(channel);
-    
+
     if (channel->_duration > _duration)
         _duration = channel->_duration;
 }
@@ -354,7 +347,7 @@ void C3DAnimation::removeChannel(C3DAnimationChannel* channel)
     while (itr != _channels.end())
     {
         C3DAnimationChannel* chan = *itr;
-        if (channel == chan) 
+        if (channel == chan)
         {
             _channels.erase(itr);
             return;
@@ -379,7 +372,6 @@ C3DAnimation* C3DAnimation::clone()
 		C3DAnimationClip* clipSource = getClip(k);
 		C3DAnimationClip* clip = clipSource->clone(animation);
 		animation->addClip(clip);
-				
 	}
 
 	std::list<C3DAnimationClip*>::iterator clipIter = _runningClips.begin();
@@ -395,11 +387,11 @@ C3DAnimation* C3DAnimation::clone()
     }
 
 	animation->autorelease();
-    
+
     return animation;
 }
 
-void C3DAnimation::stopAll() 
+void C3DAnimation::stopAll()
 {
     std::list<C3DAnimationClip*>::iterator clipIter = _runningClips.begin();
     while (clipIter != _runningClips.end())
@@ -441,7 +433,6 @@ void C3DAnimation::addRunClip(C3DAnimationClip* clip)
 
 void C3DAnimation::removeRunClip(C3DAnimationClip* clip)
 {
-
     std::list<C3DAnimationClip*>::iterator clipItr = _runningClips.begin();
     while (clipItr != _runningClips.end())
     {
@@ -461,7 +452,6 @@ void C3DAnimation::removeRunClip(C3DAnimationClip* clip)
 
 void C3DAnimation::update(long elapsedTime, bool updatePose)
 {
-
     BEGIN_PROFILE("3danimation");
     if (_state != RUNNING)
         return;

@@ -8,31 +8,26 @@
 
 namespace cocos3d
 {
-
-C3DSkinlessModel::C3DSkinlessModel()  
+C3DSkinlessModel::C3DSkinlessModel()
 {
-	
 }
 
 C3DSkinlessModel::~C3DSkinlessModel()
-{ 
-
-
+{
 }
 
 C3DModel* C3DSkinlessModel::create()
-{   
+{
     return new C3DSkinlessModel();
 }
-
 
 /**
 void C3DSkinlessModel::draw()
 {
     unsigned int partCount = _mesh->getPartCount();
     bool bStatEnable = C3DStat::getInstance()->isStatEnable();
-    
-    C3DMaterial::TechniqueUsage techUsage = 
+
+    C3DMaterial::TechniqueUsage techUsage =
         getNode()->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
 
     if (partCount == 0)
@@ -41,25 +36,25 @@ void C3DSkinlessModel::draw()
         if (_material)
         {
             C3DTechnique* technique = _material->getTechnique(techUsage);
-            
+
             if (!technique)
                 return;
-            
+
             unsigned int passCount = technique->getPassCount();
             if (bStatEnable)
                 C3DStat::getInstance()->incDrawCall(passCount);
-            
+
             for (unsigned int i = 0; i < passCount; ++i)
             {
                 if (bStatEnable)
                     C3DStat::getInstance()->incTriangleDraw(_mesh->getTriangleCount());
-                
+
                 C3DPass* pass = technique->getPass(i);
                 //applyLightParam(pass);
 				applyInternalParam(pass);
                 pass->bind();
-                GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );               
-                
+                GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
+
 				if (_wireframe && (_mesh->getPrimitiveType() == PrimitiveType_TRIANGLES || _mesh->getPrimitiveType() == PrimitiveType_TRIANGLE_STRIP))
 				{
 					unsigned int vertexCount = _mesh->getVertexCount();
@@ -72,7 +67,7 @@ void C3DSkinlessModel::draw()
 				{
 					GL_ASSERT( glDrawArrays(_mesh->getPrimitiveType(), 0, _mesh->getVertexCount()) );
 				}
-                
+
                 pass->unbind();
             }
         }
@@ -89,27 +84,27 @@ void C3DSkinlessModel::draw()
             if (material)
             {
                 C3DTechnique* technique = _material->getTechnique(techUsage);
-                
+
                 if (!technique)
                     continue;
                 unsigned int passCount = technique->getPassCount();
-                
+
                 if (bStatEnable)
                     C3DStat::getInstance()->incDrawCall(passCount);
-                
+
                 for (unsigned int j = 0; j < passCount; ++j)
                 {
                     if (bStatEnable)
                         C3DStat::getInstance()->incTriangleDraw(meshPart->getTriangleCount());
-                    
+
                     C3DPass* pass = technique->getPass(j);
 					applyInternalParam(pass);
                     //applyLightParam(pass);
                     //applyShadowMap(pass);
 
                     pass->bind();
-                    GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshPart->_indexBuffer) );                    
-                    
+                    GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshPart->_indexBuffer) );
+
 					if (_wireframe && (_mesh->getPrimitiveType() == PrimitiveType_TRIANGLES || _mesh->getPrimitiveType() == PrimitiveType_TRIANGLE_STRIP))
 					{
 						unsigned int indexSize = 0;
@@ -136,7 +131,7 @@ void C3DSkinlessModel::draw()
 					{
 						GL_ASSERT( glDrawElements(meshPart->getPrimitiveType(), meshPart->getIndexCount(), meshPart->getIndexFormat(), 0) );
 					}
-                    
+
                     pass->unbind();
                 }
             }
@@ -146,20 +141,17 @@ void C3DSkinlessModel::draw()
 
 //*/
 
-
 C3DModel* C3DSkinlessModel::clone(C3DNode::CloneContext& context) const
 {
 	C3DSkinlessModel* other = new C3DSkinlessModel();
-	
+
 	other->copyFrom(this);
 	other->autorelease();
 	return other;
 }
 
-
 std::string C3DSkinlessModel::getDefaultMaterialName()
 {
 	return "common\\default.material";
 }
-
 }

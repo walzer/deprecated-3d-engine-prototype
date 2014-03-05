@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 class C3DPlane;
 /**
  * Defines a class describe 3-dimensional axis-aligned bounding box.
@@ -51,11 +50,11 @@ public:
      * Gets the corners of the bounding box in the specified array.
      */
 	void getCorners(C3DVector3* dst) const;
-	
+
 	 /**
      * Tests whether this bounding box intersects the specified bounding object.
      */
-    bool intersects(const C3DAABB& box) const;	
+    bool intersects(const C3DAABB& box) const;
 
 	bool containPoint( const C3DVector3& point) const;
 	bool containSphere( const C3DVector3 &center,float radius ) const;
@@ -81,12 +80,7 @@ public:
      * Transforms the bounding box by the given transformation matrix.
      */
     void transform(const C3DMatrix& matrix);
-
 };
-
-
 }
-
-
 
 #endif

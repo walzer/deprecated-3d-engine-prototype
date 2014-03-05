@@ -10,7 +10,6 @@
 
 namespace cocos3d
 {
-
 C3DRay::C3DRay()
     : _direction(0, 0, 1)
 {
@@ -20,8 +19,6 @@ C3DRay::C3DRay(const C3DVector3& origin, const C3DVector3& direction)
 {
     set(origin, direction);
 }
-
-
 
 C3DRay::~C3DRay()
 {
@@ -53,32 +50,32 @@ bool C3DRay::intersects(const C3DOBB* obb) const
     C3DAABB box;
     box._min = - obb->extents;
     box._max = obb->extents;
-    
+
     C3DRay ray;
     ray._direction = _direction;
     ray._origin = _origin;
-    
+
     C3DMatrix mat = C3DMatrix::identity();
     mat.m[0] = obb->xAxis.x;
     mat.m[1] = obb->xAxis.y;
     mat.m[2] = obb->xAxis.z;
-    
+
     mat.m[4] = obb->yAxis.x;
     mat.m[5] = obb->yAxis.y;
     mat.m[6] = obb->yAxis.z;
-    
+
     mat.m[8] = obb->zAxis.x;
     mat.m[9] = obb->zAxis.y;
     mat.m[10] = obb->zAxis.z;
-    
+
     mat.m[12] = obb->center.x;
     mat.m[13] = obb->center.y;
     mat.m[14] = obb->center.z;
-    
+
     mat.invertOrthMat();
-    
+
     ray.transform(mat);
-    
+
     return ray.intersects(&box);
 }
 
@@ -90,9 +87,9 @@ bool C3DRay::intersects( const C3DAABB* box ) const
 
 	const C3DVector3& origin = getOrigin();
     const C3DVector3& dir = getDirection();
-	
+
     float t;
-		
+
 	if (dir.x != 0.f)
 	{
         if (dir.x > 0)
@@ -108,7 +105,6 @@ bool C3DRay::intersects( const C3DAABB* box ) const
 			{
 				return true;
 			}
-
 		}
 	}
 
@@ -127,7 +123,6 @@ bool C3DRay::intersects( const C3DAABB* box ) const
 			{
 				return true;
 			}
-
 		}
 	}
 
@@ -146,12 +141,8 @@ bool C3DRay::intersects( const C3DAABB* box ) const
 			{
 				return true;
 			}
-
 		}
 	}
-		
-
-	
 
 	return false;
 }
@@ -257,7 +248,7 @@ void C3DRay::transform(const C3DMatrix& matrix)
 void C3DRay::normalize()
 {
     if (_direction.isZero())
-    {       
+    {
         return;
     }
 
@@ -270,5 +261,4 @@ void C3DRay::normalize()
         _direction.z *= normalizeFactor;
     }
 }
-
 }

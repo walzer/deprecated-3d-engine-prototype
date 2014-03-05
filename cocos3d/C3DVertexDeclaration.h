@@ -7,7 +7,6 @@
 
 namespace cocos3d
 {
-
 class C3DMesh;
 class C3DEffect;
 class C3DVertexFormat;
@@ -32,9 +31,9 @@ public:
     void bind();
 
     void unbind();
-    
+
     static int getCurVertAttEnables();
-    
+
     static void setCurVertAttEnables(int enableMask, bool force = false);
 
 private:
@@ -54,17 +53,15 @@ private:
 
     ~C3DVertexDeclaration();
 
-    
     void setVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalize, GLsizei stride, void* pointer);
 
     GLuint _handle;
     C3DVertexDeclaration::C3DVertexAttribute* _attributes;
     C3DMesh* _mesh;
     C3DEffect* _effect;
-    
+
     int _vaEnableMask;
 };
-
 }
 
 #endif

@@ -7,8 +7,8 @@
 #include "C3DVector2.h"
 
 namespace cocos3d
-{  
-	class C3DSprite; 
+{
+	class C3DSprite;
 	class C3DVector2;
 }
 
@@ -25,39 +25,32 @@ public:
 	public:
 		AnimListenerObject(Npc* npc);
 		void onEnd();
-		
-    
+
 	protected:
 		Npc* _npc;
 	};
 
 	enum State
-	{		
-		State_Idle = 0,			
+	{
+		State_Idle = 0,
 		State_Speak,
 	};
-	
+
 	virtual C3DActor::Type getType();
 
 	virtual void init();
-	
+
 	virtual void update(long elapsedTime);
 
 	void speak();
-	
-	
 
 private:
-	void updateState(long elapsedTime);	
+	void updateState(long elapsedTime);
 
-		
 private:
 	unsigned int _state;
 
 	Npc::AnimListenerObject* _animListener;
-
-
 };
-
 }
-#endif 
+#endif

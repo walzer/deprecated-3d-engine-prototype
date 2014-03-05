@@ -31,32 +31,28 @@ GLenum __gl_error_code = GL_NO_ERROR;
 #define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
 namespace cocos3d
 {
-
 static C3DLayer* __mainLayer = NULL;
-
-
 
 C3DLayer::C3DLayer()
 	: _delatTimeSceond( 0.0 )
 	, _totalTimeSceond( 0.0 )
 	, _timeMinuteRound( 0.0 )
-{	
+{
     if (!__mainLayer)
         __mainLayer = this;
 
     _initialized = false;
-    _state = UNINITIALIZED; 
+    _state = UNINITIALIZED;
 
     _renderSystem = NULL;
     _scene = NULL;
-        
+
     _2DState = NULL;
 
 	_statRender = NULL;
 
 	_spriteManager = NULL;
 }
-
 
 C3DLayer::~C3DLayer()
 {
@@ -73,27 +69,25 @@ bool C3DLayer::init()
     return CCLayer::init()  && init3D();
 }
 
-
 bool C3DLayer::init3D()
-{	
-    initialize();	
-        
-    // Update the aspect ratio for our scene's camera to match the current device resolution 
+{
+    initialize();
+
+    // Update the aspect ratio for our scene's camera to match the current device resolution
 	cocos2d::CCSize size = cocos2d::CCDirector::sharedDirector()->getWinSize();//cocos2d::CCDirector::sharedDirector()->getWinSizeInPixels();
     setSize(size.width, size.height);
     setPosition(size.width / 2, size.height / 2);
     // set searching path
-    cocos2d::CCFileUtils::sharedFileUtils()->addSearchPath("3d");	
-    
+    cocos2d::CCFileUtils::sharedFileUtils()->addSearchPath("3d");
+
     _2DState = C3DStateBlock::create();
-    
+
     // Start up game systems.
     if (!startup())
     {
         shutdown();
         return false;
     }
-    
 
     return true;
 }
@@ -101,7 +95,7 @@ bool C3DLayer::init3D()
 void C3DLayer::onEnter()
 {
     setTouchEnabled( true );
-    
+
 //    cocos2d::CCDirector::sharedDirector()->getTouchDispatcher()->addStandardDelegate(this,0);
 
     this->scheduleUpdate();
@@ -109,13 +103,11 @@ void C3DLayer::onEnter()
     CCLayer::onEnter();
 }
 
-
 void C3DLayer::onExit()
 {
     _scene->removeAllNode();
 
 	CCLayer::onExit();
-
 }
 
 void C3DLayer::draw(void)
@@ -123,10 +115,9 @@ void C3DLayer::draw(void)
     beginRender();
     //render 3d objects
     render(0);
-    
+
     endRender();
 }
-
 
 long C3DLayer::getAbsoluteTime()
 {
@@ -135,7 +126,6 @@ long C3DLayer::getAbsoluteTime()
     {
         return 0 ;
     }
-
 
     return now.tv_sec*1000;
 }
@@ -148,19 +138,15 @@ long C3DLayer::getGameTime()
         return 0 ;
     }
 
-
     return now.tv_sec*1000;
 }
 
-
-
 void C3DLayer::initialize()
-{	
+{
     _scene = cocos3d::C3DScene::createScene(this);
-	
-	
+
     _initialized = true;
-	
+
 	_statRender = new C3DStatRender(this);
 
 	_totalTimeSceond = 0.0f;
@@ -168,9 +154,8 @@ void C3DLayer::initialize()
 	_timeMinuteRound = 0.0f;
 }
 
-
 void C3DLayer::finalize()
-{	
+{
 	SAFE_DELETE(_statRender);
 
     SAFE_DELETE(_scene);
@@ -180,14 +165,13 @@ bool C3DLayer::startup()
 {
     if (_state != UNINITIALIZED)
         return false;
-      
 
 	_renderSystem = C3DRenderSystem::getInstance();
     _renderSystem->retain();
 
 	_spriteManager = C3DSpriteManager::getInstance();
     _spriteManager->retain();
-    
+
     _state = RUNNING;
 
     return true;
@@ -197,11 +181,11 @@ void C3DLayer::shutdown()
 {
     // Call user finalization.
     if (_state != UNINITIALIZED)
-    {      
-        finalize();		     
+    {
+        finalize();
 
         SAFE_RELEASE(_renderSystem);
-        
+
         _state = UNINITIALIZED;
 
 		 SAFE_RELEASE(_spriteManager);
@@ -212,7 +196,7 @@ void C3DLayer::pause()
 {
     if (_state == RUNNING)
     {
-        _state = PAUSED;      
+        _state = PAUSED;
     }
 }
 
@@ -220,7 +204,7 @@ void C3DLayer::resume()
 {
     if (_state == PAUSED)
     {
-        _state = RUNNING;        
+        _state = RUNNING;
     }
 }
 
@@ -236,7 +220,6 @@ void C3DLayer::update(long elapsedTime)
         PROFILE_UPDATE();
         PROFILE_DISPLAY_UPDATE();
     }
-    
 
     BEGIN_PROFILE("3dlayer update");
 	_delatTimeSceond = elapsedTime*0.001f;
@@ -248,14 +231,14 @@ void C3DLayer::update(long elapsedTime)
 	}
 
     if (!_initialized)
-    {        
-        initialize();        
+    {
+        initialize();
         _initialized = true;
     }
 
     _scene->update(elapsedTime);
     // Update the scheduled and running animations.
-    
+
     if (this == __mainLayer)
     {
         _renderSystem->update(elapsedTime);
@@ -274,7 +257,7 @@ void C3DLayer::update(float delta)
 void C3DLayer::beginRender()
 {
     BEGIN_PROFILE("3dlayer beginRender");
-    //backup cocos2d opengl state, sync 3d cached opengl state 
+    //backup cocos2d opengl state, sync 3d cached opengl state
     _2DState->backUpGLState();
 
     glGetVertexAttribiv(cocos2d::kCCVertexAttrib_Position, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &_enablePos);
@@ -288,11 +271,11 @@ void C3DLayer::beginRender()
     C3DRenderState::activeTexture(_texture);
 
     C3DEffect::setCurrentEffect(NULL);
-    
+
     C3DVertexDeclaration::setCurVertAttEnables(0, true);
 
     _renderSystem->setViewport(/*point1.x, point1.y, point2.x - point1.x, point2.y - point1.y*/);
-    
+
     cocos2d::ccGLBindVAO(0);
     END_PROFILE("3dlayer beginRender");
 }
@@ -326,7 +309,7 @@ void C3DLayer::render(long elapsedTime)
     _renderSystem->Render();*/
     if (_scene == NULL)
         return;
-	
+
 	glClearColor(_envConfig._clearColor.x, _envConfig._clearColor.y, _envConfig._clearColor.z, _envConfig._clearColor.w);
 	//glClear(GL_COLOR_BUFFER_BIT);
 
@@ -334,7 +317,7 @@ void C3DLayer::render(long elapsedTime)
     _scene->draw();
 	_scene->drawDebug();
     _scene->postDraw();
-    
+
     END_PROFILE("3dlayer render");
 }
 
@@ -374,7 +357,6 @@ const C3DViewport* C3DLayer::getViewport() const
 	return _renderSystem->getViewport();
 }
 
-
 const C3DVector4& C3DLayer::getTimeParam(void) const
 {
 	static C3DVector4 timeParam(0.0, 0.0, 0.0, 0.0);
@@ -383,15 +365,4 @@ const C3DVector4& C3DLayer::getTimeParam(void) const
 	timeParam.z = _timeMinuteRound;
 	return timeParam;
 }
-
 }
-
-
-
-
-
-
-
-
-
-

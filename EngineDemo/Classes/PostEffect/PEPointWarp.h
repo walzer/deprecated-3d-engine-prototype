@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 static const unsigned int MAX_CLICKS = 8;
 
 class MaterialParameter;
@@ -23,8 +22,6 @@ public:
 
 	virtual bool init(const std::string& szMaterial);
 
-
-
 	virtual void setShaderParameter();
 
 	C3DVector4* getClicks(void)
@@ -34,7 +31,6 @@ public:
 
 	C3DVector4* getEmptyClick(void);
 	void addClick( float x, float y );
-
 
 	void update( float dt );
 
@@ -56,11 +52,8 @@ public:
 		return _maxRadius;
 	}
 
-
 private:
 	void resetClick( C3DVector4* click );
-
-
 
 private:
 	float _speed;
@@ -68,6 +61,5 @@ private:
 	C3DVector4 _clicks[MAX_CLICKS];
 	MaterialParameter* _paramClicks;
 };
-
 }	//namespace cocos3d
 #endif	//#define PEPointWarp_H

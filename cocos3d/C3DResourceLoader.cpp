@@ -47,43 +47,37 @@
 #define BUNDLE_TYPE_MESHPART            35
 #define BUNDLE_TYPE_MESHSKIN            36
 
-
 // For sanity checking string reads
 #define BUNDLE_MAX_STRING_LENGTH        5000
 
 namespace cocos3d
 {
 
-
-
 C3DResourceLoader::C3DResourceLoader(const std::string& path) :
     _path(path), _referenceCount(0), _references(NULL), _stream(NULL)
 {
 	_meshSkins = new std::vector<MeshSkinData*>();
-	 
 }
 
 C3DResourceLoader::~C3DResourceLoader()
 {
     clearLoadSession();
 	SAFE_DELETE(_meshSkins)
-		
 
     SAFE_DELETE_ARRAY(_references);
-	
+
 	if (_stream)
     {
         SAFE_DELETE(_stream);
     }
 }
 
-
 C3DResourceLoader* C3DResourceLoader::create(const std::string& path)
-{	
+{
     // Open the bundle
     C3DStream* stream = C3DStreamManager::openStream(path, "rb");
     if (!stream)
-    {		
+    {
         WARN_VARG("Failed to open file: '%s'.", path.c_str());
         return NULL;
     }
@@ -109,7 +103,7 @@ C3DResourceLoader* C3DResourceLoader::create(const std::string& path)
 		SAFE_DELETE(stream);
         return NULL;
     }
-		
+
 	//........
 	unsigned char isSkin;
     if (!stream->read(&isSkin))
@@ -247,15 +241,15 @@ C3DResourceLoader::Reference* C3DResourceLoader::seekToFirstType(unsigned int ty
 
 void C3DResourceLoader::loadSuperModel(C3DSprite* superModel,std::string nodeName)
 {
-	clearLoadSession();	
-    			
+	clearLoadSession();
+
 	C3DNode* node = this->loadNode(nodeName, superModel);
-			
+
     if (node)
     {
 		superModel->addChild( node);
         node->release(); // scene now owns node
-    }    
+    }
 
 	 resolveJointReferences(superModel);
 
@@ -263,35 +257,33 @@ void C3DResourceLoader::loadSuperModel(C3DSprite* superModel,std::string nodeNam
 }
 
 void C3DResourceLoader::loadSuperModel(C3DSprite* superModel,std::list<std::string>* models)
-{   
+{
 	clearLoadSession();
 	for(std::list<std::string>::iterator iter = models->begin();iter != models->end();++iter)
-    {			
+    {
 		C3DNode* node = this->loadNode(*iter, superModel);
-			
+
         if (node)
         {
 			superModel->addChild( node);
             node->release(); // scene now owns node
-        }       
+        }
     }
 
 	 resolveJointReferences(superModel);
 
     return ;
-
 }
 
 void C3DResourceLoader::loadSkeleton(C3DSprite* superModel,std::string baseBoneName)
-{  
+{
+    Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);
 
-    Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);    
-   
     if (!ref)
     {
         return ;
     }
-	
+
 	// Read the number of children
     unsigned int childrenCount;
     if (!_stream->read(&childrenCount))
@@ -299,8 +291,7 @@ void C3DResourceLoader::loadSkeleton(C3DSprite* superModel,std::string baseBoneN
         SAFE_RELEASE(superModel);
         return ;
     }
-	
-	    
+
     if (childrenCount > 0)
     {
         C3DNode* node = this->loadNode(baseBoneName, superModel);
@@ -310,7 +301,7 @@ void C3DResourceLoader::loadSkeleton(C3DSprite* superModel,std::string baseBoneN
 			superModel->addChild( node );
             node->release(); // scene now owns node
         }
-    }   
+    }
 
     return ;
 }
@@ -340,13 +331,13 @@ void C3DResourceLoader::loadSuperModel(C3DSprite* superModel)
 {
     clearLoadSession();
 
-    Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);    
-   
+    Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);
+
     if (!ref)
     {
         return ;
     }
-	
+
     // Read the number of children
     unsigned int childrenCount;
     if (!_stream->read(&childrenCount))
@@ -358,9 +349,9 @@ void C3DResourceLoader::loadSuperModel(C3DSprite* superModel)
     {
         // Read each child directly into the scene
         for (unsigned int i = 0; i < childrenCount; i++)
-        {			
+        {
             C3DNode* node = readNode(superModel);
-			
+
             if (node)
             {
 				if(node->getType() == C3DNode::NodeType_Bone)
@@ -370,12 +361,10 @@ void C3DResourceLoader::loadSuperModel(C3DSprite* superModel)
 				superModel->addChild( node);
                 node->release(); // scene now owns node
             }
-
         }
     }
-   		
-	loadAnimation(superModel);
 
+	loadAnimation(superModel);
 
     resolveJointReferences(superModel);
 
@@ -384,14 +373,13 @@ void C3DResourceLoader::loadSuperModel(C3DSprite* superModel)
 
 void C3DResourceLoader::loadSceneModel(C3DStaticObj* sceneModel)
 {
+    Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);
 
-    Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);    
-   
     if (!ref)
     {
         return ;
     }
-	
+
     // Read the number of children
     unsigned int childrenCount;
     if (!_stream->read(&childrenCount))
@@ -403,9 +391,9 @@ void C3DResourceLoader::loadSceneModel(C3DStaticObj* sceneModel)
     {
         // Read each child directly into the scene
         for (unsigned int i = 0; i < childrenCount; i++)
-        {			
+        {
             C3DNode* node = readNode(sceneModel);
-			
+
             if (node)
             {
 				sceneModel->addChild( node);
@@ -413,7 +401,7 @@ void C3DResourceLoader::loadSceneModel(C3DStaticObj* sceneModel)
             }
         }
     }
- 
+
     return ;
 }
 C3DNode* C3DResourceLoader::loadNode(const std::string& id, C3DSprite* superModelContext)
@@ -428,7 +416,6 @@ C3DNode* C3DResourceLoader::loadNode(const std::string& id, C3DSprite* superMode
     {
         node = superModelContext->findNode(id);
     }
-   
 
     if (node == NULL)
     {
@@ -445,7 +432,6 @@ C3DNode* C3DResourceLoader::loadNode(const std::string& id, C3DSprite* superMode
     return node;
 }
 
-
 C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
 {
     std::string id = getIdFromOffset();
@@ -457,7 +443,7 @@ C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
         return NULL;
     }
 
-    C3DNode* node = NULL;    
+    C3DNode* node = NULL;
 	switch (nodeType)
     {
 	case C3DNode::NodeType_Normal:
@@ -478,7 +464,6 @@ C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
     default:
         return NULL;
     }
-	   
 
     // Read transform
     float transform[16];
@@ -513,8 +498,7 @@ C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
             {
                 child = compoundModelContext->findNode(id);
             }
-           
-            
+
             // If the child node wasn't already loaded, load it.
             if (!child)
                 child = readNode(compoundModelContext);
@@ -534,9 +518,9 @@ C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
 
 	switch (nodeType)
     {
-	case C3DNode::NodeType_Normal:        
+	case C3DNode::NodeType_Normal:
         break;
-	case C3DNode::NodeType_Bone:        
+	case C3DNode::NodeType_Bone:
         break;
 	case C3DNode::NodeType_Model:
 		{
@@ -547,19 +531,19 @@ C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
 				static_cast<C3DModelNode*>(node)->setModel(model);
 				SAFE_RELEASE(model);
 			}
-		}        
+		}
         break;
 	case C3DNode::NodeType_Camera:
 		{
 			// Read camera
-						
+
 			readCamera(static_cast<C3DCamera*>(node));
 			//if (camera)
 			{
 				//static_cast<C3DCameraNode*>(node)->setCamera(camera);
 				//SAFE_RELEASE(camera);
 			}
-		}       
+		}
         break;
 	case C3DNode::NodeType_Light:
 		{
@@ -571,12 +555,11 @@ C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
 				//SAFE_RELEASE(light);
 			}
 		}
-       
+
         break;
     default:
         return NULL;
     }
-	   
 
     return node;
 }
@@ -616,7 +599,7 @@ void C3DResourceLoader::readCamera(C3DCamera* camera)
     {
         LOG_ERROR_VARG("Failed to load camera far plane in bundle '%s'.", _path.c_str());
     }
-	   
+
     if (cameraType == C3DCamera::PERSPECTIVE)
     {
         // field of view
@@ -672,10 +655,9 @@ void C3DResourceLoader::readLight(C3DLight* light)
         LOG_ERROR_VARG("Failed to load light %s in bundle '%s'.", "color", _path.c_str());
     }
     C3DVector3 color(red, blue, green);
-	  
+
     if (type == C3DLight::DIRECTIONAL)
     {
-		
         light->setComponent(C3DDirectionalLight::create(color));
     }
     else if (type == C3DLight::POINT)
@@ -700,13 +682,12 @@ void C3DResourceLoader::readLight(C3DLight* light)
     {
         LOG_ERROR_VARG("Failed to load light %s in bundle '%s'.", "type", _path.c_str());
     }
-   
 }
 
 C3DModel* C3DResourceLoader::readModel(const std::string& nodeId)
 {
 	C3DModel* model = NULL;
-   	
+
     unsigned char hasMesh;
     if (!_stream->read(&hasMesh))
     {
@@ -739,13 +720,12 @@ C3DModel* C3DResourceLoader::readModel(const std::string& nodeId)
 	// Read skin
     if (hasSkin)
     {
-		model = C3DSkinModel::create();        
+		model = C3DSkinModel::create();
     }
 	else
 	{
-		model = C3DSkinlessModel::create();		
+		model = C3DSkinlessModel::create();
 	}
-	
 
     if(hasMesh)
 	{
@@ -757,10 +737,9 @@ C3DModel* C3DResourceLoader::readModel(const std::string& nodeId)
 		}
 		SAFE_RELEASE(mesh);
 	}
-	
-	
+
 	if (hasMorph)
-	{		
+	{
 		C3DMorph* morph = readMeshMorph();
 		if(morph != NULL)
 		{
@@ -770,24 +749,22 @@ C3DModel* C3DResourceLoader::readModel(const std::string& nodeId)
 
 	// Read skin
     if (hasSkin)
-    {		
+    {
         C3DMeshSkin* skin = readMeshSkin();
         if (skin)
         {
             static_cast<C3DSkinModel*>(model)->setSkin(skin);
-        }		
-    }	
-	
+        }
+    }
+
 	std::string materialName = "";
     if (hasMaterial)
 	{
 		materialName = _stream->readString();
 		model->setMaterialName(materialName);
 	}
-		
-	
+
     return model;
-  
 }
 
 C3DMeshSkin* C3DResourceLoader::readMeshSkin()
@@ -858,7 +835,7 @@ C3DMeshSkin* C3DResourceLoader::readMeshSkin()
 
 	//.........
 	// Read bone parts
-    unsigned int bonePartCount;	
+    unsigned int bonePartCount;
     if (_stream->read(&bonePartCount, 4, 1) != 1)
     {
         SAFE_DELETE(skinData);
@@ -884,7 +861,6 @@ C3DMeshSkin* C3DResourceLoader::readMeshSkin()
 			}
 			partData->indexCount = iByteCount / sizeof(unsigned int);
 
-        
 			partData->indexData = new unsigned char[iByteCount];
 			if (_stream->read(partData->indexData, 1, iByteCount) != iByteCount)
 			{
@@ -914,7 +890,7 @@ C3DMeshSkin* C3DResourceLoader::readMeshSkin()
 			SAFE_DELETE(*iter);
 		}
 		bonePartDatas.clear();
-	}	
+	}
 	//............
 
     // Store the MeshSkinData so we can go back and resolve all joint references later
@@ -925,9 +901,9 @@ C3DMeshSkin* C3DResourceLoader::readMeshSkin()
 
 C3DMorph* C3DResourceLoader::readMeshMorph()
 {
-	C3DMorph* morph = new C3DMorph();		
+	C3DMorph* morph = new C3DMorph();
 	std::string meshName = _stream->readString();
-   
+
 	unsigned int morphTargetCount;
 	if (!_stream->read(&morphTargetCount))
 	{
@@ -935,7 +911,6 @@ C3DMorph* C3DResourceLoader::readMeshMorph()
 		return NULL;
 	}
 
-	
 	for (unsigned int i = 0; i < morphTargetCount; ++i)
 	{
 		MorphTarget* morphTarget = new MorphTarget();
@@ -945,7 +920,7 @@ C3DMorph* C3DResourceLoader::readMeshMorph()
 			SAFE_DELETE(morph);
 			return NULL;
 		}
-		morphTarget->name = _stream->readString();			
+		morphTarget->name = _stream->readString();
 		unsigned int offsetCount;
 		if (!_stream->read(&offsetCount))
 		{
@@ -954,25 +929,22 @@ C3DMorph* C3DResourceLoader::readMeshMorph()
 		}
 		morphTarget->offsets.resize(offsetCount);
 		for (unsigned int i = 0; i < offsetCount; ++i)
-		{		
+		{
 			if (_stream->read(&morphTarget->offsets[i], 1, 16) != 16)
 			{
 				SAFE_DELETE(morphTarget);
 				SAFE_DELETE(morph);
 				return NULL;
-			}		
-		}   
+			}
+		}
 		morph->addMorphTarget(morphTarget);
 	}
 
 	return morph;
-	
 }
-
 
 void C3DResourceLoader::resolveJointReferences(C3DSprite* superModelContext)
 {
-
     const unsigned int skinCount = _meshSkins->size();
     for (unsigned int i = 0; i < skinCount; ++i)
     {
@@ -1004,7 +976,7 @@ void C3DResourceLoader::resolveJointReferences(C3DSprite* superModelContext)
             C3DBone* rootJoint = skinData->skin->getJoint((unsigned int)0);
             C3DNode* node = rootJoint;
             C3DNode* parent = node->getParent();
-           
+
             while (true)
             {
 				if (parent && parent->getType() == C3DNode::NodeType_Bone)
@@ -1046,13 +1018,12 @@ void C3DResourceLoader::resolveJointReferences(C3DSprite* superModelContext)
                         // Skip over the node type (1 unsigned int) and transform (16 floats) and read the parent id.
                     //    fseek(_file, sizeof(unsigned int) + sizeof(float)*16, SEEK_CUR);
                         std::string parentID = _stream->readString();
-                        
+
                         if (parentID.size() > 0)
                             nodeID = parentID;
                         else
                             break;
                     }
-
 
                     if (nodeID != rootJoint->getId())
                        loadNode(nodeID, superModelContext);
@@ -1062,9 +1033,7 @@ void C3DResourceLoader::resolveJointReferences(C3DSprite* superModelContext)
             }
 
             skinData->skin->setRootJoint(rootJoint);
-
         }
-				
 
         // Done with this MeshSkinData entry
         SAFE_DELETE((*_meshSkins)[i]);
@@ -1073,7 +1042,6 @@ void C3DResourceLoader::resolveJointReferences(C3DSprite* superModelContext)
 }
 void C3DResourceLoader::readAnimationChannelData(C3DAnimation* animation, const std::string& id, C3DBone* bone)
 {
-	
     // length of the arrays
     unsigned int keyTimesCount;
     unsigned int valuesCount;
@@ -1081,26 +1049,23 @@ void C3DResourceLoader::readAnimationChannelData(C3DAnimation* animation, const 
     std::vector<unsigned long> keyTimes;
     std::vector<float> values;
 
-   
     // read key times
     if (!_stream->readArray(&keyTimesCount, &keyTimes))
     {
         LOG_ERROR_VARG("Failed to read %s for %s: %s", "keyTimes", "animation", id.c_str());
         return ;
     }
-    
+
     // read key values
     if (!_stream->readArray(&valuesCount, &values))
     {
         LOG_ERROR_VARG("Failed to read %s for %s: %s", "values", "animation", id.c_str());
         return ;
     }
-    
 
     assert(keyTimes.size() > 0 && values.size() > 0);
 
     animation->createChannel(bone,  keyTimesCount, &keyTimes[0], &values[0]);
- 
 }
 
 void C3DResourceLoader::readAnimationChannel(C3DSprite* superModel, C3DAnimation* animation, const std::string& animationId)
@@ -1115,7 +1080,6 @@ void C3DResourceLoader::readAnimationChannel(C3DSprite* superModel, C3DAnimation
         return ;
     }
 
-
     C3DNode* targetNode = superModel->findNode(targetId.c_str());
 
     if (!targetNode)
@@ -1123,12 +1087,9 @@ void C3DResourceLoader::readAnimationChannel(C3DSprite* superModel, C3DAnimation
         LOG_ERROR_VARG("Failed to read %s for %s: %s", "animation target", targetId.c_str(), id.c_str());
         return ;
     }
-	
+
 	readAnimationChannelData(animation, animationId, static_cast<C3DBone*>(targetNode));
-		
-
 }
-
 
 void C3DResourceLoader::readAnimation(C3DSprite* superModel)
 {
@@ -1150,7 +1111,6 @@ void C3DResourceLoader::readAnimation(C3DSprite* superModel)
         readAnimationChannel(superModel, animation, animationId);
     }
 	animation->release();
-
 }
 
 void C3DResourceLoader::readAnimations(C3DSprite* superModel)
@@ -1169,13 +1129,11 @@ void C3DResourceLoader::readAnimations(C3DSprite* superModel)
     }
 }
 
-
 C3DMesh* C3DResourceLoader::loadMesh(const std::string& nodeId,bool hasMorph)
 {
-
     // Read mesh data
     MeshData* meshData = readMeshData();
-	
+
     if (meshData == NULL)
     {
         return NULL;
@@ -1191,7 +1149,7 @@ C3DMesh* C3DResourceLoader::loadMesh(const std::string& nodeId,bool hasMorph)
 	{
 		mesh = C3DMesh::createMesh(meshData->vertexFormat, meshData->vertexCount, false);
 	}
-		
+
     if (mesh == NULL)
     {
         LOG_ERROR_VARG("Failed to create mesh: %s", nodeId.c_str());
@@ -1205,7 +1163,6 @@ C3DMesh* C3DResourceLoader::loadMesh(const std::string& nodeId,bool hasMorph)
 	mesh->_url += "_Mesh";
 
     mesh->setVertexData(meshData->vertexData, 0, meshData->vertexCount);
-	
 
     // Create mesh parts
     for (unsigned int i = 0; i < meshData->parts.size(); ++i)
@@ -1223,7 +1180,7 @@ C3DMesh* C3DResourceLoader::loadMesh(const std::string& nodeId,bool hasMorph)
     }
 
 	mesh->_boundingBox->set(meshData->boundingBox->_min,meshData->boundingBox->_max);
-   
+
 	SAFE_DELETE(meshData);
 
     return mesh;
@@ -1268,7 +1225,7 @@ MeshData* C3DResourceLoader::readMeshData()
     {
         SAFE_DELETE(meshData);
         return NULL;
-    }	
+    }
 
     // Read mesh parts
     unsigned int meshPartCount;
@@ -1294,7 +1251,7 @@ MeshData* C3DResourceLoader::readMeshData()
 
         partData->primitiveType = (PrimitiveType)pType;
         partData->indexFormat = (IndexFormat)iFormat;
-        
+
         unsigned int indexSize = 0;
         switch (partData->indexFormat)
         {
@@ -1329,20 +1286,17 @@ MeshData* C3DResourceLoader::readMeshData()
     return meshData;
 }
 
-
 void C3DResourceLoader::setTransform(const float* values, C3DTransform* transform)
 {
     // Load array into transform
     C3DMatrix matrix(values);
-	
+
     C3DVector3 scale, translation;
     C3DQuaternion rotation;
     matrix.decompose(&scale, &rotation, &translation);
     transform->setScale(scale);
     transform->setPosition(translation);
     transform->setRotation(rotation);
-
-
 }
 
 bool C3DResourceLoader::contains(const std::string& id) const
@@ -1401,7 +1355,6 @@ bool C3DResourceLoader::loadAnimation2(C3DSprite* superModel)
                 }
             }
         }
-            
     }
 	else
 	{
@@ -1413,35 +1366,35 @@ bool C3DResourceLoader::loadAnimation2(C3DSprite* superModel)
 
 	SAFE_RELEASE(superModel->_animation);
 	superModel->_animation = C3DAnimation::create("movements");
-        
+
     // assign animation data
     C3DAnimationCurveMgr* mgr = C3DAnimationCurveMgr::sharedAnimationCurveMgr();
     C3DAnimationCurveMgr::CurveMap* curvemap = mgr->getAnimationCurves(animationpath);
 	// C3DAnimation* animation = new C3DAnimation("movements");
-   
+
     unsigned int nFrame = 0;
 	if (curvemap)
 	{
-		for (C3DAnimationCurveMgr::CurveMap::iterator it = curvemap->begin(); it != curvemap->end(); it++) 
+		for (C3DAnimationCurveMgr::CurveMap::iterator it = curvemap->begin(); it != curvemap->end(); it++)
 		{
 			std::string targetId = it->first;
 			C3DAnimationCurve* curve = it->second;
-            
-			C3DNode* targetNode = superModel->findNode(targetId);   
-            
+
+			C3DNode* targetNode = superModel->findNode(targetId);
+
 			unsigned int nPoint = curve->getPointCount();
 			if (nPoint > nFrame)
 				nFrame = nPoint;
-            
+
 			superModel->_animation->createChannel(static_cast<C3DBone*>(targetNode),  curve);
 			//readAnimationChannelData(animation, animationId, target);
 		}
 	}
     superModel->_animation->setFrameCount(nFrame);
-        
+
 	return true;
 }
-    
+
 bool C3DResourceLoader::isAnimationLoaded() const
 {
     const std::string& animationpath = _path;
@@ -1449,10 +1402,10 @@ bool C3DResourceLoader::isAnimationLoaded() const
     C3DAnimationCurveMgr::CurveMap* curvemap = mgr->getAnimationCurves(animationpath);
     if (curvemap)
         return true;// already load
-        
+
     return false;
 }
-    
+
 bool C3DResourceLoader::readAnimationCurves()
 {
     const std::string& animationpath = _path;
@@ -1460,21 +1413,21 @@ bool C3DResourceLoader::readAnimationCurves()
     C3DAnimationCurveMgr::CurveMap* curvemap = mgr->getAnimationCurves(animationpath);
     if (curvemap)
         return true;// already load
-        
+
     //create animation curve
     curvemap = mgr->createAnimationCurves(animationpath);
-        
+
     unsigned int animationCount;
     if (!_stream->read(&animationCount))
     {
         LOG_ERROR_VARG("Failed to read %s for %s", "animationCount", "Animations");
         return false;
     }
-        
+
     for (unsigned int j = 0; j < animationCount; j++)
     {
         const std::string animationId = _stream->readString();
-            
+
         // read the number of animation channels in this animation
         unsigned int animationChannelCount;
         if (!_stream->read(&animationChannelCount))
@@ -1487,7 +1440,7 @@ bool C3DResourceLoader::readAnimationCurves()
 		{
 			return false;
 		}
-            
+
         for (unsigned int i = 0; i < animationChannelCount; i++)
         {
             // read targetId
@@ -1500,32 +1453,30 @@ bool C3DResourceLoader::readAnimationCurves()
             // length of the arrays
             unsigned int keyTimesCount;
             unsigned int valuesCount;
-                
+
             std::vector<unsigned long> keyTimes;
-            std::vector<float> values;               
-                
-                
+            std::vector<float> values;
+
             // read key times
             if (!_stream->readArray(&keyTimesCount, &keyTimes))
             {
                 LOG_ERROR_VARG("Failed to read %s for %s: %s", "keyTimes", "animation", targetId.c_str());
                 return false;
             }
-                
+
             // read key values
             if (!_stream->readArray(&valuesCount, &values))
             {
                 LOG_ERROR_VARG("Failed to read %s for %s: %s", "values", "animation", targetId.c_str());
                 return false;
             }
-          
+
             assert(keyTimes.size() > 0 && values.size() > 0);
-                
+
             curvemap->insert(std::pair<std::string, C3DAnimationCurve*>(targetId, C3DAnimationCurveMgr::createAniamationCurve(keyTimesCount, &keyTimes[0], &values[0]) ) );
         }
     }
-        
+
     return true;
 }
-
 }

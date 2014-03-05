@@ -9,15 +9,14 @@
 
 namespace cocos3d
 {
-
 /**
 *3D environment configuration.
 *
 */
 class C3DEnvConf
-{  
+{
 public:
-	
+
 	/**
 	* fog type
 	*/
@@ -30,14 +29,14 @@ public:
 	};
 
 public:
-    
+
 	C3DEnvConf()
 		:_fogColor(1.0f, 1.0f, 1.0f, 1.0f), _clearColor(0.0f, 0.0f, 0.0f, 0.0f), _ambientColor(0.7f, 0.7f, 0.7f)
 	{
 		_fogType = None;
 		_fogStart = 0.0f;
 		_fogEnd = 1.0f;
-		_fogDensity = 0.01f; 
+		_fogDensity = 0.01f;
 	}
 
 	void set(C3DEnvConf config)
@@ -46,8 +45,8 @@ public:
 		_fogColor = config._fogColor;
 		_fogType = config._fogType;
 		_fogStart = config._fogStart;
-		_fogEnd = config._fogEnd;		
-		_fogParam = C3DVector4(config._fogDensity,config._fogStart,config._fogEnd,(float)((int)config._fogType));			
+		_fogEnd = config._fogEnd;
+		_fogParam = C3DVector4(config._fogDensity,config._fogStart,config._fogEnd,(float)((int)config._fogType));
 	}
 
 	C3DVector4 _clearColor; //clear color
@@ -65,4 +64,4 @@ public:
 	float _fogEnd;
 };
 }
-#endif 
+#endif

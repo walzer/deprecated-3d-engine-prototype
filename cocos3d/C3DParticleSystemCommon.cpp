@@ -30,7 +30,7 @@ void C3DBaseParticleAction::save(C3DElementNode* psaNode)
 {
 	psaNode->setElement("name", &_name);
 }
-        
+
 void C3DBaseParticleAction::copyFrom(const C3DBaseParticleAction* other)
 {
     if (other->_name)
@@ -47,5 +47,4 @@ C3DBaseParticleAction* C3DBaseParticleAction::clone(C3DParticleSystem* system) c
     action->copyFrom(this);
     return action;
 }
-
 }

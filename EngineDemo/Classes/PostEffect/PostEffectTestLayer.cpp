@@ -19,11 +19,10 @@
 #include "PEVortex.h"
 #include "PESceneChange.h"
 
-
 using namespace cocos3d;
 
 enum PostEffectType
-{   
+{
 	NONE_EFFECT,
     BLUR,
     COLOR,
@@ -41,7 +40,7 @@ static const char* postEffectTypes[POSTEFFECT_NUM] =
 {
 	"None",
     "Blur",
-    "Color", 
+    "Color",
 	"Outline",
 	"Wrap",
     "Bloom",
@@ -53,12 +52,10 @@ static const char* postEffectTypes[POSTEFFECT_NUM] =
 
 PostEffectTestLayer::PostEffectTestLayer()
 {
-
 }
 
 PostEffectTestLayer::~PostEffectTestLayer()
 {
-
 }
 
 bool PostEffectTestLayer::init()
@@ -67,13 +64,12 @@ bool PostEffectTestLayer::init()
 
     setUpCamera();
     setUpLight();
-    setUpScene();   
+    setUpScene();
 
 	setUpPostEffect();
 
     return r;
 }
-
 
 void PostEffectTestLayer::onExit()
 {
@@ -81,18 +77,17 @@ void PostEffectTestLayer::onExit()
 	std::vector<std::string> names = pp->getEffectNames();
 	for ( unsigned int i = 0; i < names.size(); ++i )
 	{
-		pp->removePostEffect( names[i] );	
+		pp->removePostEffect( names[i] );
 	}
 	_scene->removeChild( pp );
 	_scene->setActivePostProcess( NULL );
-
 }
 
 void PostEffectTestLayer::update( float dt )
 {
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
-	 
+
     C3DLight* light = getScene()->getLight(0);
 
     if (light)
@@ -116,31 +111,30 @@ void PostEffectTestLayer::draw()
 }
 
 void PostEffectTestLayer::setUpScene()
-{	
+{
     C3DStaticObj* sm = C3DStaticObj::create("1");
-    
+
     sm->loadFromFile("demores/materialtest/1.ckb");
 
     //sm->setMaterial("scene/1/1_specular.material");
 	sm->setMaterial("demores/materialtest/1_no_glow.material");
     sm->translate(0, 0, 0);
     //sm->rotateX(0.8f);
-    sm->scale(50, 50, 50);   
+    sm->scale(50, 50, 50);
     _scene->addChild(sm);
-
 
 	C3DSprite* fish = C3DSprite::create("haigui");
 
     fish->loadFromFile("demores/haigui/haigui.ckb",true);
 	//fish->setMaterial("body", "2.5D/fish/haigui/haigui.material");
-    fish->addAnimationClip("idle", 0, 60, 0, 1.0f);			
+    fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
 
-//    fish->addPartConfig("body",false);		
+//    fish->addPartConfig("body",false);
 
-//    fish->addPart("body", "body", "2.5D/fish/denglongyu.material");		
+//    fish->addPart("body", "body", "2.5D/fish/denglongyu.material");
 
 //    fish->setPart("body",0);
-//    fish->loadParts();      
+//    fish->loadParts();
 
     fish->playAnimationClip("idle");
     fish->setPosition(35, 10, 0);
@@ -148,7 +142,6 @@ void PostEffectTestLayer::setUpScene()
     fish->setScale(5.0f);
 
     _scene->addChild(fish);
-
 }
 
 void PostEffectTestLayer::setUpPostEffect()
@@ -160,7 +153,6 @@ void PostEffectTestLayer::setUpPostEffect()
 
 	_scene->setActivePostProcess( pp );
 
-	
 	pp->addPostEffect( PEColor::create( postEffectTypes[COLOR], "demores/posteffect/postprocess_color.material", pp ) );
 	pp->addPostEffect( PEBlur::create( postEffectTypes[BLUR], "demores/posteffect/postprocess_blur.material", pp ) );
 	pp->addPostEffect( PEOutLine::create( postEffectTypes[OUTLINE], "demores/posteffect/postprocess_outline.material", pp ) );
@@ -171,11 +163,10 @@ void PostEffectTestLayer::setUpPostEffect()
 	pp->addPostEffect( PEVortex::create( postEffectTypes[VORTEX], "demores/posteffect/postprocess_vortex.material", pp ) );
 	pp->addPostEffect( PEPointWarp::create( postEffectTypes[POINT_WARP], "demores/posteffect/postprocess_point_warp.material", pp ) );
 
-
 	C3DPostEffect* pe = pp->getPostEffect( postEffectTypes[VORTEX] );
-	pe->setGridSize( width*0.2, height*0.2 ); 
+	pe->setGridSize( width*0.2, height*0.2 );
 	pe = pp->getPostEffect( postEffectTypes[POINT_WARP] );
-	pe->setGridSize( width*0.2, height*0.2 ); 
+	pe->setGridSize( width*0.2, height*0.2 );
 }
 
 void PostEffectTestLayer::setUpCamera()
@@ -198,7 +189,6 @@ void PostEffectTestLayer::setUpLight()
     light->setComponent(C3DDirectionalLight::create(color));
 
     _scene->addChild(light);
-
 }
 
 void PostEffectTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
@@ -210,7 +200,6 @@ void PostEffectTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, 
             _touched = true;
             _touchX = x;
             _touchY = y;
-
 
 			float width = CCEGLView::sharedOpenGLView()->getFrameSize().width;
 			float height = CCEGLView::sharedOpenGLView()->getFrameSize().height;
@@ -232,19 +221,17 @@ void PostEffectTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, 
             int deltaY = y - _touchY;
             _touchY = y;
 
-            {				
+            {
                 C3DCamera* camera = _scene->getActiveCamera();
                 if (camera)
                     camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-
-            }	
+            }
         }
         break;
     default:
         break;
     };
 }
-
 
 void PostEffectTestLayer::postEffectTouchPress(float x, float y)
 {
@@ -258,11 +245,9 @@ void PostEffectTestLayer::postEffectTouchPress(float x, float y)
 			{
 				PEPointWarp* pe= (PEPointWarp*)postEffect;
 				pe->addClick( x, 1-y );
-
 			}
 		}
 	}
-
 }
 void PostEffectTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
 {
@@ -270,12 +255,11 @@ void PostEffectTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
-    }    
 
+        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
+    }
 }
 
 void PostEffectTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -286,12 +270,9 @@ void PostEffectTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y , pTouch->getID());
-
-
     }
-
 }
 
 void PostEffectTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
@@ -302,15 +283,13 @@ void PostEffectTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x, touchPoint.y, pTouch->getID());
     }
-
 }
 
 void PostEffectTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
 {
-
 }
 
 void PostEffectTestLayer::menuCallback( CCObject * pSender )
@@ -337,14 +316,13 @@ CCLayer* PostEffectTestLayer::createUILayer()
 
     CCMenu* pItemMenu = CCMenu::create();
 
-
     for (int i = 0; i < POSTEFFECT_NUM; ++i)
     {
         // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
         //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
         // #else
         CCLabelTTF* label = CCLabelTTF::create(postEffectTypes[i], "Arial", 20);
-        // #endif        
+        // #endif
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(PostEffectTestLayer::menuCallback));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
@@ -354,7 +332,6 @@ CCLayer* PostEffectTestLayer::createUILayer()
     //pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (MATERIAL_NUM + 1) * (40)));
     pItemMenu->setPosition(0, 0);
     layer->addChild(pItemMenu, 1000);
-
 
     return layer;
 }

@@ -4,8 +4,6 @@
 namespace cocos3d
 {
 
-
-
 class C3DMesh;
 class BBVertex;
 class C3DVector4;
@@ -18,7 +16,7 @@ class Geo
     friend class C3DModel;
     friend class C3DResourceLoader;
 
-public:  
+public:
 	/**
 	* create board mesh.
 	*/
@@ -33,9 +31,7 @@ public:
 	* create Sphere mesh.
 	*/
 	static bool CreateSphere(float radius, std::vector< BBVertex > &ppVertices, std::vector< unsigned short > &ppIndices, const C3DVector4& color, int stacks = 20, int slices = 20);
-	
 };
-
 }
 
 #endif

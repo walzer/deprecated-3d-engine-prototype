@@ -6,28 +6,26 @@
 #include "C3DAnimationCurve.h"
 #include "C3DActionListener.h"
 
-
 namespace cocos3d
 {
-
 C3DAnimationClip::C3DAnimationClip(const std::string& id, C3DAnimation* animation, unsigned long startTime, unsigned long endTime)
-    : _id(id), _animation(animation), _startTime(startTime), _endTime(endTime), _duration(_endTime - _startTime), 
-      _stateBits(0x00), _repeatCount(1.0f), _activeDuration(_duration * _repeatCount), _speed(1.0f), _timeStarted(0), 
+    : _id(id), _animation(animation), _startTime(startTime), _endTime(endTime), _duration(_endTime - _startTime),
+      _stateBits(0x00), _repeatCount(1.0f), _activeDuration(_duration * _repeatCount), _speed(1.0f), _timeStarted(0),
       _elapsedTime(0), _blendWeight(1.0f), _crossFadeToClip(NULL), _crossFadeOutElapsed(0), _crossFadeOutDuration(0)
 
 {
     assert(0 <= startTime && startTime <= animation->_duration && 0 <= endTime && endTime <= animation->_duration);
-       
+
 	_frameCount = ((float)_duration / animation->_duration) * animation->getFrameCount();
-	
+
 	_actionEvents = NULL;
 }
 
 C3DAnimationClip::~C3DAnimationClip()
-{	
+{
 	if (_actionEvents)
     {
-		std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();        
+		std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();
         while (iter != _actionEvents->end())
         {
             C3DActionEvent* lEvt = *iter;
@@ -78,7 +76,6 @@ float C3DAnimationClip::getRepeatCount() const
 {
     return _repeatCount;
 }
-
 
 unsigned long C3DAnimationClip::getDuration() const
 {
@@ -139,20 +136,16 @@ void C3DAnimationClip::play()
     }
     else
     {
-		setState(CLIP_IS_PLAYING);       
+		setState(CLIP_IS_PLAYING);
         _animation->addRunClip(this);
-		
     }
 
 	_timeStarted = C3DLayer::getGameTime();
-
-   
 }
 
 void C3DAnimationClip::crossFade(C3DAnimationClip* clip, unsigned long duration)
 {
     assert(clip);
-
 
     if (clip->isState(CLIP_IS_FADING_OUT) && clip->_crossFadeToClip == this)
     {
@@ -171,7 +164,7 @@ void C3DAnimationClip::crossFade(C3DAnimationClip* clip, unsigned long duration)
     _crossFadeToClip->retain();
     _crossFadeToClip->setState(CLIP_IS_FADING_IN);
     _crossFadeToClip->_blendWeight = 0.0f;
-    
+
     //fade out
     setState(CLIP_IS_FADING_OUT_STARTED);
     setState(CLIP_IS_FADING_OUT);
@@ -180,9 +173,8 @@ void C3DAnimationClip::crossFade(C3DAnimationClip* clip, unsigned long duration)
 
 	if (!isState(CLIP_IS_PLAYING))
 		play();
-    
 
-    _crossFadeToClip->play(); 
+    _crossFadeToClip->play();
 }
 
 void C3DAnimationClip::stop()
@@ -200,7 +192,6 @@ void C3DAnimationClip::resume()
 	_stateBits = CLIP_IS_RESTARTED;
 }
 
-
 unsigned short C3DAnimationClip::update(unsigned long elapsedTime, bool updatePose)
 {
 	if(_repeatCount != 0)
@@ -210,8 +201,7 @@ unsigned short C3DAnimationClip::update(unsigned long elapsedTime, bool updatePo
 	else
 	{
 		return update_loop(elapsedTime, updatePose);
-	}	
-   
+	}
 }
 
 unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool updatePose)
@@ -221,10 +211,10 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
         return CLIP_IS_PAUSED;
     }
     else if (isState(CLIP_IS_MARKED_FOR_REMOVAL))
-    {   
+    {
         _blendWeight = 1.0f;
         _stateBits = CLIP_IS_NONE;
-		
+
         return CLIP_IS_MARKED_FOR_REMOVAL;
     }
 	else if(isState(CLIP_IS_RESTARTED))
@@ -237,14 +227,14 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
     else if (!isState(CLIP_IS_STARTED))
     {
 		_elapsedTime = (C3DLayer::getGameTime() - _timeStarted) * _speed;
-		
+
 		setState(CLIP_IS_STARTED);
     }
 	else if (isState(CLIP_IS_FADING_OUT))
     {
         if (isState(CLIP_IS_FADING_OUT_STARTED)) // Calculate elapsed time since the fade out begin.
         {
-            _crossFadeOutElapsed = (C3DLayer::getGameTime() - _crossFadeToClip->_timeStarted) * abs(_speed); 
+            _crossFadeOutElapsed = (C3DLayer::getGameTime() - _crossFadeToClip->_timeStarted) * abs(_speed);
             resetState(CLIP_IS_FADING_OUT_STARTED);
         }
         else
@@ -255,18 +245,16 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
         if (_crossFadeOutElapsed < _crossFadeOutDuration)
         {
             _blendWeight = (float) (_crossFadeOutDuration - _crossFadeOutElapsed) / (float) _crossFadeOutDuration;
-            
+
             _crossFadeToClip->_blendWeight = (1.0f - _blendWeight);
-                
         }
         else
         {   // Fade is done.
-
 			_blendWeight = 0.0f;
 
             _crossFadeToClip->_blendWeight = 1.0f;
 
-            resetState(CLIP_IS_STARTED);            
+            resetState(CLIP_IS_STARTED);
             resetState(CLIP_IS_FADING_OUT);
 
             _crossFadeToClip->resetState(CLIP_IS_FADING_IN);
@@ -285,7 +273,7 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
 	int counter = 0;
     // Check to see if clip is complete.
     if (_repeatCount != 0 && ((_speed >= 0.0f && _elapsedTime >= (long) _activeDuration) || (_speed <= 0.0f && _elapsedTime <= 0L)))
-    {     		
+    {
 		resetState(CLIP_IS_STARTED);
         if (_speed >= 0.0f)
         {
@@ -305,11 +293,9 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
         {
             currentTime = 0L; // If we are negative speed, the end value should be 0.
         }
-        
     }
     else
     {
-		
         // If _duration == 0, we have a "pose". Just set currentTime to 0.
         if (_duration == 0)
             currentTime = 0L;
@@ -317,7 +303,7 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
 		{
             currentTime = _elapsedTime % _duration;
 			counter = _elapsedTime/_duration;
-		}		
+		}
     }
 
 	// Notify any listeners of Animation events.
@@ -341,36 +327,34 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
 				else
 				{
 					if(currentTime == 0)
-					{						
+					{
 						if( _elapsedTime>=((counter-1)*(long)_duration + (long)evt->_eventTime)/* && evt->_finished == false*/)
 						{
 							evt->_listener->action();
 							//evt->_finished = true;
-						}						
-						
+						}
 					}
 					else
-					{						
+					{
 						if( _elapsedTime>=(counter*(long)_duration + (long)evt->_eventTime)/* && evt->_finished == false*/)
 						{
 							evt->_listener->action();
 							//evt->_finished = true;
-						}						
+						}
 					}
-				}				
-							
+				}
+
 				iter++;
-			}			
+			}
         }
         else
         {
-            
             //
             if(_actionEvents->empty())
 				return CLIP_IS_NONE;
 			std::list<C3DActionEvent*>::iterator iter = _actionEvents->end();
 			iter--;
-            
+
 			while (iter != _actionEvents->begin())
 			{
 				evt = *iter;
@@ -378,18 +362,16 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
 				{
 					evt->_listener->action();
 				//	evt->_finished = true;
-				}				
+				}
 				iter--;
-			}      
-
+			}
         }
     }
-    
-    
+
    if (updatePose)
    {
        float percentComplete = (float)(_startTime + currentTime) / (float) _animation->_duration;
-       
+
        //   Evaluate this clip.
        C3DAnimationChannel* channel = NULL;
        C3DBone* bone = NULL;
@@ -399,7 +381,7 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
        {
            channel = _animation->_channels[i];
            bone = channel->_bone;
-           
+
            // Evaluate the point on Curve
            C3DAnimationCurve::InterpolationMode mode = _animation->getQuality() == C3DAnimation::High ? C3DAnimationCurve::Linear : C3DAnimationCurve::Near;
            channel->getCurve()->evaluate(percentComplete, value, mode);
@@ -413,23 +395,22 @@ unsigned short C3DAnimationClip::update_loop(unsigned long elapsedTime, bool upd
     {
 		_blendWeight = 1.0f;
         _stateBits = CLIP_IS_NONE;
-	
+
 		if (_actionEvents)
-		{			
+		{
 			std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();
 			while (iter != _actionEvents->end())
 			{
-			//	(*iter)->_finished = false;								
+			//	(*iter)->_finished = false;
 				iter++;
-			}			
-		}		
+			}
+		}
 
         return CLIP_IS_MARKED_FOR_REMOVAL;
     }
 
     return CLIP_IS_PLAYING;
 }
-
 
 unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool updatePose)
 {
@@ -438,10 +419,10 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
         return CLIP_IS_PAUSED;
     }
     else if (isState(CLIP_IS_MARKED_FOR_REMOVAL))
-    {   
+    {
         _blendWeight = 1.0f;
         _stateBits = CLIP_IS_NONE;
-		
+
         return CLIP_IS_MARKED_FOR_REMOVAL;
     }
 	else if(isState(CLIP_IS_RESTARTED))
@@ -454,14 +435,14 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
     else if (!isState(CLIP_IS_STARTED))
     {
 		_elapsedTime = (C3DLayer::getGameTime() - _timeStarted) * _speed;
-		
+
 		setState(CLIP_IS_STARTED);
     }
 	else if (isState(CLIP_IS_FADING_OUT))
     {
         if (isState(CLIP_IS_FADING_OUT_STARTED)) // Calculate elapsed time since the fade out begin.
         {
-            _crossFadeOutElapsed = (C3DLayer::getGameTime() - _crossFadeToClip->_timeStarted) * abs(_speed); 
+            _crossFadeOutElapsed = (C3DLayer::getGameTime() - _crossFadeToClip->_timeStarted) * abs(_speed);
             resetState(CLIP_IS_FADING_OUT_STARTED);
         }
         else
@@ -472,18 +453,16 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
         if (_crossFadeOutElapsed < _crossFadeOutDuration)
         {
             _blendWeight = (float) (_crossFadeOutDuration - _crossFadeOutElapsed) / (float) _crossFadeOutDuration;
-            
+
             _crossFadeToClip->_blendWeight = (1.0f - _blendWeight);
-                
         }
         else
         {   // Fade is done.
-
 			_blendWeight = 0.0f;
 
             _crossFadeToClip->_blendWeight = 1.0f;
 
-            resetState(CLIP_IS_STARTED);            
+            resetState(CLIP_IS_STARTED);
             resetState(CLIP_IS_FADING_OUT);
 
             _crossFadeToClip->resetState(CLIP_IS_FADING_IN);
@@ -498,11 +477,11 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
             _elapsedTime = _activeDuration + _elapsedTime;
     }
 
-	unsigned long currentTime = 0L;	
-	
+	unsigned long currentTime = 0L;
+
     // Check to see if clip is complete.
     if (_repeatCount != 0 && ((_speed >= 0.0f && _elapsedTime >= (long) _activeDuration) || (_speed <= 0.0f && _elapsedTime <= 0L)))
-    {      
+    {
 		resetState(CLIP_IS_STARTED);
         if (_speed >= 0.0f)
         {
@@ -522,7 +501,6 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
         {
             currentTime = 0L; // If we are negative speed, the end value should be 0.
         }
-        
     }
     else
     {
@@ -530,8 +508,7 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
         if (_duration == 0)
             currentTime = 0L;
         else // Gets portion/fraction of the repeat.
-            currentTime = _elapsedTime % _duration;        
-        
+            currentTime = _elapsedTime % _duration;
     }
 
 	// Notify any listeners of Animation events.
@@ -548,9 +525,9 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
 				{
 					evt->_listener->action();
 					evt->_finished = true;
-				}				
+				}
 				iter++;
-			}			
+			}
         }
         else
         {
@@ -559,7 +536,7 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
 				return CLIP_IS_NONE;
 			std::list<C3DActionEvent*>::iterator iter = _actionEvents->end();
 			iter--;
-            
+
 			while (iter != _actionEvents->begin())
 			{
 				evt = *iter;
@@ -567,19 +544,18 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
 				{
 					evt->_listener->action();
 					evt->_finished = true;
-				}				
+				}
 				iter--;
 			}
         }
     }
-    
-        
+
    if (updatePose)
    {
        float percentComplete = (float)(_startTime + currentTime) / (float) _animation->_duration;
-       
+
        //   Evaluate this clip.
-       
+
        C3DAnimationChannel* channel = NULL;
        C3DBone* bone = NULL;
        unsigned int channelCount = _animation->_channels.size();
@@ -588,10 +564,10 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
        {
            channel = _animation->_channels[i];
            bone = channel->_bone;
-           
+
            // Evaluate the point on Curve
            C3DAnimationCurve::InterpolationMode mode = _animation->getQuality() == C3DAnimation::High ? C3DAnimationCurve::Linear : C3DAnimationCurve::Near;
-           channel->getCurve()->evaluate(percentComplete, value, mode);           
+           channel->getCurve()->evaluate(percentComplete, value, mode);
            // Set the animation value on the target property.
            bone->setAnimationValue(value, _blendWeight);
        }
@@ -602,16 +578,16 @@ unsigned short C3DAnimationClip::update_once(unsigned long elapsedTime, bool upd
     {
 		_blendWeight = 1.0f;
         _stateBits = CLIP_IS_NONE;
-	
+
 		if (_actionEvents)
-		{			
+		{
 			std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();
 			while (iter != _actionEvents->end())
 			{
-				(*iter)->_finished = false;								
+				(*iter)->_finished = false;
 				iter++;
-			}			
-		}		
+			}
+		}
 
         return CLIP_IS_MARKED_FOR_REMOVAL;
     }
@@ -634,7 +610,6 @@ void C3DAnimationClip::resetState(unsigned short bit)
     _stateBits &= ~bit;
 }
 
-
 void C3DAnimationClip::addActionEvent(C3DActionListener* listener, unsigned long eventTime)
 {
 	assert(listener);
@@ -656,10 +631,10 @@ void C3DAnimationClip::addActionEvent(C3DActionListener* listener, unsigned long
 			{
 				iter = _actionEvents->insert(iter, actionEvent);
 				return;
-			}											
+			}
 			iter++;
 		}
-			
+
         _actionEvents->push_back(actionEvent);
     }
 }
@@ -667,7 +642,6 @@ void C3DAnimationClip::addActionEvent(C3DActionListener* listener, unsigned long
 void C3DAnimationClip::addActionEvent(C3DActionEvent* actionEvent)
 {
 	assert(actionEvent);
-	
 
     if (!_actionEvents)
     {
@@ -683,20 +657,19 @@ void C3DAnimationClip::addActionEvent(C3DActionEvent* actionEvent)
 			{
 				iter = _actionEvents->insert(iter, actionEvent);
 				return;
-			}											
+			}
 			iter++;
 		}
-			
+
         _actionEvents->push_back(actionEvent);
     }
 }
-
 
 void C3DAnimationClip::clearActionEvent()
 {
 	if (_actionEvents)
 	{
-		std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();        
+		std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();
 		while (iter != _actionEvents->end())
 		{
 			C3DActionEvent* lEvt = *iter;
@@ -706,7 +679,6 @@ void C3DAnimationClip::clearActionEvent()
 		SAFE_DELETE(_actionEvents);
 	}
 }
-
 
 int C3DAnimationClip::getFrameCount()
 {
@@ -727,28 +699,26 @@ int C3DAnimationClip::getCurrentFrame()
 C3DAnimationClip* C3DAnimationClip::clone(C3DAnimation* animation)
 {
 	C3DAnimationClip* clip = new C3DAnimationClip(_id.c_str(), animation, _startTime, _endTime);
-		
-	clip->setSpeed(getSpeed());	
+
+	clip->setSpeed(getSpeed());
 	clip->setRepeatCount(getRepeatCount());
 
 	if (_actionEvents)
 	{
-		std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();        
+		std::list<C3DActionEvent*>::iterator iter = _actionEvents->begin();
 		while (iter != _actionEvents->end())
 		{
 			C3DActionEvent* srcEvent = *iter;
 
 			C3DActionEvent* objEvent = new C3DActionEvent(*srcEvent);
-			
+
 			clip->addActionEvent(objEvent);
 			++iter;
-		}			
+		}
 	}
-	
+
 	clip->autorelease();
-  
+
     return clip;
 }
-
-
 }

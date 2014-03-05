@@ -7,10 +7,8 @@
 #include "C3DQuaternion.h"
 #include "C3DMatrix.h"
 
-
 namespace cocos3d
 {
-
 /**
  * Defines a 3-dimensional transformation.
  *
@@ -26,8 +24,7 @@ namespace cocos3d
  */
 class  C3DTransform
 {
-public:   
-	   
+public:
 
     /**
      * Constructs the identity transform.
@@ -82,7 +79,7 @@ public:
      * Returns the scale for this transform.
      */
     const C3DVector3& getScale() const;
-	
+
     /**
      * Gets the scale factor along the x-axis of this transform.
      *
@@ -128,7 +125,7 @@ public:
      * of this transform in the specified C3DVector3.
      *
      * @param axis The vector to store the axis of rotation.
-     * 
+     *
      * @return The angle of rotation.
      */
     float getRotation(C3DVector3* axis) const;
@@ -137,7 +134,6 @@ public:
      * Returns the translation for this transform.
      */
     const C3DVector3& getPosition() const;
-	
 
     /**
      * Gets the translation factor along the x-axis of this transform.
@@ -159,7 +155,7 @@ public:
      * @return The translation factor along the z-axis.
      */
     float getPositionZ() const;
-    
+
     /**
      * Returns the forward vector for this C3DTransform.
      */
@@ -167,11 +163,10 @@ public:
 
     /**
      * Returns the forward vector for this C3DTransform.
-     * 
+     *
      * @param dst The vector to store the result in.
      */
     void getForwardVector(C3DVector3* dst) const;
-	
 
     /**
      * Returns the up vector for this C3DTransform.
@@ -180,11 +175,10 @@ public:
 
     /**
      * Returns the up vector for this C3DTransform.
-     * 
+     *
      * @param dst The vector to store the result in.
      */
     void getUpVector(C3DVector3* dst) const;
-
 
     /**
      * Returns the right vector for this transform.
@@ -197,7 +191,6 @@ public:
      * @param dst The vector to store the result in.
      */
     void getRightVector(C3DVector3* dst) const;
-		
 
     /**
      * Rotates this transform's rotation component by the given rotation.
@@ -584,11 +577,11 @@ public:
     void transformVector(float x, float y, float z, float w, C3DVector3* dst);
 
 	/**
-	 * 
+	 *
 	 *
 	 */
 	void lookAt(const C3DVector3& position, const C3DVector3& up, const C3DVector3& target);
-	
+
     /**
      * Set position and rotation as rotating along a specific line
      * @param point a point at the line
@@ -606,8 +599,6 @@ public:
 	void rotateAlong(const C3DVector3& point, const C3DVector3& axis, float angle);
 
 protected:
-
-   
 
     /**
      * Defines the matrix dirty bits for marking the translation, scale and rotation
@@ -637,32 +628,28 @@ protected:
      */
     C3DVector3 _scale;
 
-    /** 
+    /**
      * The rotation component of the C3DTransform.
      */
     C3DQuaternion _rotation;
-    
-    /** 
+
+    /**
      * The translation component of the C3DTransform.
      */
     C3DVector3 _position;
-    
-    /** 
+
+    /**
      * The C3DMatrix representation of the C3DTransform.
      */
     mutable C3DMatrix _matrix;
-    
-    /** 
+
+    /**
      * C3DMatrix dirty bits flag.
      */
     mutable char _matrixDirtyBits;
-    
 
 private:
-
-
 };
-
 }
 
 #endif

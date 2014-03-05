@@ -11,7 +11,6 @@
 
 namespace cocos3d
 {
-
 static C3DEffect* __currentEffect = NULL;
 
 C3DEffect::C3DEffect(const std::string& name) : C3DResource(name),_program(0)
@@ -65,7 +64,7 @@ void replaceIncludes(const std::string& source, std::string& out)
         // If "#include" is found
         if (headPos != std::string::npos)
         {
-            // append from our last position for the legth (head - last position) 
+            // append from our last position for the legth (head - last position)
             out.append(str.substr(lastPos,  headPos - lastPos));
 
             // find the start quote "
@@ -87,14 +86,14 @@ void replaceIncludes(const std::string& source, std::string& out)
 
             // jump the head position past the end quote
             headPos = endQuote + 1;
-            
-            // File path to include and 'stitch' in the value in the quotes to the file path and source it.           
+
+            // File path to include and 'stitch' in the value in the quotes to the file path and source it.
             std::string directoryPath = "shaders/";
-						
+
             size_t len = endQuote - (startQuote);
             std::string includeStr = str.substr(startQuote, len);
             directoryPath.append(includeStr);
-							
+
             char* includedSource = C3DStreamManager::readAll(directoryPath);
             if (includedSource == NULL)
             {
@@ -116,7 +115,6 @@ void replaceIncludes(const std::string& source, std::string& out)
     }
 }
 
-
 bool C3DEffect::load(C3DElementNode* node)
 {
 	C3DResource::load(node);
@@ -129,20 +127,19 @@ bool C3DEffect::load(C3DElementNode* node)
 	_fshPath = fshPath;
 	_defines = defines;
 
-
     // Read source from file.
 	char* vshSource = C3DStreamManager::readAll(vshPath);
     if (vshSource == NULL)
-    {  
+    {
 		return false;
     }
 	char* fshSource = C3DStreamManager::readAll(fshPath);
     if (fshSource == NULL)
     {
-        SAFE_DELETE_ARRAY(vshSource);    
+        SAFE_DELETE_ARRAY(vshSource);
 		return false;
     }
-    
+
     if(this->load(vshSource,fshSource,defines) == false)
 	{
 		LOG_ERROR_VARG("Failed to create effect from shaders: %s, %s", _vshPath.c_str(), _fshPath.c_str());
@@ -151,7 +148,6 @@ bool C3DEffect::load(C3DElementNode* node)
     SAFE_DELETE_ARRAY(fshSource);
     return true;
 }
-
 
 bool C3DEffect::load(const std::string& vshSource, const std::string& fshSource, const std::string& defines)
 {
@@ -174,12 +170,12 @@ bool C3DEffect::load(const std::string& vshSource, const std::string& fshSource,
     shaderSource[0] = definesStr.c_str();
     shaderSource[1] = "\n";
 
-	std::string vshSourceStr = "";   
+	std::string vshSourceStr = "";
     {
         // Replace the #include "xxxxx.xxx" with the sources that come from file paths
         replaceIncludes(vshSource, vshSourceStr);
         if (!vshSource.empty())
-            vshSourceStr += "\n";        
+            vshSourceStr += "\n";
     }
 
 	shaderSource[2] = vshSourceStr.c_str();
@@ -205,13 +201,13 @@ bool C3DEffect::load(const std::string& vshSource, const std::string& fshSource,
         return false;
     }
 
-    // Compile the fragment shader.	
-	std::string fshSourceStr = "";   
+    // Compile the fragment shader.
+	std::string fshSourceStr = "";
     {
         // Replace the #include "xxxxx.xxx" with the sources that come from file paths
         replaceIncludes(fshSource, fshSourceStr);
         if (!fshSource.empty())
-            fshSourceStr += "\n";        
+            fshSourceStr += "\n";
     }
 	shaderSource[2] = fshSourceStr.c_str();
 
@@ -267,7 +263,7 @@ bool C3DEffect::load(const std::string& vshSource, const std::string& fshSource,
 
         return false;
     }
-	  
+
     this->_program = program;
 
     // Query and store vertex attribute meta-data from the program.
@@ -355,7 +351,6 @@ bool C3DEffect::load(const std::string& vshSource, const std::string& fshSource,
     }
     return true;
 }
-
 
 //const std::string& C3DEffect::getId() const
 //{
@@ -457,7 +452,7 @@ void C3DEffect::bindValue(Uniform* uniform, const C3DSampler* sampler)
     assert(uniform->_type == GL_SAMPLER_2D);
 
     //GL_ASSERT( glActiveTexture(GL_TEXTURE0 + uniform->_index) );
-    
+
     C3DRenderState::activeTexture(GL_TEXTURE0 + uniform->_index);
 
     // Bind the sampler - this binds the texture and applies sampler state
@@ -471,15 +466,13 @@ void C3DEffect::bindValue(Uniform* uniform, const C3DTexture* texture)
 	assert(uniform->_type == GL_SAMPLER_2D);
 
     //GL_ASSERT( glActiveTexture(GL_TEXTURE0 + uniform->_index) );
-    
+
     C3DRenderState::activeTexture(GL_TEXTURE0 + uniform->_index);
 
     //binds the texture
 	GL_ASSERT( glBindTexture(GL_TEXTURE_2D, texture->getHandle()) );
- 
 
     GL_ASSERT( glUniform1i(uniform->_location, uniform->_index) );
-
 }
 
 void C3DEffect::bindValue(Uniform* uniform, const C3DSamplerCube* sampler)
@@ -489,7 +482,6 @@ void C3DEffect::bindValue(Uniform* uniform, const C3DSamplerCube* sampler)
 
 	//binds the texture
 	const_cast<C3DSamplerCube*>(sampler)->bind();
-
 
 	GL_ASSERT( glUniform1i(uniform->_location, uniform->_index) );
 }
@@ -548,5 +540,4 @@ const GLenum Uniform::getType() const
 {
     return _type;
 }
-
 }

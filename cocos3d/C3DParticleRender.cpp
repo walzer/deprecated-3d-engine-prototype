@@ -28,7 +28,6 @@
 
 namespace cocos3d
 {
-
 C3DParticleRender::C3DParticleRender(C3DParticleSystem* system):
 	_system(system), _nCapacity(0), _nParticle(0), _model(NULL), _nFrameRow(0), _nFrameCol(0), _frameCoord(NULL), _nFrameCount(0)
 {
@@ -66,10 +65,10 @@ void C3DParticleRender::load(C3DElementNode* properties)
 	const std::string& vs = properties->getElement("vertexShader");
 	const std::string& ps = properties->getElement("fragmentShader");
 	const std::string& tex = properties->getElement("texture");
-	
+
 	if (!vs.empty())
 		_particleVs = vs;
-	
+
 	if (!ps.empty())
 		_particleFs = ps;
 
@@ -77,14 +76,14 @@ void C3DParticleRender::load(C3DElementNode* properties)
 		_partilceTexture = tex;
 
 	const std::string& szSrcBlend = properties->getElement("srcBlend");
-	
+
 	if (!szSrcBlend.empty())
 		_srcBlend = parseBlend(szSrcBlend);
 
 	const std::string& szDstBlend = properties->getElement("dstBlend");
 	if (!szDstBlend.empty())
 		_dstBlend = parseBlend(szDstBlend);
-    
+
     init(_system->_particleCountMax);
 
 	if (_nFrameCol == 0)
@@ -109,7 +108,7 @@ void C3DParticleRender::save(C3DElementNode* properties)
 	properties->setElement("vertexShader", _particleVs);
 	properties->setElement("fragmentShader", _particleFs);
 	properties->setElement("texture", _partilceTexture);
-	
+
 	const std::string& szSrcBlend = blendToString(_srcBlend);
 	properties->setElement("srcBlend", &szSrcBlend);
 	const std::string& szDstBlend = blendToString(_dstBlend);
@@ -137,40 +136,40 @@ void C3DParticleRender::reloadMaterial()
 	{
 		material = C3DMaterial::create(_particleVs, _particleFs);
 	}
-	
+
 	material->getStateBlock()->setDepthTest(true);
 	material->getStateBlock()->setDepthWrite(false);
 	material->getStateBlock()->setBlend(true);
-	
+
 	_model->setMaterial(material);
 
 	setParticleSrcBlend(_srcBlend);
 	setParticleDstBlend(_dstBlend);
 }
 
-void C3DParticleRender::setParticleSrcBlend(C3DStateBlock::Blend blend) 
-{ 
-	_srcBlend = blend; 
+void C3DParticleRender::setParticleSrcBlend(C3DStateBlock::Blend blend)
+{
+	_srcBlend = blend;
 	_model->getMaterial()->getStateBlock()->setBlendSrc(blend);
 }
 
-void C3DParticleRender::setParticleDstBlend(C3DStateBlock::Blend blend) 
-{ 
-	_dstBlend = blend; 
+void C3DParticleRender::setParticleDstBlend(C3DStateBlock::Blend blend)
+{
+	_dstBlend = blend;
 	_model->getMaterial()->getStateBlock()->setBlendDst(blend);
 }
-    
+
 C3DParticleRender* C3DParticleRender::create(C3DParticleSystem* system, unsigned int capacity)
-{   
+{
     C3DParticleRender* render = new C3DParticleRender(system);
     render->init(capacity);
     //render->autorelease();
     return render;
 }
-    
+
 bool C3DParticleRender::init(unsigned int capacity)
 {
-    CC_SAFE_DELETE(_model);    
+    CC_SAFE_DELETE(_model);
     C3DVertexElement elements[] =
     {
         C3DVertexElement(Vertex_Usage_POSITION, 3),
@@ -182,11 +181,11 @@ bool C3DParticleRender::init(unsigned int capacity)
     //C3DBatchMesh* mesh = new C3DBatchMesh(&vertexformat, PrimitiveType_TRIANGLE_STRIP, true, capacity);
 
     _model = new C3DBatchModel(_system);
-    _model->setMesh(mesh);   
+    _model->setMesh(mesh);
     reloadMaterial();
 	_nCapacity = 0;
 	_nParticle = 0;
-		
+
     //...
 	if (_system)
     {
@@ -196,7 +195,7 @@ bool C3DParticleRender::init(unsigned int capacity)
         for (unsigned int i = 0; i < techniqueCount; ++i)
         {
             C3DTechnique* technique = _model->getMaterial()->getTechnique(i);
-            
+
             technique->setNodeAutoBinding(_system);
 
             unsigned int passCount = technique->getPassCount();
@@ -209,7 +208,7 @@ bool C3DParticleRender::init(unsigned int capacity)
         }
     }
 	//..
-	
+
     reSizeCapacity(capacity);
 
     return true;
@@ -226,58 +225,52 @@ void C3DParticleRender::draw()
 	if (!_isVisible || !_model)
 		return;
 
-
 	_model->clear();
-
 
 	C3DParticle**& _particles = _system->_particles;
 	int& _validParticleCount = _system->_validParticleCount;
-    
+
     //CCLOG("%d", _validParticleCount);
-    
+
     const C3DMatrix& cameraWorldMatrix = _system->getScene()->getActiveCamera()->getWorldMatrix();
     static C3DVector3 right;
     cameraWorldMatrix.getRightVector(&right);
     static C3DVector3 up;
     cameraWorldMatrix.getUpVector(&up);
-    
+
     static C3DVector3 rotateAxis;
     //C3DVector3::cross(right, up, &rotateAxis);
     cameraWorldMatrix.getForwardVector(&rotateAxis);
     static C3DMatrix rotation;
-    
+
     static C3DVector3 right2, up2;
-    
+
     static VertexColorCoord1 vertex[4];
     static unsigned short index[6] = {0, 1, 3, 0, 3, 2};
-   
-    for (int i = 0; i < _validParticleCount; i++) {
 
-        
+    for (int i = 0; i < _validParticleCount; i++) {
         C3DVector3& position = _particles[i]->_position;
         float size = _particles[i]->_size;
         float angle = _particles[i]->_angle;
-        
-        
+
         right2 = right;
         up2 = up;
-        
+
         if (angle > 1e-3f || angle < -1e-3f)
         {
             C3DMatrix::createRotation(rotateAxis, angle, &rotation, true);
             rotation.transformVector(&right2);
             rotation.transformVector(&up2);
         }
-        
+
         C3DVector3 halfsizeright(0.5f * size * right2);
         C3DVector3 halfsizeup(0.5f * size * up2);
         vertex[0].position = position - halfsizeright - halfsizeup;
         vertex[1].position = position + halfsizeright - halfsizeup;
-        vertex[2].position = position - halfsizeright + halfsizeup; 
-        vertex[3].position = position + halfsizeright + halfsizeup; 
-        
+        vertex[2].position = position - halfsizeright + halfsizeup;
+        vertex[3].position = position + halfsizeright + halfsizeup;
+
         int coordIdx = _particles[i]->_frame * 4;
-        
 
         vertex[0].u = _frameCoord[coordIdx].x, vertex[0].v = _frameCoord[coordIdx].y;
         vertex[1].u = _frameCoord[coordIdx + 1].x, vertex[1].v = _frameCoord[coordIdx + 1].y;
@@ -286,7 +279,7 @@ void C3DParticleRender::draw()
         vertex[0].color = vertex[1].color = vertex[2].color = vertex[3].color = _particles[i]->_color;
         //add to buffer
         _model->add((unsigned char*)vertex, 4, index, 6);
-        
+
         _nParticle++;
     }
 
@@ -300,7 +293,7 @@ void C3DParticleRender::draw()
 
 	//......
 	if (_model)
-	{		
+	{
 		C3DRenderChannel* channel = _model->getRenderChannel();
 		if(channel != NULL)
 		{
@@ -312,12 +305,10 @@ void C3DParticleRender::draw()
 		}
 	}
 	//......
-
 }
-    
+
 void C3DParticleRender::reSizeCapacity(unsigned int nCapacity)
 {
-   
     CC_ASSERT(nCapacity > 0);
     if (_nCapacity == nCapacity || _model == NULL )
 	{
@@ -328,12 +319,12 @@ void C3DParticleRender::reSizeCapacity(unsigned int nCapacity)
 	_model->setVertexCapacity( _nCapacity*4 );
 	_model->setIndexCapacity( _nCapacity*6 );
 }
-   
+
 void C3DParticleRender::flush()
 {
     // Finish and draw the batch
 }
-    
+
 C3DParticleRender* C3DParticleRender::clone(C3DParticleSystem* system) const
 {
 	C3DParticleRender* render = NULL;
@@ -394,7 +385,6 @@ void C3DParticleRender::initFrameCoord()
 
 				_frameCoord[index + 3].x = (j + 1) * recipCol;
 				_frameCoord[index + 3].y = (i) * recipRow;
-
 			}
 		}
 	}
@@ -408,7 +398,6 @@ void C3DParticleRender::setFrameCountRow(int nRow)
 		_nFrameCount = _nFrameRow * _nFrameCol;
 		initFrameCoord();
 	}
-	
 }
 
 void C3DParticleRender::setFrameCountCol(int nCol)
@@ -419,8 +408,5 @@ void C3DParticleRender::setFrameCountCol(int nCol)
 		_nFrameCount = _nFrameRow * _nFrameCol;
 		initFrameCoord();
 	}
-	
 }
-
-
 }

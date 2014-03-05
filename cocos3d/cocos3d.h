@@ -13,7 +13,6 @@
 #include "C3DLight.h"
 #include "C3DLayer.h"
 
-
 #include "C3DAnimationClip.h"
 #include "C3DStaticObj.h"
 #include "C3DStat.h"
@@ -39,6 +38,5 @@
 #include "C3DPostEffect.h"
 
 #include "C3DLineRender.h"
-
 
 #endif

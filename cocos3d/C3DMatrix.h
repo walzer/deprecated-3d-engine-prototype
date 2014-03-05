@@ -7,7 +7,6 @@
 
 namespace cocos3d
 {
-
 /**
  * Defines a 4 x 4 floating point matrix representing a 3D transformation.
  *
@@ -128,7 +127,6 @@ public:
 
     static C3DMatrix createFromVectors(C3DVector3& vx, C3DVector3& vy, C3DVector3& vz, C3DVector3& pos);
 
-
 	static void createPitchYawRoll(float pitch, float yaw, float roll, C3DMatrix* dst);
     /**
      * Creates a view matrix based on the specified input parameters.
@@ -159,7 +157,6 @@ public:
      */
     static void createLookAt(float eyePositionX, float eyePositionY, float eyePositionZ, float targetCenterX,
                              float targetCenterY, float targetCenterZ, float upX, float upY, float upZ, C3DMatrix* dst);
-
 
 	static void createPerspective(float fieldOfView, float aspectRatio, float zNearPlane, float zFarPlane, C3DMatrix* dst);
 
@@ -264,8 +261,6 @@ public:
      */
     static void createScale(float xScale, float yScale, float zScale, C3DMatrix* dst);
 
-
-
     /**
      * Creates a rotation matrix from the specified quaternion.
      *
@@ -281,7 +276,7 @@ public:
      * @param angle The angle (in radians).
      * @param approximate Use approximate cos sin function
      * @param dst A matrix to store the result in.
-     * 
+     *
      */
     static void createRotation(const C3DVector3& axis, float angle, C3DMatrix* dst, bool approximate = false);
 
@@ -390,7 +385,7 @@ public:
      * Gets the rotational component of this matrix in the specified quaternion.
      *
      * @param rotation A quaternion to receive the rotation.
-     * 
+     *
      * @return true if the rotation is successfully extracted, false otherwise.
      */
     bool getRotation(C3DQuaternion* rotation) const;
@@ -409,8 +404,6 @@ public:
      */
     void getUpVector(C3DVector3* dst) const;
 
-	
-
     /**
      * Gets the right vector of this matrix.
      *
@@ -425,8 +418,6 @@ public:
      */
     void getForwardVector(C3DVector3* dst) const;
 
-
-
     /**
      * Inverts this matrix.
      *
@@ -438,16 +429,16 @@ public:
      * Stores the inverse of this matrix in the specified matrix.
      *
      * @param dst A matrix to store the invert of this matrix in.
-     * 
+     *
      * @return true if the the matrix can be inverted, false otherwise.
      */
     bool invert(C3DMatrix* dst) const;
-    
+
     /**
      * Inverts a orthogonal matrix, it is more fast than invert()
      */
     C3DMatrix& invertOrthMat();
-    
+
     /**
      * compute the inverse of a orthogonal matrix
      * @param mat A matrix whose inverse matrix will be computed, must be a orthogonal matrix
@@ -785,7 +776,7 @@ public:
      * @param dst A vector to store the transformed point in.
      */
     void transformVector(float x, float y, float z, float w, C3DVector3* dst) const;
-    
+
     /**
      * Transforms the specified vector by this matrix.
      *
@@ -865,17 +856,17 @@ public:
 
     /**
      * Calculates the sum of this matrix with the given matrix.
-     * 
+     *
      * Note: this does not modify this matrix.
-     * 
+     *
      * @param m The matrix to add.
      * @return The matrix sum.
      */
     inline const C3DMatrix operator+(const C3DMatrix& m) const;
-    
+
     /**
      * Adds the given matrix to this matrix.
-     * 
+     *
      * @param m The matrix to add.
      * @return This matrix, after the addition occurs.
      */
@@ -883,9 +874,9 @@ public:
 
     /**
      * Calculates the difference of this matrix with the given matrix.
-     * 
+     *
      * Note: this does not modify this matrix.
-     * 
+     *
      * @param m The matrix to subtract.
      * @return The matrix difference.
      */
@@ -893,7 +884,7 @@ public:
 
     /**
      * Subtracts the given matrix from this matrix.
-     * 
+     *
      * @param m The matrix to subtract.
      * @return This matrix, after the subtraction occurs.
      */
@@ -901,18 +892,18 @@ public:
 
     /**
      * Calculates the negation of this matrix.
-     * 
+     *
      * Note: this does not modify this matrix.
-     * 
+     *
      * @return The negation of this matrix.
      */
     inline const C3DMatrix operator-() const;
 
     /**
      * Calculates the matrix product of this matrix with the given matrix.
-     * 
+     *
      * Note: this does not modify this matrix.
-     * 
+     *
      * @param m The matrix to multiply by.
      * @return The matrix product.
      */
@@ -920,7 +911,7 @@ public:
 
     /**
      * Right-multiplies this matrix by the given matrix.
-     * 
+     *
      * @param m The matrix to multiply by.
      * @return This matrix, after the multiplication occurs.
      */
@@ -929,9 +920,9 @@ public:
 
 /**
  * Transforms the given vector by the given matrix.
- * 
+ *
  * Note: this treats the given vector as a vector and not as a point.
- * 
+ *
  * @param v The vector to transform.
  * @param m The matrix to transform by.
  * @return This vector, after the transformation occurs.
@@ -940,9 +931,9 @@ inline C3DVector3& operator*=(C3DVector3& v, const C3DMatrix& m);
 
 /**
  * Transforms the given vector by the given matrix.
- * 
+ *
  * Note: this treats the given vector as a vector and not as a point.
- * 
+ *
  * @param m The matrix to transform by.
  * @param v The vector to transform.
  * @return The resulting transformed vector.
@@ -951,9 +942,9 @@ inline const C3DVector3 operator*(const C3DMatrix& m, const C3DVector3& v);
 
 /**
  * Transforms the given vector by the given matrix.
- * 
+ *
  * Note: this treats the given vector as a vector and not as a point.
- * 
+ *
  * @param v The vector to transform.
  * @param m The matrix to transform by.
  * @return This vector, after the transformation occurs.
@@ -962,15 +953,15 @@ inline C3DVector4& operator*=(C3DVector4& v, const C3DMatrix& m);
 
 /**
  * Transforms the given vector by the given matrix.
- * 
+ *
  * Note: this treats the given vector as a vector and not as a point.
- * 
+ *
  * @param m The matrix to transform by.
  * @param v The vector to transform.
  * @return The resulting transformed vector.
  */
 inline const C3DVector4 operator*(const C3DMatrix& m, const C3DVector4& v);
-    
+
 inline std::ostream& operator << (std::ostream& stream, const C3DMatrix& m)
 {
     return stream <<
@@ -990,7 +981,6 @@ inline std::istream& operator >> (std::istream& stream, C3DMatrix& m)
     }
     return stream;
 }
-
 }
 
 #include "C3DMatrix.inl"

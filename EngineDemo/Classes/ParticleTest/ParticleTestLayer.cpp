@@ -37,8 +37,6 @@ void AnimListenerObject::onFlowerEnd()
     _particle->stop();
 }
 
-
-
 ParticleTestLayer::ParticleTestLayer()
 	: _lightingTime( 0.0 )
 	, _lighting( NULL )
@@ -60,7 +58,7 @@ bool ParticleTestLayer::init()
     setUpCamera();
     setUpLight();
     setUpShadowMap();
-    setUpScene();   
+    setUpScene();
 
     return r;
 }
@@ -69,26 +67,22 @@ void ParticleTestLayer::update( float dt )
 {
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
-    
+
 	_totalTime += dt;
 	_lightingTime += dt;
-
-
 
     cocos3d::C3DSprite* fish = ((C3DSprite*)_scene->findNode("denglongyu"));
     if(fish)
     {
         // m2->setScreenPos(210, 200, 0.51);
         //   m->setScale(0.2f, 0.2f, 0.2f);
-        
+
         //	_scene->removeChild(m);
         //	 createFish("denglongyu","2.5D/fish","denglongyu","denglongyu",0,0,0,0,60);
         fish->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), -dt * 0.5);
     }
 
-
 	std::vector<C3DLineRender::Line> lines;
-
 
 	static float starSize = 40;
 	static C3DVector3 starPoints[5] = { C3DVector3(0	*starSize, 1	*starSize, 0),
@@ -111,7 +105,6 @@ void ParticleTestLayer::update( float dt )
 		C3DVector3 dir = (starPoints[starPointIndex[i*2+1]]-starPoints[starPointIndex[i*2]]);
 		dir.normalize();
 
-
 		if ( length > 0.0 )
 		{
 			C3DVector3 segStart = starPoints[starPointIndex[i*2]];
@@ -127,7 +120,6 @@ void ParticleTestLayer::update( float dt )
 	}
 
 	_lighting->setLines( lines );
-
 }
 
 void ParticleTestLayer::draw()
@@ -137,12 +129,11 @@ void ParticleTestLayer::draw()
 
 void ParticleTestLayer::setUpScene()
 {
-   
     C3DSprite* shuicao = C3DSprite::create("hua");
     shuicao->loadFromFile("demores/hua_01/hua_01.ckb",true);
 	//shuicao->setMaterial("body", "2.5D/plant/hua_01/hua_01.material");
     shuicao->addAnimationClip("all", 0 , 240, 0, 1.0f);
-	
+
     shuicao->playAnimationClip("all");
     shuicao->setPosition(40.0f, 0, 0.0f);
     shuicao->rotateX(0.5f);
@@ -150,10 +141,9 @@ void ParticleTestLayer::setUpScene()
     shuicao->showOBB(false);
     //shuicao->setScale(3.0f);
     _scene->addChild(shuicao);
-    
 
     C3DParticleSystem* particle;
-    
+
     particle = C3DParticleSystem::create("particle2");
     particle->load("demores/particles/beijingpaopao01.particle");
     particle->setPosition(-20.f, 0.f, 0.f);
@@ -168,18 +158,18 @@ void ParticleTestLayer::setUpScene()
 	particle->load("demores/particles/beijingpaopao01.particle");
 	particle->setPosition(40.f, 0.f, 0.f);
 	_scene->addChild(particle);
-    
+
     particle = C3DParticleSystem::create("particle3");
     particle->load("demores/particles/beijingpaopao04.particle");
     particle->setPosition(0.f, 0.f, 0.f);
     //particle->setRotationY(MATH_PI / 2.f);
     _scene->addChild(particle);
-    
+
     particle = C3DParticleSystem::create("particle4");
     particle->load("demores/particles/beijingpaopao03.particle");
     particle->setPosition(20.f, 0.f, 0.f);
     _scene->addChild(particle);
-    
+
  //   C3DSprite* fish = C3DSprite::create("denglongyu");
  //   fish->loadFromFile("2.5D/fish/denglongyu/denglongyu.ckb",true);
 	//fish->setMaterial("body", "2.5D/fish/denglongyu/denglongyu.material");
@@ -190,16 +180,15 @@ void ParticleTestLayer::setUpScene()
  //   fish->showOBB(false);
  //   fish->showAABB(false);
  //   fish->setScale(5.0f);
- //   
+ //
  //   particle = C3DParticleSystem::create("paritlce1");
  //   particle->load("particles/firetest.particle");
  //   _scene->addChild(particle);
- //   
+ //
  //   _scene->addChild(fish);
  //   C3DNode* attach = fish->findNode("Bone03");
-	//fish->attach("Bone03", particle);  
- //   particle->scale(0.3f, 0.30f, 0.3f); 
-
+	//fish->attach("Bone03", particle);
+ //   particle->scale(0.3f, 0.30f, 0.3f);
 
     particle = C3DParticleSystem::create("xinguang");
     particle->load("demores/particles/hua01_xinguang01.particle");
@@ -218,11 +207,11 @@ void ParticleTestLayer::setUpScene()
         clip->addActionEvent(end, clip->getDuration() - 3000);
 		//_scene->removeChild(particle);
     }
-    
+
     particle = C3DParticleSystem::create("chenai");
     particle->load("demores/particles/ChenAi.particle");
     _scene->addChild(particle);
-    
+
     particle = C3DParticleSystem::create("suidao");
     particle->load("demores/particles/shikongsuidao02.particle");
     particle->scale(0.2f, 0.2f, 0.2f);
@@ -246,8 +235,6 @@ void ParticleTestLayer::setUpScene()
 	particle->scale(6.0f);
 	_scene->addChild(particle);
 
-
-
 	_lighting = C3DLineRender::create( "demores/sceneEffect/lighting.material" );
 	_lighting->setForceTexLoop( false );
 	_lighting->setWidth( 20 );
@@ -259,7 +246,6 @@ void ParticleTestLayer::setUpScene()
 	_lighting->setFrequency1( 400 );
 	_lighting->setTimeFactor( 0.5 );
 	_scene->addChild( _lighting );
-
 }
 
 void ParticleTestLayer::setUpCamera()
@@ -282,14 +268,11 @@ void ParticleTestLayer::setUpLight()
     light->setComponent(C3DDirectionalLight::create(color));
 
     _scene->addChild(light);
-
 }
 
 void ParticleTestLayer::setUpShadowMap()
 {
-
 }
-
 
 void ParticleTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
 {
@@ -317,12 +300,11 @@ void ParticleTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, un
             int deltaY = y - _touchY;
             _touchY = y;
 
-            {				
+            {
                 C3DCamera* camera = _scene->getActiveCamera();
                 if (camera)
                     camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-
-            }	
+            }
         }
         break;
     default:
@@ -336,12 +318,11 @@ void ParticleTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
-    }    
 
+        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
+    }
 }
 
 void ParticleTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -352,12 +333,9 @@ void ParticleTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x, touchPoint.y, pTouch->getID());
-
-
     }
-
 }
 
 void ParticleTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
@@ -368,32 +346,26 @@ void ParticleTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x, touchPoint.y, pTouch->getID());
     }
-
 }
 
 void ParticleTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
 {
-
 }
-
 
 CCLayer* ParticleTestLayer::createUILayer()
 {
 	CCLayer* layer = CCLayer::create();
 	CCMenu* pItemMenu = CCMenu::create();
 
-
-
 	CCLabelTTF* label = CCLabelTTF::create("Lighting", "Arial", 20);
-	// #endif        
+	// #endif
 	CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(ParticleTestLayer::menuCallback));
 
 	pItemMenu->addChild(pMenuItem, 10000);
 	pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y -  24) ));
-
 
 	//pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (MATERIAL_NUM + 1) * (40)));
 	pItemMenu->setPosition(0, 0);

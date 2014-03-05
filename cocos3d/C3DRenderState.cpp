@@ -16,7 +16,6 @@
 
 namespace cocos3d
 {
-
 static bool isMaterialKeyword(const std::string& str)
 {
 #define MATERIAL_KEYWORD_COUNT 3
@@ -35,7 +34,6 @@ static bool isMaterialKeyword(const std::string& str)
     }
     return false;
 }
-
 
 static const std::string AUTO_BINDING_VARIABLES[C3DRenderState::AUTO_BINDING_NUM] =
 {
@@ -64,7 +62,6 @@ static const std::string AUTO_BINDING_VARIABLES[C3DRenderState::AUTO_BINDING_NUM
     "u_matrixPalette",
 
 	"u_time",
-
 };
 
 GLint C3DRenderState::_activeTexture = 0;
@@ -90,7 +87,6 @@ C3DRenderState::~C3DRenderState()
     }
 	_parameters.clear();
 }
-
 
 MaterialParameter* C3DRenderState::getParameter(const std::string& name) const
 {
@@ -186,7 +182,6 @@ void C3DRenderState::setParameterAutoBinding(const std::string& name, const std:
 		value = TIME_PARAM;
 	}
 
-
     if (value != NONE)
     {
         setParameterAutoBinding(name, value);
@@ -280,7 +275,6 @@ void C3DRenderState::applyNodeAutoBinding(const std::string& uniformName, AutoBi
 
     case MATRIX_PALETTE:
         {
-			
             C3DSkinModel* model =  static_cast<C3DSkinModel*>(static_cast<C3DModelNode*>(_nodeBinding)->getModel());
             C3DMeshSkin* skin = model ? model->getSkin() : NULL;
             if (skin)
@@ -341,7 +335,6 @@ const std::string C3DRenderState::getAutoBindingName(AutoBinding autoBinding)
     return "";
 }
 
-
 void C3DRenderState::bind(C3DPass* pass)
 {
     // Get the combined modified state bits for our C3DRenderState hierarchy.
@@ -391,10 +384,7 @@ void C3DRenderState::setParamMethonAutoUniform(C3DPass* pass)
         {
             (*iter)->setParamMethonAutoUniform(effect);
         }
-
-       
     }
-
 }
 
 C3DRenderState* C3DRenderState::getTopmost(C3DRenderState* below)
@@ -418,7 +408,6 @@ C3DRenderState* C3DRenderState::getTopmost(C3DRenderState* below)
 
     return NULL;
 }
-
 
 void C3DRenderState::activeTexture(GLenum textrue)
 {
@@ -444,7 +433,7 @@ void C3DRenderState::copyFrom(const C3DRenderState* other)
 	{
 		_parameters.push_back((*iter)->clone());
 	}
-	
+
 	_autoBindings = other->_autoBindings;
 }
 
@@ -465,7 +454,7 @@ MaterialParameter* C3DRenderState::findParameter(const std::string& name, bool f
 
     if (findParent && _parent)
         return _parent->findParameter(name, true);
-    
+
     return NULL;
 }
 
@@ -481,7 +470,7 @@ C3DRenderState::AutoBinding C3DRenderState::getAutoBinding(const std::string& na
     return NONE;
 }
 
-const std::string& C3DRenderState::getAutoBindingVariable(C3DRenderState::AutoBinding b) 
+const std::string& C3DRenderState::getAutoBindingVariable(C3DRenderState::AutoBinding b)
 {
     return AUTO_BINDING_VARIABLES[b];
 }
@@ -563,7 +552,7 @@ bool C3DRenderState::load(C3DElementNode* nodes)
             name = ns->getNodeName();
             if (name.empty())
                 continue; // missing texture uniform name
-			
+
 			C3DSampler* sampler = new C3DSampler();
 			if(sampler->load(ns) == true)
 			{
@@ -606,7 +595,6 @@ bool C3DRenderState::load(C3DElementNode* nodes)
 				SAFE_DELETE(stateBlock);
 				continue;
 			}
-           
         }
     }
 
@@ -614,7 +602,7 @@ bool C3DRenderState::load(C3DElementNode* nodes)
 }
 
 bool C3DRenderState::save(C3DElementNode* node)
-{   
+{
 	for (std::list<MaterialParameter*>::iterator iter = _parameters.begin();iter != _parameters.end();++iter)
    // for (size_t i = 0; i < this->_parameters.size(); i++)
     {
@@ -653,8 +641,7 @@ bool C3DRenderState::save(C3DElementNode* node)
 						SAFE_DELETE(samplerNode);
 						return false;
 					}
-				}              
-                
+				}
             }
             break;
         case MaterialParameter::SAMPLERCUBE:
@@ -680,7 +667,6 @@ bool C3DRenderState::save(C3DElementNode* node)
             }
             break;
         }
-
     }
 
 	if(_stateBlock != NULL)
@@ -696,7 +682,7 @@ bool C3DRenderState::save(C3DElementNode* node)
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 
@@ -704,5 +690,4 @@ C3DRenderState* C3DRenderState::getParent()
 {
 	return _parent;
 }
-
 }

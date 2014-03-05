@@ -6,10 +6,8 @@
 
 namespace cocos3d
 {
-
 class C3DAnimation;
 class AnimationValue;
-
 
 /**
  * The runtime interface to represent an Object Listener.
@@ -35,17 +33,17 @@ public:
      * Constructor.
      */
 	C3DActionListener(const C3DActionListener& actionListener);
-      
+
 	/**
      * Destructor.
      */
     virtual ~C3DActionListener();
-      
+
     /**
     * The method for creating C3DActionListener.
     */
-    static C3DActionListener * create(ListenerObject* object, ListenerFunction function);  
-    
+    static C3DActionListener * create(ListenerObject* object, ListenerFunction function);
+
 	/**
     * Do the listener's action.
     */
@@ -64,14 +62,12 @@ public:
     */
     void setTargetCallback(ListenerObject* object)
     {
-		_object = object;         
+		_object = object;
     }
 
-protected:  
-   ListenerObject*   _object;   
+protected:
+   ListenerObject*   _object;
    ListenerFunction  _function;
-    
-    
 };
 
 /**
@@ -84,12 +80,12 @@ public:
      * Constructor.
      */
     C3DActionEvent(C3DActionListener* listener, unsigned long eventTime);
-	
+
 	/**
      * Constructor.
      */
 	C3DActionEvent(const C3DActionEvent& actionEvent);
-   
+
 	/**
      * Destructor.
      */

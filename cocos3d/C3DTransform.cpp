@@ -2,7 +2,6 @@
 
 namespace cocos3d
 {
-
 C3DTransform::C3DTransform()
     : _matrixDirtyBits(0)
 {
@@ -12,26 +11,23 @@ C3DTransform::C3DTransform()
 C3DTransform::C3DTransform(const C3DVector3& scale, const C3DQuaternion& rotation, const C3DVector3& translation)
     : _matrixDirtyBits(0)
 {
-   
     set(scale, rotation, translation);
 }
 
 C3DTransform::C3DTransform(const C3DVector3& scale, const C3DMatrix& rotation, const C3DVector3& translation)
     : _matrixDirtyBits(0)
-{   
+{
     set(scale, rotation, translation);
 }
 
 C3DTransform::C3DTransform(const C3DTransform& copy)
     : _matrixDirtyBits(0)
 {
-   
     set(copy);
 }
 
 C3DTransform::~C3DTransform()
 {
-    
 }
 
 const C3DMatrix& C3DTransform::getMatrix() const
@@ -80,7 +76,6 @@ const C3DVector3& C3DTransform::getScale() const
     return _scale;
 }
 
-
 float C3DTransform::getScaleX() const
 {
     return _scale.x;
@@ -116,7 +111,6 @@ const C3DVector3& C3DTransform::getPosition() const
     return _position;
 }
 
-
 float C3DTransform::getPositionX() const
 {
     return _position.x;
@@ -144,7 +138,6 @@ void C3DTransform::getForwardVector(C3DVector3* dst) const
     getMatrix().getForwardVector(dst);
 }
 
-
 C3DVector3 C3DTransform::getUpVector() const
 {
     C3DVector3 v;
@@ -156,7 +149,6 @@ void C3DTransform::getUpVector(C3DVector3* dst) const
 {
     getMatrix().getUpVector(dst);
 }
-
 
 C3DVector3 C3DTransform::getRightVector() const
 {
@@ -225,12 +217,11 @@ void C3DTransform::rotateZ(float angle)
 }
 
 void C3DTransform::setRotationX(float angle)
-{	
+{
 	C3DQuaternion rotationQuat;
     C3DQuaternion::createFromAxisAngle(C3DVector3::unitX(), angle, &rotationQuat);
 	_rotation = rotationQuat;
 	dirty(DIRTY_ROTATION);
-
 }
 void C3DTransform::setRotationY(float angle)
 {
@@ -239,7 +230,6 @@ void C3DTransform::setRotationY(float angle)
 	_rotation = rotationQuat;
 	dirty(DIRTY_ROTATION);
 }
-
 
 void C3DTransform::setRotationZ(float angle)
 {
@@ -526,17 +516,14 @@ void C3DTransform::transformVector(float x, float y, float z, float w, C3DVector
     _matrix.transformVector(x, y, z, w, dst);
 }
 
-
 void C3DTransform::dirty(char matrixDirtyBits)
 {
     _matrixDirtyBits |= matrixDirtyBits;
     transformChanged();
 }
 
-
 void C3DTransform::lookAt(const C3DVector3& position, const C3DVector3& up, const C3DVector3& target)
 {
-
 	C3DMatrix matRotate;
 
     C3DVector3 upv = up;
@@ -598,12 +585,10 @@ void C3DTransform::rotateAlong(const C3DVector3& point, const C3DVector3& axis, 
 
     // p' = rot0 * p + pos0
     // p'' = rot * (p' - point) + point
-    //     = rot * rot0 * p + rot * (pos0 - point) + point  
+    //     = rot * rot0 * p + rot * (pos0 - point) + point
 
     _rotation = rot * _rotation;
-    _position = rot * (_position - point) + point; 
+    _position = rot * (_position - point) + point;
     dirty(DIRTY_TRANSLATION | DIRTY_ROTATION);
 }
-
-
 }

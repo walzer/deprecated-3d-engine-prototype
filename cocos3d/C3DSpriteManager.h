@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DElementNode;
 class C3DEffect;
 
@@ -15,27 +14,23 @@ class C3DEffect;
  */
 class C3DSpriteManager : public C3DResourceManager
 {
-public:	
+public:
 
-	static C3DSpriteManager* getInstance();	
-	
+	static C3DSpriteManager* getInstance();
+
 	virtual C3DResource* createResource(const std::string& name);
 
 	virtual C3DResource* cloneResource(C3DResource* sprite);
 
 	virtual void preload( const std::string& name );
-		
+
 private:
 
     C3DSpriteManager();
 
     virtual ~C3DSpriteManager();
 
-	
-	
-
 };
-
 }
 
 #endif

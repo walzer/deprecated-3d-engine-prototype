@@ -9,8 +9,6 @@
 namespace cocos3d
 {
 
-
-
 C3DMesh* Geo::createBoard(float x, float y, float width, float height)
 {
     float x2 = x + width;
@@ -57,7 +55,6 @@ C3DMesh* Geo::createQuadFullscreen( unsigned int sizeX , unsigned int sizeY )
 	static float vMin = 0.0;
 	static float vMax = 1.0;
 
-
 	sizeX = (sizeX>1)?sizeX:1;
 	sizeY = (sizeY>1)?sizeY:1;
 	sizeX = (sizeX<MAX_QUAT_FULL_SCREEN_SIZE)?sizeX:MAX_QUAT_FULL_SCREEN_SIZE;
@@ -69,10 +66,8 @@ C3DMesh* Geo::createQuadFullscreen( unsigned int sizeX , unsigned int sizeY )
 	float uStep = (uMax-uMin)/sizeX;
 	float vStep = (vMax-vMin)/sizeY;
 
-
 	int vertexCount = (sizeX+1)*(sizeY+1);
 	int indexCount = sizeX*sizeY*6;
-
 
 	VertexPosition2UV* vertices = new VertexPosition2UV[vertexCount];
 	for ( unsigned int x = 0; x <= sizeX; ++x )
@@ -105,14 +100,13 @@ C3DMesh* Geo::createQuadFullscreen( unsigned int sizeX , unsigned int sizeY )
 		}
 	}
 
-        
 	C3DVertexElement elements[] =
 	{
 		C3DVertexElement(Vertex_Usage_POSITION, 2),
 		C3DVertexElement(Vertex_Usage_TEXCOORD0, 2)
 	};
 	C3DVertexFormat vertformat(elements, 2);
-        
+
 	C3DMesh* mesh = C3DMesh::createMesh(&vertformat, vertexCount);
 	mesh->setPrimitiveType(PrimitiveType_TRIANGLES);
 	mesh->setVertexData(vertices, 0, vertexCount);
@@ -121,10 +115,8 @@ C3DMesh* Geo::createQuadFullscreen( unsigned int sizeX , unsigned int sizeY )
 
 	meshPart->setIndexData( indices, 0, indexCount );
 
-
 	SAFE_DELETE_ARRAY( vertices );
 	SAFE_DELETE_ARRAY( indices );
-
 
 	return mesh;
 }
@@ -197,7 +189,7 @@ bool Geo::CreateSphere(float radius, std::vector< BBVertex > &ppVertices, std::v
 			cos_phi = cos(phi);
 			/*FastMath::*///SinCos(phi, sin_phi, cos_phi);
 			//C3DUtility::getInstance().sincos(phi, &sin_phi, &cos_phi);
-			
+
 			// vertex
 			//pVertices[index].m_Position[0] = radius * cos_phi * cos_theta;
 			//pVertices[index].m_Position[1] = radius * sin_phi;
@@ -250,6 +242,4 @@ bool Geo::CreateSphere(float radius, std::vector< BBVertex > &ppVertices, std::v
 
 	return true;
 }
-
-
 }

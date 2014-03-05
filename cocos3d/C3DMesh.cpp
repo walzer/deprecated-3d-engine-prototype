@@ -6,18 +6,15 @@
 
 namespace cocos3d
 {
-
-C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType) 
+C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType)
     :C3DBaseMesh(vertexFormat,primitiveType),
 	 _vertexBuffer(0), _vertexCount(0), _partCount(0), _parts(NULL), _dynamic(false)
-{		
+{
 	_boundingBox = new C3DAABB();
 }
 
-
-
 C3DMesh::~C3DMesh()
-{		
+{
     for (unsigned int i = 0; i < _partCount; ++i)
     {
         SAFE_DELETE(_parts[i]);
@@ -29,9 +26,8 @@ C3DMesh::~C3DMesh()
         glDeleteBuffers(1, &_vertexBuffer);
         _vertexBuffer = 0;
     }
-		
-	SAFE_DELETE(_boundingBox);
 
+	SAFE_DELETE(_boundingBox);
 }
 
 C3DMesh* C3DMesh::createMesh(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic)
@@ -87,7 +83,6 @@ bool C3DMesh::isDynamic() const
     return _dynamic;
 }
 
-
 void C3DMesh::setVertexData(void* vertexData, unsigned int vertexStart, unsigned int vertexCount)
 {
     GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _vertexBuffer) );
@@ -104,12 +99,10 @@ void C3DMesh::setVertexData(void* vertexData, unsigned int vertexStart, unsigned
         }
 
         GL_ASSERT( glBufferSubData(GL_ARRAY_BUFFER, vertexStart * _vertexFormat->getVertexSize(), vertexCount * _vertexFormat->getVertexSize(), vertexData) );
-    }	
+    }
 
 	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
-
 }
-
 
 unsigned int C3DMesh::getTriangleCount() const
 {
@@ -126,7 +119,6 @@ unsigned int C3DMesh::getTriangleCount() const
             nTriangle += _vertexCount / 3;
         else if (_primitiveType == PrimitiveType_TRIANGLE_STRIP)
             nTriangle += _vertexCount - 2;
-            
     }
     return nTriangle;
 }
@@ -163,8 +155,5 @@ MeshPart* C3DMesh::getPart(unsigned int index)
 {
     return _parts[index];
 }
-
-
-
 
 }

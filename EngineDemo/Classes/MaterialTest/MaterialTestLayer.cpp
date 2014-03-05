@@ -51,7 +51,6 @@ static const char* materialTypes[MATERIAL_NUM] =
 
 MaterialTestLayer::MaterialTestLayer()
 {
-
 }
 
 MaterialTestLayer::~MaterialTestLayer()
@@ -66,7 +65,7 @@ bool MaterialTestLayer::init()
 
     setUpCamera();
     setUpLight();
-    setUpScene();   
+    setUpScene();
 
     return r;
 }
@@ -134,7 +133,7 @@ void MaterialTestLayer::draw()
 void MaterialTestLayer::setUpScene()
 {
     _sm = C3DStaticObj::create("1");
-    
+
     _sm->loadFromFile("demores/materialtest/1.ckb");
 
     _sm->setMaterial("demores/materialtest/1_diffuse.material");
@@ -221,11 +220,11 @@ void MaterialTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, un
             int deltaY = y - _touchY;
             _touchY = y;
 
-            {				
+            {
                 C3DCamera* camera = _scene->getActiveCamera();
                 if (camera)
                     camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-            }	
+            }
         }
         break;
     default:
@@ -239,11 +238,11 @@ void MaterialTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
-    }    
+    }
 }
 
 void MaterialTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -254,7 +253,7 @@ void MaterialTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y , pTouch->getID());
     }
 }
@@ -267,14 +266,13 @@ void MaterialTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x , touchPoint.y , pTouch->getID());
     }
 }
 
 void MaterialTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
 {
-
 }
 
 void MaterialTestLayer::menuCallback( CCObject * pSender )
@@ -287,7 +285,7 @@ void MaterialTestLayer::menuCallback( CCObject * pSender )
 
     C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("1");
     C3DSprite* fish = (C3DSprite*)_scene->findNode("shayu");
-    
+
     if (nIdx == REFLECTIVE)
     {
         if (sm)
@@ -351,14 +349,13 @@ CCLayer* MaterialTestLayer::createUILayer()
 
     CCMenu* pItemMenu = CCMenu::create();
 
-
     for (int i = 0; i < MATERIAL_NUM; ++i)
     {
         // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
         //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
         // #else
         CCLabelTTF* label = CCLabelTTF::create(materialTypes[i], "Arial", 20);
-        // #endif        
+        // #endif
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MaterialTestLayer::menuCallback));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
@@ -368,7 +365,6 @@ CCLayer* MaterialTestLayer::createUILayer()
     //pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (MATERIAL_NUM + 1) * (40)));
     pItemMenu->setPosition(0, 0);
     layer->addChild(pItemMenu, 1000);
-
 
     return layer;
 }

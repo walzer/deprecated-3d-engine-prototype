@@ -21,15 +21,12 @@
 
 using namespace cocos3d;
 
-
 ShadowTestLayer::ShadowTestLayer()
 {
-
 }
 
 ShadowTestLayer::~ShadowTestLayer()
 {
-
 }
 
 bool ShadowTestLayer::init()
@@ -39,7 +36,7 @@ bool ShadowTestLayer::init()
     setUpCamera();
     setUpLight();
     setUpShadowMap();
-    setUpScene();   
+    setUpScene();
 
     return r;
 }
@@ -64,7 +61,7 @@ void ShadowTestLayer::update( float dt )
 
         //	_scene->removeChild(m);
         //	 createFish("denglongyu","2.5D/fish","denglongyu","denglongyu",0,0,0,0,60);
-        //fish->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), -dt * 0.5); 
+        //fish->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), -dt * 0.5);
     }
 }
 
@@ -75,10 +72,8 @@ void ShadowTestLayer::draw()
 
 void ShadowTestLayer::setUpScene()
 {
-
-
     C3DStaticObj* sm = C3DStaticObj::create("1");
-    
+
     sm->loadFromFile("demores/materialtest/1.ckb");
 
     sm->setMaterial("demores/materialtest/1_shadow.material");
@@ -89,11 +84,10 @@ void ShadowTestLayer::setUpScene()
     _scene->addChild(sm);
 
     C3DSprite* fish = C3DSprite::create("denglongyu");
-    
+
 	fish->loadFromFile("demores/haigui/haigui.ckb",true);
 	//fish->setMaterial("body", "demores/haigui/haigui.material");
-    fish->addAnimationClip("idle", 0, 60, 0, 1.0f);			
-	 
+    fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
 
     fish->playAnimationClip("idle");
     fish->setPosition(35, 10, 0);
@@ -104,8 +98,6 @@ void ShadowTestLayer::setUpScene()
 	//fish->showSkeleton(true);
 	fish->showOBB(false);
     //_scene->addChild(fish);
-
-	
 }
 
 void ShadowTestLayer::setUpCamera()
@@ -128,7 +120,6 @@ void ShadowTestLayer::setUpLight()
     light->setComponent(C3DDirectionalLight::create(color));
 
     _scene->addChild(light);
-
 }
 
 void ShadowTestLayer::setUpShadowMap()
@@ -141,7 +132,6 @@ void ShadowTestLayer::setUpShadowMap()
     light->addChild(shadowMap);
     _scene->setActiveShadowMap(0);
 }
-
 
 void ShadowTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
 {
@@ -169,12 +159,11 @@ void ShadowTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsi
             int deltaY = y - _touchY;
             _touchY = y;
 
-            {				
+            {
                 C3DCamera* camera = _scene->getActiveCamera();
                 if (camera)
                     camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-
-            }	
+            }
         }
         break;
     default:
@@ -188,12 +177,11 @@ void ShadowTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
-    }    
 
+        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
+    }
 }
 
 void ShadowTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -204,12 +192,9 @@ void ShadowTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-       
+
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y, pTouch->getID());
-
-
     }
-
 }
 
 void ShadowTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
@@ -220,17 +205,14 @@ void ShadowTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x, touchPoint.y, pTouch->getID());
     }
-
 }
 
 void ShadowTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
 {
-
 }
-
 
 CCLayer* ShadowTestLayer::createUILayer()
 {

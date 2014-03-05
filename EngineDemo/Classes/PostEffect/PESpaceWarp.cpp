@@ -13,11 +13,8 @@
 #include "MaterialParameter.h"
 #include "C3DRenderSystem.h"
 
-
 namespace cocos3d
 {
-  
-
 PESpaceWrap::PESpaceWrap(C3DPostProcess* postProcess, const std::string& name)
 	: C3DPostEffect(postProcess,name)
 	, _time( 0.0 )
@@ -25,7 +22,7 @@ PESpaceWrap::PESpaceWrap(C3DPostProcess* postProcess, const std::string& name)
 	_pixelSize = C3DVector2(1.f / 1024.f, 1.f / 768.f);
 	_wrapSpeed = 1.5f;
 	_wrapScale = 0.05f;
-	
+
 	int w = 256, h = 256;
 
 	unsigned int* data = new unsigned int[w * h];
@@ -72,7 +69,7 @@ void PESpaceWrap::setShaderParameter()
 	static C3DVector2 pixelsize(1.f / 1024.f, 1.f / 768.f);
 
     C3DPass* pass = _material->getTechnique(0u)->getPass(0u);
-	
+
 	pass->getParameter("g_vPixelSize")->setValue(pixelsize);
 	pass->getParameter("g_fWarpScale")->setValue(_wrapScale);
 	pass->getParameter("g_fWarpSpeed")->setValue(_wrapSpeed);
@@ -82,8 +79,5 @@ void PESpaceWrap::setShaderParameter()
 void PESpaceWrap::update( float dt )
 {
 	_time += dt;
-
 }
-
-
 }

@@ -4,7 +4,6 @@
 
 namespace cocos3d
 {
-
 C3DAnimatedLight::C3DAnimatedLight() : C3DLightComponent(C3DLight::ANIMATE), _sampler(NULL), _scaleUV(1, 1, 1, 1)
 {
 	updateRotScale();
@@ -48,7 +47,7 @@ void C3DAnimatedLight::update(unsigned int deltatime)
 void C3DAnimatedLight::setTexture(C3DTexture* texture)
 {
 	SAFE_RELEASE(_sampler);
-	
+
 	_sampler = C3DSampler::create(texture);
 	_sampler->setWrapMode(Texture_Wrap_REPEAT, Texture_Wrap_REPEAT);
 }
@@ -97,5 +96,4 @@ void C3DAnimatedLight::setRotateSpeedUV(float rotate1, float rotate2)
 {
 	_rotateSpeedUV.set(rotate1, rotate2);
 }
-
 }

@@ -2,7 +2,6 @@
 
 namespace cocos3d
 {
-
 inline void C3DVector4::add(const C3DVector4& v)
 {
 	x += v.x;
@@ -95,5 +94,4 @@ inline const C3DVector4 C3DVector4::operator*(const C3DVector4& v) const
 {
 	return C3DVector4(x * v.x, y * v.y, z * v.z, w * v.w);
 }
-
 }

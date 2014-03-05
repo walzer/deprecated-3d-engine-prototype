@@ -1,10 +1,7 @@
 #include "C3DRandom.h"
 
-
-
 namespace cocos3d
 {
-
 float RandomFloat()
 {
 	float r = (float)(std::rand() & (RAND_LIMIT));
@@ -21,5 +18,4 @@ inline float RandomFloat(float lo, float hi)
 	r = (hi - lo) * r + lo;
 	return r;
 }
-
 }

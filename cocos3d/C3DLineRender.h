@@ -5,13 +5,11 @@
 
 namespace cocos3d
 {
-
 class C3DNode;
 class C3DMaterial;
 class C3DBatchModel;
 class C3DBatchMesh;
 class C3DPerlinNoise;
-
 
 class C3DLineRender : public C3DNode
 {
@@ -51,7 +49,6 @@ public:
 		float beginOffset;
 	};
 
-
 public:
 	C3DLineRender(const std::string& materialPath);
 	~C3DLineRender(void);
@@ -62,7 +59,6 @@ public:
 	void update(long elapsedTime);
 
 	void draw();
-
 
 	const std::vector<Line>& getLines() const
 	{
@@ -146,7 +142,6 @@ public:
 		return _timeFactor;
 	}
 
-
 	void setAttenuation( float f )
 	{
 		_attenuation = f;
@@ -164,7 +159,6 @@ public:
 	{
 		return _lineType;
 	}
-
 
 	void setColor( const C3DVector4& color )
 	{
@@ -195,17 +189,14 @@ private:
 
 	C3DVector3 getCenter(void);
 
-
-
 private:
 
 	bool _forceTexLoop;	// 是否强制纹理循环
 	bool _dirty;
 	bool _forceUpdate;
 
-
 	float _time;	// 秒
-		
+
 	float _width;	// 宽
 	float _step;	// 单个面片网格长，越小曲线越平滑，数值过于小可能带来效率问题
 	float _textureLength;	// 单张纹理长度，调整这个数值可以避免纹理过度拉伸或挤压
@@ -215,25 +206,18 @@ private:
 	float _frequency1;	// 频率
 	float _timeFactor;
 
-
 	float _attenuation;	// 头尾振幅衰减，距离起止点的_attenuation距离内带收敛为三角
 
 	C3DVector4 _color;	// 颜色，具体作用为 _color*纹理颜色
 
-
 	LineType _lineType;	// 类型
-
 
 	std::vector<Line> _lines;
 
-	
 	//C3DMaterial* _material;
 	C3DBatchModel* _model;
 	static C3DPerlinNoise _noise;
-
-
 };
-
 }
 
 #endif	//#define C3DLINERENDER_H

@@ -22,17 +22,15 @@
 
 namespace cocos3d
 {
-
 C3DParticleSystem::C3DParticleSystem(const std::string& id):
          C3DNode(id),
 		 _particleCountMax(1000), _validParticleCount(0)
 {
-	
 	_emitter = new C3DParticleEmitter(this);
-    _render = new C3DParticleRender(this);    
-	
+    _render = new C3DParticleRender(this);
+
 	_particles = NULL;
-	_p = NULL; 
+	_p = NULL;
 	_started = false;
 	_numTintAction = 0;
 
@@ -52,10 +50,9 @@ C3DParticleSystem::~C3DParticleSystem()
 
 	SAFE_DELETE(_emitter);
 	SAFE_DELETE(_render);
-	
+
 	SAFE_DELETE_ARRAY(_p);
 	SAFE_DELETE_ARRAY(_particles);
-    
 }
 
 C3DNode::Type C3DParticleSystem::getType() const
@@ -64,13 +61,11 @@ C3DNode::Type C3DParticleSystem::getType() const
 }
 
 C3DParticleSystem* C3DParticleSystem::create(const std::string& id)
-{  
-
+{
 	C3DParticleSystem* pRet = new C3DParticleSystem(id);
 
     pRet->autorelease();
     return pRet;
-
 }
 
 void C3DParticleSystem::save(C3DElementNode* &node)
@@ -124,7 +119,7 @@ bool C3DParticleSystem::save(const std::string& szFile)
 			parent->addChildNode(node);
 		}
 	}
-	
+
 	bool bRet = parent->writeToFile(szFile);
 	CC_SAFE_DELETE(parent);
 	return bRet;
@@ -186,20 +181,18 @@ bool C3DParticleSystem::load(C3DElementNode* psNode)
 		{
 			// Set sensible default.
 			_particleCountMax = PARTICLE_COUNT_MAX;
-
 		}
 
 		_timeLast = (long)psNode->getElement("timeLast", (long*)0);
 		_timeStart = (long)psNode->getElement("timeStart", (long*)0);
 
 		_p = new C3DParticle[_particleCountMax];
-		_particles = new C3DParticle*[_particleCountMax];		
+		_particles = new C3DParticle*[_particleCountMax];
 		for(int i=0; i<_particleCountMax; ++i)
 		{
 			_particles[i] = _p+i;
 		}
 		_validParticleCount = 0;
-
 	}
 
     C3DElementNode* prNode = psNode->getNextChild();
@@ -209,7 +202,7 @@ bool C3DParticleSystem::load(C3DElementNode* psNode)
         return false;
     }
 	else
-	{		
+	{
 		_render->load(prNode);
 	}
 
@@ -220,10 +213,9 @@ bool C3DParticleSystem::load(C3DElementNode* psNode)
         return false;
     }
 	else
-	{		
+	{
 		_emitter->load(emiterNode);
 	}
-		 
 
 	C3DElementNode* actionNodes = psNode->getNextChild();
     if (!actionNodes || actionNodes->getNodeType() != "Actions")
@@ -232,19 +224,19 @@ bool C3DParticleSystem::load(C3DElementNode* psNode)
         return false;
     }
 	else
-	{		
+	{
 		actionNodes->rewind();
 		C3DElementNode* actionNode = NULL;
 		C3DBaseParticleAction* action = NULL;
 		while ((actionNode = actionNodes->getNextChild()))
 		{
 			if (actionNode->getNodeType() == "TransformPSA")
-			{		
-				action = new C3DTransformPSA(this);				
+			{
+				action = new C3DTransformPSA(this);
 			}
 			else if (actionNode->getNodeType() == "ForcePSA")
-			{		
-				action = new C3DForcePSA(this);					
+			{
+				action = new C3DForcePSA(this);
 			}
 			else if (actionNode->getNodeType() == "TintPSA")
 			{
@@ -254,14 +246,13 @@ bool C3DParticleSystem::load(C3DElementNode* psNode)
 
 			if(action)
 			{
-				action->load(actionNode);	
+				action->load(actionNode);
 				_actions.push_back(action);
 			}
 		}
-	}	
+	}
 	return true;
 }
-
 
 void C3DParticleSystem::start()
 {
@@ -340,10 +331,9 @@ bool C3DParticleSystem::isStarted() const
 }
 
 bool C3DParticleSystem::isActive() const
-{	
+{
     return true;
 }
-
 
 void C3DParticleSystem::update(long elapsedTime)
 {
@@ -351,14 +341,13 @@ void C3DParticleSystem::update(long elapsedTime)
     {
         return;
     }
-	
+
 	if (_particles)
 	{
 		if(_emitter && _state == RUNNING)
 		{
 			if (_timeRunning >= _timeStart)
 				_emitter->update(elapsedTime);
-			
 		}
 
 		if (_state != PAUSE)
@@ -367,7 +356,7 @@ void C3DParticleSystem::update(long elapsedTime)
 			{
 				(*iter)->action(elapsedTime);
 			}
-		}	
+		}
 	}
 
 	if (_state == RUNNING)
@@ -405,7 +394,7 @@ void C3DParticleSystem::draw()
 	pos = getTranslationWorld();
 	box._min = pos + C3DVector3(-1.0f, -1.0f, -1.0f);
 	box._max = pos + C3DVector3(1.0f, 1.0f, 1.0f);*/
-	
+
 	getAABB();
 
 	if (!_scene->getActiveCamera()->isVisible(*_bb))
@@ -421,7 +410,7 @@ void C3DParticleSystem::draw()
 
 		_render->draw();
     }
-   
+
 	for (size_t i = 0; i < _children.size(); i++)
 	{
 		if (_children[i]->getType() == C3DNode::NodeType_ParticleSystem)
@@ -452,17 +441,17 @@ void C3DParticleSystem::removeAction(C3DBaseParticleAction* action)
 		}
 	}
 }
-    
+
 C3DParticleSystem* C3DParticleSystem::clone(CloneContext& context) const
 {
     C3DParticleSystem* particle = new C3DParticleSystem("");
-    
-    particle->copyFrom(this, context);	
+
+    particle->copyFrom(this, context);
 
 	particle->autorelease();
     return particle;
 }
-    
+
 void C3DParticleSystem::copyFrom(const C3DTransform* other, CloneContext& context)
 {
     C3DNode::copyFrom(other, context);
@@ -477,12 +466,11 @@ void C3DParticleSystem::copyFrom(const C3DTransform* other, CloneContext& contex
 	else
 	{
 		_id = particle->_id + context.idSuffix;
-	}   
+	}
 
-    
     _particleCountMax = particle->_particleCountMax;
     _validParticleCount = particle->_validParticleCount;
-    
+
     _p = new C3DParticle[_particleCountMax];
     _particles = new C3DParticle*[_particleCountMax];
     for(int i=0; i<_particleCountMax; ++i)
@@ -490,23 +478,23 @@ void C3DParticleSystem::copyFrom(const C3DTransform* other, CloneContext& contex
         _particles[i] = _p+i;
     }
     _validParticleCount = 0;
-    
+
     _numTintAction = particle->_numTintAction;
     _started = particle->_started;
-    
+
     _timeLast = particle->_timeLast;
     _timeRunning = particle->_timeRunning;
-    
+
     SAFE_DELETE(_emitter);
     SAFE_DELETE(_render);
-    
+
     _emitter = particle->_emitter->clone(this);
     _render = particle->_render->clone(this);
-    
+
 	for (size_t i = 0; i < particle->_actions.size(); i++) {
         _actions.push_back(particle->_actions[i]->clone(this));
     }
-    
+
 	_timeLast = particle->_timeLast; // particle system last time
 	_timeRunning = particle->_timeRunning; // particle system running time
 	_timeStart = particle->_timeStart; // particle system start time
@@ -527,7 +515,7 @@ void C3DParticleSystem::setScale(float scale)
 	_emitter->setPositionVariance(_emitter->getPositionVariance() * scale);
 	_emitter->setVelocity(_emitter->getVelocity() * scale);
 	_emitter->setVelocityVariance(_emitter->getVelocityVariance() * scale);
-	
+
 	for (size_t i = 0; i < _children.size(); i++)
 	{
 		if (_children[i]->getType() == C3DNode::NodeType_ParticleSystem)
@@ -543,10 +531,10 @@ void C3DParticleSystem::setStateChangeCallBack(void (*StateChanged)(const C3DPar
 void C3DParticleSystem::calculateBoundingBox_()
 {
 	C3DAABB box;
-	
+
 	box._min = C3DVector3(-1.0f, -1.0f, -1.0f);
 	box._max = C3DVector3(1.0f, 1.0f, 1.0f);
-	
+
 	if (!_bbOrigin)
 		_bbOrigin = new C3DAABB();
 	_bbOrigin->_min = box._min;
@@ -558,7 +546,6 @@ void C3DParticleSystem::calculateBoundingBox_()
 	_bb->_max = box._max;
 }
 
-
 void C3DParticleSystem::setParticleCountMax(int particleCountMax)
 {
 	if (_particleCountMax != particleCountMax)
@@ -568,7 +555,7 @@ void C3DParticleSystem::setParticleCountMax(int particleCountMax)
 		SAFE_DELETE_ARRAY(_particles);
 
 		_p = new C3DParticle[_particleCountMax];
-		_particles = new C3DParticle*[_particleCountMax];		
+		_particles = new C3DParticle*[_particleCountMax];
 		for(int i=0; i<_particleCountMax; ++i)
 		{
 			_particles[i] = _p+i;
@@ -577,7 +564,5 @@ void C3DParticleSystem::setParticleCountMax(int particleCountMax)
 
 		_render->reSizeCapacity((unsigned int)_particleCountMax);
 	}
-	
 }
-
 }

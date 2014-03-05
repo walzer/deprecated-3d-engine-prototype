@@ -14,7 +14,7 @@ class C3DLightComponent;
 class  C3DLight : public C3DNode
 {
     friend class C3DLightNode;
-	
+
 public:
 	/**
      * Destructor.
@@ -84,7 +84,7 @@ protected:
 };
 
 /**
- * 
+ *
  * describe the copmonent of light
  *
  */
@@ -99,14 +99,14 @@ public:
 
     /**
      * Gets the light color.
-     * 
+     *
      * @return The light color.
      */
     const C3DVector3& getColor() const;
 
     /**
      * Sets the light color.
-     * 
+     *
      * @param color The light color to set.
      */
     void setColor(const C3DVector3& color);
@@ -132,9 +132,8 @@ protected:
 	C3DLight::Type _type;
 };
 
-
 /**
- *  efines structure to describe point light 
+ *  efines structure to describe point light
  */
 class C3DPointLight : public C3DLightComponent
 {
@@ -142,16 +141,16 @@ public:
 
     /**
      * Creates a point light.
-     * 
+     *
      * @param color The light's color.
      * @param range The light's range.
-     * 
+     *
      * @return The new point light.
      */
 	static C3DPointLight* create(const C3DVector3& color, float range);
 
 	/**
-     * Returns the Range of the point or spot light. 
+     * Returns the Range of the point or spot light.
      *
      * @return The range of the point or spot light.
      */
@@ -179,12 +178,10 @@ protected:
 
 	float _range;
 	float _rangeInverse;
-
 };
 
-
 /**
- *  efines structure to describe directional light 
+ *  efines structure to describe directional light
  */
 class C3DDirectionalLight : public C3DLightComponent
 {
@@ -192,9 +189,9 @@ public:
 
 	/**
      * Creates a directional light.
-     * 
+     *
      * @param color The light's color.
-     * 
+     *
      * @return The new directional light.
      */
 	static C3DDirectionalLight* create(const C3DVector3& color);
@@ -204,11 +201,10 @@ protected:
      * Constructor.
      */
 	C3DDirectionalLight();
-
 };
 
 /**
- *  efines structure to describe spot light 
+ *  efines structure to describe spot light
  */
 class C3DSpotLight : public C3DLightComponent
 {
@@ -216,18 +212,18 @@ public:
 
 	/**
      * Creates a spot light.
-     * 
+     *
      * @param color The light's color.
      * @param range The light's range.
      * @param innerAngle The light's inner angle (in radians).
      * @param outerAngle The light's outer angle (in radians).
-     * 
+     *
      * @return The new spot light.
      */
     static C3DSpotLight* create(const C3DVector3& color, float range, float innerAngle, float outerAngle);
 
 	    /**
-     * Returns the Range of the point or spot light. 
+     * Returns the Range of the point or spot light.
      *
      * @return The range of the point or spot light.
      */
@@ -294,7 +290,7 @@ protected:
      * Constructor.
      */
 	C3DSpotLight();
-	
+
 	float _range;
 	float _rangeInverse;
 	float _innerAngle;
@@ -302,7 +298,6 @@ protected:
 	float _outerAngle;
 	float _outerAngleCos;
 };
-
 }
 
 #endif

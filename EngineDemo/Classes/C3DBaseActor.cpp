@@ -6,35 +6,26 @@
 #include "C3DMaterial.h"
 namespace cocos2d
 {
-
-
 C3DBaseActor::C3DBaseActor(std::string& name,cocos3d::C3DNode* node,cocos3d::C3DLayer* layer)
 {
 	_node = node;
 	_name = name;
 	_layer = layer;
 	_life = 30.f;
-	
 }
 
 C3DBaseActor::~C3DBaseActor()
 {
-	_layer = NULL;	
-		
+	_layer = NULL;
 }
-
 
 void C3DBaseActor::moveTo(cocos3d::C3DVector3& target)
 {
 	_target = target;
 }
 
-
 cocos3d::C3DNode* C3DBaseActor::getNode()
 {
 	return _node;
 }
-
-
 }
-

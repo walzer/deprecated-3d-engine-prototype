@@ -3,11 +3,8 @@
 #include "cocos2d.h"
 #include "C3DPostProcess.h"
 
-
 namespace cocos3d
 {
-
-
 /**
 Space wrap post effect
 */
@@ -19,11 +16,11 @@ protected:
      * Constructor & Destructor
      */
 	PESpaceWrap(C3DPostProcess* postProcess, const std::string& name);
-    
+
 	virtual ~PESpaceWrap();
 
 public:
-    
+
 	static C3DPostEffect* create( const std::string& name, const std::string& materialName, C3DPostProcess* postProcess );
 
 	void update( float dt );
@@ -65,9 +62,6 @@ protected:
 	C3DSampler* _wrapSampler;
 	float _time;
 };
-
-	
 }
 
 #endif	//PESpaceWarp_H
-

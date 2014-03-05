@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 class C3DRay;
 class C3DVector3;
 
@@ -17,7 +16,7 @@ class C3DCircle
 {
 public:
 	C3DCircle(const C3DVector3& center, const C3DVector3& normal, float radius);
-	
+
 	virtual ~C3DCircle(){;}
 
 	virtual bool Intersect(const C3DRay *ray)const;
@@ -37,7 +36,6 @@ private:
 	C3DVector3 _normal;
 	float _radius;
 };
-
 }
 
 #endif//C3DCIRCLE_H_

@@ -21,15 +21,12 @@
 
 using namespace cocos3d;
 
-
 TunnelTestLayer::TunnelTestLayer()
 {
-
 }
 
 TunnelTestLayer::~TunnelTestLayer()
 {
-
 }
 
 bool TunnelTestLayer::init()
@@ -38,7 +35,7 @@ bool TunnelTestLayer::init()
 
     setUpCamera();
     setUpLight();
-    setUpScene();   
+    setUpScene();
 
     return r;
 }
@@ -74,7 +71,7 @@ void TunnelTestLayer::setUpScene()
     sm->translate(0, 0, -330);
     sm->rotateX(1.57f);
     sm->scale(50, 50, 50);
-    _scene->addChild(sm);   
+    _scene->addChild(sm);
 }
 
 void TunnelTestLayer::setUpCamera()
@@ -84,15 +81,11 @@ void TunnelTestLayer::setUpCamera()
 
     _scene->addChild(camera);
     _scene->setActiveCamera(0);
-
 }
 
 void TunnelTestLayer::setUpLight()
 {
-
 }
-
-
 
 void TunnelTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
 {
@@ -120,12 +113,11 @@ void TunnelTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsi
             int deltaY = y - _touchY;
             _touchY = y;
 
-            {				
+            {
                 C3DCamera* camera = _scene->getActiveCamera();
                 //if (camera)
                 //    camera->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), MATH_DEG_TO_RAD(deltaX * 0.5f));
-
-            }	
+            }
         }
         break;
     default:
@@ -139,12 +131,11 @@ void TunnelTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
-    }    
 
+        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
+    }
 }
 
 void TunnelTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
@@ -155,10 +146,9 @@ void TunnelTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-        
+
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x, touchPoint.y, pTouch->getID());
     }
-
 }
 
 void TunnelTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
@@ -169,16 +159,14 @@ void TunnelTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
-     
+
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x, touchPoint.y, pTouch->getID());
     }
 }
 
 void TunnelTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
 {
-
 }
-
 
 CCLayer* TunnelTestLayer::createUILayer()
 {
@@ -186,4 +174,3 @@ CCLayer* TunnelTestLayer::createUILayer()
 
     return layer;
 }
-

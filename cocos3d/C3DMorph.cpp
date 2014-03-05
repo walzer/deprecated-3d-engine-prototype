@@ -1,11 +1,9 @@
 #include "C3DMorph.h"
 
-
 namespace cocos3d
 {
-
-C3DMorph::C3DMorph(void) 
-{	
+C3DMorph::C3DMorph(void)
+{
 	_morphTargets = new std::vector<MorphTarget*>();
 	_curTargets = new std::vector<unsigned int>();
 }
@@ -13,14 +11,12 @@ C3DMorph::C3DMorph(void)
 C3DMorph::~C3DMorph(void)
 {
 	for( std::vector<MorphTarget*>::iterator iter=_morphTargets->begin(); iter!=_morphTargets->end(); iter++ )
-	{		
+	{
 		delete *iter;
 	}
 	delete _morphTargets;
 	delete _curTargets;
-
 }
-
 
 MorphTarget* C3DMorph::getMorphTarget(std::string name)
 {
@@ -46,7 +42,6 @@ MorphTarget* C3DMorph::getMorphTarget(int index)
 	return NULL;
 }
 
-
 void C3DMorph::addMorphTarget(MorphTarget* target)
 {
 	std::vector<MorphTarget*>::iterator iter;
@@ -57,7 +52,6 @@ void C3DMorph::addMorphTarget(MorphTarget* target)
 			_morphTargets->erase(iter);
 			break;
 		}
-			
 	}
 
 	_morphTargets->push_back(target);
@@ -76,7 +70,7 @@ bool C3DMorph::pushTarget(unsigned int targetIndex)
 		if((*iter)==targetIndex)
 			return false;
 	}
-	
+
 	_curTargets->push_back(targetIndex);
 
 	return true;
@@ -92,17 +86,13 @@ bool C3DMorph::popTarget(unsigned int targetIndex)
 			_curTargets->erase(iter);
 			return true;
 		}
-			
 	}
 
 	return false;
 }
 
-
-
 std::vector<unsigned int>* C3DMorph::getCurTargets()
 {
 	return _curTargets;
 }
-
 }

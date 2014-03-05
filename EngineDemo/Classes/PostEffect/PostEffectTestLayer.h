@@ -9,19 +9,18 @@
 
 USING_NS_CC;
 
-namespace cocos3d 
+namespace cocos3d
 {
 }
 
 class  PostEffectTestLayer :  public TestLayer
-{  
-
+{
 public:
     PostEffectTestLayer();
-    virtual ~PostEffectTestLayer();   
-	virtual bool init();   
+    virtual ~PostEffectTestLayer();
+	virtual bool init();
 	virtual void onExit();
-		
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents
@@ -36,7 +35,7 @@ public:
     void setUpLight();
 
 	void setUpPostEffect();
-	
+
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
 
     // optional
@@ -49,13 +48,11 @@ public:
 
     CCLayer* createUILayer();
 
-
 protected:
 	void postEffectTouchPress(float x, float y);
 protected:
 	bool _touched;
 	int _touchX;
 	int _touchY;
-
 };
 #endif 

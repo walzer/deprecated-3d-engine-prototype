@@ -14,26 +14,23 @@ Resource pool
 */
 class  C3DResourcePool
 {
-	
 public:
 	C3DResourcePool(C3DResourceManager* manager);
 	virtual ~C3DResourcePool();
-	
-	bool  removeItem(const std::string& name);		
 
-	bool addItem(C3DResource* item);	
+	bool  removeItem(const std::string& name);
+
+	bool addItem(C3DResource* item);
 
     C3DResource* getItem(const std::string& name);
 	void clear();
 
 	virtual void update(long elapsedTime) = 0;
-	
 
-protected:	
+protected:
 	std::map<std::string,C3DResource*> _items;
 	C3DResourceManager* _manager;
-
-};	
+};
 
 class C3DUsedResourcePool : public C3DResourcePool
 {
@@ -48,8 +45,6 @@ public:
 	C3DWaitResourcePool(C3DResourceManager* manager);
 	virtual void update(long elapsedTime);
 };
-
-
 }
 
 #endif

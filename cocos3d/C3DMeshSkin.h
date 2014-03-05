@@ -7,7 +7,6 @@
 
 namespace cocos3d
 {
-
 class C3DResourceLoader;
 class C3DModel;
 class C3DBone;
@@ -24,11 +23,9 @@ class C3DMeshSkin : public C3DNode::Listener
     friend class C3DBone;
     friend class C3DNode;
 
-
 public:
 
 	 C3DMeshSkin();
-
 
     ~C3DMeshSkin();
 
@@ -60,23 +57,20 @@ public:
     void transformChanged(C3DTransform* transform);
 
 	BonePart* addPart(unsigned int batchID, unsigned int offsetVertexIndex, unsigned int numVertexIndex);
-    
+
     void copyFrom(C3DMeshSkin* skin, C3DNode::CloneContext& context);
 
-private:    
+private:
 
     void setJointCount(unsigned int jointCount);
 
     void setJoint(C3DBone* joint, unsigned int index);
 
-	
     void clearJoints();
 
     C3DMatrix _bindShape;
     std::vector<C3DBone*> _joints;
     C3DBone* _rootJoint;
-    
-
 
     // Pointer to the array of palette matrices.
     // This array is passed to the vertex shader as a uniform.
@@ -89,7 +83,6 @@ private:
 	BonePart** _parts;
 	unsigned int _curPartIndex;
 };
-
 }
 
 #endif

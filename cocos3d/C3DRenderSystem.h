@@ -17,7 +17,7 @@ class C3DScreenProcessManager;
 /**
 Defines the view port and clear flag
 */
-class  C3DRenderSystem : public cocos2d::CCObject 
+class  C3DRenderSystem : public cocos2d::CCObject
 {
 	friend class C3DLayer;
 public:
@@ -25,7 +25,7 @@ public:
 	 * get singleton
 	 */
     static C3DRenderSystem* getInstance();
-    
+
 	/**
 	 * set & get view port
 	 */
@@ -38,13 +38,12 @@ public:
 	 */
     RenderChannelManager* getRenderChannelManager() const;
 
-
 	/**
 	 * update routine
 	 */
     void update(long elapsedTime);
     /**
-     * Clears the specified resource buffers to the specified clear values. 
+     * Clears the specified resource buffers to the specified clear values.
      *
      * @param flags The flags indicating which buffers to be cleared.
      * @param clearColor The color value to clear to when the flags includes the color buffer.
@@ -52,10 +51,9 @@ public:
      * @param clearStencil The stencil value to clear to when the flags includes the color buffer.
     */
     void clear(ClearFlags flags, const C3DVector4* clearColor, float clearDepth, int clearStencil);
-        
+
 protected:
 
-    
 	/**
 	 * constructor & destructor
 	 */
@@ -71,12 +69,11 @@ protected:
 	 */
     void initialize();
     void finalize();
-		
 
 	// properties
     C3DViewport* _viewport;                        // the games's current viewport.
     RenderChannelManager* _renderChannelManager;
-	
+
 	C3DEffectManager* _effectManager;
 	C3DMaterialManager* _materialManager;
 
@@ -84,9 +81,7 @@ protected:
 
     float _clearDepth;                          // The clear depth value last used for clearing the depth buffer.
     int _clearStencil;                          // The clear stencil value last used for clearing the stencil buffer.
-
 };
-
 }
 
 #endif

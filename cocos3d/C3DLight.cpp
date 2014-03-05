@@ -3,10 +3,8 @@
 
 namespace cocos3d
 {
-
 C3DLight::C3DLight(const std::string& strId) : C3DNode(strId), _component(NULL), _enable(true)
 {
-
 }
 
 C3DLight::~C3DLight()
@@ -32,7 +30,7 @@ void C3DLight::setComponent(C3DLightComponent* component)
 		return;
 
 	SAFE_RELEASE(_component);
-	
+
 	if (component)
 	{
 		component->retain();
@@ -51,7 +49,6 @@ void C3DLight::update(unsigned int deltatime)
 
 C3DLightComponent::C3DLightComponent(C3DLight::Type type) : _type(type), _light(NULL), _color(0.0f, 0.0f, 0.0f)
 {
-
 }
 
 const C3DVector3& C3DLightComponent::getColor() const
@@ -64,12 +61,10 @@ void C3DLightComponent::setColor(const C3DVector3& color)
 	_color = color;
 }
 
-
 //////////////////////////////////////////////////////////////////////////
 
 C3DPointLight::C3DPointLight() : C3DLightComponent(C3DLight::POINT), _range(1.0f), _rangeInverse(1.0f)
 {
-
 }
 
 C3DPointLight* C3DPointLight::create(const C3DVector3& color, float range)
@@ -91,7 +86,6 @@ void C3DPointLight::setRange(float range)
 
 C3DDirectionalLight::C3DDirectionalLight() : C3DLightComponent(C3DLight::DIRECTIONAL)
 {
-
 }
 
 C3DDirectionalLight* C3DDirectionalLight::create(const C3DVector3& color)
@@ -106,8 +100,6 @@ C3DDirectionalLight* C3DDirectionalLight::create(const C3DVector3& color)
 
 C3DSpotLight::C3DSpotLight() : C3DLightComponent(C3DLight::SPOT)
 {
-
-
 }
 
 void C3DSpotLight::setRange(float range)
@@ -139,5 +131,4 @@ C3DSpotLight* C3DSpotLight::create(const C3DVector3& color, float range, float i
 
 	return pLight;
 }
-
 }

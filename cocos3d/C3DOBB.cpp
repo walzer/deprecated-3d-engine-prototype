@@ -5,29 +5,28 @@
 
 namespace cocos3d
 {
-
     #define ROTATE(a,i,j,k,l) g=a.m[i + 4 * j]; h=a.m[k + 4 * l]; a.m[i + 4 * j]=(float)(g-s*(h+g*tau)); a.m[k + 4 * l]=(float)(h+s*(g-h*tau));
-    
+
     static C3DMatrix _convarianceMatrix(const C3DVector3* aVertPos, int nVertCount)
     {
         int i;
         C3DMatrix Cov;
-        
+
         double S1[3];
         double S2[3][3];
-        
+
         S1[0] = S1[1] = S1[2] = 0.0;
         S2[0][0] = S2[1][0] = S2[2][0] = 0.0;
         S2[0][1] = S2[1][1] = S2[2][1] = 0.0;
         S2[0][2] = S2[1][2] = S2[2][2] = 0.0;
-        
+
         // get center of mass
         for(i=0; i<nVertCount; i++)
         {
             S1[0] += aVertPos[i].x;
             S1[1] += aVertPos[i].y;
             S1[2] += aVertPos[i].z;
-            
+
             S2[0][0] += aVertPos[i].x * aVertPos[i].x;
             S2[1][1] += aVertPos[i].y * aVertPos[i].y;
             S2[2][2] += aVertPos[i].z * aVertPos[i].z;
@@ -35,7 +34,7 @@ namespace cocos3d
             S2[0][2] += aVertPos[i].x * aVertPos[i].z;
             S2[1][2] += aVertPos[i].y * aVertPos[i].z;
         }
-        
+
         float n = (float)nVertCount;
         // now get covariances
         Cov.m[0] = (float)(S2[0][0] - S1[0]*S1[0] / n) / n;
@@ -47,10 +46,10 @@ namespace cocos3d
         Cov.m[1] = Cov.m[4];
         Cov.m[2] = Cov.m[8];
         Cov.m[6] = Cov.m[9];
-        
+
         return Cov;
     }
-    
+
     static float& _getElement( C3DVector3& point, int index)
     {
         if (index == 0)
@@ -59,11 +58,11 @@ namespace cocos3d
             return point.y;
         if (index == 2)
             return point.z;
-        
+
         CC_ASSERT(0);
         return point.x;
     }
-    
+
     static void _eigenVectors(C3DMatrix* vout, C3DVector3* dout, C3DMatrix a)
     {
         int n = 3;
@@ -74,7 +73,7 @@ namespace cocos3d
         C3DVector3 z;
         C3DMatrix v;
         C3DVector3 d;
-        
+
         v = C3DMatrix::identity();
         for(ip=0; ip<n; ip++)
         {
@@ -82,9 +81,9 @@ namespace cocos3d
             _getElement(d, ip) = a.m[ip + 4 * ip];
             _getElement(z, ip) = 0.0;
         }
-        
+
         nrot = 0;
-        
+
         for(i=0; i<50; i++)
         {
             sm=0.0;
@@ -96,16 +95,16 @@ namespace cocos3d
                 *dout = d;
                 return;
             }
-            
+
             if (i < 3) tresh = 0.2 * sm / (n*n);
             else tresh=0.0;
-            
+
             for(ip=0; ip<n; ip++)
             {
                 for(iq=ip+1; iq<n; iq++)
                 {
                     g = 100.0*fabs(a.m[ip + iq * 4]);
-                    
+
                     float dmip = _getElement(d, ip);
                     float dmiq = _getElement(d, iq);
                     if( i>3 && fabs(dmip)+g==fabs(dmip) && fabs(dmiq)+g==fabs(dmiq) )
@@ -130,10 +129,10 @@ namespace cocos3d
                         _getElement(d, ip) -= (float)h;
                         _getElement(d, iq) += (float)h;
                         a.m[ip + 4 * iq]=0.0;
-                        for(j=0;j<ip;j++) { ROTATE(a,j,ip,j,iq); } 
-                        for(j=ip+1;j<iq;j++) { ROTATE(a,ip,j,j,iq); } 
-                        for(j=iq+1;j<n;j++) { ROTATE(a,ip,j,iq,j); } 
-                        for(j=0;j<n;j++) { ROTATE(v,j,ip,j,iq); } 
+                        for(j=0;j<ip;j++) { ROTATE(a,j,ip,j,iq); }
+                        for(j=ip+1;j<iq;j++) { ROTATE(a,ip,j,j,iq); }
+                        for(j=iq+1;j<n;j++) { ROTATE(a,ip,j,iq,j); }
+                        for(j=0;j<n;j++) { ROTATE(v,j,ip,j,iq); }
                         nrot++;
                     }
                 }
@@ -145,33 +144,33 @@ namespace cocos3d
                 _getElement(z, ip) = 0.0f; //z.m[ip] = 0.0;
             }
         }
-        
+
         v.transpose();
         *vout = v;
         *dout = d;
         return;
     }
-    
+
     //	return an OBB extracing from the vertices;
     static C3DMatrix _GetOBBOrientation(const C3DVector3* aVertPos, int nVertCount)
     {
         C3DMatrix Cov;
-        
+
         if (nVertCount <= 0)
             return C3DMatrix::identity();
-        
+
         Cov = _convarianceMatrix(aVertPos, nVertCount);
-        
+
         // now get eigenvectors
         C3DMatrix Evecs;
         C3DVector3 Evals;
         _eigenVectors(&Evecs, &Evals, Cov);
-        
+
         Evecs.transpose();
-        
+
         return Evecs;
     }
-    
+
     ////////
     C3DOBB::C3DOBB()
     {
@@ -179,35 +178,34 @@ namespace cocos3d
     }
     C3DOBB::C3DOBB(const C3DOBB& obb)
     {
-        
     }
-    
+
     // is point in this obb
     bool C3DOBB::isPointIn(const C3DVector3& point) const
     {
         C3DVector3 vd = point - center;
-        
+
         float d = vd.dot(xAxis);
         if (d > extents.x || d < -extents.x)
             return false;
-        
+
         d = vd.dot(yAxis);
         if (d > extents.y || d < -extents.y)
             return false;
-        
+
         d = vd.dot(zAxis);
         if (d > extents.z || d < -extents.z)
             return false;
-        
+
         return true;
     }
-    
+
     // clear obb
     void C3DOBB::clear()
     {
         memset(this, 0, sizeof(C3DOBB));
     }
-    
+
     // build obb from oriented bounding box
     void C3DOBB::build(const C3DAABB& aabb)
     {
@@ -216,62 +214,61 @@ namespace cocos3d
         xAxis = C3DVector3(1.0f, 0.0f, 0.0f);
         yAxis = C3DVector3(0.0f, 1.0f, 0.0f);
         zAxis = C3DVector3(0.0f, 0.0f, 1.0f);
-        
+
         extents = aabb._max - aabb._min;
         extents.scale(0.5f);
-        
+
         completeExtAxis();
     }
-    
+
     // build obb from points
     void C3DOBB::build(const C3DVector3* verts, int nVerts)
     {
         clear();
-        
+
         if (nVerts <= 0)
             return;
-        
+
         C3DMatrix matTransform = _GetOBBOrientation(verts, nVerts);
-        
+
         //	For matTransform is orthogonal, so the inverse matrix is just rotate it;
         matTransform.transpose();
-        
+
         C3DVector3 vecMax = matTransform * C3DVector3(verts[0].x, verts[0].y, verts[0].z);
-       
+
         C3DVector3 vecMin = vecMax;
-        
+
         for (int i=1; i < nVerts; i++)
         {
             C3DVector3 vect = matTransform * C3DVector3(verts[i].x, verts[i].y, verts[i].z);
-            
+
             vecMax.x = vecMax.x > vect.x ? vecMax.x : vect.x;
             vecMax.y = vecMax.y > vect.y ? vecMax.y : vect.y;
             vecMax.z = vecMax.z > vect.z ? vecMax.z : vect.z;
-            
+
             vecMin.x = vecMin.x < vect.x ? vecMin.x : vect.x;
             vecMin.y = vecMin.y < vect.y ? vecMin.y : vect.y;
             vecMin.z = vecMin.z < vect.z ? vecMin.z : vect.z;
-            
         }
-        
+
         matTransform.transpose();
-        
+
         xAxis = C3DVector3(matTransform.m[0], matTransform.m[1], matTransform.m[2]);
         yAxis = C3DVector3(matTransform.m[4], matTransform.m[5], matTransform.m[6]);
         zAxis = C3DVector3(matTransform.m[8], matTransform.m[9], matTransform.m[10]);
-        
+
         center	= 0.5f * (vecMax + vecMin);
         center *= matTransform;
-        
+
         xAxis.normalize();
         yAxis.normalize();
         zAxis.normalize();
-        
+
         extents = 0.5f * (vecMax - vecMin);
-        
+
         completeExtAxis();
     }
-    
+
     // face to the obb's -z direction
     // verts[0] : front left bottom corner
     // verts[1] : front right bottom corner
@@ -284,49 +281,45 @@ namespace cocos3d
     void C3DOBB::getVertices(C3DVector3* verts) const
     {
         verts[0] = center - extX  - extY + extZ; //front left bottom;
-        
+
         verts[1] = center + extX - extY + extZ; //front right bottom;
-        
+
         verts[2] = center + extX + extY + extZ; //front right top corner;
-        
+
         verts[3] = center - extX + extY + extZ;  //front left top corner;
-        
-        
+
         verts[4] = center - extX - extY - extZ; //back left bottom corner;
-        
+
         verts[5] = center + extX - extY - extZ; //back right bottom corner
-        
+
         verts[6] = center + extX + extY - extZ; //back right top corner
-        
+
         verts[7] = center - extX + extY - extZ; //back left top corner;
-        
     }
-    
+
     void C3DOBB::transform(const C3DMatrix& mat)
     {
-        
         C3DVector4 newcenter = mat * C3DVector4(center.x, center.y, center.z, 1.0f);// center;
         center.x = newcenter.x;
         center.y = newcenter.y;
         center.z = newcenter.z;
-        
+
         xAxis = mat * xAxis;
         yAxis = mat * yAxis;
         zAxis = mat * zAxis;
-        
+
         xAxis.normalize();
         yAxis.normalize();
         zAxis.normalize();
-        
+
         C3DVector3 scale, trans;
         C3DQuaternion quat;
         mat.decompose(&scale, &quat, &trans);
-        
+
         extents.x *= scale.x;
         extents.y *= scale.y;
         extents.z *= scale.z;
-        
+
         completeExtAxis();
     }
-
 }

@@ -5,7 +5,6 @@
 using namespace std;
 namespace cocos3d
 {
-
 /**
  * Sheet animation wrap type
  */
@@ -13,7 +12,6 @@ enum SheetAnimWrapType
 {
     SheetAnimWrapType_Loop   = 0 ,
 	SheetAnimWrapType_Once ,
-    
 };
 
 class C3DMaterial;
@@ -46,25 +44,24 @@ public:
 	/**
 	 * Update per frame.
 	 */
-	virtual void update(long elapsedTime);	
+	virtual void update(long elapsedTime);
 
 private:
 
 	int frameNum;
 
 	string partName;
-	string typeName;	
+	string typeName;
 
 	SheetAnimWrapType wrapType;
 	float fps;
 	bool enable;
 
-	int  *frameSerials;	
-	int frameSerialNum;	
+	int  *frameSerials;
+	int frameSerialNum;
 
 	C3DMaterial *mat;
 	int _curFrameIndex;
-
 };
 
 /**
@@ -123,9 +120,6 @@ private:
 	int tileX;
 	int tileY;
 };
-
-
-
 
 }
 

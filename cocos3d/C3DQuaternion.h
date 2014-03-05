@@ -4,10 +4,8 @@
 #include "C3DVector3.h"
 #include "C3DMatrix.h"
 
-
 namespace cocos3d
 {
-
 class C3DMatrix;
 
 /**
@@ -190,7 +188,7 @@ public:
      * quaternion is already unit-length.
      *
      * @param dst A quaternion to store the inverse in.
-     * 
+     *
      * @return true if the inverse can be computed, false otherwise.
      */
     bool inverse(C3DQuaternion* dst) const;
@@ -256,7 +254,7 @@ public:
 
     /**
      * Sets the quaternion equal to the rotation from the specified axis and angle.
-     * 
+     *
      * @param axis The axis of rotation.
      * @param angle The angle of rotation (in radians).
      */
@@ -278,7 +276,7 @@ public:
      * Converts this Quaternion4f to axis-angle notation. The axis is normalized.
      *
      * @param e The Vector3f which stores the axis.
-     * 
+     *
      * @return The angle (in radians).
      */
     float toAxisAngle(C3DVector3* e) const;
@@ -295,7 +293,7 @@ public:
      * @param dst A quaternion to store the result in.
      */
     static void lerp(const C3DQuaternion& q1, const C3DQuaternion& q2, float t, C3DQuaternion* dst);
-    
+
     /**
      * Interpolates between two quaternions using spherical linear interpolation.
      *
@@ -312,7 +310,7 @@ public:
      * @param dst A quaternion to store the result in.
      */
     static void slerp(const C3DQuaternion& q1, const C3DQuaternion& q2, float t, C3DQuaternion* dst);
-    
+
     /**
      * Interpolates over a series of quaternions using spherical spline interpolation.
      *
@@ -334,9 +332,9 @@ public:
 
     /**
      * Calculates the quaternion product of this quaternion with the given quaternion.
-     * 
+     *
      * Note: this does not modify this quaternion.
-     * 
+     *
      * @param q The quaternion to multiply.
      * @return The quaternion product.
      */
@@ -344,7 +342,7 @@ public:
 
     /**
      * Multiplies this quaternion with the given quaternion.
-     * 
+     *
      * @param q The quaternion to multiply.
      * @return This quaternion, after the multiplication occurs.
      */
@@ -404,7 +402,6 @@ inline std::istream& operator >> (std::istream& stream, C3DQuaternion& v)
     stream >> v.w;
     return stream;
 }
-
 }
 
 #include "C3DQuaternion.inl"

@@ -15,7 +15,6 @@
 
 namespace cocos3d
 {
-
 class Node;
 class C3DElementNode;
 class C3DParticleEmitter;
@@ -26,8 +25,8 @@ class C3DParticle;
 
 /**
 	C3DParticleSystem represents a 3D particle system. It is loaded from .particle files.
-	A C3DParticleSystem is made up of C3DParticleEmitter, C3DParticleRender, and some C3DBaseParticleAction.  
-	usage: 
+	A C3DParticleSystem is made up of C3DParticleEmitter, C3DParticleRender, and some C3DBaseParticleAction.
+	usage:
 	1.call load(particlename) load a particle
 	2.call update() and draw() every frame
 	3.control the particle system use start(), stop(), pause(), resume()
@@ -40,7 +39,7 @@ class C3DParticleSystem : public C3DNode
 	friend class  C3DTintPSA;
 	friend class  C3DTransformPSA;
 	friend class  C3DForcePSA;
-public:	
+public:
 
 	/**
      * particle state.
@@ -57,7 +56,7 @@ public:
      */
 	C3DParticleSystem(const std::string& id);
     ~C3DParticleSystem();
-	
+
 	/**
      * create method.
      */
@@ -73,7 +72,7 @@ public:
      */
     bool load(const std::string& fileName);
 	bool save(const std::string& szFile);
-     
+
 	/**
      * particle system control.
      */
@@ -86,22 +85,22 @@ public:
      * get particle state
      */
 	ParticleState getParticleState() const { return _state; }
-	
+
 	/**
-     * is particle system start ? 
+     * is particle system start ?
      */
     bool isStarted() const;
-	
+
 	/**
      * is particle active ?
      */
     bool isActive() const;
-	   
+
 	/**
      * update routine
      */
     virtual void update(long elapsedTime);
-	   
+
 	/**
      * particle system draw
      */
@@ -145,9 +144,9 @@ public:
 	/**
      * set & get particle system last time(ms)
      */
-	void setTimeLast(long timelast) 
-	{ 
-		_timeLast = timelast; 
+	void setTimeLast(long timelast)
+	{
+		_timeLast = timelast;
 	}
 	long getTimeLast() const { return _timeLast; }
 
@@ -169,18 +168,18 @@ public:
 	void setParticleCountMax(int particleCountMax);
 
 	/**
-     * particle system call back, called when particle system state changed 
+     * particle system call back, called when particle system state changed
      */
 	void setStateChangeCallBack(void (*StateChanged)(const C3DParticleSystem* particle, ParticleState oldState, ParticleState newState));
-    
+
 	virtual void calculateBoundingBox_();
 protected:
-    
+
 	/**
      * copy method
      */
     virtual void copyFrom(const C3DTransform* other, CloneContext& context);
-    
+
 private:
 	/**
      * load & save
@@ -189,7 +188,7 @@ private:
 	void save(C3DElementNode* &psNode);
 
 private:
-		
+
 	// particle system property
 
     int _particleCountMax;
@@ -199,10 +198,9 @@ private:
 	C3DParticle** _particles;
 
 	int _numTintAction;
-       
+
     bool _started;
 
-  
     long _timeLast; // particle system last time
     long _timeRunning; // particle system running time
 	long _timeStart; // particle system start time
@@ -215,7 +213,6 @@ private:
 
 	void (*StateChanged)(const C3DParticleSystem* particle, ParticleState oldState, ParticleState newState);
 };
-
 }
 
 #endif

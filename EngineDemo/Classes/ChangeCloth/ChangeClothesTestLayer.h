@@ -12,15 +12,14 @@ namespace cocos2d
 {
 class C3DActor;
 class  ChangeClothesTestLayer :  public TestLayer
-{  
-
+{
 public:
     ChangeClothesTestLayer();
-    virtual ~ChangeClothesTestLayer();   
+    virtual ~ChangeClothesTestLayer();
 
 	static ChangeClothesTestLayer* getInstance();
-	virtual bool init();   
-		
+	virtual bool init();
+
 	virtual void update(float dt);
 
 	virtual void draw(void);//render the 3d contents
@@ -36,20 +35,19 @@ public:
     void setUpLight();
 
 	/**
-    * change to the next material for the special type part of the avatar model. 
+    * change to the next material for the special type part of the avatar model.
     *
     * @param type The part type of the avatar model.
     */
     void changePart(std::string partType);
-	
+
 	/**
-    * change to the morph for the special type part of the avatar model. 
+    * change to the morph for the special type part of the avatar model.
     *
     * @param type The part type of the avatar model.
     */
 	void changeMorph(std::string type,float weight);//change morph for the equip
-		
-	
+
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
 
     // optional
@@ -71,7 +69,7 @@ public:
 	void menuCallback_changeShoot(CCObject* pSender);
 	void menuCallback_changeNose(CCObject* pSender);
 	void menuCallback_changeEye(CCObject* pSender);
-	
+
 protected:
 	bool _touched;
 	int _touchX;

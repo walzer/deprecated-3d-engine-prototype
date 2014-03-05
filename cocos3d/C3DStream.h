@@ -4,7 +4,6 @@
 
 namespace cocos3d
 {
-
 /**
  * Stream is an interface for reading and writing a sequence of bytes.
  */
@@ -24,7 +23,7 @@ public:
 	/**
      * Closes the stream.
      */
-    virtual void close() = 0;        
+    virtual void close() = 0;
 
 	/**
      * Reads an array of elements.
@@ -36,7 +35,7 @@ public:
 	 *
 	 * @return The number of elements read.
      */
-    virtual size_t read(void* ptr, size_t size, size_t count) = 0;	 
+    virtual size_t read(void* ptr, size_t size, size_t count) = 0;
 
 	/**
      * Reads a line from the stream.
@@ -49,15 +48,15 @@ public:
      * @param ptr   The pointer to the array of elements to be written.
      * @param size  The size of each element to be written, in bytes.
      * @param count The number of elements to write.
-     * 
+     *
      * @return The number of elements written.
      */
-	virtual size_t write(const void* ptr, size_t size, size_t count) = 0;	   
+	virtual size_t write(const void* ptr, size_t size, size_t count) = 0;
 
 	/**
      * Returns true if the end of the stream has been reached.
      */
-    virtual bool eof() = 0;	   
+    virtual bool eof() = 0;
 
 	/**
      * Returns the length of the stream in bytes.
@@ -67,12 +66,12 @@ public:
 	/**
      * Returns the position of the file pointer.
      */
-    virtual long int tell() = 0;	
+    virtual long int tell() = 0;
 
 	/**
      * Sets the position of the file pointer.
      */
-    virtual bool seek(long int offset, int origin) = 0;	   
+    virtual bool seek(long int offset, int origin) = 0;
 
 	/**
 	 * Sets the file pointer at the start of the file.
@@ -84,13 +83,13 @@ public:
     */
 	template<typename T> bool read(T* ptr);
 	template<typename T> bool readArray(unsigned int* length, std::vector<T>* values);
-	
+
 	/**
 	* first read length, then read string text
 	*/
     virtual std::string readString();
     virtual bool readMatrix(float* m);
-   
+
 	/**
 	*  write binary typed value
 	*/
@@ -103,7 +102,6 @@ public:
     virtual bool writeString(const std::string& str);
     virtual bool writeMatrix(const float* m);
     virtual bool write(const std::string& str);
-
 };
 
 /**
@@ -116,12 +114,12 @@ public:
      * Constructor.
      */
 	C3DFileStream(FILE* file);
-	
+
 	/**
      * Destructor.
      */
-    ~C3DFileStream();   
-	
+    ~C3DFileStream();
+
 	/**
      * Creates C3DFileStream.
      */
@@ -170,7 +168,7 @@ public:
 	/**
 	 * Sets the file pointer at the start of the file.
 	 */
-    virtual bool rewind();  
+    virtual bool rewind();
 
 private:
     FILE* _file;
@@ -180,12 +178,12 @@ private:
  * Defines a set of functions for interacting with the device memory stream.
  */
 class C3DMemoryStream : public C3DStream
-{  			
+{
 public:
 	/**
      * Constructor.
      */
-    C3DMemoryStream();	
+    C3DMemoryStream();
 
 	/**
      * Destructor.
@@ -247,12 +245,11 @@ public:
 	 */
     virtual bool rewind();
 
-private:              
-    long int m_position;    
-    size_t  m_length;        
-    char* m_buffer;  
-
-};  
+private:
+    long int m_position;
+    size_t  m_length;
+    char* m_buffer;
+};
 
 /**
 * Stream is an interface for managing stream.
@@ -277,21 +274,19 @@ public:
     {
 		StreamType_File = 0,
 		StreamType_Memory
-        
     };
-    
+
 	/**
      * Read entire file contents to buffer.
      */
-    static char* readAll(const std::string& filePath, int* fileSize = NULL);		
+    static char* readAll(const std::string& filePath, int* fileSize = NULL);
 
 	/**
      * open file by C3DStream.
      */
 	static C3DStream* openStream(const std::string& fileName, const std::string& openMode, StreamType streamType=StreamType_Memory);
-
 };
-    
+
 // implements inline methods
 
 // template read routines
@@ -409,7 +404,6 @@ inline bool C3DStream::writeArray(const std::vector<T>& values)
     return true;
 }
 
-
 /**
 * template write array of value.
 */
@@ -431,7 +425,6 @@ inline bool C3DStream::writeArray<std::string>(const std::vector<std::string>& v
     }
     return true;
 }
-    
 }
 
 #endif

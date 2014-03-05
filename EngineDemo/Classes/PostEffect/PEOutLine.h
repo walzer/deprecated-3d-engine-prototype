@@ -3,10 +3,8 @@
 #include "cocos2d.h"
 #include "C3DPostEffect.h"
 
-
 namespace cocos3d
 {
-
 /**
 Edge post effect
 */
@@ -19,22 +17,17 @@ protected:
      */
 	PEOutLine(C3DPostProcess* postProcess, const std::string& name): C3DPostEffect(postProcess, name)
     {
-        
     }
     virtual ~PEOutLine();
 
 public:
 	static C3DPostEffect* create( const std::string& name, const std::string& materialName, C3DPostProcess* postProcess );
 
-
 	/**
      * set post effect shader parameter
      */
 	virtual void setShaderParameter();
-       
 };
-
 }
 
 #endif	//OutLine_H
-

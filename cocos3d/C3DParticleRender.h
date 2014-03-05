@@ -7,7 +7,6 @@
 
 namespace cocos3d
 {
-
 class C3DParticleSystem;
     class C3DMaterial;
     class C3DEffect;
@@ -24,13 +23,12 @@ class C3DParticleSystem;
  */
 class C3DParticleRender
 {
-   
 public:
 
 	/**
      * Destructor & Destructor.
      */
-	C3DParticleRender(C3DParticleSystem* system); 
+	C3DParticleRender(C3DParticleSystem* system);
     virtual ~C3DParticleRender();
 
     /**
@@ -40,14 +38,13 @@ public:
 	 * @param capacity maximum particles it can render
      */
     static C3DParticleRender* create(C3DParticleSystem* system, unsigned int capacity);
-    
+
 	/**
      * particle render init method.
 	 * @param capacity maximum particles it can render
      */
 	bool init(unsigned int capacity);
 
-	
 	/**
      * load from element node
      */
@@ -57,22 +54,22 @@ public:
      * save to element node
      */
 	void save(C3DElementNode* properties);
-    
+
 	/**
      * called before draw by particle system
      */
     virtual void prepareDraw();
-    
+
     /**
      * draw the particles, call flush() to present it to the render target
      */
     virtual void draw();
-    
+
     /**
      * finish render flush it to the render target
      */
     virtual void flush();
-    
+
     /**
      * resize capacity with new size
      */
@@ -82,8 +79,7 @@ public:
      * get particle capacity
      */
 	unsigned int getParticleCapacity() const { return _nCapacity; }
-    
-    
+
 	/**
      * get & set texture atlas row and column
      */
@@ -153,7 +149,7 @@ private:
 
     /**
      * Copy constructor.
-     * 
+     *
      * @param copy The SpriteBatch to copy.
      */
     C3DParticleRender(const C3DParticleRender& copy);
@@ -162,10 +158,10 @@ private:
      * init particle texture coordinate.
      */
 	void initFrameCoord();
-    
+
     unsigned int _nCapacity; // max number of particles
     int _nParticle; // number of particles
-    
+
     C3DBatchModel*        _model; // used for render
 
 	C3DParticleSystem* _system; // particle system it belongs to
@@ -176,7 +172,7 @@ private:
 	int _nFrameCount; // _nFrameRow * _nFrameCol
 
 	bool _spriteAnimated; // frame animation
-	bool _spriteLooped; // frame loop 
+	bool _spriteLooped; // frame loop
 	float _spriteFrameDurationSecs;// used when frame loop is false
 
 	int _spriteFrameRandomOffset; // particle frame start at 0 - _spriteFrameRandomOffset
@@ -189,7 +185,6 @@ private:
 	C3DStateBlock::Blend _srcBlend;
 	C3DStateBlock::Blend _dstBlend;
 };
-
 }
 
 #endif

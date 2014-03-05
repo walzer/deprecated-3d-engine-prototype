@@ -19,8 +19,6 @@
 using namespace std;
 namespace cocos3d
 {
-
-
 class C3DScene;
 class C3DNode;
 class C3DBatchMesh;
@@ -34,21 +32,21 @@ class C3DResourceLoader;
 */
 class  C3DRenderNode : public C3DNode,public C3DResource
 {
-	friend class C3DScene; 
-	friend class C3DStaticObj;	
+	friend class C3DScene;
+	friend class C3DStaticObj;
 	friend class C3DSprite;
 
 public:
-	
+
 	C3DRenderNode(const std::string& id);
 
-    ~C3DRenderNode();    
+    ~C3DRenderNode();
 
 	// create sprite and add it to autorelease pool
     static C3DRenderNode* create(const std::string& id,const std::string& fileName);
-	
+
 	/**
-    * load sprite from file. 
+    * load sprite from file.
     *
     * @param fileName sprite filename.
     */
@@ -57,10 +55,10 @@ public:
 	virtual bool load(const std::string& fileName){ return false; }
 
 	/**
-    * Render for handling rendering routines.   
+    * Render for handling rendering routines.
     */
 	virtual void draw();
-	
+
 	virtual void drawDebug();
 	/**
      * Update routine
@@ -70,11 +68,11 @@ public:
 	AttachNode * attachNode( const std::string & nodeName );
 	void attach(const std::string& nodeName,C3DNode* attachment);
 	void detach(const std::string& nodeName,C3DNode* attachment);
-	
-	void drawCollitionBox(); 
+
+	void drawCollitionBox();
 
 	void transformChanged();
-	
+
 	void showCollitionBox(bool show);
 	bool showCollitionBox();
 
@@ -105,31 +103,27 @@ public:
 	bool saveCollitionBox(const std::string& fileName)const;
 	bool loadCollitionBox(const std::string& fileName);
 
-
-
 protected:
-	
+
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
 
 	AttachNode* accessNode( C3DNode* pNode);
 
-protected:	
+protected:
 
 	std::vector<AttachNode*> _attachNodes;
-	
+
 	std::vector<C3DCollitionBox*> m_collitionBoxs;// collision box list
-	
+
     bool _showSkeleton;
 	bool _showCollitionBox;
     bool _castShadowMap;
 
-	std::string _fileName;	
+	std::string _fileName;
 	//C3DResourceLoader* _loader;
 
     bool _isVisibleByCamera;
 };
-
-
 }
 
 #endif

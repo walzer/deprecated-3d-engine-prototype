@@ -14,10 +14,8 @@
 
 namespace cocos3d
 {
-
 PEColor::~PEColor()
 {
-  
 }
 
 C3DPostEffect* PEColor::create( const std::string& name, const std::string& materialName, C3DPostProcess* postProcess )
@@ -34,8 +32,7 @@ C3DPostEffect* PEColor::create( const std::string& name, const std::string& mate
 void PEColor::setShaderParameter()
 {
 	//gray C3DVector3(0.299f, 0.587f, 0.114f)
-    
+
 	_material->getTechnique(0u)->getPass(0u)->getParameter("u_rate")->setValue(_colorRate);
 }
-
 }

@@ -11,23 +11,17 @@
 
 namespace cocos3d
 {
-
 C3DSkinModel::C3DSkinModel() :_skin(NULL)
 {
-	
 }
-
 
 C3DSkinModel::~C3DSkinModel()
 {
-      
-
     SAFE_DELETE(_skin);
 }
 
 C3DModel* C3DSkinModel::create()
 {
-
     return new C3DSkinModel();
 }
 
@@ -50,14 +44,12 @@ void C3DSkinModel::setSkin(C3DMeshSkin* skin)
     }
 }
 
-
-
 //void C3DSkinModel::draw(void)
 //{
 //    bool bStatEnable = C3DStat::getInstance()->isStatEnable();
-//    C3DMaterial::TechniqueUsage techUsage = 
+//    C3DMaterial::TechniqueUsage techUsage =
 //        getNode()->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
-//  
+//
 //    unsigned int partCount = _mesh->getPartCount();
 //    if (partCount == 0)
 //    {
@@ -65,7 +57,7 @@ void C3DSkinModel::setSkin(C3DMeshSkin* skin)
 //        if (_material)
 //        {
 //            C3DTechnique* technique = _material->getTechnique(techUsage);
-//            
+//
 //            if (!technique)
 //                return;
 //
@@ -80,7 +72,7 @@ void C3DSkinModel::setSkin(C3DMeshSkin* skin)
 //			{
 //				channel->addItem( this, distanceToCamera() );
 //			}
-//			
+//
 //        }
 //    }
 //    else
@@ -94,10 +86,10 @@ void C3DSkinModel::setSkin(C3DMeshSkin* skin)
 //            if (material)
 //            {
 //                C3DTechnique* technique = material->getTechnique(techUsage);
-//                
+//
 //                if (!technique)
 //                    continue;
-//				
+//
 //				C3DRenderChannel* channel = technique->getChannel();
 //				if (channel == NULL)
 //				{
@@ -109,20 +101,19 @@ void C3DSkinModel::setSkin(C3DMeshSkin* skin)
 //					channel->addItem( this, distanceToCamera() );
 //				}
 //
-//				break;				
-//				
+//				break;
+//
 //            }
 //        }
 //    }
 //}
 
-
 void C3DSkinModel::draw()
 {
     bool bStatEnable = C3DStat::getInstance()->isStatEnable();
-    C3DMaterial::TechniqueUsage techUsage = 
+    C3DMaterial::TechniqueUsage techUsage =
         getNode()->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
-  
+
     unsigned int partCount = _mesh->getPartCount();
     if (partCount == 0)
     {
@@ -130,10 +121,10 @@ void C3DSkinModel::draw()
         if (_material)
         {
             C3DTechnique* technique = _material->getTechnique(techUsage);
-            
+
             if (!technique)
                 return;
-						
+
 			//**
             unsigned int passCount = technique->getPassCount();
             if (bStatEnable)
@@ -142,7 +133,7 @@ void C3DSkinModel::draw()
             {
                 if (bStatEnable)
                     C3DStat::getInstance()->incTriangleDraw(_mesh->getTriangleCount());
-                
+
                 C3DPass* pass = technique->getPass(i);
 				applyInternalParam(pass);
                 //applyLightParam(pass);
@@ -179,19 +170,18 @@ void C3DSkinModel::draw()
             if (material)
             {
                 C3DTechnique* technique = _material->getTechnique(techUsage);
-                
+
                 if (!technique)
                     continue;
 
-				
 				//**
                 unsigned int passCount = technique->getPassCount();
-                
+
                 for (unsigned int j = 0; j < passCount; ++j)
                 {
                     if (bStatEnable)
                         C3DStat::getInstance()->incTriangleDraw(meshPart->getTriangleCount());
-                    
+
                     C3DPass* pass = technique->getPass(j);
                     //applyLightParam(pass);
                     //applyShadowMap(pass);
@@ -199,12 +189,12 @@ void C3DSkinModel::draw()
 
                     pass->bind();
                     GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshPart->_indexBuffer) );
-                    
+
 					C3DMeshSkin * skin = this->getSkin();
 					if(skin != NULL)
 					{
 						BonePart** parts = skin->_parts;
-						                                                                                                                                                                                                                                                                                                                                                   
+
                         if (bStatEnable)
                             C3DStat::getInstance()->incDrawCall(skin->_partCount);
 						for (unsigned int iBonePart=0; iBonePart < skin->_partCount; iBonePart++)
@@ -239,10 +229,8 @@ void C3DSkinModel::draw()
 							{
 								GL_ASSERT( glDrawElements(meshPart->getPrimitiveType(),bonePart->_numVertexIndex , meshPart->getIndexFormat(), &((const GLushort*)0)[bonePart->_offsetVertexIndex]));
 							}
-							
 						}
-
-					}                   
+					}
                     GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
                     pass->unbind();
                 }
@@ -255,17 +243,17 @@ void C3DSkinModel::draw()
 C3DSkinModel* C3DSkinModel::clone(C3DNode::CloneContext& context) const
 {
     C3DSkinModel* model = new C3DSkinModel();
-    
+
     model->copyFrom(this);
-    
+
     C3DMeshSkin *skin = new C3DMeshSkin();
-    
+
     skin->copyFrom(_skin, context);
-    
+
     model->setSkin(skin);
-    
+
 	model->autorelease();
-	
+
     return model;
 }
 
@@ -273,11 +261,5 @@ std::string C3DSkinModel::getDefaultMaterialName()
 {
 	return "common\\default_skin.material";
 }
-
-
-
-
-
-
 
 }

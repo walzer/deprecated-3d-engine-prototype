@@ -2,8 +2,6 @@
 #include <math.h>
 namespace cocos3d
 {
-
-
 static inline double noise1d(int x)
 {
 	x = (x << 13) ^ x;
@@ -17,11 +15,9 @@ static inline double noise2d(int x, int y)
 	return noise1d(n);
 }
 
-
-C3DPerlinNoise::C3DPerlinNoise(double minValue, double maxValue, double frequency, int seed) 
+C3DPerlinNoise::C3DPerlinNoise(double minValue, double maxValue, double frequency, int seed)
 	: _seed(seed), _factorScale((maxValue - minValue) * 0.5), _factorAdd((maxValue + minValue) * 0.5), _frequency(frequency)
 {
-
 }
 
 double C3DPerlinNoise::generateNoise1D(double x)
@@ -62,5 +58,4 @@ double C3DPerlinNoise::interpolate(double x, double y, double s)
 	double f =(1.0 - cos(ft))* 0.5;
 	return x *(1.0 - f) + y * f;
 }
-
 }

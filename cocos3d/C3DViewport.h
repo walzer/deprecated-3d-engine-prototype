@@ -5,7 +5,7 @@
 
 #include "EnumDef_GL.h"
 namespace cocos3d
-{	
+{
 class C3DCamera;
 class C3DRenderTarget;
 
@@ -16,7 +16,7 @@ With corner(x, y) and width, height
 class C3DViewport
 {
 public:
-    
+
 	/**
      * Constructor & Destructor.
      */
@@ -33,7 +33,7 @@ public:
      * apply viewport.
      */
     void apply();
-	
+
 public:
 	//properties
     int x;
@@ -41,8 +41,6 @@ public:
     int width;
     int height;
 };
-
-
 }
 
 #endif

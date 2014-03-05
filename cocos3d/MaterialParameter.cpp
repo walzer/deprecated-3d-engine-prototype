@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 MaterialParameter::MaterialParameter(const std::string& name) :
     _type(MaterialParameter::NONE), _count(1), _dynamic(false), _name(name), _uniform(NULL)
 {
@@ -62,9 +61,9 @@ void MaterialParameter::clearValue()
 			break;
 		 //case MaterialParameter::TEXTURE:
    //         if (_value.textureValue)
-   //         {				
+   //         {
 			//	const_cast<C3DTexture*>(_value.textureValue)->release();
-			//	
+			//
    //         }
    //         break;
         }
@@ -436,5 +435,4 @@ MaterialParameter* MaterialParameter::clone() const
 	}
 	return other;
 }
-
 }

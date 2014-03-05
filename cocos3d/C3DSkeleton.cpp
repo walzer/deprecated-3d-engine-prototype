@@ -6,16 +6,13 @@
 
 namespace cocos3d
 {
-
 C3DSkeleton::C3DSkeleton()
 {
 	_rootBone = NULL;
 }
 
-
 C3DSkeleton::~C3DSkeleton()
 {
-
 	//SAFE_RELEASE(_activeC3DCameraNode);
 
 	//
@@ -32,14 +29,11 @@ void C3DSkeleton::getChild(std::map<std::string, C3DBone*>& bones,C3DNode* node)
 	{
 		bones[node->getId()] = static_cast<C3DBone*>(node);
 	}
-	
 
 	for(std::vector<C3DNode*>::const_iterator iter=node->_children.begin(); iter!=node->_children.end(); ++iter)
-	{		
-		getChild(bones,*iter);			
-	   
+	{
+		getChild(bones,*iter);
 	}
-
 }
 
 C3DBone* C3DSkeleton::getBone(const std::string& name) const
@@ -68,24 +62,5 @@ C3DSkeleton* C3DSkeleton::clone()
 {
 	return NULL;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -9,7 +9,6 @@
 
 namespace cocos3d
 {
-
 C3DMeshSkin::C3DMeshSkin()
     : _rootJoint(NULL), _matrixPalette(NULL), _model(NULL), _partCount(0), _parts(NULL), _curPartIndex(0)
 {
@@ -19,7 +18,7 @@ C3DMeshSkin::~C3DMeshSkin()
 {
 	for (unsigned int i = 0; i < _partCount; ++i)
     {
-		SAFE_DELETE(_parts[i]);        
+		SAFE_DELETE(_parts[i]);
     }
 	SAFE_DELETE_ARRAY(_parts);
 
@@ -124,14 +123,13 @@ void C3DMeshSkin::setBonePartIndex(unsigned int index)
 	_curPartIndex = index;
 }
 
-unsigned int C3DMeshSkin::getBonePartIndex() 
+unsigned int C3DMeshSkin::getBonePartIndex()
 {
 	return _curPartIndex;
 }
 
 C3DVector4* C3DMeshSkin::getMatrixPalette(unsigned int index)
 {
-
 	BonePart* part = _parts[index];
 	std::vector<unsigned int>& indices = part->_indices;
 	unsigned int count = indices.size();
@@ -142,8 +140,6 @@ C3DVector4* C3DMeshSkin::getMatrixPalette(unsigned int index)
 	    _joints[boneIndex]->updateJointMatrix(getBindShape(), &_matrixPalette[i * PALETTE_ROWS]);
 	}
 	return _matrixPalette;
-
-
 }
 
 unsigned int C3DMeshSkin::getMatrixPaletteSize(unsigned int index)
@@ -167,13 +163,11 @@ C3DBone* C3DMeshSkin::getRootJoint() const
 
 void C3DMeshSkin::setRootJoint(C3DBone* joint)
 {
-	
     if (_rootJoint && _rootJoint->getParent() && _rootJoint->getParent()->getType() == C3DNode::NodeType_Bone)
     {
-		_rootJoint->getParent()->removeListener(this); 
-		_rootJoint->getParent()->release();		
+		_rootJoint->getParent()->removeListener(this);
+		_rootJoint->getParent()->release();
     }
-
 
     _rootJoint = joint;
 
@@ -181,13 +175,12 @@ void C3DMeshSkin::setRootJoint(C3DBone* joint)
     if (_rootJoint && _rootJoint->getParent() && _rootJoint->getParent()->getType() == C3DNode::NodeType_Bone)
     {
         _rootJoint->getParent()->addListener(this);
-		_rootJoint->getParent()->retain();		
+		_rootJoint->getParent()->retain();
     }
-	
 }
 
 void C3DMeshSkin::transformChanged(C3DTransform* transform)
-{    
+{
     // The direct parent of our joint hierarchy has changed.
     // Dirty the bounding volume for our model's node. This special
     // case allows us to have much tighter bounding volumes for
@@ -198,7 +191,6 @@ void C3DMeshSkin::transformChanged(C3DTransform* transform)
     {
         _model->getNode()->setBoundsDirty();
     }
-   
 }
 
 int C3DMeshSkin::getJointIndex(C3DBone* joint)
@@ -227,7 +219,6 @@ void C3DMeshSkin::clearJoints()
 
 BonePart* C3DMeshSkin::addPart(unsigned int batchID, unsigned int offsetVertexIndex, unsigned int numVertexIndex)
 {
-
     BonePart* part = BonePart::create(this, batchID, offsetVertexIndex, numVertexIndex);
     if (part)
     {
@@ -248,32 +239,31 @@ BonePart* C3DMeshSkin::addPart(unsigned int batchID, unsigned int offsetVertexIn
 
     return part;
 }
-    
+
 void C3DMeshSkin::copyFrom(C3DMeshSkin* skin, C3DNode::CloneContext& context)
 {
-	
     _bindShape = skin->_bindShape;
-    
+
     std::map<const C3DNode*, C3DNode*>::iterator it = context.cloneMap.find(skin->_rootJoint);
     C3DBone* rootbone = NULL;
     if (it == context.cloneMap.end())
         rootbone = (C3DBone*)skin->_rootJoint->clone(context);
     else
         rootbone = (C3DBone*)it->second;
-    
+
     setJointCount(skin->getJointCount());
     setRootJoint(rootbone);
-    
+
     size_t i;
-    for (i = 0; i < skin->_joints.size(); i++) 
+    for (i = 0; i < skin->_joints.size(); i++)
 	{
         std::string strid = skin->_joints[i]->getId();
       //  strid += context.idSuffix;
-        
+
        //C3DBone* bone = (strid == rootbone->getId() ? rootbone : (C3DBone*)rootbone->findNode(strid.c_str()));
 		//C3DBone* bone = (C3DBone*)context.cloneMap[skin->_joints[i]];
 
-		///....		
+		///....
 			std::map<const C3DNode*, C3DNode*>::iterator itr = context.cloneMap.find(skin->_joints[i]);
 
             C3DBone* bone = NULL;
@@ -295,14 +285,11 @@ void C3DMeshSkin::copyFrom(C3DMeshSkin* skin, C3DNode::CloneContext& context)
         setJoint(bone, i);
         //bone->release();
     }
-    
-    
+
     for (i = 0; i < skin->_partCount; i++) {
         addPart(skin->_parts[i]->_batchID, skin->_parts[i]->_offsetVertexIndex, skin->_parts[i]->_numVertexIndex);
         _parts[i]->setIndexData(&skin->_parts[i]->_indices[0], skin->_parts[i]->_indices.size());
     }
     setBonePartIndex(skin->getBonePartIndex());
-    
 }
-
 }

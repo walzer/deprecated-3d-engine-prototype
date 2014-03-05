@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 static const float MATRIX_IDENTITY[16] =
 {
     1.0f, 0.0f, 0.0f, 0.0f,
@@ -65,7 +64,7 @@ const C3DMatrix& C3DMatrix::zero()
 C3DMatrix C3DMatrix::createFromVectors(C3DVector3& vx, C3DVector3& vy, C3DVector3& vz, C3DVector3& pos)
 {
 	C3DMatrix mat;
-	
+
 	vx.normalize();
 	vy.normalize();
 	vz.normalize();
@@ -91,7 +90,6 @@ C3DMatrix C3DMatrix::createFromVectors(C3DVector3& vx, C3DVector3& vy, C3DVector
 	mat.m[15] = 1.0f;
 
 	return mat;
-
 }
 
 void C3DMatrix::createPitchYawRoll(float pitch, float yaw, float roll, C3DMatrix* dst)
@@ -119,7 +117,6 @@ void C3DMatrix::createPitchYawRoll(float pitch, float yaw, float roll, C3DMatrix
 
     dst->m[3] = dst->m[7] = dst->m[11] = 0.0;
     dst->m[15] = 1.0;
-
 }
 
 void C3DMatrix::createLookAt(const C3DVector3& eyePosition, const C3DVector3& targetPosition, const C3DVector3& up, C3DMatrix* dst)
@@ -171,7 +168,6 @@ void C3DMatrix::createLookAt(float eyePositionX, float eyePositionY, float eyePo
     dst->m[15] = 1.0f;
 }
 
-
 void C3DMatrix::createPerspective(float fieldOfView, float aspectRatio,
                                      float zNearPlane, float zFarPlane, C3DMatrix* dst)
 {
@@ -213,9 +209,7 @@ void C3DMatrix::createPerspectiveOffCenter(float left, float right, float bottom
 	dst->m[10] = (-(zFar + zNear)) * f_n;
 	dst->m[11] = -1.0f;
     dst->m[14] = -2.0f * zNear * zFar * f_n;
-   
 }
-
 
 void C3DMatrix::createOrthographic(float width, float height, float zNearPlane, float zFarPlane, C3DMatrix* dst)
 {
@@ -264,7 +258,6 @@ void C3DMatrix::createScale(float xScale, float yScale, float zScale, C3DMatrix*
     dst->m[5] = yScale;
     dst->m[10] = zScale;
 }
-
 
 void C3DMatrix::createRotation(const C3DQuaternion& q, C3DMatrix* dst)
 {
@@ -339,7 +332,6 @@ void C3DMatrix::createRotation(const C3DVector3& axis, float angle, C3DMatrix* d
         c = cos(angle);
         s = sin(angle);
     }
-    
 
     float t = 1.0f - c;
     float tx = t * x;
@@ -568,7 +560,7 @@ bool C3DMatrix::decompose(C3DVector3* scale, C3DQuaternion* rotation, C3DVector3
         rotation->x = ( yaxis.z - zaxis.y ) * s;
         rotation->y = ( zaxis.x - xaxis.z ) * s;
         rotation->z = ( xaxis.y - yaxis.x ) * s;
-    } 
+    }
     else
     {
         if (xaxis.x > yaxis.y && xaxis.x > zaxis.z)
@@ -637,12 +629,11 @@ void C3DMatrix::getPosition(C3DVector3* translation) const
 void C3DMatrix::getUpVector(C3DVector3* dst) const
 {
     assert(dst);
-	
+
 	dst->x = m[4];
     dst->y = m[5];
     dst->z = m[6];
 }
-
 
 void C3DMatrix::getRightVector(C3DVector3* dst) const
 {
@@ -656,12 +647,11 @@ void C3DMatrix::getRightVector(C3DVector3* dst) const
 void C3DMatrix::getForwardVector(C3DVector3* dst) const
 {
     assert(dst);
-	
+
 	dst->x = -m[8];
     dst->y = -m[9];
     dst->z = -m[10];
 }
-
 
 bool C3DMatrix::invert()
 {
@@ -793,7 +783,6 @@ void C3DMatrix::multiplyTransMatrix(const C3DMatrix& m1, const C3DMatrix& m2, C3
 
     memcpy(dst->m, product, MATRIX_SIZE);
 #endif
-
 }
 
 void C3DMatrix::multiply(const C3DMatrix& m1, const C3DMatrix& m2, C3DMatrix* dst)
@@ -801,13 +790,13 @@ void C3DMatrix::multiply(const C3DMatrix& m1, const C3DMatrix& m2, C3DMatrix* ds
     //assert(dst);
 
 #if defined(__ARM_NEON__) && !defined(__arm64__)
-    
+
     // It is possible to skip the memcpy() since "out" does not overwrite p1 or p2.
     // otherwise a temp must be needed.
-    
+
     // Invert column-order with row-order
     NEON_Matrix4Mul( &m2.m[0], &m1.m[0], &dst->m[0] );
-    
+
 #else
 
     // Support the case where m1 or m2 is the same array as dst.
@@ -835,7 +824,6 @@ void C3DMatrix::multiply(const C3DMatrix& m1, const C3DMatrix& m2, C3DMatrix* ds
 
     memcpy(dst->m, product, MATRIX_SIZE);
 #endif
-    
 }
 
 void C3DMatrix::negate()
@@ -938,13 +926,13 @@ void C3DMatrix::rotateZ(float angle, C3DMatrix* dst) const
 {
     assert(dst);
 
-#if defined(__ARM_NEON__) && !defined(__arm64__) 
+#if defined(__ARM_NEON__) && !defined(__arm64__)
      float d[2] = {
             cosf(angle),
             sinf(angle)
         };
     NEON_Matrix4Copy(m, dst->m);
-    NEON_Matrix4RotateZ(dst->m, d);  
+    NEON_Matrix4RotateZ(dst->m, d);
 #else
     C3DMatrix r;
     createRotationZ(angle, &r);
@@ -968,7 +956,7 @@ void C3DMatrix::scale(float xScale, float yScale, float zScale)
 }
 
 void C3DMatrix::setScale(float xScale,float yScale,float zScale)
-{	
+{
     this->m[0] = xScale;
     this->m[5] = yScale;
     this->m[10] = zScale;
@@ -1128,11 +1116,11 @@ void C3DMatrix::transformVector(float x, float y, float z, float w, C3DVector3* 
         x * m[2] + y * m[6] + z * m[10] + w * m[14] );
 #endif
 }
-    
+
 void C3DMatrix::transformVector(float x, float y, float z, C3DVector3* dst) const
 {
     assert(dst);
-    
+
     dst->set(x * m[0] + y * m[4] + z * m[8],
              x * m[1] + y * m[5] + z * m[9],
              x * m[2] + y * m[6] + z * m[10]);
@@ -1190,7 +1178,7 @@ void C3DMatrix::transpose()
 void C3DMatrix::transpose(C3DMatrix* dst) const
 {
     assert(dst);
-    
+
     float t[16] = {
         m[0], m[4], m[8], m[12],
         m[1], m[5], m[9], m[13],
@@ -1199,34 +1187,33 @@ void C3DMatrix::transpose(C3DMatrix* dst) const
     };
     memcpy(dst->m, t, MATRIX_SIZE);
 }
-    
+
 C3DMatrix& C3DMatrix::invertOrthMat()
 {
     C3DMatrix src = *this;
     C3DMatrix::invertOrthMat(src, *this);
     return *this;
 }
-    
+
 void C3DMatrix::invertOrthMat(const C3DMatrix& mat, C3DMatrix& invMat)
 {
     invMat.m[0] = mat.m[0];
     invMat.m[1] = mat.m[4];
     invMat.m[2] = mat.m[8];
-    
+
     invMat.m[4] = mat.m[1];
     invMat.m[5] = mat.m[5];
     invMat.m[6] = mat.m[9];
-    
+
     invMat.m[8] = mat.m[2];
     invMat.m[9] = mat.m[6];
     invMat.m[10] = mat.m[10];
-    
+
     invMat.m[3] = invMat.m[7] = invMat.m[11] = 0.0f;
-    
+
     invMat.m[12] = -mat.m[0] * mat.m[12] - mat.m[1] * mat.m[13] - mat.m[2] * mat.m[14];
     invMat.m[13] = -mat.m[4] * mat.m[12] - mat.m[5] * mat.m[13] - mat.m[6] * mat.m[14];
     invMat.m[14] = -mat.m[8] * mat.m[12] - mat.m[9] * mat.m[13] - mat.m[10] * mat.m[14];
     invMat.m[15] = 1.0f;
 }
-
 }

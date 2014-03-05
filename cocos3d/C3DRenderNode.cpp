@@ -32,26 +32,21 @@
 
 namespace cocos3d
 {
-    
-
 C3DRenderNode::C3DRenderNode(const std::string& id):C3DNode(id),C3DResource(id),_isVisibleByCamera(true)
 {
-	_scene = NULL;		
-	
+	_scene = NULL;
+
 	_showSkeleton = false;
 	_showCollitionBox = false;
-	
 }
-
 
 C3DRenderNode::~C3DRenderNode()
 {
-	_scene = NULL;	
-	
+	_scene = NULL;
 
 	if (_attachNodes.size() > 0)
-    {		
-		std::vector<AttachNode*>::iterator iter = _attachNodes.begin();        
+    {
+		std::vector<AttachNode*>::iterator iter = _attachNodes.begin();
         while (iter != _attachNodes.end())
         {
             AttachNode* an = *iter;
@@ -69,13 +64,11 @@ C3DRenderNode::~C3DRenderNode()
 	m_collitionBoxs.clear();
 }
 
-
-
 C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fileName)
-{	
+{
 	// Load mesh/scene from file
 	C3DResourceLoader* loader = C3DResourceLoader::create(fileName);
-			
+
 	if (loader == NULL)
         return NULL;
 
@@ -95,11 +88,10 @@ C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fi
 	return renderNode;
 }
 
-
 void C3DRenderNode::draw()
 {
 	if(_active == false)
-		return;					
+		return;
 
 	if (_isVisibleByCamera)
 	{
@@ -110,17 +102,15 @@ void C3DRenderNode::draw()
 			if (node->getType() != C3DNode::NodeType_Model)
 				continue;
 
-
-			node->draw();		
-		}	
+			node->draw();
+		}
 	}
 
 	std::vector<AttachNode*>::iterator nit;
 	for (nit = _attachNodes.begin(); nit != _attachNodes.end(); nit++)
-	{		
-		(*nit)->draw();			
+	{
+		(*nit)->draw();
 	}
-	
 }
 
 /**
@@ -133,13 +123,12 @@ void C3DRenderNode::update(long elapsedTime)
 	_isVisibleByCamera = (_scene->getActiveCamera()->isVisible(*_bb));
 
 	if(_attachNodes.size()>0)
-	{		
+	{
 		for (std::vector<AttachNode*>::iterator nit = _attachNodes.begin(); nit != _attachNodes.end(); nit++)
-		{		
-			(*nit)->update(elapsedTime);			
+		{
+			(*nit)->update(elapsedTime);
 		}
 	}
-
 
 	// update CollitionBox
 	std::vector<C3DCollitionBox*>::iterator iter = m_collitionBoxs.begin();
@@ -150,11 +139,11 @@ void C3DRenderNode::update(long elapsedTime)
 }
 
 AttachNode * C3DRenderNode::accessNode( C3DNode* pNode)
-{	
+{
 	std::vector<AttachNode*>::iterator nit;
 	for (nit = _attachNodes.begin(); nit != _attachNodes.end(); nit++)
-	{		
-		if ( (*nit)->node() == pNode ) 
+	{
+		if ( (*nit)->node() == pNode )
 			break;
 	}
 	if (nit == _attachNodes.end())
@@ -167,31 +156,28 @@ AttachNode * C3DRenderNode::accessNode( C3DNode* pNode)
 
 AttachNode * C3DRenderNode::attachNode( const std::string & nodeName )
 {
-	
 	C3DNode* pNode;
 
 	if (nodeName.empty())
-	{					
-		return NULL;		
+	{
+		return NULL;
 	}
 	else
 	{
 		pNode = findNode( nodeName.c_str() );
 		if (!pNode)
-		{			
+		{
 			return NULL;
 		}
 	}
-		
+
 	AttachNode * pAttachNode = this->accessNode( pNode );
-	
-	
+
 	return pAttachNode;
 }
 
-
 void C3DRenderNode::attach(const std::string& nodeName, C3DNode* attachment)
-{	
+{
 	AttachNode* attachNode = this->attachNode(nodeName);
 	if(attachNode==NULL)
 		return;
@@ -211,7 +197,7 @@ void C3DRenderNode::detach(const std::string& nodeName, C3DNode* attachment)
 void C3DRenderNode::drawCollitionBox()
 {
 	if(_active == false)
-		return; 
+		return;
 
 	std::vector<C3DCollitionBox*>::iterator iter = m_collitionBoxs.begin();
 	for ( ; iter != m_collitionBoxs.end(); iter++)
@@ -228,18 +214,15 @@ void C3DRenderNode::drawCollitionBox()
 void C3DRenderNode::drawDebug()
 {
 	C3DNode::drawDebug();
-		
+
 	if (_showCollitionBox)
 		drawCollitionBox();
 }
 
 void C3DRenderNode::transformChanged()
 {
-	C3DNode::transformChanged();    
-		
+	C3DNode::transformChanged();
 }
-   
-
 
 void C3DRenderNode::showCollitionBox(bool show)
 {
@@ -256,9 +239,9 @@ void C3DRenderNode::copyFrom(const C3DTransform* other, C3DNode::CloneContext& c
 	const C3DRenderNode* otherNode = static_cast<const C3DRenderNode*>(other);
 
 	C3DNode::copyFrom(other, context);
-	
+
 	_showSkeleton = otherNode->_showSkeleton;
-	
+
 	if (otherNode->_attachNodes.size())
     {
         for (size_t i = 0; i < otherNode->_attachNodes.size(); i++) {
@@ -282,11 +265,11 @@ C3DMaterial* C3DRenderNode::getMaterial(const std::string& meshName)
 	if (node->getType() != C3DNode::NodeType_Model)
 		return NULL;
 
-	return static_cast<C3DModelNode*>(node)->getModel()->getMaterial();		
+	return static_cast<C3DModelNode*>(node)->getModel()->getMaterial();
 }
 
 void C3DRenderNode::getAllModel(std::list<C3DNode*>& models)
-{		
+{
 	models.clear();
 	for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)
 	{
@@ -300,17 +283,14 @@ void C3DRenderNode::getAllModel(std::list<C3DNode*>& models)
 
 void C3DRenderNode::setMaterial(const std::string& modelName, const std::string& matName)
 {
-	
 	C3DNode* node = findNode(modelName.c_str());
 	if (node == NULL)
 		return;
-	
-	if (node->getType() != C3DNode::NodeType_Model)
-		return;	
-			
-	static_cast<C3DModelNode*>(node)->getModel()->setMaterial(matName.c_str());		
-			
 
+	if (node->getType() != C3DNode::NodeType_Model)
+		return;
+
+	static_cast<C3DModelNode*>(node)->getModel()->setMaterial(matName.c_str());
 }
 
 void C3DRenderNode::setMaterial(const std::string& matName)
@@ -321,10 +301,9 @@ void C3DRenderNode::setMaterial(const std::string& matName)
 
         if(node->getType()!=C3DNode::NodeType_Model )
             continue;
-        static_cast<C3DModelNode*>(node)->getModel()->setMaterial(matName.c_str());		
+        static_cast<C3DModelNode*>(node)->getModel()->setMaterial(matName.c_str());
     }
 }
-
 
 void C3DRenderNode::setMaterial(C3DMaterial* material)
 {
@@ -336,9 +315,8 @@ void C3DRenderNode::setMaterial(C3DMaterial* material)
 		{
 			continue;
 		}
-		static_cast<C3DModelNode*>(node)->getModel()->setMaterial( material );		
+		static_cast<C3DModelNode*>(node)->getModel()->setMaterial( material );
 	}
-
 }
 
 void C3DRenderNode::setDefaultMaterial(const std::string& path)
@@ -349,7 +327,7 @@ void C3DRenderNode::setDefaultMaterial(const std::string& path)
 
         if(node->getType()!=C3DNode::NodeType_Model )
             continue;
-        static_cast<C3DModelNode*>(node)->getModel()->setDefaultMaterial(path);		
+        static_cast<C3DModelNode*>(node)->getModel()->setDefaultMaterial(path);
     }
 }
 
@@ -360,7 +338,7 @@ void C3DRenderNode::removeMaterial(const std::string& modelName, const std::stri
 		return;
 
 	if (node->getType() != C3DNode::NodeType_Model)
-		return;	
+		return;
 
 	static_cast<C3DModelNode*>(node)->getModel()->removeMaterial();
 }
@@ -373,22 +351,21 @@ void C3DRenderNode::removeMaterial(const std::string& matName)
 
 		if(node->getType()!=C3DNode::NodeType_Model )
 			continue;
-		static_cast<C3DModelNode*>(node)->getModel()->removeMaterial();		
+		static_cast<C3DModelNode*>(node)->getModel()->removeMaterial();
 	}
 }
-
 
 unsigned int C3DRenderNode::getTriangleCount() const
 {
     int nTriangle = 0;
-    
+
     for(std::vector<C3DNode*>::const_iterator iter=_children.begin(); iter!=_children.end(); ++iter)
 	{
 		C3DNode* node = *iter;
-        
+
 		if(node->getType()!=C3DNode::NodeType_Model )
 			continue;
-        
+
         C3DMesh* mesh = ((C3DModelNode*)node)->getModel()->getMesh();
 		nTriangle += mesh->getTriangleCount();
 	}
@@ -420,7 +397,6 @@ unsigned int C3DRenderNode::addCollitionBox(const std::string& strAttachBone, co
 	m_collitionBoxs.push_back((new cocos3d::C3DCollitionBox(this, getValidCollitionBoxID(), strAttachBone, offset, fRadius)));
 	return m_collitionBoxs.size();
 }
-
 
 void C3DRenderNode::removeCollitionBox(C3DCollitionBox* bb)
 {
@@ -478,7 +454,7 @@ bool C3DRenderNode::saveCollitionBox(const std::string& fileName)const
 
 		tpBoxListNode->addChildNode(tpNodeTechnique);
 	}
-	
+
 	tpBoxListNode->writeToFile(fileName.c_str());
 	SAFE_DELETE(tpBoxListNode);
 	return true;
@@ -507,12 +483,11 @@ bool C3DRenderNode::loadCollitionBox(const std::string& fileName)
 			tpNode->getElement("radius", &radius);
 
 			std::string strBoneName = tpNode->getElement("bone");
-			
+
 			addCollitionBox(std::string(strBoneName), center, radius);
 		}
 	}
 	SAFE_DELETE(tpBoxListNode);
 	return true;
 }
-
 }

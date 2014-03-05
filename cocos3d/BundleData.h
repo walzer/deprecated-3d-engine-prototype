@@ -7,7 +7,6 @@
 
 namespace cocos3d
 {
-
 class C3DMeshSkin;
 class MeshPartData;
 class C3DVertexFormat;
@@ -15,11 +14,11 @@ class C3DVertexElement;
 class C3DAABB;
 
 /**
-mesh data 
+mesh data
 */
 class MeshData
 {
-public:  
+public:
 	/**
      * Constructor & Destructor.
      */
@@ -33,7 +32,6 @@ public:
 
     PrimitiveType primitiveType;
     std::vector<MeshPartData*> parts;
-
 };
 
 //class MorphTargetData
@@ -41,7 +39,7 @@ public:
 //public:
 //	MorphTargetData();
 //	~MorphTargetData();
-//	unsigned int index;	
+//	unsigned int index;
 //	std::string name;
 //	std::vector<VertexOffset> offsets;
 //};
@@ -55,8 +53,6 @@ public:
 //	std::vector<MorphTargetData*>* _morphTargets;
 //
 //};
-
-
 
 /**
 bone index data
@@ -93,8 +89,6 @@ public:
     C3DMeshSkin* skin;
     std::vector<std::string> joints;
     std::vector<C3DMatrix> inverseBindPoseMatrices;
-
-	
 };
 
 /**
@@ -114,7 +108,6 @@ public:
     unsigned int indexCount;
     unsigned char* indexData;
 };
-
 }
 
 #endif

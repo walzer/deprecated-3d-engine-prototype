@@ -7,7 +7,6 @@
 using namespace std;
 namespace cocos3d
 {
-
 /**
  * Defines structure to describe runtime expression.
  */
@@ -26,9 +25,7 @@ class  FacialComponent
 private:
 	string name;
 	std::map<std::string,Expression*>* _expressions;
-	
 };
-
 
 class SheetAnimation;
 
@@ -63,10 +60,7 @@ private:
 	typedef map<string,list<SheetAnimation*>*>::iterator map_iter;
 	typedef list<SheetAnimation*>::iterator list_iter;
 	map<string,list<SheetAnimation*>*>* _anims;
-
 };
-
-
 }
 
 #endif

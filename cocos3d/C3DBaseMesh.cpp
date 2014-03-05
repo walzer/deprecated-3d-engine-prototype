@@ -3,26 +3,21 @@
 
 namespace cocos3d
 {
-	
 C3DBaseMesh::C3DBaseMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType)
 	: _vertexFormat(NULL), _primitiveType(primitiveType)
 {
 	_vertexFormat = new C3DVertexFormat(vertexFormat);
 }
 
-
-
 C3DBaseMesh::~C3DBaseMesh()
 {
 	SAFE_DELETE(_vertexFormat);
 }
 
-
 const C3DVertexFormat* C3DBaseMesh::getVertexFormat() const
 {
     return _vertexFormat;
 }
-
 
 unsigned int C3DBaseMesh::getVertexSize() const
 {
@@ -43,6 +38,4 @@ unsigned int C3DBaseMesh::getTriangleCount() const
 {
 	return 0;
 }
-
-
 }

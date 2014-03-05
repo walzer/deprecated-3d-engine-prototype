@@ -7,8 +7,6 @@
 
 namespace cocos3d
 {
-
-
 class C3DNode;
 
 class C3DPass;
@@ -20,7 +18,7 @@ class C3DElementNode;
  */
 class C3DStateBlock : public cocos2d::CCObject
 {
-    friend class C3DRenderState;       
+    friend class C3DRenderState;
 	friend class C3DRenderSystem;
 
 public:
@@ -86,7 +84,7 @@ public:
         * @param blend Specifies how the destination blending factors are computed.
         */
     void setBlendDst(Blend blend);
-    
+
     /**
         * Explicitly enables or disables backface culling.
         *
@@ -101,7 +99,7 @@ public:
         */
     void setDepthTest(bool enabled);
 
-    /** 
+    /**
         * Toggles depth writing.
         *
         * @param enabled true to enable, false to disable.
@@ -119,17 +117,17 @@ public:
         * @param value Value of the specified render state.
         */
     void setState(const std::string& name, const std::string& value);
-        
+
     /**
         * backup current opengl state to this instance, and sync current state with the opengl state.
         */
     void backUpGLState();
-        
+
     /**
      * restore opengl state.
     */
     void restoreGLState(bool bforce = false);
-        
+
 	bool load(C3DElementNode* node);
 	bool save(C3DElementNode* node);
 
@@ -147,7 +145,7 @@ private:
         * Constructor.
         */
     C3DStateBlock();
-		
+
     /**
         * Destructor.
         */
@@ -168,13 +166,12 @@ private:
     Blend _dstBlend;
     // State bits
     long _bits;
-        
+
     static C3DStateBlock* _defaultState;
 };
 
 	extern const std::string blendToString(C3DStateBlock::Blend blend);
 	extern C3DStateBlock::Blend parseBlend(const std::string& value);
 }
-
 
 #endif

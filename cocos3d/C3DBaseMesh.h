@@ -6,17 +6,15 @@
 
 namespace cocos3d
 {
-
 class C3DVertexFormat;
 
 class C3DBaseMesh : public cocos2d::CCObject
 {
-
 public:
 	C3DBaseMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);
-    virtual ~C3DBaseMesh();	
+    virtual ~C3DBaseMesh();
 
-	const C3DVertexFormat* getVertexFormat() const;	   
+	const C3DVertexFormat* getVertexFormat() const;
 
     unsigned int getVertexSize() const;
 
@@ -25,13 +23,11 @@ public:
     void setPrimitiveType(PrimitiveType type);
 
 	virtual unsigned int getTriangleCount() const;
-	
+
 protected:
-	const C3DVertexFormat* _vertexFormat;   
+	const C3DVertexFormat* _vertexFormat;
 	PrimitiveType _primitiveType;
-
 };
-
 }
 
 #endif

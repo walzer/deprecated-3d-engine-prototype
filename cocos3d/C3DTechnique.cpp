@@ -10,7 +10,6 @@
 
 namespace cocos3d
 {
-
 C3DTechnique::C3DTechnique()
     : _id(""), _material(NULL)
 {
@@ -20,7 +19,7 @@ C3DTechnique::C3DTechnique(const std::string& id, C3DMaterial* material)
     : _id(id), _material(material)
 {
     assert(material);
-	
+
     C3DRenderState::_parent = material;
 }
 
@@ -94,7 +93,7 @@ C3DTechnique* C3DTechnique::clone() const
 {
 	C3DTechnique* other = new C3DTechnique(_id, _material);
 	other->copyFrom(this);
-	
+
 	for (size_t i = 0; i < _passes.size(); i++)
 	{
 		other->_passes.push_back(_passes[i]->clone());
@@ -153,7 +152,7 @@ bool C3DTechnique::load(C3DElementNode* techniqueNodes)
 bool C3DTechnique::save(C3DElementNode* node)
 {
    // C3DElementNode* node = C3DElementNode::createEmptyNode(this->getId(), "technique");
-    
+
     //C3DRenderChannel* channel = this->getChannel();
     //if (channel)
     //{
@@ -185,7 +184,5 @@ bool C3DTechnique::save(C3DElementNode* node)
 
     return true;
 }
-
-
 
 }

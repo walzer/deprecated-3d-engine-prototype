@@ -5,7 +5,6 @@
 
 namespace cocos3d
 {
-
 class C3DRay;
 class C3DVector3;
 class C3DCone
@@ -24,9 +23,9 @@ public:
      * since I have a translation class which supports rotation
      */
     C3DCone(const C3DVector3& center, align dim, float radius, float height);
-    
+
     virtual ~C3DCone(){}
-    
+
     virtual bool Intersect(const C3DRay *ray)const;
 
 private:
@@ -39,8 +38,6 @@ private:
 	float _height;
 	int _dim;
 };
-
-
 }
 
 #endif//C3DCONE_H_

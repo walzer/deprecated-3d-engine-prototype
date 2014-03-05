@@ -6,7 +6,6 @@
 
 namespace cocos3d
 {
-
 C3DSampler::C3DSampler()
     : _texture(NULL), _wrapS(Texture_Wrap_CLAMP), _wrapT(Texture_Wrap_CLAMP), _magFilter(Texture_Filter_LINEAR)
 {
@@ -20,7 +19,7 @@ C3DSampler::C3DSampler(C3DTexture* texture)
 	texture->retain();
 	setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     _minFilter = texture->isMipmapped() ? Texture_Filter_LINEAR_MIPMAP_LINEAR : Texture_Filter_LINEAR;
-    _dirtyBit = Texture_All_Dirty; 
+    _dirtyBit = Texture_All_Dirty;
 }
 
 C3DSampler::~C3DSampler()
@@ -30,7 +29,7 @@ C3DSampler::~C3DSampler()
 
 C3DSampler* C3DSampler::create(C3DTexture* texture)
 {
-    assert(texture != NULL);    
+    assert(texture != NULL);
 
 	C3DSampler* sample = new C3DSampler(texture);
 
@@ -41,7 +40,7 @@ C3DSampler* C3DSampler::create(const std::string& path, bool generateMipmaps)
 {
     C3DTexture* texture = C3DTexture::create(path, generateMipmaps);
 
-	assert(texture != NULL);	
+	assert(texture != NULL);
 
 	C3DSampler* sample = new C3DSampler(texture);
 
@@ -53,12 +52,11 @@ void C3DSampler::setTexture(const std::string& path, bool generateMipmaps)
 	SAFE_RELEASE(_texture);
     C3DTexture* texture = C3DTexture::create(path, generateMipmaps);
 
-	assert(texture != NULL);	
-	
-    _texture = texture;	
+	assert(texture != NULL);
+
+    _texture = texture;
 	_texture->retain();
     _dirtyBit = Texture_All_Dirty;
-   
 }
 
 inline unsigned long nextPOT(unsigned long x)
@@ -83,7 +81,7 @@ void C3DSampler::setWrapMode(Texture_Wrap wrapS, Texture_Wrap wrapT)
 			sizePot = false;
 			if ( wrapS != Texture_Wrap_CLAMP || wrapT != Texture_Wrap_CLAMP )
 			{
-				LOG_ERROR("C3DSampler::setWrapMode texture size is not pot, can only use wrao mode CLAMP" );                 
+				LOG_ERROR("C3DSampler::setWrapMode texture size is not pot, can only use wrao mode CLAMP" );
 			}
 		}
 	}
@@ -204,7 +202,6 @@ const std::string textureFilterModeToString(Texture_Filter filter)
         return "NEAREST_MIPMAP_LINEAR";
     case Texture_Filter_NEAREST_MIPMAP_NEAREST:
         return "NEAREST_MIPMAP_NEAREST";
-
     }
 
     return "NEAREST";
@@ -227,7 +224,6 @@ const std::string textureWrapModeToString(Texture_Wrap wrap)
     return "CLAMP";
 }
 
-
 bool C3DSampler::load(C3DElementNode* node)
 {
 	// Read the texture uniform name
@@ -246,17 +242,17 @@ bool C3DSampler::load(C3DElementNode* node)
     Texture_Wrap wrapT = parseTextureWrapMode(node->getElement("wrapT"), Texture_Wrap_REPEAT);
     Texture_Filter minFilter = parseTextureFilterMode(node->getElement("minFilter"), mipmap ? Texture_Filter_NEAREST_MIPMAP_LINEAR : Texture_Filter_LINEAR);
     Texture_Filter magFilter = parseTextureFilterMode(node->getElement("magFilter"), Texture_Filter_LINEAR);
-		
+
 	this->setTexture(path,mipmap);
-   
+
     this->setWrapMode(wrapS, wrapT);
     this->setFilterMode(minFilter, magFilter);
-  
+
 	return true;
 }
 
 bool C3DSampler::save(C3DElementNode* node)
-{	
+{
     node->setElement("path", this->getPath());
     node->setElement("mipmap", textureFilterModeHasMipmap(this->getMinFilter()) ? "true" : "false");
     node->setElement("wrapS", textureWrapModeToString(this->getWrapS()));
@@ -265,5 +261,4 @@ bool C3DSampler::save(C3DElementNode* node)
     node->setElement("magFilter", textureFilterModeToString(this->getMagFilter()));
 	return true;
 }
-
 }

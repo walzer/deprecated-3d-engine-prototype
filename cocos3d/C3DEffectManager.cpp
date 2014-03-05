@@ -9,25 +9,23 @@ namespace cocos3d
 {
 static C3DEffectManager* __effectManagerInstance = NULL;
 
-C3DEffectManager::C3DEffectManager() 
+C3DEffectManager::C3DEffectManager()
 {
 }
 
 C3DEffectManager::~C3DEffectManager()
 {
 	__effectManagerInstance = NULL;
-    
 }
 
 C3DEffectManager* C3DEffectManager::getInstance()
-{	   
+{
 	if (!__effectManagerInstance)
     {
         __effectManagerInstance = new C3DEffectManager();
         __effectManagerInstance->autorelease();
     }
     return __effectManagerInstance;
-
 }
 
 void C3DEffectManager::preload(const std::string& name)
@@ -43,24 +41,23 @@ void C3DEffectManager::preload(const std::string& name)
 
 		loadAllEffect(doc->getNodeType().empty() ? doc->getNextChild():doc);
 		SAFE_DELETE(doc);
-	}	
+	}
 }
-
 
 void C3DEffectManager::loadAllEffect(C3DElementNode* effectNodes)
 {
 	if( effectNodes != NULL )
-	{		
+	{
 		if (effectNodes->getNodeType() != "Effects")
 		{
 			LOG_ERROR("Error proLoading Effects: No 'Effects' namespace found");
 			return;
 		}
 		else
-		{		
+		{
 			effectNodes->rewind();
 			C3DElementNode* effectNode = NULL;
-			
+
 			while ((effectNode = effectNodes->getNextChild()))
 			{
 				if (effectNode->getNodeType()=="Effect")
@@ -82,7 +79,7 @@ void C3DEffectManager::loadAllEffect(C3DElementNode* effectNodes)
 						while (!(defines = flagsNode->getNextElement()).empty())
 						{
 							val = flagsNode->getElement("");
-														
+
 							std::string flag;
 							if (!defines.empty())
 							{
@@ -94,19 +91,19 @@ void C3DEffectManager::loadAllEffect(C3DElementNode* effectNodes)
 									flag.replace(pos, 1, "\n#define ");
 								}
 								flag += "\n";
-							}							
+							}
 
 							flags.push_back(flag);
-						}						
-					}	
+						}
+					}
 
 					C3DElementNode* elementNode = C3DElementNode::createEmptyNode("test", "effect");
 					elementNode->setElement("vertexShader",  vspath);
-					elementNode->setElement("fragmentShader", fspath);	
-					
+					elementNode->setElement("fragmentShader", fspath);
+
 					std::string define;
 					for(std::vector<std::string>::iterator iter = flags.begin();iter!=flags.end();++iter)
-					{		
+					{
 						define = *iter;
 						if(!define.empty())
 							elementNode->setElement("defines", define);
@@ -114,11 +111,10 @@ void C3DEffectManager::loadAllEffect(C3DElementNode* effectNodes)
 						preload(elementNode);
 					}
 					SAFE_DELETE(elementNode);
-				}				
+				}
 			}
-		}	
-	}	
-
+		}
+	}
 }
 
 C3DResource* C3DEffectManager::createResource(const std::string& name)
@@ -137,31 +133,31 @@ C3DResource* C3DEffectManager::createResource(const std::string& name)
 	if(elementNode != NULL)
 	{
 		elementNode->setElement("vertexShader", vshpath);
-		elementNode->setElement("fragmentShader", fshpath);			
+		elementNode->setElement("fragmentShader", fshpath);
 		if(!define.empty())
 			elementNode->setElement("defines", define);
-	} 				
+	}
 
 	C3DResource* effect = new C3DEffect(name);
 	effect->autorelease();
 
 	if(effect->load(elementNode) == true)
-	{	
+	{
 		this->setResourceState(effect,C3DResource::State_Used);
 	}
 	effect->retain();
 
 	SAFE_DELETE(elementNode);
-		
-	return effect;    
+
+	return effect;
 }
 
 std::string C3DEffectManager::generateID( std::string& vshPath, std::string& fshPath, std::string& defines )
-{	 
+{
 	assert(vshPath.c_str());
-    
+
 	assert(fshPath.c_str());
-   
+
     std::string define;
 	if (defines.size() != 0)
     {
@@ -183,27 +179,24 @@ std::string C3DEffectManager::generateID( std::string& vshPath, std::string& fsh
 	{
 		uniqueId += define;
 	}
-	
+
 	return uniqueId;
-
 }
-
 
 C3DResource* C3DEffectManager::cloneResource(C3DResource* resource)
 {
 	if(resource != NULL)
     {
-		resource->retain();		
+		resource->retain();
 		this->setResourceState(resource,C3DResource::State_Used);
-		return resource;		
+		return resource;
     }
 	else
 		return NULL;
-
 }
 
 void C3DEffectManager::preload(C3DElementNode* node)
-{	
+{
 	const std::string& vshPath = node->getElement("vertexShader");
 	const std::string& fshPath = node->getElement("fragmentShader");
 	const std::string& defines = node->getElement("defines");
@@ -220,7 +213,7 @@ void C3DEffectManager::preload(C3DElementNode* node)
 	C3DResource* effect = this->findResource(uniqueId);
 
 	if(effect != NULL)
-		return; 
+		return;
 	else
 	{
 		C3DEffect* effect = new C3DEffect(uniqueId);
@@ -228,12 +221,9 @@ void C3DEffectManager::preload(C3DElementNode* node)
 		effect->autorelease();
 
 		if(effect->load(node) == true)
-		{			
+		{
 			this->setResourceState(effect,C3DResource::State_Used);
-			
-		}	
+		}
 	}
-
 }
-
 }

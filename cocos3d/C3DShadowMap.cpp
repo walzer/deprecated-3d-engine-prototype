@@ -6,16 +6,15 @@
 
 namespace cocos3d
 {
-    enum 
+    enum
     {
         DIRTY_DIMENSION = 1,
         DIRTY_MATRIX = 2,
     };
-    
-    C3DShadowMap::C3DShadowMap(const std::string& id) : C3DNode(id), _framebuffer(NULL), _texWidth(0), _texHeight(0), 
+
+    C3DShadowMap::C3DShadowMap(const std::string& id) : C3DNode(id), _framebuffer(NULL), _texWidth(0), _texHeight(0),
         _dimension(1.0f, 1.0f, 1.0f), _dirty(0), _sampler(NULL)
     {
-
     }
 
     C3DShadowMap::~C3DShadowMap()
@@ -81,7 +80,7 @@ namespace cocos3d
     {
         CCAssert(_framebuffer, "Empty frame buffer");;
         _framebuffer->bind();
-        
+
         glClear(GL_DEPTH_BUFFER_BIT);
         return true;
     }
@@ -96,7 +95,6 @@ namespace cocos3d
     {
         C3DNode::transformChanged();
         _dirty |= DIRTY_MATRIX;
-
     }
 
     C3DNode* C3DShadowMap::clone(C3DNode::CloneContext& context) const
@@ -107,7 +105,7 @@ namespace cocos3d
         return other;
     }
 
-    void C3DShadowMap::setDimension(float width, float height, float depth) 
+    void C3DShadowMap::setDimension(float width, float height, float depth)
     {
         _dimension.set(width, height, depth);
         _dirty |= DIRTY_DIMENSION;
@@ -121,7 +119,6 @@ namespace cocos3d
         C3DMatrix projMatrix;
 
         C3DMatrix::createOrthographic(_dimension.x * 2, _dimension.y * 2, 0.0, _dimension.z, &projMatrix);
-        
 
         C3DMatrix::multiply(projMatrix, viewMatrix, &_viewProjMatrix);
 
@@ -141,6 +138,4 @@ namespace cocos3d
     {
         return _sampler;
     }
-
-
 }

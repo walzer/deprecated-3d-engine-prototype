@@ -11,8 +11,7 @@
 #include "cocos2d.h"
 
 namespace cocos3d
-{	
-
+{
 class C3DVector2;
 class C3DVector3;
 class C3DScene;
@@ -45,45 +44,44 @@ public:
 
 	C3DSprite(const std::string& id);
 
-    ~C3DSprite(void);	
+    ~C3DSprite(void);
 
 	C3DNode::Type getType() const;
 
 	 // create sprite and add it to autorelease pool
     static C3DSprite* create(const std::string& id);
 
-	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false);	
+	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false);
 	virtual bool load(bool isLoadAll=false);
 	virtual bool load(const std::string& fileName);
 
 	void loadNode(const std::string& nodeName);
 	void loadNodes(std::list<std::string>* models);
-	
-	
+
 	/**
     * Update for handling update routines.
-    *    
+    *
     * @param elapsedTime The elapsed game time.
-    */	
-	void update(long elapsedTime);	
-	
+    */
+	void update(long elapsedTime);
+
 	/**
 	* draw debug info
 	*/
 	virtual void drawDebug();
 
 	/**
-    * load the model animation of the avatar.    
+    * load the model animation of the avatar.
     */
 	C3DAnimation* createAnimation();
 
 	/**
-    * create the facial anim of the avatar model.     
+    * create the facial anim of the avatar model.
     */
 	//void createFacialAnim();
 
 	/**
-    * add clip info of anim. 
+    * add clip info of anim.
     *
     * @param name The clip name.
 	* @param startFrame The startFrame.
@@ -97,19 +95,18 @@ public:
 	bool replaceAnimationClip(const std::string& name,unsigned int startFrame,unsigned int endFrame,float repeatCount,float speed);
 
 	/**
-    * play this avatar model's action by the given name   
+    * play this avatar model's action by the given name
     *
     * @param animName The action name.
-    */	
+    */
 	void playAnimationClip(const std::string& name);
-	void stopAnimationClip(const std::string& name);	 
-    void pauseAnimationClip(const std::string& name);  
-    void resumeAnimationClip(const std::string& name);    
+	void stopAnimationClip(const std::string& name);
+    void pauseAnimationClip(const std::string& name);
+    void resumeAnimationClip(const std::string& name);
     bool isAnimationClipPlaying(const std::string& name);
-						
+
 	bool loadMesh(const std::string& meshName);
-					
-		
+
 	virtual void calculateBoundingBox_();
 
 	void setSkeleton(C3DBone* joint);
@@ -119,10 +116,10 @@ public:
 
 	// 根据名字获得骨骼 lvlong
 	C3DBone* getBone(const std::string& name)const;
-    
+
     C3DAnimationClip* getAnimationClip(const std::string& strClip);
     C3DAnimationClip* getCurAnimationClip();
-    
+
     //unsigned int getTriangleCount() const;
 
 	// 获取动画总帧数 lvlong
@@ -131,25 +128,21 @@ public:
 	virtual C3DNode* clone(CloneContext& context) const;
 
 	void stopAllAnimationClip();
-		
+
 	//FacialAnimManager* getFacialAnimManager();
 
     C3DAnimation* getAnimation() { return _animation; }
 
 protected:
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
-		
 
-private:	
-	
-	//FacialAnimManager * _facialAnimManager;	
-		 	
+private:
+
+	//FacialAnimManager * _facialAnimManager;
+
 	C3DSkeleton* _skeleton;
-	C3DAnimation* _animation;  
-
+	C3DAnimation* _animation;
 };
-
-
 }
 
 #endif

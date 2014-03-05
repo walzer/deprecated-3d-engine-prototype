@@ -5,16 +5,15 @@
 
 namespace cocos3d
 {
-
 class C3DTexture;
 /**
- * Represents a linear area of display memory and usually reside 
+ * Represents a linear area of display memory and usually reside
  * in the display memory of the display card.
  */
 class C3DRenderTarget : public cocos2d::CCObject
 {
 public:
- 
+
 	/**
 	 * create render target
 	 */
@@ -30,7 +29,7 @@ public:
 	 * get texture
 	 */
     C3DTexture* getTexture() const;
- 
+
 private:
 
 	/**
@@ -43,7 +42,6 @@ private:
     std::string _id;
     C3DTexture* _texture;
 };
-
 }
 
 #endif
