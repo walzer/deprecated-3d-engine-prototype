@@ -148,8 +148,11 @@ def build_samples(target, ndk_build_param, android_platform, build_mode):
           build_mode = 'debug'
     elif build_mode != 'release':
         build_mode = 'debug'
-       
-    app_android_root = os.path.join(cocos_root, 'samples/Cpp/EngineDemo/proj.android')
+
+    if target == 'EngineDemo':
+        app_android_root = os.path.join(cocos_root, 'EngineDemo/proj.android')
+    else:
+        app_android_root = os.path.join(cocos_root, "projects/" + target +"/proj.android")
 
     copy_resources(target, app_android_root)
     do_build(cocos_root, ndk_root, app_android_root, ndk_build_param, sdk_root, android_platform, build_mode)
@@ -175,19 +178,16 @@ if __name__ == '__main__':
     """
 
     parser = OptionParser(usage=usage)
-    parser.add_option("-n", "--ndk", dest="ndk_build_param", 
-    help='Parameter for ndk-build')
-    parser.add_option("-p", "--platform", dest="android_platform", 
-    help='Parameter for android-update. Without the parameter,the script just build dynamic library for the projects. Valid android-platform are:[10|11|12|13|14|15|16|17|18|19]')
-    parser.add_option("-b", "--build", dest="build_mode", 
-    help='The build mode for java project,debug[default] or release. Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
+    parser.add_option("-n", "--ndk", dest="ndk_build_param", help='Parameter for ndk-build')
+    parser.add_option("-p", "--platform", dest="android_platform", help='Parameter for android-update. Without the parameter,the script just build dynamic library for the projects. Valid android-platform are:[10|11|12|13|14|15|16|17|18|19]')
+    parser.add_option("-b", "--build", dest="build_mode", help='The build mode for java project,debug[default] or release. Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
     (opts, args) = parser.parse_args()
 
-    if len(args) != 0:
+    if len(args) == 0:
         parser.print_help()
     else:
         try:
-            build_samples(args, opts.ndk_build_param, opts.android_platform, opts.build_mode)
+            build_samples(args[0], opts.ndk_build_param, opts.android_platform, opts.build_mode)
         except Exception as e:
             print e
             sys.exit(1)
