@@ -87,20 +87,20 @@ def do_build(cocos_root, ndk_root, app_android_root, ndk_build_param,sdk_root,an
     else:
         command = '%s -j%d -C %s %s %s' % (ndk_path, num_of_cpu, app_android_root, ndk_build_param, ndk_module_path)
     print command
-    if os.system(command) != 0:
-        raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
-    elif android_platform is not None:
-          sdk_tool_path = os.path.join(sdk_root, "tools/android")
-          cocoslib_path = os.path.join(cocos_root, "cocos/2d/platform/android/java")
-          command = '%s update lib-project -t %s -p %s' % (sdk_tool_path, android_platform, cocoslib_path)
-          if os.system(command) != 0:
-              raise Exception("update cocos lib-project [ " + cocoslib_path + " ] fails!")        
-          command = '%s update project -t %s -p %s -s' % (sdk_tool_path, android_platform, app_android_root)
-          if os.system(command) != 0:
-              raise Exception("update project [ " + app_android_root + " ] fails!")           
-          buildfile_path = os.path.join(app_android_root, "build.xml")
-          command = 'ant clean %s -f %s -Dsdk.dir=%s' % (build_mode, buildfile_path, sdk_root)
-          os.system(command)
+    os.system(command)
+        #raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
+    if android_platform is not None:
+        sdk_tool_path = os.path.join(sdk_root, "tools/android")
+        cocoslib_path = os.path.join(cocos_root, "cocos/2d/platform/android/java")
+        command = '%s update lib-project -t %s -p %s' % (sdk_tool_path, android_platform, cocoslib_path)
+        if os.system(command) != 0:
+            raise Exception("update cocos lib-project [ " + cocoslib_path + " ] fails!")
+        command = '%s update project -t %s -p %s -s' % (sdk_tool_path, android_platform, app_android_root)
+        if os.system(command) != 0:
+            raise Exception("update project [ " + app_android_root + " ] fails!")
+        buildfile_path = os.path.join(app_android_root, "build.xml")
+        command = 'ant clean %s -f %s -Dsdk.dir=%s' % (build_mode, buildfile_path, sdk_root)
+        os.system(command)
 
 def copy_files(src, dst):
 
