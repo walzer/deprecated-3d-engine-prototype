@@ -20,10 +20,13 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
-    CCDirector* pDirector = CCDirector::sharedDirector();
-    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
-
-    pDirector->setOpenGLView(pEGLView);
+	CCDirector* pDirector = CCDirector::getInstance();
+	CCEGLView* pEGLView = pDirector->getOpenGLView();
+			
+    if(!pEGLView) {
+        pEGLView = GLView::create("Engine Demo");
+        pDirector->setOpenGLView(pEGLView);
+    }
 
     // Set the design resolution
     pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);

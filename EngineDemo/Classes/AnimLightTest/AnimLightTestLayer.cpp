@@ -1,7 +1,5 @@
 #include "AnimLightTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -142,48 +140,6 @@ void AnimLightTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, u
     };
 }
 
-void AnimLightTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
-    }
-}
-
-void AnimLightTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y, pTouch->getID());
-    }
-}
-
-void AnimLightTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x , touchPoint.y , pTouch->getID());
-    }
-}
-
-void AnimLightTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
-{
-}
 
 CCLayer* AnimLightTestLayer::createUILayer()
 {
@@ -199,7 +155,7 @@ CCLayer* AnimLightTestLayer::createUILayer()
         // #else
         CCLabelTTF* label = CCLabelTTF::create(name[i], "Arial", 20);
         // #endif
-        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(AnimLightTestLayer::menuCallback));
+        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(AnimLightTestLayer::menuCallback,this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));

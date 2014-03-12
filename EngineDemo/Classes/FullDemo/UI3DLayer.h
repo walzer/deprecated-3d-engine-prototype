@@ -1,8 +1,8 @@
 #ifndef __UI3DLAYER_H__
 #define __UI3DLAYER_H__
 
-#include "base_nodes/CCNode.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
+#include "CCNode.h"
+
 #include "cocos2d.h"
 //#include "cocos3d.h"
 #include "TestLayer.h"
@@ -19,8 +19,11 @@ public:
 
 	virtual void update(float dt);
 
-	virtual void draw(void);//render the 3d contents
-
+	//virtual void draw(void);//render the 3d contents
+	 virtual void draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool transformUpdated)
+    {
+        C3DLayer::draw();
+    }
 	static UI3DLayer* getInstance();
 
 	CREATE_FUNC(UI3DLayer);
@@ -32,13 +35,7 @@ public:
     //setup initialize light
     void setUpLight();
 
-    virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
-    // optional
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
-
+   
 	void setBase(cocos3d::C3DVector3& base);
 
 public:

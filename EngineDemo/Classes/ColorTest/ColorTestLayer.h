@@ -1,8 +1,8 @@
 #ifndef __COLOR_TEST_LAYER_H__
 #define __COLOR_TEST_LAYER_H__
 
-#include "base_nodes/CCNode.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
+#include "CCNode.h"
+//#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "cocos2d.h"
 #include "cocos3d.h"
 #include "TestLayer.h"
@@ -30,13 +30,7 @@ public:
     void setUpLight();
 
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
-
-    // optional
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
-
+	
     void menuCallback(CCObject * pSender);
 
     CCLayer* createUILayer();

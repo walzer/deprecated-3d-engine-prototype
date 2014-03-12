@@ -86,8 +86,5 @@
     [super dealloc];
 }
 
-- (BOOL)prefersStatusBarHidden
-{
-    return YES;
-}
+
 @end

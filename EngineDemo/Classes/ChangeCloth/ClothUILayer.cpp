@@ -1,6 +1,6 @@
 #include "ClothUILayer.h"
 #include "ChangeClothesTestLayer.h"
-#include "base_nodes/CCNode.h"
+#include "CCNode.h"
 #include "VisibleRect.h"
 
 static CCMenu* pMenu1;
@@ -20,14 +20,14 @@ bool ClothUILayer::init()
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-	CCMenuItemImage *pItem1 = CCMenuItemImage::create("cap_normal.png",		 "cap_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeCap) );
-	CCMenuItemImage *pItem2 = CCMenuItemImage::create("hair_normal.png",	 "hair_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeHair) );
-	CCMenuItemImage *pItem3 = CCMenuItemImage::create("glasses_normal.png",	 "glasses_selected.png",	this,menu_selector(ClothUILayer::menuCallback_changeGlasses) );
-	CCMenuItemImage *pItem4 = CCMenuItemImage::create("coat_normal.png",	 "coat_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeUpBody) );
-	CCMenuItemImage *pItem5 = CCMenuItemImage::create("trousers_normal.png", "trousers_selected.png",	this,menu_selector(ClothUILayer::menuCallback_changeBottomBody) );
-	CCMenuItemImage *pItem6 = CCMenuItemImage::create("shoe_normal.png",	 "shoe_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeShoot) );
-	CCMenuItemImage *pItem7 = CCMenuItemImage::create("nose_normal.png",	 "nose_selected.png",		this,menu_selector(ClothUILayer::menuCallback_changeNose) );
-	CCMenuItemImage *pItem8 = CCMenuItemImage::create("eyemorph_normal.png", "eyemorph_selected.png",	this,menu_selector(ClothUILayer::menuCallback_changeEye) );
+	CCMenuItemImage *pItem1 = CCMenuItemImage::create("cap_normal.png",		 "cap_selected.png",		CC_CALLBACK_1(ClothUILayer::menuCallback_changeCap,this) );
+	CCMenuItemImage *pItem2 = CCMenuItemImage::create("hair_normal.png",	 "hair_selected.png",		CC_CALLBACK_1(ClothUILayer::menuCallback_changeHair,this) );
+	CCMenuItemImage *pItem3 = CCMenuItemImage::create("glasses_normal.png",	 "glasses_selected.png",	CC_CALLBACK_1(ClothUILayer::menuCallback_changeGlasses,this) );
+	CCMenuItemImage *pItem4 = CCMenuItemImage::create("coat_normal.png",	 "coat_selected.png",		CC_CALLBACK_1(ClothUILayer::menuCallback_changeUpBody,this) );
+	CCMenuItemImage *pItem5 = CCMenuItemImage::create("trousers_normal.png", "trousers_selected.png",	CC_CALLBACK_1(ClothUILayer::menuCallback_changeBottomBody,this) );
+	CCMenuItemImage *pItem6 = CCMenuItemImage::create("shoe_normal.png",	 "shoe_selected.png",		CC_CALLBACK_1(ClothUILayer::menuCallback_changeShoot,this) );
+	CCMenuItemImage *pItem7 = CCMenuItemImage::create("nose_normal.png",	 "nose_selected.png",		CC_CALLBACK_1(ClothUILayer::menuCallback_changeNose,this) );
+	CCMenuItemImage *pItem8 = CCMenuItemImage::create("eyemorph_normal.png", "eyemorph_selected.png",	CC_CALLBACK_1(ClothUILayer::menuCallback_changeEye,this) );
 
     pItem1->setPosition( ccp(VisibleRect::left().x+50, VisibleRect::bottom().y+pItem1->getContentSize().height ) );
 	pItem2->setPosition( ccp(VisibleRect::left().x+50, VisibleRect::bottom().y+pItem1->getContentSize().height *2 ) );

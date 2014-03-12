@@ -56,7 +56,7 @@ void Npc::speak()
 	C3DVector3 pos = _node->getTranslationWorld();
 	pos.y -= 5.0f;
 	C3DVector2 labelpos;
-	layer->getScene()->getActiveCamera()->project(layer->getViewport(), &pos, &labelpos);
+	layer->get3DScene()->getActiveCamera()->project(layer->getViewport(), &pos, &labelpos);
 
 	label->setPosition(ccp(labelpos.x, labelpos.y));
 }

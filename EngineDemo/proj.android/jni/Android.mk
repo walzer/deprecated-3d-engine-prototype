@@ -2,7 +2,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := engineDemo
+LOCAL_MODULE := EngineDemo
 
 LOCAL_MODULE_FILENAME := libEngineDemo
 LOCAL_SRC_FILES := main.cpp \
@@ -41,8 +41,10 @@ LOCAL_SRC_FILES := main.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
-LOCAL_CFLAGS    := -D__ANDROID__\
-                   -I"$(LOCAL_PATH)/../../../cocos3d" \
+LOCAL_CFLAGS   := -D__ANDROID__\
+                  -I"$(LOCAL_PATH)/../../../../../cocos3d"
+
+LOCAL_CPPFLAGS := -std=c++11 -pthread -frtti -fexceptions
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static cocos3d_static
 
@@ -50,5 +52,5 @@ LOCAL_LDLIBS :=  -landroid -lEGL -lGLESv2
             
 include $(BUILD_SHARED_LIBRARY)
 
-$(call import-module,cocos2dx) 
+$(call import-module,2d) 
 $(call import-module,cocos3d) 

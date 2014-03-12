@@ -1,7 +1,5 @@
 #include "ShadowTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -46,7 +44,7 @@ void ShadowTestLayer::update( float dt )
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
 
-    C3DLight* light = getScene()->getLight(0);
+    C3DLight* light = get3DScene()->getLight(0);
 
     if (light)
     {
@@ -169,48 +167,7 @@ void ShadowTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsi
     };
 }
 
-void ShadowTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
 
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
-    }
-}
-
-void ShadowTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y, pTouch->getID());
-    }
-}
-
-void ShadowTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x, touchPoint.y, pTouch->getID());
-    }
-}
-
-void ShadowTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
-{
-}
 
 CCLayer* ShadowTestLayer::createUILayer()
 {

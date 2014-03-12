@@ -65,7 +65,7 @@ void MainPlayer::init()
 
 	_offset = C3DVector3(10,8,8);
 	//_offset *= 10.0f;
-	_camera = _layer->getScene()->getActiveCamera();
+	_camera = _layer->get3DScene()->getActiveCamera();
 	_camera->lookAt(_node->getTranslationWorld()+_offset, C3DVector3(0, 1, 0), _node->getTranslationWorld());
 
 	_terrainFlag = C3DStaticObj::create("terrainflag");
@@ -74,7 +74,7 @@ void MainPlayer::init()
 
 	_terrainFlag->translate(0, 1, 0);
     _terrainFlag->scale(2, 2, 2);
-    _layer->getScene()->addChild(_terrainFlag);
+    _layer->get3DScene()->addChild(_terrainFlag);
 }
 
 MainPlayer::AnimListenerObject::AnimListenerObject(MainPlayer* mainPlayer)
@@ -193,7 +193,7 @@ void MainPlayer::update(long elapsedTime)
 
 		C3DNode* node = C3DNode::create(name.c_str());
 		node->setPosition(_node->getTranslationWorld());
-		_layer->getScene()->addChild(node);
+		_layer->get3DScene()->addChild(node);
 
 		switch( _attackType )
 		{

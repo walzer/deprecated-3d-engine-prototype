@@ -40,7 +40,7 @@ PESpaceWrap::PESpaceWrap(C3DPostProcess* postProcess, const std::string& name)
 			data[y * w + x] = iDu << 16 | iDv << 8 | 0xff << 24;
 		}
 	}
-	C3DTexture* texture = C3DTexture::create(w, h, C3DTexture::RGBA, data, false);
+	C3DTexture* texture = C3DTexture::create(w, h, C3DTexture::RGBA, data, sizeof(unsigned int)*h*w, false);
 	_wrapSampler = new C3DSampler(texture);
 	_wrapSampler->setWrapMode(Texture_Wrap_REPEAT, Texture_Wrap_REPEAT);
 

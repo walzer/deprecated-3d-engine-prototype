@@ -1,6 +1,6 @@
 #include "ChangeClothesTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
+#include "CCTouch.h"
 
 #include <map>
 
@@ -62,7 +62,7 @@ void ChangeClothesTestLayer::update( float dt )
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
 
-    C3DLight* light = getScene()->getLight(0);
+    C3DLight* light = get3DScene()->getLight(0);
 
     if (light)
     {
@@ -207,48 +207,6 @@ void ChangeClothesTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float 
     };
 }
 
-void ChangeClothesTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
-    }
-}
-
-void ChangeClothesTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x, touchPoint.y, pTouch->getID());
-    }
-}
-
-void ChangeClothesTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x , touchPoint.y , pTouch->getID());
-    }
-}
-
-void ChangeClothesTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
-{
-}
 
 CCLayer* ChangeClothesTestLayer::createUILayer()
 {

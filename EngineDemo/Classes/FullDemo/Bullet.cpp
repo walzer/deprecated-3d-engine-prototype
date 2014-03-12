@@ -42,7 +42,7 @@ void Bullet::onSpell(void)
 	std::string name = _name + "_move";
 	_moveParticle = C3DParticleSystem::create(name.c_str());
 	_moveParticle->load("demores/particles/fire.particle");
-	_layer->getScene()->addChild(_moveParticle);
+	_layer->get3DScene()->addChild(_moveParticle);
 	_node->addChild(_moveParticle);
 }
 
@@ -65,7 +65,7 @@ void Bullet::onHit(void)
 		_explodeParticle = C3DParticleSystem::create(name.c_str());
 		_explodeParticle->load("demores/particles/explosion.particle");
 
-		_layer->getScene()->addChild(_explodeParticle);
+		_layer->get3DScene()->addChild(_explodeParticle);
 
 		_node->addChild(_explodeParticle);
 

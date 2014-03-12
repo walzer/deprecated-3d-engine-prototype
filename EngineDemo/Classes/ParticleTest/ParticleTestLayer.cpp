@@ -1,7 +1,5 @@
 #include "ParticleTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -310,48 +308,6 @@ void ParticleTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, un
     };
 }
 
-void ParticleTestLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
-    }
-}
-
-void ParticleTestLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x, touchPoint.y, pTouch->getID());
-    }
-}
-
-void ParticleTestLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
-{
-    CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
-    {
-        pTouch = (CCTouch *)(*setIter);
-        CCPoint touchPoint = pTouch->getLocationInView();
-
-        touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x, touchPoint.y, pTouch->getID());
-    }
-}
-
-void ParticleTestLayer::ccTouchesCancelled( CCSet *pTouches, CCEvent *pEvent )
-{
-}
 
 CCLayer* ParticleTestLayer::createUILayer()
 {
@@ -360,7 +316,7 @@ CCLayer* ParticleTestLayer::createUILayer()
 
 	CCLabelTTF* label = CCLabelTTF::create("Lighting", "Arial", 20);
 	// #endif
-	CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(ParticleTestLayer::menuCallback));
+	CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(ParticleTestLayer::menuCallback,this));
 
 	pItemMenu->addChild(pMenuItem, 10000);
 	pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y -  24) ));

@@ -1,8 +1,8 @@
 #ifndef __FULLDEMOLAYER_H__
 #define __FULLDEMOLAYER_H__
 
-#include "base_nodes/CCNode.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
+#include "CCNode.h"
+//#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "cocos2d.h"
 //#include "cocos3d.h"
 #include "TestLayer.h"
@@ -68,12 +68,7 @@ public:
     void switchProfileShow();
 
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
-    // optional
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
-
+	
 	C3DActor* pick( float x,float y );
 
 	std::list<C3DActor*> getActors(void) const

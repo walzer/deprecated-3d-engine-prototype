@@ -1,5 +1,6 @@
 /****************************************************************************
-Copyright (c) 2010-2011 cocos2d-x.org
+Copyright (c) 2010-2012 cocos2d-x.org
+Copyright (c) 2013-2014 Chukong Technologies Inc.
 
 http://www.cocos2d-x.org
 
@@ -28,7 +29,8 @@ import java.util.HashMap;
 import android.content.Context;
 import android.graphics.Typeface;
 
-public class Cocos2dxTypefaces {
+public class Cocos2dxTypefaces
+{
 	// ===========================================================
 	// Constants
 	// ===========================================================
@@ -55,16 +57,19 @@ public class Cocos2dxTypefaces {
 	// Methods
 	// ===========================================================
 
-	public static synchronized Typeface get(final Context pContext, final String pAssetName) {
-		if (!Cocos2dxTypefaces.sTypefaceCache.containsKey(pAssetName)) {
+	public static synchronized Typeface get(final Context pContext,
+			final String pAssetName)
+	{
+		if (!Cocos2dxTypefaces.sTypefaceCache.containsKey(pAssetName))
+		{
 			Typeface typeface = null;
 			if (pAssetName.startsWith("/"))
 			{
 				typeface = Typeface.createFromFile(pAssetName);
-			}
-			else
+			} else
 			{
-				typeface = Typeface.createFromAsset(pContext.getAssets(), pAssetName);
+				typeface = Typeface.createFromAsset(pContext.getAssets(),
+						pAssetName);
 			}
 			Cocos2dxTypefaces.sTypefaceCache.put(pAssetName, typeface);
 		}
