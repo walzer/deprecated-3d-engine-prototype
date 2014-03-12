@@ -232,7 +232,7 @@ void C3DParticleRender::draw()
 
     //CCLOG("%d", _validParticleCount);
 
-    const C3DMatrix& cameraWorldMatrix = _system->getScene()->getActiveCamera()->getWorldMatrix();
+    const C3DMatrix& cameraWorldMatrix = _system->get3DScene()->getActiveCamera()->getWorldMatrix();
     static C3DVector3 right;
     cameraWorldMatrix.getRightVector(&right);
     static C3DVector3 up;

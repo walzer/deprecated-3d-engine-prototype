@@ -22,7 +22,7 @@ void AttachNode::attach( C3DNode* pAttachment )
 	pAttachment->scale(1.0f/_owner->getScaleX(),1.0f/_owner->getScaleY(),1.0f/_owner->getScaleZ());
 
 	_node->addChild(pAttachment);
-	_owner->getScene()->removeChild(pAttachment);
+	_owner->get3DScene()->removeChild(pAttachment);
 
 	_attachments.push_back(pAttachment);
 }
@@ -35,7 +35,7 @@ bool AttachNode::detach( C3DNode* pAttachment )
 		if ( *nit == pAttachment )
 		{
 			pAttachment->scale(_owner->getScaleX(),_owner->getScaleY(),_owner->getScaleZ());
-			_owner->getScene()->addChild(pAttachment);
+			_owner->get3DScene()->addChild(pAttachment);
 			_attachments.erase(nit);
 			return true;
 		}

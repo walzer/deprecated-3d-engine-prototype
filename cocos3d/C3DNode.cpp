@@ -244,10 +244,10 @@ unsigned int C3DNode::getTriangleCount() const
 	return 0;
 }
 
-C3DScene* C3DNode::getScene()
+C3DScene* C3DNode::get3DScene()
 {
 	return _scene;
-	//return C3DLayer::getInstance()->getScene();
+	//return C3DLayer::getInstance()->get3DScene();
 }
 
 C3DNode* C3DNode::getRootNode()
@@ -320,7 +320,7 @@ const C3DMatrix& C3DNode::getInverseTransposeWorldMatrix()
 
 const C3DMatrix& C3DNode::getViewMatrix()
 {
-    C3DScene* scene = getScene();
+    C3DScene* scene = get3DScene();
     C3DCamera* camera = scene ? scene->getActiveCamera() : NULL;
     if (camera)
     {
@@ -334,7 +334,7 @@ const C3DMatrix& C3DNode::getViewMatrix()
 
 const C3DMatrix& C3DNode::getInverseViewMatrix()
 {
-    C3DScene* scene = getScene();
+    C3DScene* scene = get3DScene();
     C3DCamera* camera = scene ? scene->getActiveCamera() : NULL;
     if (camera)
     {
@@ -348,7 +348,7 @@ const C3DMatrix& C3DNode::getInverseViewMatrix()
 
 const C3DMatrix& C3DNode::getProjectionMatrix()
 {
-    C3DScene* scene = getScene();
+    C3DScene* scene = get3DScene();
     C3DCamera* camera = scene ? scene->getActiveCamera() : NULL;
     if (camera)
     {
@@ -372,7 +372,7 @@ void C3DNode::setScene(C3DScene* scene)
 
 const C3DMatrix& C3DNode::getViewProjectionMatrix()
 {
-    C3DScene* scene = getScene();
+    C3DScene* scene = get3DScene();
 
     if (scene)
     {
@@ -386,7 +386,7 @@ const C3DMatrix& C3DNode::getViewProjectionMatrix()
 
 const C3DMatrix& C3DNode::getInverseViewProjectionMatrix()
 {
-    C3DScene* scene = getScene();
+    C3DScene* scene = get3DScene();
     C3DCamera* camera = scene ? scene->getActiveCamera() : NULL;
     if (camera)
     {
@@ -489,7 +489,7 @@ void C3DNode::setForwardVectorWorld(C3DVector3& forwardVector)
 
 const C3DVector3 C3DNode::getActiveCameraTranslationWorld()
 {
-    C3DScene* scene = getScene();
+    C3DScene* scene = get3DScene();
     if (scene)
     {
         C3DCamera* camera = scene->getActiveCamera();
@@ -504,7 +504,7 @@ const C3DVector3 C3DNode::getActiveCameraTranslationWorld()
 
 const C3DVector3 C3DNode::getActiveCameraTranslationView()
 {
-    C3DScene* scene = getScene();
+    C3DScene* scene = get3DScene();
     if (scene)
     {
         C3DCamera* camera = scene->getActiveCamera();
@@ -689,7 +689,7 @@ C3DNode* C3DNode::clone(C3DNode::CloneContext& context) const
 	}
 	else
 	{
-		assert(false && "Not implemented");
+		//assert(false && "Not implemented");
 		return NULL;
 	}
 }

@@ -88,7 +88,7 @@ namespace cocos3d
 	class C3DStatRender
 	{
 	public:
-		C3DStatRender(cocos2d::CCNode* parent, float statfont = 10.f);
+		C3DStatRender(cocos2d::Node* parent, float statfont = 10.f);
 		~C3DStatRender();
 
 		void setUpdateInterval(long interval) { _UpdateInterval = interval; }
@@ -96,7 +96,7 @@ namespace cocos3d
 
 		void setStatFont(float fontsize);
 
-		void setStatLabelPos(const cocos2d::CCPoint& pt);
+		void setStatLabelPos(const cocos2d::Point& pt);
 
 		/**
          * update label string
@@ -109,12 +109,12 @@ namespace cocos3d
 
 		long _UpdateIntervalAcc; // accumlate of deltaTime of update
 
-		cocos2d::CCLabelTTF* _TriangleDrawLabel;
-		cocos2d::CCLabelTTF* _TriangleTotalLabel;
-		cocos2d::CCLabelTTF* _DrawCallLabel;
+		cocos2d::LabelTTF* _TriangleDrawLabel;
+		cocos2d::LabelTTF* _TriangleTotalLabel;
+		cocos2d::LabelTTF* _DrawCallLabel;
 		float _fontSize;
 
-		cocos2d::CCNode* _parent;
+		cocos2d::Node* _parent;
 	};
 }
 

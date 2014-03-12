@@ -75,7 +75,7 @@ void C3DUsedResourcePool::update(long elapsedTime)
 	{
 		item = iter->second;
 
-		if(item->retainCount() ==1)
+		if(item->getReferenceCount() ==1)
 		{
 			item->setState(C3DResource::State_Wait);
 			_manager->addResource(item);

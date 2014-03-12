@@ -10,6 +10,7 @@
 #include "C3DRenderSystem.h"
 #include "C3DScene.h"
 #include "C3DPostProcess.h"
+#include "CCGLView.h"
 
 namespace cocos3d
 {
@@ -185,9 +186,9 @@ void RenderChannelManager::createFrameBuffer(void)
 {
 	static unsigned int fmtColor = C3DTexture::RGBA;
 	static unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
-
-	float width = cocos2d::CCEGLView::sharedOpenGLView()->getFrameSize().width;
-	float height = cocos2d::CCEGLView::sharedOpenGLView()->getFrameSize().height;
+		 	
+	float width = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize().width;
+	float height = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize().height;
 
 	_frameBuffer = C3DFrameBuffer::create( SceneBufferName, width, height, fmtColor, fmtDepth );
 	_frameBuffer->retain();
@@ -231,7 +232,7 @@ void RenderChannelManager::draw( /*C3DScene* scene*/ )
 	//*/
 }
 
-C3DTexture* RenderChannelManager::getSceneTexture(void)
+C3DTexture* RenderChannelManager::get3DSceneTexture(void)
 {
 	if ( _frameBuffer == NULL )
 	{

@@ -15,7 +15,7 @@ class C3DTexture;
  * creation of a C3DDepthStencilTarget always attempts to create an underlying
  * depth texture.
  */
-class C3DDepthStencilTarget : public cocos2d::CCObject
+class C3DDepthStencilTarget : public cocos2d::Ref
 {
     friend class C3DFrameBuffer;
 

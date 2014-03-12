@@ -106,7 +106,7 @@ public:
 	/**
      * Gets C3DScene.
      */
-	C3DScene* getScene();
+	C3DScene* get3DScene();
 
     /**
      * Gets the identifier for the node.

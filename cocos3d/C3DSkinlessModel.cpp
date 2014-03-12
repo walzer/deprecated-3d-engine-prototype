@@ -28,7 +28,7 @@ void C3DSkinlessModel::draw()
     bool bStatEnable = C3DStat::getInstance()->isStatEnable();
 
     C3DMaterial::TechniqueUsage techUsage =
-        getNode()->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
+        getNode()->get3DScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
 
     if (partCount == 0)
     {

@@ -45,6 +45,22 @@ void C3DLight::update(unsigned int deltatime)
 		_component->update(deltatime);
 }
 
+//..
+void C3DLight::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context)
+{
+	
+}
+
+C3DNode* C3DLight::clone(C3DNode::CloneContext& context) const
+{
+	C3DLight* other = new C3DLight("");
+	other->copyFrom(this, context);
+	
+	other->autorelease();
+	return other;
+}
+//..
+
 //////////////////////////////////////////////////////////////////////////
 
 C3DLightComponent::C3DLightComponent(C3DLight::Type type) : _type(type), _light(NULL), _color(0.0f, 0.0f, 0.0f)

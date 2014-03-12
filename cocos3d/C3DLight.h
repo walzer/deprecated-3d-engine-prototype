@@ -73,6 +73,13 @@ public:
      */
 	virtual void update(unsigned int deltatime);
 
+	//..
+	virtual C3DNode* clone(CloneContext& context) const;
+
+protected:
+	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
+	//..
+
 protected:
 	/**
      * Constructor.

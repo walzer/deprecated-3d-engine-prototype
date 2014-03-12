@@ -18,7 +18,7 @@ class C3DBone;
 /**
  * Defines structure to describe a generic property animation.
  */
-class C3DAnimation : public cocos2d::CCObject
+class C3DAnimation : public cocos2d::Ref
 {
     friend class C3DAnimationClip;
 	friend class C3DBone;

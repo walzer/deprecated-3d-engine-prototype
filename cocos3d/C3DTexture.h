@@ -5,7 +5,7 @@
 #include "cocos2d.h"
 
 namespace cocos2d {
-    class CCTexture2D;
+    class Texture2D;
 }
 
 namespace cocos3d
@@ -50,7 +50,7 @@ namespace cocos3d
          */
         static C3DTexture* create(const std::string& path, bool generateMipmaps = false);
         static C3DTexture* create(int width, int height, Format fmt, bool generateMipmaps = false);
-		static C3DTexture* create(int width, int height, Format fmt, const void* data, bool generateMipmaps = false);
+	    static C3DTexture* create(int width, int height, Format fmt, const void* data, ssize_t dataLen, bool generateMipmaps = false);
 
         /**
          * Returns the texture width.
@@ -130,7 +130,7 @@ namespace cocos3d
         unsigned int _height;
         bool _mipmapped;
 
-        cocos2d::CCTexture2D * _texture;
+        cocos2d::Texture2D * _texture;
     };
 }
 
