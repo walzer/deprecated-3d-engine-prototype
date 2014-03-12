@@ -27,9 +27,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         pEGLView = GLView::create("Engine Demo");
         pDirector->setOpenGLView(pEGLView);
     }
-
-    // Set the design resolution
-    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
+	    
 
 	CCSize frameSize = pEGLView->getFrameSize();
 
@@ -57,6 +55,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // set searching path
     CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
+
+	// Set the design resolution
+    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
 
     // turn on display FPS
     //pDirector->setDisplayStats(true);

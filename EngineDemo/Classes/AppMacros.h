@@ -29,7 +29,7 @@
 #define DESIGN_RESOLUTION_960X640  3
 
 /* If you want to switch design resolution, change next line */
-#define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_1024X768
+#define TARGET_DESIGN_RESOLUTION_SIZE  DESIGN_RESOLUTION_960X640
 #
 
 typedef struct tagResource
