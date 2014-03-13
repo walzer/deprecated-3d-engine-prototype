@@ -66,6 +66,7 @@ namespace cocos3d
         GLuint _handle;
 
 		cocos2d::CCImage* _image[6];
+		std::string _id;
     };
 }
 
