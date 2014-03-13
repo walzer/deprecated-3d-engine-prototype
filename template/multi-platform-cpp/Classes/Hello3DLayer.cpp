@@ -104,39 +104,39 @@ void Hello3DLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigne
     };
 }
 
-void Hello3DLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
+void Hello3DLayer::ccTouchesBegan(const std::vector<Touch*>& touches, Event *unused_event)
 {
     CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
+    std::vector<Touch*>::const_iterator iter = touches.begin();
+    for (iter = touches.begin(); iter != touches.end(); ++iter)
     {
-        pTouch = (CCTouch *)(*setIter);		
+        pTouch = (Touch *)(*iter);		
         CCPoint touchPoint = pTouch->getLocationInView();
 
         touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
     }    
 }
 
-void Hello3DLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
+void Hello3DLayer::ccTouchesMoved(const std::vector<Touch*>& touches, Event *unused_event)
 {
     CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
+    std::vector<Touch*>::const_iterator iter = touches.begin();
+    for (iter = touches.begin(); iter != touches.end(); ++iter)
     {
-        pTouch = (CCTouch *)(*setIter);
+        pTouch = (CCTouch *)(*iter);
         CCPoint touchPoint = pTouch->getLocationInView();
 
         touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y , pTouch->getID());
     }
 }
 
-void Hello3DLayer::ccTouchesEnded( CCSet *pTouches, CCEvent *pEvent )
+void Hello3DLayer::ccTouchesEnded(const std::vector<Touch*>& touches, Event *unused_event)
 {
     CCTouch *pTouch;
-    CCSetIterator setIter;
-    for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
+    std::vector<Touch*>::const_iterator iter = touches.begin();
+    for (iter = touches.begin(); iter != touches.end(); ++iter)
     {
-        pTouch = (CCTouch *)(*setIter);
+        pTouch = (CCTouch *)(*iter);
         CCPoint touchPoint = pTouch->getLocationInView();
 
         touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x , touchPoint.y , pTouch->getID());

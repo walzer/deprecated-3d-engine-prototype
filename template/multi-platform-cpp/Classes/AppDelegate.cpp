@@ -13,38 +13,41 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
-    CCDirector* pDirector = CCDirector::sharedDirector();
-    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
+	Director* director = Director::getInstance();
+	auto glview = director->getOpenGLView();
+	if(!glview) {
+        glview = GLView::create("Hello Cocos3D");
+        director->setOpenGLView(glview);
+    }
 
-    pDirector->setOpenGLView(pEGLView);
-	
     // turn on display FPS
-    pDirector->setDisplayStats(true);
+    director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
-    pDirector->setAnimationInterval(1.0 / 60);
+    director->setAnimationInterval(1.0 / 60);
 
-    // create a scene. it's an autorelease object
-    CCScene *pScene = HelloWorldScene::scene();
+	auto screenSize = glview->getFrameSize();
 
-    // run
-    pDirector->runWithScene(pScene);
+    auto designSize = Size(960, 640);
+
+	glview->setDesignResolutionSize(designSize.width, designSize.height, ResolutionPolicy::NO_BORDER);
+    
+	auto scene = Scene::create();
+	auto layer = new HelloWorldScene();
+    layer->autorelease();
+
+    scene->addChild(layer);
+    director->runWithScene(scene);
 
     return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
-    CCDirector::sharedDirector()->stopAnimation();
-
-    // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    Director::getInstance()->stopAnimation();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
-    CCDirector::sharedDirector()->startAnimation();
-
-    // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    Director::getInstance()->startAnimation();
 }

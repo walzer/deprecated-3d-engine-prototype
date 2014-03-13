@@ -5,6 +5,8 @@
 #include "cocos3d.h"
 #include "C3DLayer.h"
 
+USING_NS_CC;
+
 class Hello3DLayer : public cocos3d::C3DLayer
 {
 public:
@@ -26,9 +28,9 @@ public:
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
 
     // optional
-    virtual void ccTouchesBegan(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
-    virtual void ccTouchesMoved(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
-    virtual void ccTouchesEnded(cocos2d::CCSet *pTouches, cocos2d::CCEvent *pEvent);
+    virtual void ccTouchesBegan(const std::vector<Touch*>& touches, Event *unused_event);
+    virtual void ccTouchesMoved(const std::vector<Touch*>& touches, Event *unused_event);
+    virtual void ccTouchesEnded(const std::vector<Touch*>& touches, Event *unused_event);
     
     // implement the "static node()" method manually
     CREATE_FUNC(Hello3DLayer);
