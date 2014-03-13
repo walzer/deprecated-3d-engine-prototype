@@ -42,7 +42,7 @@ LOCAL_SRC_FILES := main.cpp \
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 
 LOCAL_CFLAGS   := -D__ANDROID__\
-                  -I"$(LOCAL_PATH)/../../../../../cocos3d"
+                  -I"$(LOCAL_PATH)/../../../cocos3d"
 
 LOCAL_CPPFLAGS := -std=c++11 -pthread -frtti -fexceptions
 

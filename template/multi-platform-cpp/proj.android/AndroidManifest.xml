@@ -19,12 +19,14 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        <!-- Tell NativeActivity the name of our .so -->
+        <meta-data android:name="android.app.lib_name"
+                       android:value="EngineDemo" />
         </activity>
     </application>
     <supports-screens android:largeScreens="true"
                       android:smallScreens="true"
                       android:anyDensity="true"
                       android:normalScreens="true"/>
-                         
     <uses-permission android:name="android.permission.INTERNET"/>
 </manifest> 
