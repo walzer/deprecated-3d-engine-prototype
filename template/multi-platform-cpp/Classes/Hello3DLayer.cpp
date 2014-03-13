@@ -104,7 +104,7 @@ void Hello3DLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigne
     };
 }
 
-void Hello3DLayer::ccTouchesBegan(const std::vector<Touch*>& touches, Event *unused_event)
+void Hello3DLayer::onTouchesBegan(const std::vector<Touch*>& touches, Event *unused_event)
 {
     CCTouch *pTouch;
     std::vector<Touch*>::const_iterator iter = touches.begin();
@@ -117,7 +117,7 @@ void Hello3DLayer::ccTouchesBegan(const std::vector<Touch*>& touches, Event *unu
     }    
 }
 
-void Hello3DLayer::ccTouchesMoved(const std::vector<Touch*>& touches, Event *unused_event)
+void Hello3DLayer::onTouchesMoved(const std::vector<Touch*>& touches, Event *unused_event)
 {
     CCTouch *pTouch;
     std::vector<Touch*>::const_iterator iter = touches.begin();
@@ -130,7 +130,7 @@ void Hello3DLayer::ccTouchesMoved(const std::vector<Touch*>& touches, Event *unu
     }
 }
 
-void Hello3DLayer::ccTouchesEnded(const std::vector<Touch*>& touches, Event *unused_event)
+void Hello3DLayer::onTouchesEnded(const std::vector<Touch*>& touches, Event *unused_event)
 {
     CCTouch *pTouch;
     std::vector<Touch*>::const_iterator iter = touches.begin();
