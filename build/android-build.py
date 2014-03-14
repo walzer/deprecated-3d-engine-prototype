@@ -87,20 +87,20 @@ def do_build(cocos_root, ndk_root, app_android_root, ndk_build_param,sdk_root,an
     else:
         command = '%s -j%d -C %s %s %s' % (ndk_path, num_of_cpu, app_android_root, ndk_build_param, ndk_module_path)
     print command
-    if os.system(command) != 0:
-        raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
-    elif android_platform is not None:
-          sdk_tool_path = os.path.join(sdk_root, "tools/android")
-          cocoslib_path = os.path.join(cocos_root, "cocos/2d/platform/android/java")
-          command = '%s update lib-project -t %s -p %s' % (sdk_tool_path, android_platform, cocoslib_path)
-          if os.system(command) != 0:
-              raise Exception("update cocos lib-project [ " + cocoslib_path + " ] fails!")        
-          command = '%s update project -t %s -p %s -s' % (sdk_tool_path, android_platform, app_android_root)
-          if os.system(command) != 0:
-              raise Exception("update project [ " + app_android_root + " ] fails!")           
-          buildfile_path = os.path.join(app_android_root, "build.xml")
-          command = 'ant clean %s -f %s -Dsdk.dir=%s' % (build_mode, buildfile_path, sdk_root)
-          os.system(command)
+    os.system(command)
+        #raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
+    if android_platform is not None:
+        sdk_tool_path = os.path.join(sdk_root, "tools/android")
+        cocoslib_path = os.path.join(cocos_root, "cocos/2d/platform/android/java")
+        command = '%s update lib-project -t %s -p %s' % (sdk_tool_path, android_platform, cocoslib_path)
+        if os.system(command) != 0:
+            raise Exception("update cocos lib-project [ " + cocoslib_path + " ] fails!")
+        command = '%s update project -t %s -p %s -s' % (sdk_tool_path, android_platform, app_android_root)
+        if os.system(command) != 0:
+            raise Exception("update project [ " + app_android_root + " ] fails!")
+        buildfile_path = os.path.join(app_android_root, "build.xml")
+        command = 'ant clean %s -f %s -Dsdk.dir=%s' % (build_mode, buildfile_path, sdk_root)
+        os.system(command)
 
 def copy_files(src, dst):
 
@@ -148,8 +148,11 @@ def build_samples(target, ndk_build_param, android_platform, build_mode):
           build_mode = 'debug'
     elif build_mode != 'release':
         build_mode = 'debug'
-       
-    app_android_root = os.path.join(cocos_root, 'samples/Cpp/EngineDemo/proj.android')
+
+    if target == 'EngineDemo':
+        app_android_root = os.path.join(cocos_root, 'EngineDemo/proj.android')
+    else:
+        app_android_root = os.path.join(cocos_root, "projects/" + target +"/proj.android")
 
     copy_resources(target, app_android_root)
     do_build(cocos_root, ndk_root, app_android_root, ndk_build_param, sdk_root, android_platform, build_mode)
@@ -175,19 +178,16 @@ if __name__ == '__main__':
     """
 
     parser = OptionParser(usage=usage)
-    parser.add_option("-n", "--ndk", dest="ndk_build_param", 
-    help='Parameter for ndk-build')
-    parser.add_option("-p", "--platform", dest="android_platform", 
-    help='Parameter for android-update. Without the parameter,the script just build dynamic library for the projects. Valid android-platform are:[10|11|12|13|14|15|16|17|18|19]')
-    parser.add_option("-b", "--build", dest="build_mode", 
-    help='The build mode for java project,debug[default] or release. Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
+    parser.add_option("-n", "--ndk", dest="ndk_build_param", help='Parameter for ndk-build')
+    parser.add_option("-p", "--platform", dest="android_platform", help='Parameter for android-update. Without the parameter,the script just build dynamic library for the projects. Valid android-platform are:[10|11|12|13|14|15|16|17|18|19]')
+    parser.add_option("-b", "--build", dest="build_mode", help='The build mode for java project,debug[default] or release. Get more information,please refer to http://developer.android.com/tools/building/building-cmdline.html')
     (opts, args) = parser.parse_args()
 
-    if len(args) != 0:
+    if len(args) == 0:
         parser.print_help()
     else:
         try:
-            build_samples(args, opts.ndk_build_param, opts.android_platform, opts.build_mode)
+            build_samples(args[0], opts.ndk_build_param, opts.android_platform, opts.build_mode)
         except Exception as e:
             print e
             sys.exit(1)

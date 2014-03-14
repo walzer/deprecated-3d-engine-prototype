@@ -3,33 +3,13 @@
 
 USING_NS_CC;
 
-CCScene* HelloWorldScene::scene()
+void HelloWorldScene::onEnter()
 {
-    // 'scene' is an autorelease object
-    CCScene *scene = CCScene::create();
+    Layer::onEnter();
+
     
-    // 'layer' is an autorelease object
-    HelloWorldScene *layer = HelloWorldScene::create();
-
-    // add layer as a child to scene
-    scene->addChild(layer);
-
-    // return the scene
-    return scene;
-}
-
-// on "init" you need to initialize your instance
-bool HelloWorldScene::init()
-{
-    //////////////////////////////
-    // 1. super init first
-    if ( !CCLayer::init() )
-    {
-        return false;
-    }
-    
-    CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-    CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+    CCSize visibleSize = Director::sharedDirector()->getVisibleSize();
+    CCPoint origin = Director::sharedDirector()->getVisibleOrigin();
 
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
@@ -58,8 +38,6 @@ bool HelloWorldScene::init()
     
     Hello3DLayer* layer = Hello3DLayer::create();
     addChild(layer);
-    
-    return true;
 }
 
 
