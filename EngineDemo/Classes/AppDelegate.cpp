@@ -26,9 +26,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     pDirector->setOpenGLView(pEGLView);
 
     // Set the design resolution
-    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
-
 	CCSize frameSize = pEGLView->getFrameSize();
+    pEGLView->setDesignResolutionSize(frameSize.width/frameSize.height*600, 600, kResolutionShowAll);
 
     vector<string> searchPath;
 

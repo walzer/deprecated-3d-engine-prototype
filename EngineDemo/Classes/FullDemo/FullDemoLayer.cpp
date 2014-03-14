@@ -551,7 +551,13 @@ void FullDemoLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
+		//-----------------------------------------------------------------
+		float scalex = cocos2d::CCDirector::sharedDirector()->getOpenGLView()->getScaleX();
+		float scaley = cocos2d::CCDirector::sharedDirector()->getOpenGLView()->getScaleY();
 
+		touchPoint.x = touchPoint.x*scalex ;
+		touchPoint.y = touchPoint.y*scaley;
+		//-----------------------------------------------------------------
         touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
     }
 }
