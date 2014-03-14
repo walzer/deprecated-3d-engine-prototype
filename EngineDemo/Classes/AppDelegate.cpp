@@ -24,15 +24,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
 
     pDirector->setOpenGLView(pEGLView);
+
+    // Set the design resolution	
 	CCSize frameSize = pEGLView->getFrameSize();
-
-    // Set the design resolution
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
-    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionShowAll);
-#else
-	pEGLView->setDesignResolutionSize(frameSize.width/frameSize.height*600, 600, kResolutionShowAll);
-#endif
-
+    pEGLView->setDesignResolutionSize(frameSize.width/frameSize.height*600, 600, kResolutionShowAll);
     
     vector<string> searchPath;
 

@@ -49,13 +49,7 @@ public:
 	void changeMorph(std::string type,float weight);//change morph for the equip
 
     virtual void touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex);
-
-    // optional
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent);
-
+	
     void menuCallback(CCObject * pSender);
 
     CCLayer* createUILayer();
