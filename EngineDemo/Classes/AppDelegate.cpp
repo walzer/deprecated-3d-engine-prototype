@@ -24,12 +24,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
 
     pDirector->setOpenGLView(pEGLView);
-
-    // Set the design resolution
-    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
-
 	CCSize frameSize = pEGLView->getFrameSize();
 
+    // Set the design resolution
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
+    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionShowAll);
+#else
+	pEGLView->setDesignResolutionSize(frameSize.width/frameSize.height*600, 600, kResolutionShowAll);
+#endif
+
+    
     vector<string> searchPath;
 
     // In this demo, we select resource according to the frame's height.
@@ -44,13 +48,21 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
         pDirector->setContentScaleFactor(MIN(largeResource.size.height/designResolutionSize.height, largeResource.size.width/designResolutionSize.width));
 	}
+    // if the frame's height is larger than the height of small resource size, select medium resource.
+    else if (frameSize.height > smallResource.size.height)
+    {
+        searchPath.push_back(mediumResource.directory);
+        
+        pDirector->setContentScaleFactor(MIN(mediumResource.size.height/designResolutionSize.height, mediumResource.size.width/designResolutionSize.width));
+    }
     // if the frame's height is smaller than the height of medium resource size, select small resource.
 	else
     {
-        searchPath.push_back(mediumResource.directory);
+        searchPath.push_back(smallResource.directory);
 
-        pDirector->setContentScaleFactor(MIN(mediumResource.size.height/designResolutionSize.height, mediumResource.size.width/designResolutionSize.width));
+        pDirector->setContentScaleFactor(MIN(smallResource.size.height/designResolutionSize.height, smallResource.size.width/designResolutionSize.width));
     }
+
 
     // set searching path
     CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);

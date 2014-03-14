@@ -545,12 +545,19 @@ void FullDemoLayer::touchEvent(TouchEvent evt, float x, float y, unsigned int co
 
 void FullDemoLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
 {
+	 //   m_fScaleX = (float)m_obScreenSize.width / m_obDesignResolutionSize.width;
+   // m_fScaleY = (float)m_obScreenSize.height / m_obDesignResolutionSize.height;
+
+	float scalex = cocos2d::CCDirector::sharedDirector()->getOpenGLView()->getScaleX();
+	float scaley = cocos2d::CCDirector::sharedDirector()->getOpenGLView()->getScaleY();
     CCTouch *pTouch;
     CCSetIterator setIter;
     for (setIter = pTouches->begin(); setIter != pTouches->end(); ++setIter)
     {
         pTouch = (CCTouch *)(*setIter);
         CCPoint touchPoint = pTouch->getLocationInView();
+		touchPoint.x = touchPoint.x * scalex;
+		touchPoint.y = touchPoint.y * scaley;
 
         touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x, touchPoint.y, pTouch->getID());
     }
