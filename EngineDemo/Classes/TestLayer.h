@@ -18,12 +18,18 @@ public:
 
 	virtual void onTouchesBegan( const std::vector<Touch*>& touches, Event *unused_event )
 	{
+		float scalex = cocos2d::CCDirector::getInstance()->getOpenGLView()->getScaleX();
+		float scaley = cocos2d::CCDirector::getInstance()->getOpenGLView()->getScaleY();
+
 		Touch *pTouch;
 		std::vector<Touch*>::const_iterator iter;
 		for (iter = touches.begin(); iter != touches.end(); ++iter)
 		{
 			pTouch = (Touch *)(*iter);		
 			Point touchPoint = pTouch->getLocationInView();
+
+			touchPoint.x *= scalex;
+			touchPoint.y *= scaley;
 
 			touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
 		}   
@@ -32,6 +38,9 @@ public:
 
 	virtual void onTouchesMoved( const std::vector<Touch*>& touches, Event *unused_event )
 	{
+		float scalex = cocos2d::CCDirector::getInstance()->getOpenGLView()->getScaleX();
+		float scaley = cocos2d::CCDirector::getInstance()->getOpenGLView()->getScaleY();
+
 		Touch *pTouch;    
 		std::vector<Touch*>::const_iterator iter;
 		for (iter = touches.begin(); iter != touches.end(); ++iter)
@@ -39,21 +48,29 @@ public:
 			pTouch = (Touch *)(*iter);	
 			Point touchPoint = pTouch->getLocationInView();
 
+			touchPoint.x *= scalex;
+			touchPoint.y *= scaley;
+
 			touchEvent(cocos3d::TouchEvent_MOVE, touchPoint.x , touchPoint.y , pTouch->getID());
-
-
+			
 		}
 
 	}
 
 	virtual void onTouchesEnded( const std::vector<Touch*>& touches, Event *unused_event )
 	{
+		float scalex = cocos2d::CCDirector::getInstance()->getOpenGLView()->getScaleX();
+		float scaley = cocos2d::CCDirector::getInstance()->getOpenGLView()->getScaleY();
+
 		Touch *pTouch;    
 		std::vector<Touch*>::const_iterator iter;
 		for (iter = touches.begin(); iter != touches.end(); ++iter)
 		{
 			pTouch = (Touch *)(*iter);	
 			Point touchPoint = pTouch->getLocationInView();
+
+			touchPoint.x *= scalex;
+			touchPoint.y *= scaley;
 
 			touchEvent(cocos3d::TouchEvent_RELEASE, touchPoint.x , touchPoint.y , pTouch->getID());
 		}

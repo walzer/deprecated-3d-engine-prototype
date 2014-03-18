@@ -76,7 +76,7 @@ void C3DRenderSystem::initialize()
 
     C3DStateBlock::initialize();
     // initialize as window size
-    cocos2d::CCSize size = cocos2d::CCDirector::sharedDirector()->getWinSize();
+	cocos2d::CCSize size = cocos2d::CCDirector::getInstance()->getOpenGLView()->getFrameSize();
 
     _viewport = new C3DViewport(0, 0, (int)size.width, (int)size.height);
 
