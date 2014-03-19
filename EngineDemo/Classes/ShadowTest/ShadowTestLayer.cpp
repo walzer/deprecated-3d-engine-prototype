@@ -63,9 +63,9 @@ void ShadowTestLayer::update( float dt )
     }
 }
 
-void ShadowTestLayer::draw()
+void ShadowTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ShadowTestLayer::setUpScene()

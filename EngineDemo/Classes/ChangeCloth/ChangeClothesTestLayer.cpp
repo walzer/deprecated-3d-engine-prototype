@@ -70,9 +70,9 @@ void ChangeClothesTestLayer::update( float dt )
     }
 }
 
-void ChangeClothesTestLayer::draw()
+void ChangeClothesTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ChangeClothesTestLayer::createLive()

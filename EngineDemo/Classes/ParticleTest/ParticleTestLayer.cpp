@@ -120,9 +120,9 @@ void ParticleTestLayer::update( float dt )
 	_lighting->setLines( lines );
 }
 
-void ParticleTestLayer::draw()
+void ParticleTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ParticleTestLayer::setUpScene()

@@ -71,9 +71,9 @@ void ColorTestLayer::update( float dt )
     }
 }
 
-void ColorTestLayer::draw()
+void ColorTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ColorTestLayer::setUpScene()

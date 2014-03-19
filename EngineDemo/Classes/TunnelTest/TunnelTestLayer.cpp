@@ -55,9 +55,9 @@ void TunnelTestLayer::update(float dt)
     }
 }
 
-void TunnelTestLayer::draw()
+void TunnelTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void TunnelTestLayer::setUpScene()

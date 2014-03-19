@@ -111,7 +111,7 @@ void C3DLayer::onExit()
 	cocos2d::CCLayer::onExit();
 }
 
-void C3DLayer::draw(void)
+void C3DLayer::draw3D(void)
 {
     beginRender();
     //render 3d objects
@@ -122,13 +122,13 @@ void C3DLayer::draw(void)
     
 void C3DLayer::draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool transformUpdated)
 {
-    draw();
+    draw3D();
 }
 
 long C3DLayer::getAbsoluteTime()
 {
     struct timeval now;
-    if (gettimeofday(&now, NULL) != 0)
+    if (cocos2d::gettimeofday(&now, NULL) != 0)
     {
         return 0 ;
     }
@@ -139,7 +139,7 @@ long C3DLayer::getAbsoluteTime()
 long C3DLayer::getGameTime()
 {
     struct timeval now;
-    if (gettimeofday(&now, NULL) != 0)
+    if (cocos2d::gettimeofday(&now, NULL) != 0)
     {
         return 0 ;
     }

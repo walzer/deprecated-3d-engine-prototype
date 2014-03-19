@@ -105,9 +105,9 @@ void PostEffectTestLayer::update( float dt )
 	}
 }
 
-void PostEffectTestLayer::draw()
+void PostEffectTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void PostEffectTestLayer::setUpScene()

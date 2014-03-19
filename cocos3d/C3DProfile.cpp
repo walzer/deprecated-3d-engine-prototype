@@ -33,7 +33,7 @@ namespace cocos3d
         }
 
         struct timeval now;
-        gettimeofday( &now, NULL);
+        cocos2d::gettimeofday( &now, NULL);
         item->_startTime = 1000000 * (now.tv_sec) + (now.tv_usec);
 #endif
     }
@@ -42,7 +42,7 @@ namespace cocos3d
     {
 #ifdef ENABLE_C3D_PROFILE
         struct timeval now;
-        gettimeofday( &now, NULL);
+        cocos2d::gettimeofday( &now, NULL);
         ProfileItem*& item = _profileItems[itemname];
         //CCAssert(item, "profile item null");
         item->_accTime += 1000000 * (now.tv_sec) + (now.tv_usec) - item->_startTime;

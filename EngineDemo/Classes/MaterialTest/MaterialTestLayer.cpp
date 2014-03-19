@@ -124,9 +124,9 @@ void MaterialTestLayer::update( float dt )
 	}
 }
 
-void MaterialTestLayer::draw()
+void MaterialTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void MaterialTestLayer::setUpScene()
