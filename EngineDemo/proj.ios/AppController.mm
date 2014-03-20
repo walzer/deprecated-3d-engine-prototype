@@ -43,7 +43,6 @@ static AppDelegate s_sharedApplication;
     
     cocos2d::Application *app = cocos2d::Application::getInstance();
     
-    UIWindow *window1 = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 320, 320)];
     // Override point for customization after application launch.
     
     // Add the view controller's view to the window and display.
