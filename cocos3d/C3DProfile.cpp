@@ -4,6 +4,8 @@
 #include "C3DProfile.h"
 #include "CCStdC.h"
 
+using namespace cocos2d;
+
 namespace cocos3d
 {
     C3DProfile::C3DProfile()
@@ -33,7 +35,7 @@ namespace cocos3d
         }
 
         struct timeval now;
-        cocos2d::gettimeofday( &now, NULL);
+        gettimeofday( &now, NULL);
         item->_startTime = 1000000 * (now.tv_sec) + (now.tv_usec);
 #endif
     }
@@ -42,7 +44,7 @@ namespace cocos3d
     {
 #ifdef ENABLE_C3D_PROFILE
         struct timeval now;
-        cocos2d::gettimeofday( &now, NULL);
+        gettimeofday( &now, NULL);
         ProfileItem*& item = _profileItems[itemname];
         //CCAssert(item, "profile item null");
         item->_accTime += 1000000 * (now.tv_sec) + (now.tv_usec) - item->_startTime;

@@ -27,6 +27,7 @@
 #include "C3DProfile.h"
 
 #include "CCStdC.h"
+using namespace cocos2d;
 
 GLenum __gl_error_code = GL_NO_ERROR;
 #define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
@@ -128,7 +129,7 @@ void C3DLayer::draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool t
 long C3DLayer::getAbsoluteTime()
 {
     struct timeval now;
-    if (cocos2d::gettimeofday(&now, NULL) != 0)
+    if (gettimeofday(&now, NULL) != 0)
     {
         return 0 ;
     }
@@ -139,7 +140,7 @@ long C3DLayer::getAbsoluteTime()
 long C3DLayer::getGameTime()
 {
     struct timeval now;
-    if (cocos2d::gettimeofday(&now, NULL) != 0)
+    if (gettimeofday(&now, NULL) != 0)
     {
         return 0 ;
     }
