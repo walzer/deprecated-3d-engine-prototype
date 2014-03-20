@@ -32,6 +32,12 @@ public:
     @param  the pointer of the application
     */
     virtual void applicationWillEnterForeground();
+    
+private:
+    
+    cocos2d::Size getDesignSize();
+    
+    std::vector<cocos2d::Size> _designSizes;
 };
 
 #endif // _APP_DELEGATE_H_

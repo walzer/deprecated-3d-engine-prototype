@@ -12,10 +12,31 @@ using namespace std;
 
 cocos3d::C3DSprite* g_entity;
 AppDelegate::AppDelegate() {
+    _designSizes.push_back(Size(480, 320));
+    _designSizes.push_back(Size(800, 480));
+    _designSizes.push_back(Size(960, 640));
+    _designSizes.push_back(Size(1024, 768));
+    _designSizes.push_back(Size(2048, 1536));
 }
 
 AppDelegate::~AppDelegate()
 {
+}
+
+cocos2d::Size AppDelegate::getDesignSize()
+{
+    CCDirector* pDirector = CCDirector::getInstance();
+	CCEGLView* pEGLView = pDirector->getOpenGLView();
+
+    Size screenSize = pEGLView->getFrameSize();
+    size_t i;
+    for (i = 0; i < _designSizes.size(); i++) {
+        if (_designSizes[i].height >= screenSize.height)
+            break;
+    }
+    if (i >= _designSizes.size())
+        i = _designSizes.size() - 1;
+    return _designSizes[i];
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -57,6 +78,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
 
 	// Set the design resolution
+    designResolutionSize = getDesignSize();
     pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
 
     // turn on display FPS
