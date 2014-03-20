@@ -4,6 +4,8 @@
 #include "C3DProfile.h"
 #include "CCStdC.h"
 
+using namespace cocos2d;
+
 namespace cocos3d
 {
     C3DProfile::C3DProfile()

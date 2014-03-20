@@ -446,9 +446,9 @@ void FullDemoLayer::update(float dt)
 	}
 }
 
-void FullDemoLayer::draw(void)
+void FullDemoLayer::draw3D(void)
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 C3DActor* FullDemoLayer::pick( float x,float y )

@@ -30,7 +30,7 @@ THE SOFTWARE.
 
 #ifndef __MINGW32__
 
-//NS_CC_BEGIN
+NS_CC_BEGIN
 
 int gettimeofday(struct timeval * val, struct timezone *)
 {
@@ -45,7 +45,7 @@ int gettimeofday(struct timeval * val, struct timezone *)
     return 0;
 }
 
-//NS_CC_END
+NS_CC_END
 
 #endif // __MINGW32__
 

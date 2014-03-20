@@ -83,7 +83,7 @@ public:
     
     virtual void draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool transformUpdated)
     {
-        C3DLayer::draw();
+        C3DLayer::draw3D();
     }
     
 

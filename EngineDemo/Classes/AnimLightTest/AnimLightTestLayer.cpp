@@ -70,9 +70,9 @@ void AnimLightTestLayer::update( float dt )
     }
 }
 
-void AnimLightTestLayer::draw()
+void AnimLightTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void AnimLightTestLayer::setUpScene()

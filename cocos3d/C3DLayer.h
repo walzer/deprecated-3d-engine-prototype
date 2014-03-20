@@ -98,7 +98,7 @@ public:
 
 	virtual void update(long elapsedTime);
 	virtual void update(float delta);// overwrite CCLayer update
-	virtual void draw(void);//render the 3d contents
+	virtual void draw3D(void);//render the 3d contents
     
     virtual void draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool transformUpdated);
  

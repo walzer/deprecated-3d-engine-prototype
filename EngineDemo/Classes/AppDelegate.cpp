@@ -12,10 +12,33 @@ using namespace std;
 
 cocos3d::C3DSprite* g_entity;
 AppDelegate::AppDelegate() {
+    _designSizes.push_back(Size(480, 320));
+    _designSizes.push_back(Size(800, 480));
+    _designSizes.push_back(Size(960, 640));
+    _designSizes.push_back(Size(1024, 768));
+    _designSizes.push_back(Size(2048, 1536));
 }
 
 AppDelegate::~AppDelegate()
 {
+}
+
+cocos2d::Size AppDelegate::getDesignSize()
+{
+    CCDirector* pDirector = CCDirector::getInstance();
+	CCEGLView* pEGLView = pDirector->getOpenGLView();
+
+    Size screenSize = pEGLView->getFrameSize();
+    size_t i;
+    for (i = 0; i < _designSizes.size(); i++) {
+        if (_designSizes[i].height >= screenSize.height)
+            break;
+    }
+    if (i >= _designSizes.size())
+        i = _designSizes.size() - 1;
+    Size s = _designSizes[i];
+    s.width = s.height * screenSize.width / screenSize.height;
+    return s;
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -23,15 +46,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	CCDirector* pDirector = CCDirector::getInstance();
 	CCEGLView* pEGLView = pDirector->getOpenGLView();
 			
-    if(!pEGLView) 
-	{
+    if(!pEGLView) {
         pEGLView = GLView::create("Engine Demo");
         pDirector->setOpenGLView(pEGLView);
     }
 	    
 
 	CCSize frameSize = pEGLView->getFrameSize();
-	pEGLView->setDesignResolutionSize(frameSize.width/frameSize.height*600, 600, kResolutionShowAll);
+    // Set the design resolution
+    designResolutionSize = getDesignSize();
+    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionShowAll);
     vector<string> searchPath;
 
     // In this demo, we select resource according to the frame's height.
@@ -46,24 +70,19 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
         pDirector->setContentScaleFactor(MIN(largeResource.size.height/designResolutionSize.height, largeResource.size.width/designResolutionSize.width));
 	}
-    // if the frame's height is larger than the height of small resource size, select medium resource.
-    else if (frameSize.height > smallResource.size.height)
-    {
-        searchPath.push_back(mediumResource.directory);
-        
-        pDirector->setContentScaleFactor(MIN(mediumResource.size.height/designResolutionSize.height, mediumResource.size.width/designResolutionSize.width));
-    }
     // if the frame's height is smaller than the height of medium resource size, select small resource.
 	else
     {
-        searchPath.push_back(smallResource.directory);
+        searchPath.push_back(mediumResource.directory);
 
-        pDirector->setContentScaleFactor(MIN(smallResource.size.height/designResolutionSize.height, smallResource.size.width/designResolutionSize.width));
+        pDirector->setContentScaleFactor(MIN(mediumResource.size.height/designResolutionSize.height, mediumResource.size.width/designResolutionSize.width));
     }
 
     // set searching path
     CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
-		
+
+	
+
     // turn on display FPS
     //pDirector->setDisplayStats(true);
 

@@ -18,7 +18,7 @@ public:
 
 	virtual void update(float dt);
 
-	virtual void draw(void);//render the 3d contents
+	virtual void draw3D(void);//render the 3d contents
 
 	CREATE_FUNC(AnimLightTestLayer);
 

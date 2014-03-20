@@ -27,6 +27,7 @@
 #include "C3DProfile.h"
 
 #include "CCStdC.h"
+using namespace cocos2d;
 
 GLenum __gl_error_code = GL_NO_ERROR;
 #define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
@@ -112,7 +113,7 @@ void C3DLayer::onExit()
 	cocos2d::CCLayer::onExit();
 }
 
-void C3DLayer::draw(void)
+void C3DLayer::draw3D(void)
 {
     beginRender();
     //render 3d objects
@@ -123,7 +124,7 @@ void C3DLayer::draw(void)
     
 void C3DLayer::draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool transformUpdated)
 {
-    draw();
+    draw3D();
 }
 
 long C3DLayer::getAbsoluteTime()
