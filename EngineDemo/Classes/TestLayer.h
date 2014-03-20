@@ -20,10 +20,15 @@ public:
 	{
 		Touch *pTouch;
 		std::vector<Touch*>::const_iterator iter;
+        float scalex = cocos2d::CCDirector::sharedDirector()->getOpenGLView()->getScaleX();
+		float scaley = cocos2d::CCDirector::sharedDirector()->getOpenGLView()->getScaleY();
 		for (iter = touches.begin(); iter != touches.end(); ++iter)
 		{
 			pTouch = (Touch *)(*iter);		
 			Point touchPoint = pTouch->getLocationInView();
+
+            touchPoint.x = touchPoint.x * scalex;
+			touchPoint.y = touchPoint.y * scaley;
 
 			touchEvent(cocos3d::TouchEvent_PRESS, touchPoint.x , touchPoint.y , pTouch->getID());
 		}   

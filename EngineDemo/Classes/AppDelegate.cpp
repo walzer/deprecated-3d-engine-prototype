@@ -36,7 +36,9 @@ cocos2d::Size AppDelegate::getDesignSize()
     }
     if (i >= _designSizes.size())
         i = _designSizes.size() - 1;
-    return _designSizes[i];
+    Size s = _designSizes[i];
+    s.width = s.height * screenSize.width / screenSize.height;
+    return s;
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -51,7 +53,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	    
 
 	CCSize frameSize = pEGLView->getFrameSize();
-
+    // Set the design resolution
+    designResolutionSize = getDesignSize();
+    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionShowAll);
     vector<string> searchPath;
 
     // In this demo, we select resource according to the frame's height.
@@ -77,9 +81,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // set searching path
     CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
 
-	// Set the design resolution
-    designResolutionSize = getDesignSize();
-    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionNoBorder);
+	
 
     // turn on display FPS
     //pDirector->setDisplayStats(true);
