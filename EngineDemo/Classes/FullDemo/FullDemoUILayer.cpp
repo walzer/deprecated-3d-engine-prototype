@@ -47,7 +47,8 @@ bool FullDemoUILayer::init()
 	pItemShowMiniMap->setPosition(		ccp(menuStartX + placeHolderWidth*3, VisibleRect::bottom().y + 50 ) );
     pItemShowPerformance->setPosition(	ccp(menuStartX + placeHolderWidth*5, VisibleRect::bottom().y + 50 ) );
 
-	CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill,pItemShowMiniMap, pItemShowPerformance,NULL);
+	//CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill,pItemShowMiniMap, pItemShowPerformance,NULL);
+    CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill ,NULL);
     pMenu->setPosition( CCPointZero );
     this->addChild(pMenu, 10);
 
