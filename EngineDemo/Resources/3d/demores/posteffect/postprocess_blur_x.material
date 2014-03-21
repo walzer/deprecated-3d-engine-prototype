@@ -1,0 +1,17 @@
+material postprocess_bloom
+{
+	technique blurX
+	{
+		pass blurX
+		{
+			vertexShader = shaders/postprocess/postprocess.vsh
+			fragmentShader = shaders/postprocess/postprocess_bloom_blur.fsh
+            
+			renderState
+			{
+				depthTest = false
+			}
+		}
+	}
+}
+

@@ -1,0 +1,53 @@
+material 
+{
+
+	technique 0
+	{
+
+		pass 0
+		{
+			//vertexShader = shaders/textured.vsh
+			//fragmentShader = shaders/textured.fsh
+			vertexShader = shaders/reflect-diffuse.vsh
+			fragmentShader = shaders/reflect-diffuse.fsh
+			u_reflectColor = 0.937, 1, 0.431, 1
+			//u_reflectColor = 1, 1, 1, 1
+			defines = SKINNING_JOINT_COUNT 32
+
+			sampler u_diffuseTexture
+			{
+				path = demores/shayunew/shayu_j2.png
+				mipmap = true
+				wrapS = REPEAT
+				wrapT = REPEAT
+				minFilter = LINEAR_MIPMAP_LINEAR
+				magFilter = LINEAR
+			}
+			samplerCube cubeMap
+			{
+				path_left = demores/fulldemo/skybox/left.jpg
+				path_right = demores/fulldemo/skybox/right.jpg
+				path_top = demores/fulldemo/skybox/top.jpg
+				path_bottom = demores/fulldemo/skybox/bottom.jpg
+				path_front = demores/fulldemo/skybox/front.jpg
+				path_back = demores/fulldemo/skybox/back.jpg
+				
+			
+			}
+
+			renderState 
+			{
+				cullFace = true
+				depthTest = true
+				depthWrite = true
+				blend = true
+				srcBlend = SRC_ALPHA
+				dstBlend = ONE_MINUS_SRC_ALPHA
+			}
+
+		}
+
+	}
+
+}
+

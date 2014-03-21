@@ -1,0 +1,18 @@
+material wood
+{
+    technique 0
+    {
+		pass 0
+        {
+            vertexShader = shaders/wood.vsh
+            fragmentShader = shaders/wood.fsh
+            renderState
+            {
+                cullFace = true
+                depthTest = true
+				depthWrite = true
+				blend = false
+            }
+        }
+    }
+}

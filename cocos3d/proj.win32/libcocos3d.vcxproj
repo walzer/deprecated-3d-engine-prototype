@@ -1,0 +1,296 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\AttachNode.cpp" />
+    <ClCompile Include="..\BonePart.cpp" />
+    <ClCompile Include="..\BundleData.cpp" />
+    <ClCompile Include="..\C3DAABB.cpp" />
+    <ClCompile Include="..\C3DActionListener.cpp" />
+    <ClCompile Include="..\C3DAnimatedLight.cpp" />
+    <ClCompile Include="..\C3DAnimation.cpp" />
+    <ClCompile Include="..\C3DAnimationChannel.cpp" />
+    <ClCompile Include="..\C3DAnimationClip.cpp" />
+    <ClCompile Include="..\C3DAnimationCurve.cpp" />
+    <ClCompile Include="..\C3DBaseMesh.cpp" />
+    <ClCompile Include="..\C3DBaseModel.cpp" />
+    <ClCompile Include="..\C3DBatchMesh.cpp" />
+    <ClCompile Include="..\C3DBatchModel.cpp" />
+    <ClCompile Include="..\C3DBone.cpp" />
+    <ClCompile Include="..\C3DCamera.cpp" />
+    <ClCompile Include="..\C3DCapsule.cpp" />
+    <ClCompile Include="..\C3DCircle.cpp" />
+    <ClCompile Include="..\C3DCollitionBox.cpp" />
+    <ClCompile Include="..\C3DCone.cpp" />
+    <ClCompile Include="..\C3DCylinder.cpp" />
+    <ClCompile Include="..\C3DDepthStencilTarget.cpp" />
+    <ClCompile Include="..\C3DEffect.cpp" />
+    <ClCompile Include="..\C3DEffectManager.cpp" />
+    <ClCompile Include="..\C3DElementNode.cpp" />
+    <ClCompile Include="..\C3DForcePSA.cpp" />
+    <ClCompile Include="..\C3DFrameBuffer.cpp" />
+    <ClCompile Include="..\C3DFrustum.cpp" />
+    <ClCompile Include="..\C3DGeoWireRender.cpp" />
+    <ClCompile Include="..\C3DLayer.cpp" />
+    <ClCompile Include="..\C3DLight.cpp" />
+    <ClCompile Include="..\C3DLineRender.cpp" />
+    <ClCompile Include="..\C3DMaterial.cpp" />
+    <ClCompile Include="..\C3DMaterialManager.cpp" />
+    <ClCompile Include="..\C3DMathUtilty.cpp" />
+    <ClCompile Include="..\C3DMatrix.cpp" />
+    <ClCompile Include="..\C3DMesh.cpp" />
+    <ClCompile Include="..\C3DMeshSkin.cpp" />
+    <ClCompile Include="..\C3DModel.cpp" />
+    <ClCompile Include="..\C3DModelNode.cpp" />
+    <ClCompile Include="..\C3DMorph.cpp" />
+    <ClCompile Include="..\C3DMorphMesh.cpp" />
+    <ClCompile Include="..\C3DMorphModel.cpp" />
+    <ClCompile Include="..\C3DNode.cpp" />
+    <ClCompile Include="..\C3DNoise.cpp" />
+    <ClCompile Include="..\C3DOBB.cpp" />
+    <ClCompile Include="..\C3DParticleEmitter.cpp" />
+    <ClCompile Include="..\C3DParticleRender.cpp" />
+    <ClCompile Include="..\C3DParticleSystem.cpp" />
+    <ClCompile Include="..\C3DParticleSystemCommon.cpp" />
+    <ClCompile Include="..\C3DPass.cpp" />
+    <ClCompile Include="..\C3DPlane.cpp" />
+    <ClCompile Include="..\C3DPostEffect.cpp" />
+    <ClCompile Include="..\C3DPostProcess.cpp" />
+    <ClCompile Include="..\C3DProfile.cpp" />
+    <ClCompile Include="..\C3DQuaternion.cpp" />
+    <ClCompile Include="..\C3DRandom.cpp" />
+    <ClCompile Include="..\C3DRay.cpp" />
+    <ClCompile Include="..\C3DRenderBlock.cpp" />
+    <ClCompile Include="..\C3DRenderChannel.cpp" />
+    <ClCompile Include="..\C3DRenderNode.cpp" />
+    <ClCompile Include="..\C3DRenderState.cpp" />
+    <ClCompile Include="..\C3DRenderSystem.cpp" />
+    <ClCompile Include="..\C3DRenderTarget.cpp" />
+    <ClCompile Include="..\C3DResource.cpp" />
+    <ClCompile Include="..\C3DResourceLoader.cpp" />
+    <ClCompile Include="..\C3DResourceManager.cpp" />
+    <ClCompile Include="..\C3DResourcePool.cpp" />
+    <ClCompile Include="..\C3DSampler.cpp" />
+    <ClCompile Include="..\C3DSamplerCube.cpp" />
+    <ClCompile Include="..\C3DScene.cpp" />
+    <ClCompile Include="..\C3DShadowMap.cpp" />
+    <ClCompile Include="..\C3DSkeleton.cpp" />
+    <ClCompile Include="..\C3DSkinlessModel.cpp" />
+    <ClCompile Include="..\C3DSkinModel.cpp" />
+    <ClCompile Include="..\C3DSprite.cpp" />
+    <ClCompile Include="..\C3DSpriteManager.cpp" />
+    <ClCompile Include="..\C3DStat.cpp" />
+    <ClCompile Include="..\C3DStaticObj.cpp" />
+    <ClCompile Include="..\C3DStream.cpp" />
+    <ClCompile Include="..\C3DTechnique.cpp" />
+    <ClCompile Include="..\C3DTexture.cpp" />
+    <ClCompile Include="..\C3DTexture3D.cpp" />
+    <ClCompile Include="..\C3DTintPSA.cpp" />
+    <ClCompile Include="..\C3DTransform.cpp" />
+    <ClCompile Include="..\C3DTransformPSA.cpp" />
+    <ClCompile Include="..\C3DVector2.cpp" />
+    <ClCompile Include="..\C3DVector3.cpp" />
+    <ClCompile Include="..\C3DVector4.cpp" />
+    <ClCompile Include="..\C3DVertexDeclaration.cpp" />
+    <ClCompile Include="..\C3DVertexFormat.cpp" />
+    <ClCompile Include="..\C3DViewport.cpp" />
+    <ClCompile Include="..\FacialAnimation.cpp" />
+    <ClCompile Include="..\FacialAnimManager.cpp" />
+    <ClCompile Include="..\Geo.cpp" />
+    <ClCompile Include="..\MaterialParameter.cpp" />
+    <ClCompile Include="..\MeshPart.cpp" />
+    <ClCompile Include="..\Rectangle.cpp" />
+    <ClCompile Include="..\StringTool.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\AttachNode.h" />
+    <ClInclude Include="..\Base.h" />
+    <ClInclude Include="..\BonePart.h" />
+    <ClInclude Include="..\BundleData.h" />
+    <ClInclude Include="..\C3DAABB.h" />
+    <ClInclude Include="..\C3DActionListener.h" />
+    <ClInclude Include="..\C3DAnimatedLight.h" />
+    <ClInclude Include="..\C3DAnimation.h" />
+    <ClInclude Include="..\C3DAnimationChannel.h" />
+    <ClInclude Include="..\C3DAnimationClip.h" />
+    <ClInclude Include="..\C3DAnimationCurve.h" />
+    <ClInclude Include="..\C3DBaseMesh.h" />
+    <ClInclude Include="..\C3DBaseModel.h" />
+    <ClInclude Include="..\C3DBatchMesh.h" />
+    <ClInclude Include="..\C3DBatchModel.h" />
+    <ClInclude Include="..\C3DBone.h" />
+    <ClInclude Include="..\C3DCamera.h" />
+    <ClInclude Include="..\C3DCapsule.h" />
+    <ClInclude Include="..\C3DCircle.h" />
+    <ClInclude Include="..\C3DCollitionBox.h" />
+    <ClInclude Include="..\C3DCone.h" />
+    <ClInclude Include="..\C3DCylinder.h" />
+    <ClInclude Include="..\C3DDepthStencilTarget.h" />
+    <ClInclude Include="..\C3DEffect.h" />
+    <ClInclude Include="..\C3DEffectManager.h" />
+    <ClInclude Include="..\C3DElementNode.h" />
+    <ClInclude Include="..\C3DEnvConf.h" />
+    <ClInclude Include="..\C3DForcePSA.h" />
+    <ClInclude Include="..\C3DFrameBuffer.h" />
+    <ClInclude Include="..\C3DFrustum.h" />
+    <ClInclude Include="..\C3DGeoWireRender.h" />
+    <ClInclude Include="..\C3DLayer.h" />
+    <ClInclude Include="..\C3DLight.h" />
+    <ClInclude Include="..\C3DLightFilter.h" />
+    <ClInclude Include="..\C3DLineRender.h" />
+    <ClInclude Include="..\C3DMaterial.h" />
+    <ClInclude Include="..\C3DMaterialManager.h" />
+    <ClInclude Include="..\C3DMath.h" />
+    <ClInclude Include="..\C3DMathUtilty.h" />
+    <ClInclude Include="..\C3DMatrix.h" />
+    <ClInclude Include="..\C3DMesh.h" />
+    <ClInclude Include="..\C3DMeshSkin.h" />
+    <ClInclude Include="..\C3DModel.h" />
+    <ClInclude Include="..\C3DModelNode.h" />
+    <ClInclude Include="..\C3DMorph.h" />
+    <ClInclude Include="..\C3DMorphMesh.h" />
+    <ClInclude Include="..\C3DNode.h" />
+    <ClInclude Include="..\C3DNoise.h" />
+    <ClInclude Include="..\C3DOBB.h" />
+    <ClInclude Include="..\C3DParticleEmitter.h" />
+    <ClInclude Include="..\C3DParticleRender.h" />
+    <ClInclude Include="..\C3DParticleSystem.h" />
+    <ClInclude Include="..\C3DParticleSystemCommon.h" />
+    <ClInclude Include="..\C3DPass.h" />
+    <ClInclude Include="..\C3DPlane.h" />
+    <ClInclude Include="..\C3DPostEffect.h" />
+    <ClInclude Include="..\C3DPostProcess.h" />
+    <ClInclude Include="..\C3DProfile.h" />
+    <ClInclude Include="..\C3DQuaternion.h" />
+    <ClInclude Include="..\C3DRandom.h" />
+    <ClInclude Include="..\C3DRay.h" />
+    <ClInclude Include="..\C3DRenderBlock.h" />
+    <ClInclude Include="..\C3DRenderChannel.h" />
+    <ClInclude Include="..\C3DRenderNode.h" />
+    <ClInclude Include="..\C3DRenderState.h" />
+    <ClInclude Include="..\C3DRenderSystem.h" />
+    <ClInclude Include="..\C3DRenderTarget.h" />
+    <ClInclude Include="..\C3DResource.h" />
+    <ClInclude Include="..\C3DResourceLoader.h" />
+    <ClInclude Include="..\C3DResourceManager.h" />
+    <ClInclude Include="..\C3DResourcePool.h" />
+    <ClInclude Include="..\C3DSampler.h" />
+    <ClInclude Include="..\C3DSamplerCube.h" />
+    <ClInclude Include="..\C3DScene.h" />
+    <ClInclude Include="..\C3DShadowMap.h" />
+    <ClInclude Include="..\C3DSkeleton.h" />
+    <ClInclude Include="..\C3DSkinlessModel.h" />
+    <ClInclude Include="..\C3DSkinModel.h" />
+    <ClInclude Include="..\C3DSprite.h" />
+    <ClInclude Include="..\C3DSpriteManager.h" />
+    <ClInclude Include="..\C3DStat.h" />
+    <ClInclude Include="..\C3DStaticObj.h" />
+    <ClInclude Include="..\C3DStream.h" />
+    <ClInclude Include="..\C3DTechnique.h" />
+    <ClInclude Include="..\C3DTexture.h" />
+    <ClInclude Include="..\C3DTexture3D.h" />
+    <ClInclude Include="..\C3DTintPSA.h" />
+    <ClInclude Include="..\C3DTransform.h" />
+    <ClInclude Include="..\C3DTransformPSA.h" />
+    <ClInclude Include="..\C3DVector2.h" />
+    <ClInclude Include="..\C3DVector3.h" />
+    <ClInclude Include="..\C3DVector4.h" />
+    <ClInclude Include="..\C3DVertexDeclaration.h" />
+    <ClInclude Include="..\C3DVertexFormat.h" />
+    <ClInclude Include="..\C3DViewport.h" />
+    <ClInclude Include="..\cocos3d.h" />
+    <ClInclude Include="..\EnumDef_GL.h" />
+    <ClInclude Include="..\FacialAnimation.h" />
+    <ClInclude Include="..\FacialAnimManager.h" />
+    <ClInclude Include="..\Geo.h" />
+    <ClInclude Include="..\MaterialParameter.h" />
+    <ClInclude Include="..\MeshPart.h" />
+    <ClInclude Include="..\Rectangle.h" />
+    <ClInclude Include="..\StringTool.h" />
+    <ClInclude Include="..\Vertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\C3DMatrix.inl" />
+    <None Include="..\C3DQuaternion.inl" />
+    <None Include="..\C3DVector2.inl" />
+    <None Include="..\C3DVector3.inl" />
+    <None Include="..\C3DVector4.inl" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B1826AFA-B4A3-46EA-9A16-BE4805BB7505}</ProjectGuid>
+    <RootNamespace>libcocos3d</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
+    <IntDir>$(Configuration).win32\</IntDir>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(ProjectDir)..\..\cocos\base;$(ProjectDir)..\..\cocos\math\kazmath;$(ProjectDir)..\..\cocos\physics;$(ProjectDir)..\..\cocos\2d;$(ProjectDir)..\..\cocos\gui;$(ProjectDir)..\..\cocos\2d\render;$(ProjectDir)..\..\cocos\2d\platform\win32;$(ProjectDir)..\..\cocos\2d\platform\desktop;$(ProjectDir)..\..\cocos2dx\platform\third_party\win32;$(ProjectDir)..\..\external\glfw3\include\win32;$(ProjectDir)..\..\external\win32-specific\gles\include\OGLES;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(ProjectDir)..\..\cocos\base;$(ProjectDir)..\..\cocos\math\kazmath;$(ProjectDir)..\..\cocos\physics;$(ProjectDir)..\..\cocos\2d;$(ProjectDir)..\..\cocos\gui;$(ProjectDir)..\..\cocos\2d\render;$(ProjectDir)..\..\cocos\2d\platform\win32;$(ProjectDir)..\..\cocos\2d\platform\desktop;$(ProjectDir)..\..\cocos2dx\platform\third_party\win32;$(ProjectDir)..\..\external\glfw3\include\win32;$(ProjectDir)..\..\external\win32-specific\gles\include\OGLES;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_NODEBUG;_WINDOWS;COCOS2D_DEBUG=0;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

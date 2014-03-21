@@ -1,0 +1,57 @@
+material texturedflat
+{
+    u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
+
+    sampler u_diffuseTexture
+    {
+        path = demores/materialtest/ChangJing_DiMian.png
+        mipmap = true
+        wrapS = CLAMP
+        wrapT = CLAMP
+        minFilter = LINEAR_MIPMAP_LINEAR
+        magFilter = LINEAR
+    }
+
+    technique
+    {
+		sampler u_normalTexture
+		{
+			path = demores/materialtest/normal.png
+			mipmap = true
+			wrapS = CLAMP
+			wrapT = CLAMP
+			minFilter = LINEAR_MIPMAP_LINEAR
+			magFilter = LINEAR
+		}
+		pass
+        {
+            vertexShader = shaders/background.vsh
+            fragmentShader = shaders/background.fsh
+            renderState
+            {
+                cullFace = true
+                depthTest = true
+				depthWrite = true
+				blend = false
+            }
+        }
+    }
+
+    technique _castshadow
+    {
+        pass
+        {
+            vertexShader = shaders/textured.vsh
+            fragmentShader = shaders/writedepth.fsh
+
+            renderState
+            {
+                cullFace = true
+                depthTest = true
+				depthWrite = true
+				blend = false
+            }
+        }
+    }
+
+}
