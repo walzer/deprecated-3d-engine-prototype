@@ -4,6 +4,7 @@
 enum
 {
 	TEST_FULLDEMO = 0,
+	TEST_PERFORMANCE,
     TEST_MATERIALS,
     TEST_COLOR,
     TEST_SHADOW,
@@ -18,11 +19,13 @@ enum
     TEST_MATERIALS9,
 #endif
     TEST_MATERIALS10,
+	
     TESTS_COUNT,
 };
 
 const std::string g_aTestNames[TESTS_COUNT] = {
 	"FullDemoTest",
+	"PerformanceTest",
     "MaterialTest",
     "ColorTest",
     "ShadowTest",
