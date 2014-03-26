@@ -58,6 +58,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>../../../cocos2dx/cocos/2d;../../../cocos2dx/cocos/base;../../../cocos2dx/cocos/2d/platform/desktop;../../../cocos2dx/cocos/2d/platform/win32;../../../cocos2dx/external/win32-specific/gles/include/OGLES;../../../cocos2dx/cocos/math/kazmath;../../../cocos2dx/cocos/physics;../../../cocos2dx/external\glfw3\include\win32;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LibraryPath>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\lib;$(LibraryPath)</LibraryPath>
