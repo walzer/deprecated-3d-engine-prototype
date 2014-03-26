@@ -1,6 +1,6 @@
 #include "UI3DLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
+#include "CCTouch.h"
 
 #include <map>
 
@@ -116,31 +116,13 @@ void UI3DLayer::update(float dt)
 	C3DLayer::update(elapsedTime);
 }
 
-void UI3DLayer::draw(void)
-{
+//void UI3DLayer::draw(void)
+//{
    // glClear(GL_DEPTH_BUFFER_BIT);
-    C3DLayer::draw();
-}
+ //   C3DLayer::draw();
+//}
 
-void UI3DLayer::touchEvent(TouchEvent evt, float x, float y, unsigned int contactIndex)
-{
-}
 
-void UI3DLayer::ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent)
-{
-}
-
-void UI3DLayer::ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent)
-{
-}
-
-void UI3DLayer::ccTouchesEnded(CCSet *pTouches, CCEvent *pEvent)
-{
-}
-
-void UI3DLayer::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
-{
-}
 
 void UI3DLayer::setBase(cocos3d::C3DVector3& base)
 {

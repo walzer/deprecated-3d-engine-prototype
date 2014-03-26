@@ -2,9 +2,10 @@
 #include "C3DTexture.h"
 #include "C3DStream.h"
 #include "cocos2d.h"
-#include "textures/CCTexture2D.h"
-#include "textures/CCTextureCache.h"
-#include "support/ccUtils.h"
+#include "cocos2d.h"
+#include "CCTexture2D.h"
+#include "CCTextureCache.h"
+#include "ccUtils.h"
 
 using namespace std;
 using namespace cocos2d;
@@ -88,25 +89,24 @@ inline unsigned long nextPOT(unsigned long x)
     return x + 1;
 }
 
-C3DTexture* C3DTexture::create(int width, int height, C3DTexture::Format fmt, const void* data, bool generateMipmaps)
+C3DTexture* C3DTexture::create(int width, int height, C3DTexture::Format fmt, const void* data, ssize_t dataLen, bool generateMipmaps)
 {
-	//
 	CCTexture2DPixelFormat format;
 	switch(fmt)
 	{
-	case C3DTexture::RGBA:
-		format = kCCTexture2DPixelFormat_RGBA8888;
-		break;
-	case C3DTexture::RGB:
-		format = kCCTexture2DPixelFormat_RGB888;
-		break;
+		case C3DTexture::RGBA:
+			format = kCCTexture2DPixelFormat_RGBA8888;
+			break;
+		case C3DTexture::RGB:
+			format = kCCTexture2DPixelFormat_RGB888;
+			break;
 
-	default:
-		return NULL;
+		default:
+			return nullptr;
 	}
 
 	CCTexture2D* texture2D = new CCTexture2D();
-	texture2D->initWithData(data, format, width, height, CCSize(width, height));
+	texture2D->initWithData(data, dataLen, format, width, height, CCSize(width, height));
 
 	C3DTexture* retTexture = new C3DTexture();
 	retTexture->_texture = texture2D;

@@ -1,7 +1,5 @@
 #include "ColorTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -65,7 +63,7 @@ void ColorTestLayer::update( float dt )
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
 
-    C3DLight* light = getScene()->getLight(0);
+    C3DLight* light = get3DScene()->getLight(0);
 
     if (light)
     {
@@ -73,9 +71,9 @@ void ColorTestLayer::update( float dt )
     }
 }
 
-void ColorTestLayer::draw()
+void ColorTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ColorTestLayer::setUpScene()
@@ -188,7 +186,7 @@ CCLayer* ColorTestLayer::createUILayer()
         // #else
         CCLabelTTF* label = CCLabelTTF::create(colorTypes[i], "Arial", 20);
         // #endif
-        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(ColorTestLayer::menuCallback));
+        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(ColorTestLayer::menuCallback,this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));

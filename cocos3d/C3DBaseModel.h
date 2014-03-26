@@ -10,7 +10,7 @@ class C3DMaterial;
 class C3DBaseMesh;
 class C3DNode;
 
-class C3DBaseModel : public cocos2d::CCObject
+class C3DBaseModel : public cocos2d::Ref
 {
 public:
 

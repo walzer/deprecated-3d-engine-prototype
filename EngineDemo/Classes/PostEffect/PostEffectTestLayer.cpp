@@ -1,5 +1,5 @@
 #include "PostEffectTestLayer.h"
-#include "touch_dispatcher/CCTouch.h"
+
 #include <map>
 
 #include "C3DViewport.h"
@@ -88,7 +88,7 @@ void PostEffectTestLayer::update( float dt )
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
 
-    C3DLight* light = getScene()->getLight(0);
+    C3DLight* light = get3DScene()->getLight(0);
 
     if (light)
     {
@@ -105,9 +105,9 @@ void PostEffectTestLayer::update( float dt )
 	}
 }
 
-void PostEffectTestLayer::draw()
+void PostEffectTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void PostEffectTestLayer::setUpScene()
@@ -146,8 +146,8 @@ void PostEffectTestLayer::setUpScene()
 
 void PostEffectTestLayer::setUpPostEffect()
 {
-	float width = CCEGLView::sharedOpenGLView ()->getFrameSize().width;
-	float height = CCEGLView::sharedOpenGLView ()->getFrameSize().height;
+	float width = CCDirector::getInstance()->getOpenGLView()->getFrameSize().width;
+	float height = CCDirector::getInstance()->getOpenGLView()->getFrameSize().height;
 	C3DPostProcess* pp = C3DPostProcess::create("PostProcessTest",width, height);
 	_scene->addChild(pp);
 
@@ -201,8 +201,8 @@ void PostEffectTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, 
             _touchX = x;
             _touchY = y;
 
-			float width = CCEGLView::sharedOpenGLView()->getFrameSize().width;
-			float height = CCEGLView::sharedOpenGLView()->getFrameSize().height;
+			float width = CCDirector::getInstance()->getOpenGLView()->getFrameSize().width;
+			float height = CCDirector::getInstance()->getOpenGLView()->getFrameSize().height;
 			postEffectTouchPress( x/width, y/height );
         }
         break;
@@ -249,6 +249,7 @@ void PostEffectTestLayer::postEffectTouchPress(float x, float y)
 }
 
 
+
 void PostEffectTestLayer::menuCallback( CCObject * pSender )
 {
     // get the userdata, it's the index of the menu item clicked
@@ -278,7 +279,7 @@ CCLayer* PostEffectTestLayer::createUILayer()
         // #else
         CCLabelTTF* label = CCLabelTTF::create(postEffectTypes[i], "Arial", 20);
         // #endif
-        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(PostEffectTestLayer::menuCallback));
+        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(PostEffectTestLayer::menuCallback,this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));

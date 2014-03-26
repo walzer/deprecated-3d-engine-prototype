@@ -1,8 +1,8 @@
 #ifndef __COLOR_TEST_LAYER_H__
 #define __COLOR_TEST_LAYER_H__
 
-#include "base_nodes/CCNode.h"
-#include "touch_dispatcher/CCTouchDelegateProtocol.h"
+#include "CCNode.h"
+//#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "cocos2d.h"
 #include "cocos3d.h"
 #include "TestLayer.h"
@@ -18,7 +18,7 @@ public:
 
 	virtual void update(float dt);
 
-	virtual void draw(void);//render the 3d contents
+	virtual void draw3D(void);//render the 3d contents
 
 	CREATE_FUNC(ColorTestLayer);
 

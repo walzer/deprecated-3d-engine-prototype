@@ -214,7 +214,7 @@ void C3DFrameBuffer::bind()
 void C3DFrameBuffer::bindDefault()
 {
     GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, 0) );
-    cocos2d::CCDirector::sharedDirector()->setViewport();
+    cocos2d::CCDirector::getInstance()->setViewport();
 
     std::vector<C3DFrameBuffer*>::const_iterator it;
     for (it = __frameBuffers.begin(); it < __frameBuffers.end(); it++)

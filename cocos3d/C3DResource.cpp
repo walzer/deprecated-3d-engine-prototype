@@ -4,7 +4,7 @@
 #include "StringTool.h"
 namespace cocos3d
 {
-C3DResource::C3DResource(): _id(""),_size(0)
+C3DResource::C3DResource(): _id(""),_resourceName(""),_size(0)
 {
 	_checkWaitTime = 0;
 	_waitTime = 10000;
@@ -12,7 +12,7 @@ C3DResource::C3DResource(): _id(""),_size(0)
 	_cloneNum = 0;
 }
 
-C3DResource::C3DResource(const std::string& id): _id(id),_size(0)
+C3DResource::C3DResource(const std::string& id): _id(id),_resourceName(id),_size(0)
 {
 	_checkWaitTime = 0;
 	_waitTime = 10000;
@@ -44,6 +44,11 @@ const C3DResource::State C3DResource::getState(void) const
 	return _state;
 }
 
+const std::string& C3DResource::getResourceName(void) const
+{
+	return _resourceName;
+}
+
 void C3DResource::setState(C3DResource::State state)
 {
 	_state = state;
@@ -65,7 +70,7 @@ void C3DResource::update(long elapsedTime)
 	{
 	case C3DResource::State_Init:
 		{
-			if(this->retainCount()>1)
+			if(this->getReferenceCount()>1)
 			{
 				_state = State_Used;
 			}
@@ -81,6 +86,7 @@ void C3DResource::copyFrom(const C3DResource* other)
 	const_cast<C3DResource*>(other)->_cloneNum += 1;
 	_cloneNum = 0;
 
+	_resourceName = other->_resourceName;
 	_id = other->_id + "_" + StringTool::toString(other->_cloneNum);
 	_size = other->_size;
 	_state = C3DResource::State_Init;
@@ -91,6 +97,7 @@ C3DResource* C3DResource::clone() const
 {
 	C3DResource* other = new C3DResource("");
 
+	other->_resourceName = _resourceName;
 	other->_id = _id;
 	other->_size = _size;
 	other->_state = C3DResource::State_Init;

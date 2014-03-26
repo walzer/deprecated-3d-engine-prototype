@@ -1,7 +1,5 @@
 #include "ParticleTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -122,9 +120,9 @@ void ParticleTestLayer::update( float dt )
 	_lighting->setLines( lines );
 }
 
-void ParticleTestLayer::draw()
+void ParticleTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ParticleTestLayer::setUpScene()
@@ -310,6 +308,7 @@ void ParticleTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, un
     };
 }
 
+
 CCLayer* ParticleTestLayer::createUILayer()
 {
 	CCLayer* layer = CCLayer::create();
@@ -317,7 +316,7 @@ CCLayer* ParticleTestLayer::createUILayer()
 
 	CCLabelTTF* label = CCLabelTTF::create("Lighting", "Arial", 20);
 	// #endif
-	CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(ParticleTestLayer::menuCallback));
+	CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(ParticleTestLayer::menuCallback,this));
 
 	pItemMenu->addChild(pMenuItem, 10000);
 	pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y -  24) ));

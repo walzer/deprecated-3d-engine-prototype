@@ -5,8 +5,8 @@
 #include "cocos2d.h"
 
 namespace cocos2d {
-    class CCTexture2D;
-	class CCImage;
+    class Texture2D;
+	class Image;
 }
 
 namespace cocos3d

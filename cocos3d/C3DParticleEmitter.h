@@ -14,7 +14,7 @@
 
 namespace cocos3d
 {
-class Node;
+//class Node;
 class C3DElementNode;
 class C3DParticleSystem;
 
@@ -25,7 +25,7 @@ class C3DParticleSystem;
 */
 class C3DParticleEmitter
 {
-    friend class Node;
+    //friend class Node;
 
 public:
 

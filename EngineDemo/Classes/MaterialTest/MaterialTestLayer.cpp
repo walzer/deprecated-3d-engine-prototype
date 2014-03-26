@@ -1,6 +1,5 @@
 #include "MaterialTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
 
 #include <map>
 
@@ -75,7 +74,7 @@ void MaterialTestLayer::update( float dt )
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
 
-    C3DLight* light = getScene()->getLight(0);
+    C3DLight* light = get3DScene()->getLight(0);
 
     if (light)
     {
@@ -125,9 +124,9 @@ void MaterialTestLayer::update( float dt )
 	}
 }
 
-void MaterialTestLayer::draw()
+void MaterialTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void MaterialTestLayer::setUpScene()
@@ -229,6 +228,7 @@ void MaterialTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, un
 }
 
 
+
 void MaterialTestLayer::menuCallback( CCObject * pSender )
 {
     // get the userdata, it's the index of the menu item clicked
@@ -305,7 +305,7 @@ CCLayer* MaterialTestLayer::createUILayer()
     {
 
         CCLabelTTF* label = CCLabelTTF::create(materialTypes[i], "Arial", 20);
-        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MaterialTestLayer::menuCallback));
+        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(MaterialTestLayer::menuCallback,this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));

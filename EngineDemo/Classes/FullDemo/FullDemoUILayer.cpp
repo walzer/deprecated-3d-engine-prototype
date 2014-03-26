@@ -1,6 +1,6 @@
 #include "FullDemoUILayer.h"
 #include "FullDemoLayer.h"
-#include "base_nodes/CCNode.h"
+#include "CCNode.h"
 #include "VisibleRect.h"
 #include "UI3DLayer.h"
 #include "MainPlayer.h"
@@ -21,12 +21,22 @@ bool FullDemoUILayer::init()
 
     // add a "close" icon to exit the progress. it's an autorelease object
 
-	CCMenuItemImage *pItemNearAttack = CCMenuItemImage::create("icons/melee_attack.png","icons/melee_attack_selected.png",this,menu_selector(FullDemoUILayer::menuCallback_nearAttack) );
-	CCMenuItemImage *pItemFarAttack = CCMenuItemImage::create("icons/range_attack.png","icons/range_attack_selected.png",this,menu_selector(FullDemoUILayer::menuCallback_farAttack) );
-	CCMenuItemImage *pItemLightingSkill = CCMenuItemImage::create("icons/lighting.png","icons/lighting_selected.png",this,menu_selector(FullDemoUILayer::menuCallback_lightingSkill) );
-	CCMenuItemImage *pItemShowMiniMap = CCMenuItemImage::create("icons/mini_map.png","icons/mini_map_selected.png",this,menu_selector(FullDemoUILayer::menuCallback_showMini) );
+	//...
+	// auto spriteNormal = Sprite::create(s_MenuItem, Rect(0,23*2,115,23));
+    //auto spriteSelected = Sprite::create(s_MenuItem, Rect(0,23*1,115,23));
+    //auto spriteDisabled = Sprite::create(s_MenuItem, Rect(0,23*0,115,23));
+
+   // auto item1 = MenuItemSprite::create(spriteNormal, spriteSelected, spriteDisabled, CC_CALLBACK_1(MenuLayerMainMenu::menuCallback, this) );
+    
+
+	//....
+	CCMenuItemImage *pItemNearAttack = CCMenuItemImage::create("icons/melee_attack.png","icons/melee_attack_selected.png",CC_CALLBACK_1(FullDemoUILayer::menuCallback_nearAttack,this) );
+		
+	CCMenuItemImage *pItemFarAttack = CCMenuItemImage::create("icons/range_attack.png","icons/range_attack_selected.png",CC_CALLBACK_1(FullDemoUILayer::menuCallback_farAttack,this) );
+	CCMenuItemImage *pItemLightingSkill = CCMenuItemImage::create("icons/lighting.png","icons/lighting_selected.png",CC_CALLBACK_1(FullDemoUILayer::menuCallback_lightingSkill,this) );
+	CCMenuItemImage *pItemShowMiniMap = CCMenuItemImage::create("icons/mini_map.png","icons/mini_map_selected.png",CC_CALLBACK_1(FullDemoUILayer::menuCallback_showMini,this) );
     CCLabelTTF* label = CCLabelTTF::create("Performance", "Arial", 20);
-    CCMenuItemLabel *pItemShowPerformance = CCMenuItemLabel::create(label, this, menu_selector(FullDemoUILayer::menuCallback_showPerformance) );
+    CCMenuItemLabel *pItemShowPerformance = CCMenuItemLabel::create(label, CC_CALLBACK_1(FullDemoUILayer::menuCallback_showPerformance,this) );
 
 	size_t placeHolderWidth = pItemNearAttack->getContentSize().width + 5;
 	size_t itemHalfWidth	= pItemNearAttack->getContentSize().width/2;
@@ -37,7 +47,8 @@ bool FullDemoUILayer::init()
 	pItemShowMiniMap->setPosition(		ccp(menuStartX + placeHolderWidth*3, VisibleRect::bottom().y + 50 ) );
     pItemShowPerformance->setPosition(	ccp(menuStartX + placeHolderWidth*5, VisibleRect::bottom().y + 50 ) );
 
-	CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill,pItemShowMiniMap, pItemShowPerformance,NULL);
+	//CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill,pItemShowMiniMap, pItemShowPerformance,NULL);
+    CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill ,NULL);
     pMenu->setPosition( CCPointZero );
     this->addChild(pMenu, 10);
 

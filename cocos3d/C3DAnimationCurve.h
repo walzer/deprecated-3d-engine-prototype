@@ -10,7 +10,7 @@ namespace cocos3d
 /**
  * Represents an n-dimensional curve.
  */
-class C3DAnimationCurve : public cocos2d::CCObject
+class C3DAnimationCurve : public cocos2d::Ref
 {
     friend class C3DAnimation;
     friend class C3DAnimationClip;

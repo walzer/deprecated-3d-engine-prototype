@@ -491,8 +491,8 @@ C3DStream* C3DStreamManager::openStream(const std::string& fileName, const std::
 	}
 	else if(streamType == StreamType_Memory)
 	{
-		unsigned long nSize = 0;
-        char* pBuffer = reinterpret_cast<char*>(cocos2d::CCFileUtils::sharedFileUtils()->getFileData(fullpath.c_str(), openMode.c_str(), &nSize));
+		ssize_t nSize = 0;
+        char* pBuffer = reinterpret_cast<char*>(cocos2d::CCFileUtils::getInstance()->getFileData(fullpath.c_str(), openMode.c_str(), &nSize));
 		stream = C3DMemoryStream::create(pBuffer,nSize);
 	}
 	else{}

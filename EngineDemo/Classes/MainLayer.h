@@ -34,8 +34,12 @@ public:
     void menuBackCallback(CCObject * pSender);
     void closeCallback(CCObject * pSender);
 
-    virtual void ccTouchesBegan(CCSet *pTouches, CCEvent *pEvent);
-    virtual void ccTouchesMoved(CCSet *pTouches, CCEvent *pEvent);
+	virtual void onTouchesBegan( const std::vector<Touch*>& touches, Event *unused_event );
+	virtual void onTouchesMoved( const std::vector<Touch*>& touches, Event *unused_event );
+	
+
+
+
 
 public:
     CCPoint m_tBeginPos;

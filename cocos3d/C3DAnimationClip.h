@@ -16,7 +16,7 @@ class C3DActionEvent;
 /**
  * Defines the structure of an Animation to be played.
  */
-class C3DAnimationClip : public cocos2d::CCObject
+class C3DAnimationClip : public cocos2d::Ref
 {
    // friend class C3DAnimationController;
     friend class C3DAnimation;

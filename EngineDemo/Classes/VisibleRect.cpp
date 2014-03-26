@@ -1,73 +1,94 @@
+/****************************************************************************
+ Copyright (c) 2013-2014 Chukong Technologies Inc.
+
+ http://www.cocos2d-x.org
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+ ****************************************************************************/
+
 #include "VisibleRect.h"
 
-CCRect VisibleRect::s_visibleRect;
+Rect VisibleRect::s_visibleRect;
 
 void VisibleRect::lazyInit()
 {
-    if (s_visibleRect.size.width == 0.0f && s_visibleRect.size.height == 0.0f)
-    {
-        CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
-        s_visibleRect.origin = pEGLView->getVisibleOrigin();
-        s_visibleRect.size = pEGLView->getVisibleSize();
-    }
+    // no lazy init
+    // Useful if we change the resolution in runtime
+    s_visibleRect = Director::getInstance()->getOpenGLView()->getVisibleRect();
 }
 
-CCRect VisibleRect::getVisibleRect()
+Rect VisibleRect::getVisibleRect()
 {
     lazyInit();
-    return CCRectMake(s_visibleRect.origin.x, s_visibleRect.origin.y, s_visibleRect.size.width, s_visibleRect.size.height);
+    return s_visibleRect;
 }
 
-CCPoint VisibleRect::left()
+Point VisibleRect::left()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x, s_visibleRect.origin.y+s_visibleRect.size.height/2);
+    return Point(s_visibleRect.origin.x, s_visibleRect.origin.y+s_visibleRect.size.height/2);
 }
 
-CCPoint VisibleRect::right()
+Point VisibleRect::right()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y+s_visibleRect.size.height/2);
+    return Point(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y+s_visibleRect.size.height/2);
 }
 
-CCPoint VisibleRect::top()
+Point VisibleRect::top()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y+s_visibleRect.size.height);
+    return Point(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y+s_visibleRect.size.height);
 }
 
-CCPoint VisibleRect::bottom()
+Point VisibleRect::bottom()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y);
+    return Point(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y);
 }
 
-CCPoint VisibleRect::center()
+Point VisibleRect::center()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y+s_visibleRect.size.height/2);
+    return Point(s_visibleRect.origin.x+s_visibleRect.size.width/2, s_visibleRect.origin.y+s_visibleRect.size.height/2);
 }
 
-CCPoint VisibleRect::leftTop()
+Point VisibleRect::leftTop()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x, s_visibleRect.origin.y+s_visibleRect.size.height);
+    return Point(s_visibleRect.origin.x, s_visibleRect.origin.y+s_visibleRect.size.height);
 }
 
-CCPoint VisibleRect::rightTop()
+Point VisibleRect::rightTop()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y+s_visibleRect.size.height);
+    return Point(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y+s_visibleRect.size.height);
 }
 
-CCPoint VisibleRect::leftBottom()
+Point VisibleRect::leftBottom()
 {
     lazyInit();
     return s_visibleRect.origin;
 }
 
-CCPoint VisibleRect::rightBottom()
+Point VisibleRect::rightBottom()
 {
     lazyInit();
-    return ccp(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y);
+    return Point(s_visibleRect.origin.x+s_visibleRect.size.width, s_visibleRect.origin.y);
 }

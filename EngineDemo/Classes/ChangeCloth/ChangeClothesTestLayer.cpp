@@ -1,6 +1,6 @@
 #include "ChangeClothesTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
+#include "CCTouch.h"
 
 #include <map>
 
@@ -62,7 +62,7 @@ void ChangeClothesTestLayer::update( float dt )
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
 
-    C3DLight* light = getScene()->getLight(0);
+    C3DLight* light = get3DScene()->getLight(0);
 
     if (light)
     {
@@ -70,9 +70,9 @@ void ChangeClothesTestLayer::update( float dt )
     }
 }
 
-void ChangeClothesTestLayer::draw()
+void ChangeClothesTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ChangeClothesTestLayer::createLive()
@@ -206,6 +206,7 @@ void ChangeClothesTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float 
         break;
     };
 }
+
 
 CCLayer* ChangeClothesTestLayer::createUILayer()
 {

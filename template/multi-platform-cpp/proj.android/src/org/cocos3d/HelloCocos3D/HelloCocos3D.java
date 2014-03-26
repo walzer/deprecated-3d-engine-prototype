@@ -23,26 +23,15 @@ THE SOFTWARE.
 ****************************************************************************/
 package org.cocos3d.HelloCocos3D;
 
-import org.cocos2dx.lib.Cocos2dxActivity;
-import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-
+import android.app.NativeActivity;
+import android.graphics.PixelFormat;
 import android.os.Bundle;
+import android.util.Log;
 
-public class HelloCocos3D extends Cocos2dxActivity{
-	
-    protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);	
+public class HelloCocos3D extends NativeActivity
+{
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
 	}
-
-    public Cocos2dxGLSurfaceView onCreateView() {
-    	Cocos2dxGLSurfaceView glSurfaceView = new Cocos2dxGLSurfaceView(this);
-    	// HelloCpp should create stencil buffer
-    	glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-    	
-    	return glSurfaceView;
-    }
-
-    static {
-        System.loadLibrary("HelloCocos3D");
-    }     
 }

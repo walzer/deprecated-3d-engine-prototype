@@ -232,7 +232,7 @@ public:
 	 */
 	void draw( /*C3DScene* scene*/ );
 
-	C3DTexture* getSceneTexture(void);
+	C3DTexture* get3DSceneTexture(void);
 
 private:
 	void createFrameBuffer(void);

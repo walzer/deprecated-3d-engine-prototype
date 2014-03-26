@@ -1,7 +1,7 @@
 #ifndef C3DMATRIX_H_
 #define C3DMATRIX_H_
 
-#include "platform/CCPlatformMacros.h"
+#include "CCPlatformMacros.h"
 #include "C3DVector3.h"
 #include "C3DVector4.h"
 

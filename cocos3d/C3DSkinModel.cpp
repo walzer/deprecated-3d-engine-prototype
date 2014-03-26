@@ -48,7 +48,7 @@ void C3DSkinModel::setSkin(C3DMeshSkin* skin)
 //{
 //    bool bStatEnable = C3DStat::getInstance()->isStatEnable();
 //    C3DMaterial::TechniqueUsage techUsage =
-//        getNode()->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
+//        getNode()->get3DScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
 //
 //    unsigned int partCount = _mesh->getPartCount();
 //    if (partCount == 0)
@@ -112,7 +112,7 @@ void C3DSkinModel::draw()
 {
     bool bStatEnable = C3DStat::getInstance()->isStatEnable();
     C3DMaterial::TechniqueUsage techUsage =
-        getNode()->getScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
+        getNode()->get3DScene()->isInShadowPass() ? C3DMaterial::TECH_USAGE_SHADOWMAP : C3DMaterial::TECH_USAGE_SCREEN;
 
     unsigned int partCount = _mesh->getPartCount();
     if (partCount == 0)

@@ -1,7 +1,5 @@
 #include "AnimLightTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -72,9 +70,9 @@ void AnimLightTestLayer::update( float dt )
     }
 }
 
-void AnimLightTestLayer::draw()
+void AnimLightTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void AnimLightTestLayer::setUpScene()
@@ -142,6 +140,7 @@ void AnimLightTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, u
     };
 }
 
+
 CCLayer* AnimLightTestLayer::createUILayer()
 {
     CCLayer* layer = CCLayer::create();
@@ -156,7 +155,7 @@ CCLayer* AnimLightTestLayer::createUILayer()
         // #else
         CCLabelTTF* label = CCLabelTTF::create(name[i], "Arial", 20);
         // #endif
-        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(AnimLightTestLayer::menuCallback));
+        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(AnimLightTestLayer::menuCallback,this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));

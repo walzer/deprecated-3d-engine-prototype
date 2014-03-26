@@ -2,9 +2,9 @@
 #include "C3DTexture3D.h"
 #include "C3DStream.h"
 #include "cocos2d.h"
-#include "textures/CCTexture2D.h"
-#include "textures/CCTextureCache.h"
-#include "support/ccUtils.h"
+#include "CCTexture2D.h"
+#include "CCTextureCache.h"
+#include "ccUtils.h"
 #include "platform/CCImage.h"
 
 using namespace std;
@@ -62,29 +62,30 @@ namespace cocos3d
 		{
 			lowerCase[i] = tolower(lowerCase[i]);
 		}
-		CCImage::EImageFormat eImageFormat = CCImage::kFmtUnKnown;
+		CCImage::Format eImageFormat = CCImage::Format::UNKOWN;
 		if (std::string::npos != lowerCase.find(".png"))
 		{
-			eImageFormat = CCImage::kFmtPng;
+			eImageFormat = CCImage::Format::PNG;
 		}
 		else if (std::string::npos != lowerCase.find(".jpg") || std::string::npos != lowerCase.find(".jpeg"))
 		{
-			eImageFormat = CCImage::kFmtJpg;
+			eImageFormat = CCImage::Format::JPG;
 		}
 		else if (std::string::npos != lowerCase.find(".tif") || std::string::npos != lowerCase.find(".tiff"))
 		{
-			eImageFormat = CCImage::kFmtTiff;
+			eImageFormat = CCImage::Format::TIFF;
 		}
 		else if (std::string::npos != lowerCase.find(".webp"))
 		{
-			eImageFormat = CCImage::kFmtWebp;
+			eImageFormat = CCImage::Format::WEBP;
 		}
 
 		cocos2d::CCImage* pImage = new CCImage();
 		if(NULL == pImage)
 			return NULL;
 
-		bool bRet = pImage->initWithImageFile(fullpath.c_str(), eImageFormat);
+		//bool bRet = pImage->initWithImageFile(fullpath.c_str(), eImageFormat);
+		bool bRet = pImage->initWithImageFile(fullpath.c_str());
 		if (!bRet)
 			SAFE_DELETE(pImage);
 
@@ -98,8 +99,9 @@ namespace cocos3d
 		unsigned char*            inPixel8 = NULL;
 		unsigned short*           outPixel16 = NULL;
 		bool                      hasAlpha = image->hasAlpha();
-
-		size_t                    bpp = image->getBitsPerComponent();
+		
+		size_t                    bpp = image->getBitPerPixel();
+				
 
 		int width = image->getWidth();
 		int height = image->getHeight();

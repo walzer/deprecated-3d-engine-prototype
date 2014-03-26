@@ -8,7 +8,7 @@ namespace cocos3d
 {
 class C3DVertexFormat;
 
-class C3DBaseMesh : public cocos2d::CCObject
+    class C3DBaseMesh : public cocos2d::Ref
 {
 public:
 	C3DBaseMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);

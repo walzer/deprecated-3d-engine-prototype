@@ -10,7 +10,6 @@
     "replace_project_name": [".project",
                              "AndroidManifest.xml",
                              "build.xml",
-                             "build_native.sh",
                              "jni/Android.mk",
                              "res/values/strings.xml",
                              "src/PACKAGE_PATH/PROJECT_NAME.java"]

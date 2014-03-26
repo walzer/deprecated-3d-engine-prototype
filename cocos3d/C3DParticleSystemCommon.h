@@ -14,7 +14,7 @@
 
 namespace cocos3d
 {
-class Node;
+//class Node;
 class C3DElementNode;
 class C3DParticleSystem;
 

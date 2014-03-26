@@ -31,7 +31,7 @@ C3DResource* C3DMaterialManager::createResource(const std::string& name)
 {
     // Load the material properties from file
 	C3DElementNode* nodes = C3DElementNode::create(name);
-    assert(nodes);
+    //assert(nodes);
     if (nodes == NULL)
     {
         return NULL;

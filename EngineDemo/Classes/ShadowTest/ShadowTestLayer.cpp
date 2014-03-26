@@ -1,7 +1,5 @@
 #include "ShadowTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -46,7 +44,7 @@ void ShadowTestLayer::update( float dt )
     long elapsedTime = (long)(dt*1000.0f+0.5f);
     C3DLayer::update(elapsedTime);
 
-    C3DLight* light = getScene()->getLight(0);
+    C3DLight* light = get3DScene()->getLight(0);
 
     if (light)
     {
@@ -65,9 +63,9 @@ void ShadowTestLayer::update( float dt )
     }
 }
 
-void ShadowTestLayer::draw()
+void ShadowTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void ShadowTestLayer::setUpScene()
@@ -168,6 +166,8 @@ void ShadowTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsi
         break;
     };
 }
+
+
 
 CCLayer* ShadowTestLayer::createUILayer()
 {

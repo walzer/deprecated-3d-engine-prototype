@@ -1,7 +1,5 @@
 #include "TunnelTestLayer.h"
 
-#include "touch_dispatcher/CCTouch.h"
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -57,9 +55,9 @@ void TunnelTestLayer::update(float dt)
     }
 }
 
-void TunnelTestLayer::draw()
+void TunnelTestLayer::draw3D()
 {
-    C3DLayer::draw();
+    C3DLayer::draw3D();
 }
 
 void TunnelTestLayer::setUpScene()
@@ -115,6 +113,7 @@ void TunnelTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsi
         break;
     };
 }
+
 
 
 CCLayer* TunnelTestLayer::createUILayer()

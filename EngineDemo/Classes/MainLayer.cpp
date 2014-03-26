@@ -32,7 +32,7 @@ bool MainLayer::init()
     }
 
     // add close menu
-    CCMenuItemImage *pCloseItem = CCMenuItemImage::create("close_normal.png", "close_selected.png", this, menu_selector(MainLayer::closeCallback) );
+    CCMenuItemImage *pCloseItem = CCMenuItemImage::create("close_normal.png", "close_selected.png",  CC_CALLBACK_1(MainLayer::closeCallback,this) );
     CCMenu* pMenu =CCMenu::create(pCloseItem, NULL);
 
     pMenu->setPosition( CCPointZero );
@@ -47,7 +47,7 @@ bool MainLayer::init()
         // #else
         CCLabelTTF* label = CCLabelTTF::create(g_aTestNames[i].c_str(), "Arial", 60);
         // #endif
-        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuCallback));
+        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(MainLayer::menuCallback,this));
 
         m_pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( VisibleRect::center().x, (VisibleRect::top().y - (i + 1) * LINE_SPACE) ));
@@ -63,7 +63,7 @@ bool MainLayer::init()
 
     CCLabelTTF* label = CCLabelTTF::create("MainMenu", "Arial", 24);
     //#endif
-    CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, this, menu_selector(MainLayer::menuBackCallback));
+    CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(MainLayer::menuBackCallback,this));
 
     m_pMenuBack =CCMenu::create(pMenuItem, NULL);
 
@@ -182,18 +182,19 @@ void MainLayer::menuCallback(CCObject * pSender)
     m_pLayer3D = layer;
 }
 
-void MainLayer::ccTouchesBegan( CCSet *pTouches, CCEvent *pEvent )
+void MainLayer::onTouchesBegan( const std::vector<Touch*>& touches, Event *unused_event )
 {
-    CCSetIterator it = pTouches->begin();
-    CCTouch* touch = (CCTouch*)(*it);
+    std::vector<Touch*>::const_iterator iter = touches.begin();
+    Touch* touch = (Touch*)(*iter);
 
     m_tBeginPos = touch->getLocation();
 }
 
-void MainLayer::ccTouchesMoved( CCSet *pTouches, CCEvent *pEvent )
+
+void MainLayer::onTouchesMoved( const std::vector<Touch*>& touches, Event *unused_event )
 {
-    CCSetIterator it = pTouches->begin();
-    CCTouch* touch = (CCTouch*)(*it);
+	std::vector<Touch*>::const_iterator iter = touches.begin();
+    Touch* touch = (Touch*)(*iter);
 
     CCPoint touchLocation = touch->getLocation();
     float nMoveY = touchLocation.y - m_tBeginPos.y;

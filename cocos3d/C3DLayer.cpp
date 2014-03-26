@@ -4,7 +4,6 @@
 #include "C3DVector2.h"
 #include "C3DScene.h"
 
-#include "touch_dispatcher/CCTouch.h"
 
 #include <map>
 
@@ -26,6 +25,9 @@
 #include "C3DSpriteManager.h"
 #include "C3DVertexDeclaration.h"
 #include "C3DProfile.h"
+
+#include "CCStdC.h"
+using namespace cocos2d;
 
 GLenum __gl_error_code = GL_NO_ERROR;
 #define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
@@ -66,7 +68,7 @@ C3DLayer::~C3DLayer()
 
 bool C3DLayer::init()
 {
-    return CCLayer::init()  && init3D();
+    return cocos2d::CCLayer::init()  && init3D();
 }
 
 bool C3DLayer::init3D()
@@ -74,12 +76,12 @@ bool C3DLayer::init3D()
     initialize();
 
     // Update the aspect ratio for our scene's camera to match the current device resolution
-	cocos2d::CCSize size = cocos2d::CCDirector::sharedDirector()->getOpenGLView()->getFrameSize();
-		
+	cocos2d::Size size = cocos2d::CCDirector::getInstance()->getOpenGLView()->getFrameSize();
+	
 	setSize(size.width, size.height);
     setPosition(size.width / 2, size.height / 2);
     // set searching path
-    cocos2d::CCFileUtils::sharedFileUtils()->addSearchPath("3d");
+    cocos2d::CCFileUtils::getInstance()->addSearchPath("3d");
 
     _2DState = C3DStateBlock::create();
 
@@ -101,17 +103,17 @@ void C3DLayer::onEnter()
 
     this->scheduleUpdate();
 
-    CCLayer::onEnter();
+    cocos2d::CCLayer::onEnter();
 }
 
 void C3DLayer::onExit()
 {
     _scene->removeAllNode();
 
-	CCLayer::onExit();
+	cocos2d::CCLayer::onExit();
 }
 
-void C3DLayer::draw(void)
+void C3DLayer::draw3D(void)
 {
     beginRender();
     //render 3d objects
@@ -119,11 +121,16 @@ void C3DLayer::draw(void)
 
     endRender();
 }
+    
+void C3DLayer::draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool transformUpdated)
+{
+    draw3D();
+}
 
 long C3DLayer::getAbsoluteTime()
 {
-    struct cocos2d::cc_timeval now;
-    if (cocos2d::CCTime::gettimeofdayCocos2d(&now, NULL) != 0)
+    struct timeval now;
+    if (gettimeofday(&now, NULL) != 0)
     {
         return 0 ;
     }
@@ -133,8 +140,8 @@ long C3DLayer::getAbsoluteTime()
 
 long C3DLayer::getGameTime()
 {
-    struct cocos2d::cc_timeval now;
-    if (cocos2d::CCTime::gettimeofdayCocos2d(&now, NULL) != 0)
+    struct timeval now;
+    if (gettimeofday(&now, NULL) != 0)
     {
         return 0 ;
     }
@@ -334,7 +341,7 @@ unsigned int C3DLayer::getHeight() const
 
 void C3DLayer::showBoundingBox(bool bShow)
 {
-    this->getScene()->showBoundingBox(bShow);
+    this->get3DScene()->showBoundingBox(bShow);
 }
 
 C3DLayer* C3DLayer::getMainLayer()
