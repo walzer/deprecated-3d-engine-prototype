@@ -257,6 +257,7 @@
     <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>
     <IntDir>$(Configuration).win32\</IntDir>
     <TargetExt>.lib</TargetExt>
+    <IncludePath>../../cocos2dx/cocos/2d;../../cocos2dx/cocos/base;../../cocos2dx/cocos/2d/platform/desktop;../../cocos2dx/cocos/2d/platform/win32;../../cocos2dx/external/win32-specific/gles/include/OGLES;../../cocos2dx/cocos/math/kazmath;../../cocos2dx/cocos/physics;../../cocos2dx/external\glfw3\include\win32;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration).win32\</OutDir>

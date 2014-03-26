@@ -77,9 +77,9 @@ def do_build(cocos_root, ndk_root, app_android_root, ndk_build_param,sdk_root,an
     # windows should use ";" to seperate module paths
     platform = sys.platform
     if platform == 'win32':
-        ndk_module_path = 'NDK_MODULE_PATH=%s;%s/external;%s/cocos;%s/cocos3d' % (cocos_root, cocos_root, cocos_root, cocos_root)
+        ndk_module_path = 'NDK_MODULE_PATH=%s;%s/cocos2dx/external;%s/cocos2dx/cocos;%s/cocos3d' % (cocos_root, cocos_root, cocos_root, cocos_root)
     else:
-        ndk_module_path = 'NDK_MODULE_PATH=%s:%s/external:%s/cocos;%s/cocos3d' % (cocos_root, cocos_root, cocos_root, cocos_root)
+        ndk_module_path = 'NDK_MODULE_PATH=%s:%s/cocos2dx/external:%s/cocos2dx/cocos;%s/cocos3d' % (cocos_root, cocos_root, cocos_root, cocos_root)
 
     num_of_cpu = get_num_of_cpu()
     if ndk_build_param == None:
@@ -91,7 +91,7 @@ def do_build(cocos_root, ndk_root, app_android_root, ndk_build_param,sdk_root,an
         #raise Exception("Build dynamic library for project [ " + app_android_root + " ] fails!")
     if android_platform is not None:
         sdk_tool_path = os.path.join(sdk_root, "tools/android")
-        cocoslib_path = os.path.join(cocos_root, "cocos/2d/platform/android/java")
+        cocoslib_path = os.path.join(cocos_root, "cocos2dx/cocos/2d/platform/android/java")
         command = '%s update lib-project -t %s -p %s' % (sdk_tool_path, android_platform, cocoslib_path)
         if os.system(command) != 0:
             raise Exception("update cocos lib-project [ " + cocoslib_path + " ] fails!")

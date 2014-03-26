@@ -51,7 +51,7 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 # ... use paths relative to current directory
-COCOS2DX_ROOT="$DIR/../../../.."
+COCOS2DX_ROOT="$DIR/../../cocos2dx"
 APP_ROOT="$DIR/.."
 APP_ANDROID_ROOT="$DIR"
 
@@ -88,5 +88,5 @@ else
     echo "Using prebuilt externals"
     set -x
     "$NDK_ROOT"/ndk-build -C "$APP_ANDROID_ROOT" $* \
-        "NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos:${COCOS2DX_ROOT}/external"
+        "NDK_MODULE_PATH=${COCOS2DX_ROOT}:${COCOS2DX_ROOT}/cocos:${COCOS2DX_ROOT}/external:${COCOS2DX_ROOT}/.."
 fi
