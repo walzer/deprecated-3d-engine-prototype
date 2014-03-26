@@ -27,7 +27,8 @@ namespace cocos3d
         std::vector<C3DTexture3D*>::iterator itr = std::find(__textureCache.begin(), __textureCache.end(), this);
         if (itr != __textureCache.end())
         {
-            __textureCache.erase(itr);
+			__textureCache.erase(itr);			
+			
         }
 
 		for (int i = 0; i < 6; i++)
@@ -228,6 +229,21 @@ namespace cocos3d
 
 	C3DTexture3D* C3DTexture3D::create(const std::string& path1, const std::string& path2, const std::string& path3, const std::string& path4, const std::string& path5, const std::string& path6)
 	{
+		std::string id = path1+ "#" + path2+ "#" + path3+ "#" +path4+ "#" +path5+ "#" +path6;
+
+		for (size_t i = 0; i < __textureCache.size(); ++i)
+		{
+			C3DTexture3D* t = __textureCache[i];
+			if (t->_id == id)
+			{            
+
+				// Found a match.
+				t->retain();
+
+				return t;
+			}
+		}
+
 		//CCAssert(path1 && path2 && path3 && path4 && path5 && path6, "6 textures needed");
 		C3DTexture3D* texture = new C3DTexture3D();
 		if (texture == NULL)
@@ -278,6 +294,8 @@ namespace cocos3d
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER,
                         GL_LINEAR);
 
+		texture->_id = id;
+		__textureCache.push_back(texture);
 		return texture;
 	}
 
