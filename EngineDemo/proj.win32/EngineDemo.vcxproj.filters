@@ -88,6 +88,9 @@
     <ClCompile Include="..\Classes\PostEffect\PESceneChange.cpp">
       <Filter>PostEffect\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\PerformanceTest\PerformanceTestLayer.cpp">
+      <Filter>performaceTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -181,6 +184,9 @@
     <ClInclude Include="..\Classes\PostEffect\PESceneChange.h">
       <Filter>PostEffect\Effects</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\PerformanceTest\PerformanceTestLayer.h">
+      <Filter>performaceTest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EngineDemo.rc" />
@@ -218,6 +224,9 @@
     </Filter>
     <Filter Include="PostEffect\Effects">
       <UniqueIdentifier>{4c6e6ed4-3de4-4775-a93a-701abafdf1fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="performaceTest">
+      <UniqueIdentifier>{f1aa2a71-aaa9-4afb-ac7f-b96c2b8db673}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

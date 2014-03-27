@@ -14,6 +14,8 @@
 #include "FullDemo/FullDemoLayer.h"
 #include "PostEffect/PostEffectTestLayer.h"
 #include "FullDemo/UI3DLayer.h"
+#include "PerformanceTest/PerformanceTestLayer.h"
+
 //#include "PhysicsTest/PhysicsTestLayer.h"
 
 #define LINE_SPACE          50
@@ -144,6 +146,9 @@ void MainLayer::menuCallback(CCObject * pSender)
 		break;
 	case TEST_FULLDEMO:
 		layer = FullDemoLayer::create();
+		break;
+	case TEST_PERFORMANCE:
+		layer = PerformanceTestLayer::create();
 		break;
 //#ifdef WIN32
 //	case TEST_PHYSICS:

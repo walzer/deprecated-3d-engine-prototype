@@ -30,6 +30,7 @@
     <ClCompile Include="..\Classes\MainLayer.cpp" />
     <ClCompile Include="..\Classes\MaterialTest\MaterialTestLayer.cpp" />
     <ClCompile Include="..\Classes\ParticleTest\ParticleTestLayer.cpp" />
+    <ClCompile Include="..\Classes\PerformanceTest\PerformanceTestLayer.cpp" />
     <ClCompile Include="..\Classes\PostEffect\PEBloom.cpp" />
     <ClCompile Include="..\Classes\PostEffect\PEBlur.cpp" />
     <ClCompile Include="..\Classes\PostEffect\PEColor.cpp" />
@@ -66,6 +67,7 @@
     <ClInclude Include="..\Classes\MainLayer.h" />
     <ClInclude Include="..\Classes\MaterialTest\MaterialTestLayer.h" />
     <ClInclude Include="..\Classes\ParticleTest\ParticleTestLayer.h" />
+    <ClInclude Include="..\Classes\PerformanceTest\PerformanceTestLayer.h" />
     <ClInclude Include="..\Classes\PostEffect\PEBloom.h" />
     <ClInclude Include="..\Classes\PostEffect\PEBlur.h" />
     <ClInclude Include="..\Classes\PostEffect\PEColor.h" />

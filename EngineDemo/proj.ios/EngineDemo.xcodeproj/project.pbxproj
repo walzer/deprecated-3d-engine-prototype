@@ -647,338 +647,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8466075418E2D94B0050F4FA /* animation */ = {
-			isa = PBXGroup;
-			children = (
-				B658894618DA95E0006E5DA2 /* BonePart.cpp */,
-				B658894718DA95E0006E5DA2 /* BonePart.h */,
-				B658894C18DA95E0006E5DA2 /* C3DActionListener.cpp */,
-				B658894D18DA95E0006E5DA2 /* C3DActionListener.h */,
-				B658895018DA95E0006E5DA2 /* C3DAnimation.cpp */,
-				B658895118DA95E0006E5DA2 /* C3DAnimation.h */,
-				B658895218DA95E0006E5DA2 /* C3DAnimationChannel.cpp */,
-				B658895318DA95E0006E5DA2 /* C3DAnimationChannel.h */,
-				B658895418DA95E0006E5DA2 /* C3DAnimationClip.cpp */,
-				B658895518DA95E0006E5DA2 /* C3DAnimationClip.h */,
-				B658895618DA95E0006E5DA2 /* C3DAnimationCurve.cpp */,
-				B658895718DA95E0006E5DA2 /* C3DAnimationCurve.h */,
-				B658896018DA95E0006E5DA2 /* C3DBone.cpp */,
-				B658896118DA95E0006E5DA2 /* C3DBone.h */,
-				B658899218DA95E0006E5DA2 /* C3DMeshSkin.cpp */,
-				B658899318DA95E0006E5DA2 /* C3DMeshSkin.h */,
-				B65889DA18DA95E0006E5DA2 /* C3DSkeleton.cpp */,
-				B65889DB18DA95E0006E5DA2 /* C3DSkeleton.h */,
-			);
-			name = animation;
-			sourceTree = "<group>";
-		};
-		8466075C18E2D9E20050F4FA /* common */ = {
-			isa = PBXGroup;
-			children = (
-				B6588A7C18DA95F1006E5DA2 /* Vertex.h */,
-				B65889E818DA95E0006E5DA2 /* C3DStream.cpp */,
-				B65889E918DA95E0006E5DA2 /* C3DStream.h */,
-				B65889F218DA95E0006E5DA2 /* C3DTransform.cpp */,
-				B65889F318DA95E0006E5DA2 /* C3DTransform.h */,
-				B658897418DA95E0006E5DA2 /* C3DElementNode.cpp */,
-				B658897518DA95E0006E5DA2 /* C3DElementNode.h */,
-			);
-			name = common;
-			sourceTree = "<group>";
-		};
-		8466075D18E2DA530050F4FA /* face */ = {
-			isa = PBXGroup;
-			children = (
-				B6588A0718DA95E0006E5DA2 /* FacialAnimation.cpp */,
-				B6588A0818DA95E0006E5DA2 /* FacialAnimation.h */,
-				B6588A0918DA95E0006E5DA2 /* FacialAnimManager.cpp */,
-				B6588A0A18DA95E0006E5DA2 /* FacialAnimManager.h */,
-			);
-			name = face;
-			sourceTree = "<group>";
-		};
-		8466075E18E2DA620050F4FA /* geo */ = {
-			isa = PBXGroup;
-			children = (
-				B658897D18DA95E0006E5DA2 /* C3DGeoWireRender.cpp */,
-				B658897E18DA95E0006E5DA2 /* C3DGeoWireRender.h */,
-				B65889AF18DA95E0006E5DA2 /* C3DPlane.cpp */,
-				B65889B018DA95E0006E5DA2 /* C3DPlane.h */,
-				B65889BC18DA95E0006E5DA2 /* C3DRay.cpp */,
-				B65889BD18DA95E0006E5DA2 /* C3DRay.h */,
-				B658894A18DA95E0006E5DA2 /* C3DAABB.cpp */,
-				B658894B18DA95E0006E5DA2 /* C3DAABB.h */,
-				B658896418DA95E0006E5DA2 /* C3DCapsule.cpp */,
-				B658896518DA95E0006E5DA2 /* C3DCapsule.h */,
-				B658896618DA95E0006E5DA2 /* C3DCircle.cpp */,
-				B658896718DA95E0006E5DA2 /* C3DCircle.h */,
-				B658896818DA95E0006E5DA2 /* C3DCollitionBox.cpp */,
-				B658896918DA95E0006E5DA2 /* C3DCollitionBox.h */,
-				B658896A18DA95E0006E5DA2 /* C3DCone.cpp */,
-				B658896B18DA95E0006E5DA2 /* C3DCone.h */,
-				B658896C18DA95E0006E5DA2 /* C3DCylinder.cpp */,
-				B658896D18DA95E0006E5DA2 /* C3DCylinder.h */,
-				B6588A7818DA95F1006E5DA2 /* Rectangle.cpp */,
-				B6588A7918DA95F1006E5DA2 /* Rectangle.h */,
-				B65889A318DA95E0006E5DA2 /* C3DOBB.cpp */,
-				B65889A418DA95E0006E5DA2 /* C3DOBB.h */,
-				B6588A0B18DA95E0006E5DA2 /* Geo.cpp */,
-				B6588A0C18DA95E0006E5DA2 /* Geo.h */,
-			);
-			name = geo;
-			sourceTree = "<group>";
-		};
-		8466075F18E2DA670050F4FA /* light */ = {
-			isa = PBXGroup;
-			children = (
-				B658894E18DA95E0006E5DA2 /* C3DAnimatedLight.cpp */,
-				B658894F18DA95E0006E5DA2 /* C3DAnimatedLight.h */,
-				B658898118DA95E0006E5DA2 /* C3DLight.cpp */,
-				B658898218DA95E0006E5DA2 /* C3DLight.h */,
-				B658898318DA95E0006E5DA2 /* C3DLightFilter.h */,
-			);
-			name = light;
-			sourceTree = "<group>";
-		};
-		8466076018E2DA6F0050F4FA /* material */ = {
-			isa = PBXGroup;
-			children = (
-				B65889AD18DA95E0006E5DA2 /* C3DPass.cpp */,
-				B65889AE18DA95E0006E5DA2 /* C3DPass.h */,
-				B658897018DA95E0006E5DA2 /* C3DEffect.cpp */,
-				B658897118DA95E0006E5DA2 /* C3DEffect.h */,
-				B658897218DA95E0006E5DA2 /* C3DEffectManager.cpp */,
-				B658897318DA95E0006E5DA2 /* C3DEffectManager.h */,
-				B658898618DA95E0006E5DA2 /* C3DMaterial.cpp */,
-				B658898718DA95E0006E5DA2 /* C3DMaterial.h */,
-				B658898818DA95E0006E5DA2 /* C3DMaterialManager.cpp */,
-				B658898918DA95E0006E5DA2 /* C3DMaterialManager.h */,
-				B65889BE18DA95E0006E5DA2 /* C3DRenderBlock.cpp */,
-				B65889BF18DA95E0006E5DA2 /* C3DRenderBlock.h */,
-				B65889C418DA95E0006E5DA2 /* C3DRenderState.cpp */,
-				B65889C518DA95E0006E5DA2 /* C3DRenderState.h */,
-				B65889D218DA95E0006E5DA2 /* C3DSampler.cpp */,
-				B65889D318DA95E0006E5DA2 /* C3DSampler.h */,
-				B65889D418DA95E0006E5DA2 /* C3DSamplerCube.cpp */,
-				B65889D518DA95E0006E5DA2 /* C3DSamplerCube.h */,
-				B65889EA18DA95E0006E5DA2 /* C3DTechnique.cpp */,
-				B65889EB18DA95E0006E5DA2 /* C3DTechnique.h */,
-				B6588A0D18DA95E0006E5DA2 /* MaterialParameter.cpp */,
-				B6588A0E18DA95E0006E5DA2 /* MaterialParameter.h */,
-			);
-			name = material;
-			sourceTree = "<group>";
-		};
-		8466076118E2DA7A0050F4FA /* math */ = {
-			isa = PBXGroup;
-			children = (
-				B658898A18DA95E0006E5DA2 /* C3DMath.h */,
-				B658898B18DA95E0006E5DA2 /* C3DMathUtilty.cpp */,
-				B658898C18DA95E0006E5DA2 /* C3DMathUtilty.h */,
-				B658898D18DA95E0006E5DA2 /* C3DMatrix.cpp */,
-				B658898E18DA95E0006E5DA2 /* C3DMatrix.h */,
-				B658898F18DA95E0006E5DA2 /* C3DMatrix.inl */,
-				B658899D18DA95E0006E5DA2 /* C3Dneon_matrix_impl.c */,
-				B658899E18DA95E0006E5DA2 /* C3Dneon_matrix_impl.h */,
-				B65889B718DA95E0006E5DA2 /* C3DQuaternion.cpp */,
-				B65889B818DA95E0006E5DA2 /* C3DQuaternion.h */,
-				B65889B918DA95E0006E5DA2 /* C3DQuaternion.inl */,
-				B65889F618DA95E0006E5DA2 /* C3DVector2.cpp */,
-				B65889F718DA95E0006E5DA2 /* C3DVector2.h */,
-				B65889F818DA95E0006E5DA2 /* C3DVector2.inl */,
-				B65889F918DA95E0006E5DA2 /* C3DVector3.cpp */,
-				B65889FA18DA95E0006E5DA2 /* C3DVector3.h */,
-				B65889FB18DA95E0006E5DA2 /* C3DVector3.inl */,
-				B65889FC18DA95E0006E5DA2 /* C3DVector4.cpp */,
-				B65889FD18DA95E0006E5DA2 /* C3DVector4.h */,
-				B65889FE18DA95E0006E5DA2 /* C3DVector4.inl */,
-			);
-			name = math;
-			sourceTree = "<group>";
-		};
-		8466076218E2DA810050F4FA /* mesh */ = {
-			isa = PBXGroup;
-			children = (
-				B658895818DA95E0006E5DA2 /* C3DBaseMesh.cpp */,
-				B658895918DA95E0006E5DA2 /* C3DBaseMesh.h */,
-				B658895C18DA95E0006E5DA2 /* C3DBatchMesh.cpp */,
-				B658895D18DA95E0006E5DA2 /* C3DBatchMesh.h */,
-				B658899018DA95E0006E5DA2 /* C3DMesh.cpp */,
-				B658899118DA95E0006E5DA2 /* C3DMesh.h */,
-				B658899A18DA95E0006E5DA2 /* C3DMorphMesh.cpp */,
-				B658899B18DA95E0006E5DA2 /* C3DMorphMesh.h */,
-				B6588A0118DA95E0006E5DA2 /* C3DVertexFormat.cpp */,
-				B6588A0218DA95E0006E5DA2 /* C3DVertexFormat.h */,
-				B6588A0F18DA95E0006E5DA2 /* MeshPart.cpp */,
-				B6588A1018DA95E0006E5DA2 /* MeshPart.h */,
-			);
-			name = mesh;
-			sourceTree = "<group>";
-		};
-		8466076318E2DA940050F4FA /* model */ = {
-			isa = PBXGroup;
-			children = (
-				B658895A18DA95E0006E5DA2 /* C3DBaseModel.cpp */,
-				B658895B18DA95E0006E5DA2 /* C3DBaseModel.h */,
-				B658895E18DA95E0006E5DA2 /* C3DBatchModel.cpp */,
-				B658895F18DA95E0006E5DA2 /* C3DBatchModel.h */,
-				B658899418DA95E0006E5DA2 /* C3DModel.cpp */,
-				B658899518DA95E0006E5DA2 /* C3DModel.h */,
-				B658899618DA95E0006E5DA2 /* C3DModelNode.cpp */,
-				B658899718DA95E0006E5DA2 /* C3DModelNode.h */,
-				B658899C18DA95E0006E5DA2 /* C3DMorphModel.cpp */,
-				B65889DC18DA95E0006E5DA2 /* C3DSkinlessModel.cpp */,
-				B65889DD18DA95E0006E5DA2 /* C3DSkinlessModel.h */,
-				B65889DE18DA95E0006E5DA2 /* C3DSkinModel.cpp */,
-				B65889DF18DA95E0006E5DA2 /* C3DSkinModel.h */,
-				B65889FF18DA95E0006E5DA2 /* C3DVertexDeclaration.cpp */,
-				B6588A0018DA95E0006E5DA2 /* C3DVertexDeclaration.h */,
-			);
-			name = model;
-			sourceTree = "<group>";
-		};
-		8466076418E2DA9B0050F4FA /* morph */ = {
-			isa = PBXGroup;
-			children = (
-				B658899818DA95E0006E5DA2 /* C3DMorph.cpp */,
-				B658899918DA95E0006E5DA2 /* C3DMorph.h */,
-			);
-			name = morph;
-			sourceTree = "<group>";
-		};
-		8466076518E2DAAA0050F4FA /* node */ = {
-			isa = PBXGroup;
-			children = (
-				B658894318DA95E0006E5DA2 /* AttachNode.cpp */,
-				B658894418DA95E0006E5DA2 /* AttachNode.h */,
-				B658898418DA95E0006E5DA2 /* C3DLineRender.cpp */,
-				B658898518DA95E0006E5DA2 /* C3DLineRender.h */,
-				B658899F18DA95E0006E5DA2 /* C3DNode.cpp */,
-				B65889A018DA95E0006E5DA2 /* C3DNode.h */,
-				B65889C218DA95E0006E5DA2 /* C3DRenderNode.cpp */,
-				B65889C318DA95E0006E5DA2 /* C3DRenderNode.h */,
-				B65889D618DA95E0006E5DA2 /* C3DScene.cpp */,
-				B65889D718DA95E0006E5DA2 /* C3DScene.h */,
-				B65889E018DA95E0006E5DA2 /* C3DSprite.cpp */,
-				B65889E118DA95E0006E5DA2 /* C3DSprite.h */,
-				B65889E218DA95E0006E5DA2 /* C3DSpriteManager.cpp */,
-				B65889E318DA95E0006E5DA2 /* C3DSpriteManager.h */,
-				B65889E618DA95E0006E5DA2 /* C3DStaticObj.cpp */,
-				B65889E718DA95E0006E5DA2 /* C3DStaticObj.h */,
-			);
-			name = node;
-			sourceTree = "<group>";
-		};
-		8466076618E2DAB80050F4FA /* other */ = {
-			isa = PBXGroup;
-			children = (
-				B6588A7A18DA95F1006E5DA2 /* StringTool.cpp */,
-				B6588A7B18DA95F1006E5DA2 /* StringTool.h */,
-				B65889A118DA95E0006E5DA2 /* C3DNoise.cpp */,
-				B65889A218DA95E0006E5DA2 /* C3DNoise.h */,
-				B65889BA18DA95E0006E5DA2 /* C3DRandom.cpp */,
-				B65889BB18DA95E0006E5DA2 /* C3DRandom.h */,
-			);
-			name = other;
-			sourceTree = "<group>";
-		};
-		8466076718E2DAC20050F4FA /* particle */ = {
-			isa = PBXGroup;
-			children = (
-				B658897718DA95E0006E5DA2 /* C3DForcePSA.cpp */,
-				B658897818DA95E0006E5DA2 /* C3DForcePSA.h */,
-				B65889A518DA95E0006E5DA2 /* C3DParticleEmitter.cpp */,
-				B65889A618DA95E0006E5DA2 /* C3DParticleEmitter.h */,
-				B65889A718DA95E0006E5DA2 /* C3DParticleRender.cpp */,
-				B65889A818DA95E0006E5DA2 /* C3DParticleRender.h */,
-				B65889A918DA95E0006E5DA2 /* C3DParticleSystem.cpp */,
-				B65889AA18DA95E0006E5DA2 /* C3DParticleSystem.h */,
-				B65889AB18DA95E0006E5DA2 /* C3DParticleSystemCommon.cpp */,
-				B65889AC18DA95E0006E5DA2 /* C3DParticleSystemCommon.h */,
-				B65889F018DA95E0006E5DA2 /* C3DTintPSA.cpp */,
-				B65889F118DA95E0006E5DA2 /* C3DTintPSA.h */,
-				B65889F418DA95E0006E5DA2 /* C3DTransformPSA.cpp */,
-				B65889F518DA95E0006E5DA2 /* C3DTransformPSA.h */,
-			);
-			name = particle;
-			sourceTree = "<group>";
-		};
-		8466076818E2DACC0050F4FA /* performance */ = {
-			isa = PBXGroup;
-			children = (
-				B65889B518DA95E0006E5DA2 /* C3DProfile.cpp */,
-				B65889B618DA95E0006E5DA2 /* C3DProfile.h */,
-				B65889E418DA95E0006E5DA2 /* C3DStat.cpp */,
-				B65889E518DA95E0006E5DA2 /* C3DStat.h */,
-			);
-			name = performance;
-			sourceTree = "<group>";
-		};
-		8466076918E2DAD50050F4FA /* posteffect */ = {
-			isa = PBXGroup;
-			children = (
-				B65889B118DA95E0006E5DA2 /* C3DPostEffect.cpp */,
-				B65889B218DA95E0006E5DA2 /* C3DPostEffect.h */,
-				B65889B318DA95E0006E5DA2 /* C3DPostProcess.cpp */,
-				B65889B418DA95E0006E5DA2 /* C3DPostProcess.h */,
-			);
-			name = posteffect;
-			sourceTree = "<group>";
-		};
-		8466076A18E2DAE20050F4FA /* render */ = {
-			isa = PBXGroup;
-			children = (
-				B658896218DA95E0006E5DA2 /* C3DCamera.cpp */,
-				B658896318DA95E0006E5DA2 /* C3DCamera.h */,
-				B658896E18DA95E0006E5DA2 /* C3DDepthStencilTarget.cpp */,
-				B658896F18DA95E0006E5DA2 /* C3DDepthStencilTarget.h */,
-				B658897618DA95E0006E5DA2 /* C3DEnvConf.h */,
-				B658897918DA95E0006E5DA2 /* C3DFrameBuffer.cpp */,
-				B658897A18DA95E0006E5DA2 /* C3DFrameBuffer.h */,
-				B658897B18DA95E0006E5DA2 /* C3DFrustum.cpp */,
-				B658897C18DA95E0006E5DA2 /* C3DFrustum.h */,
-				B65889C018DA95E0006E5DA2 /* C3DRenderChannel.cpp */,
-				B65889C118DA95E0006E5DA2 /* C3DRenderChannel.h */,
-				B65889C618DA95E0006E5DA2 /* C3DRenderSystem.cpp */,
-				B65889C718DA95E0006E5DA2 /* C3DRenderSystem.h */,
-				B65889C818DA95E0006E5DA2 /* C3DRenderTarget.cpp */,
-				B65889C918DA95E0006E5DA2 /* C3DRenderTarget.h */,
-				B65889EC18DA95E0006E5DA2 /* C3DTexture.cpp */,
-				B65889ED18DA95E0006E5DA2 /* C3DTexture.h */,
-				B65889EE18DA95E0006E5DA2 /* C3DTexture3D.cpp */,
-				B65889EF18DA95E0006E5DA2 /* C3DTexture3D.h */,
-				B6588A0318DA95E0006E5DA2 /* C3DViewport.cpp */,
-				B6588A0418DA95E0006E5DA2 /* C3DViewport.h */,
-			);
-			name = render;
-			sourceTree = "<group>";
-		};
-		8466076B18E2DAE80050F4FA /* resource */ = {
-			isa = PBXGroup;
-			children = (
-				B658894818DA95E0006E5DA2 /* BundleData.cpp */,
-				B658894918DA95E0006E5DA2 /* BundleData.h */,
-				B65889CA18DA95E0006E5DA2 /* C3DResource.cpp */,
-				B65889CB18DA95E0006E5DA2 /* C3DResource.h */,
-				B65889CC18DA95E0006E5DA2 /* C3DResourceLoader.cpp */,
-				B65889CD18DA95E0006E5DA2 /* C3DResourceLoader.h */,
-				B65889CE18DA95E0006E5DA2 /* C3DResourceManager.cpp */,
-				B65889CF18DA95E0006E5DA2 /* C3DResourceManager.h */,
-				B65889D018DA95E0006E5DA2 /* C3DResourcePool.cpp */,
-				B65889D118DA95E0006E5DA2 /* C3DResourcePool.h */,
-			);
-			name = resource;
-			sourceTree = "<group>";
-		};
-		8466076C18E2DAF20050F4FA /* shadow */ = {
-			isa = PBXGroup;
-			children = (
-				B65889D818DA95E0006E5DA2 /* C3DShadowMap.cpp */,
-				B65889D918DA95E0006E5DA2 /* C3DShadowMap.h */,
-			);
-			name = shadow;
-			sourceTree = "<group>";
-		};
 		A9B4760D18BC2CDC00502BBE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1083,29 +751,217 @@
 		B6AFD70E1867DBF10098D989 /* cocos3d */ = {
 			isa = PBXGroup;
 			children = (
-				B658897F18DA95E0006E5DA2 /* C3DLayer.cpp */,
+				B6588A7818DA95F1006E5DA2 /* Rectangle.cpp */,
+				B6588A7918DA95F1006E5DA2 /* Rectangle.h */,
+				B6588A7A18DA95F1006E5DA2 /* StringTool.cpp */,
+				B6588A7B18DA95F1006E5DA2 /* StringTool.h */,
+				B6588A7C18DA95F1006E5DA2 /* Vertex.h */,
+				B658894318DA95E0006E5DA2 /* AttachNode.cpp */,
+				B658894418DA95E0006E5DA2 /* AttachNode.h */,
 				B658894518DA95E0006E5DA2 /* Base.h */,
+				B658894618DA95E0006E5DA2 /* BonePart.cpp */,
+				B658894718DA95E0006E5DA2 /* BonePart.h */,
+				B658894818DA95E0006E5DA2 /* BundleData.cpp */,
+				B658894918DA95E0006E5DA2 /* BundleData.h */,
+				B658894A18DA95E0006E5DA2 /* C3DAABB.cpp */,
+				B658894B18DA95E0006E5DA2 /* C3DAABB.h */,
+				B658894C18DA95E0006E5DA2 /* C3DActionListener.cpp */,
+				B658894D18DA95E0006E5DA2 /* C3DActionListener.h */,
+				B658894E18DA95E0006E5DA2 /* C3DAnimatedLight.cpp */,
+				B658894F18DA95E0006E5DA2 /* C3DAnimatedLight.h */,
+				B658895018DA95E0006E5DA2 /* C3DAnimation.cpp */,
+				B658895118DA95E0006E5DA2 /* C3DAnimation.h */,
+				B658895218DA95E0006E5DA2 /* C3DAnimationChannel.cpp */,
+				B658895318DA95E0006E5DA2 /* C3DAnimationChannel.h */,
+				B658895418DA95E0006E5DA2 /* C3DAnimationClip.cpp */,
+				B658895518DA95E0006E5DA2 /* C3DAnimationClip.h */,
+				B658895618DA95E0006E5DA2 /* C3DAnimationCurve.cpp */,
+				B658895718DA95E0006E5DA2 /* C3DAnimationCurve.h */,
+				B658895818DA95E0006E5DA2 /* C3DBaseMesh.cpp */,
+				B658895918DA95E0006E5DA2 /* C3DBaseMesh.h */,
+				B658895A18DA95E0006E5DA2 /* C3DBaseModel.cpp */,
+				B658895B18DA95E0006E5DA2 /* C3DBaseModel.h */,
+				B658895C18DA95E0006E5DA2 /* C3DBatchMesh.cpp */,
+				B658895D18DA95E0006E5DA2 /* C3DBatchMesh.h */,
+				B658895E18DA95E0006E5DA2 /* C3DBatchModel.cpp */,
+				B658895F18DA95E0006E5DA2 /* C3DBatchModel.h */,
+				B658896018DA95E0006E5DA2 /* C3DBone.cpp */,
+				B658896118DA95E0006E5DA2 /* C3DBone.h */,
+				B658896218DA95E0006E5DA2 /* C3DCamera.cpp */,
+				B658896318DA95E0006E5DA2 /* C3DCamera.h */,
+				B658896418DA95E0006E5DA2 /* C3DCapsule.cpp */,
+				B658896518DA95E0006E5DA2 /* C3DCapsule.h */,
+				B658896618DA95E0006E5DA2 /* C3DCircle.cpp */,
+				B658896718DA95E0006E5DA2 /* C3DCircle.h */,
+				B658896818DA95E0006E5DA2 /* C3DCollitionBox.cpp */,
+				B658896918DA95E0006E5DA2 /* C3DCollitionBox.h */,
+				B658896A18DA95E0006E5DA2 /* C3DCone.cpp */,
+				B658896B18DA95E0006E5DA2 /* C3DCone.h */,
+				B658896C18DA95E0006E5DA2 /* C3DCylinder.cpp */,
+				B658896D18DA95E0006E5DA2 /* C3DCylinder.h */,
+				B658896E18DA95E0006E5DA2 /* C3DDepthStencilTarget.cpp */,
+				B658896F18DA95E0006E5DA2 /* C3DDepthStencilTarget.h */,
+				B658897018DA95E0006E5DA2 /* C3DEffect.cpp */,
+				B658897118DA95E0006E5DA2 /* C3DEffect.h */,
+				B658897218DA95E0006E5DA2 /* C3DEffectManager.cpp */,
+				B658897318DA95E0006E5DA2 /* C3DEffectManager.h */,
+				B658897418DA95E0006E5DA2 /* C3DElementNode.cpp */,
+				B658897518DA95E0006E5DA2 /* C3DElementNode.h */,
+				B658897618DA95E0006E5DA2 /* C3DEnvConf.h */,
+				B658897718DA95E0006E5DA2 /* C3DForcePSA.cpp */,
+				B658897818DA95E0006E5DA2 /* C3DForcePSA.h */,
+				B658897918DA95E0006E5DA2 /* C3DFrameBuffer.cpp */,
+				B658897A18DA95E0006E5DA2 /* C3DFrameBuffer.h */,
+				B658897B18DA95E0006E5DA2 /* C3DFrustum.cpp */,
+				B658897C18DA95E0006E5DA2 /* C3DFrustum.h */,
+				B658897D18DA95E0006E5DA2 /* C3DGeoWireRender.cpp */,
+				B658897E18DA95E0006E5DA2 /* C3DGeoWireRender.h */,
+				B658897F18DA95E0006E5DA2 /* C3DLayer.cpp */,
 				B658898018DA95E0006E5DA2 /* C3DLayer.h */,
+				B658898118DA95E0006E5DA2 /* C3DLight.cpp */,
+				B658898218DA95E0006E5DA2 /* C3DLight.h */,
+				B658898318DA95E0006E5DA2 /* C3DLightFilter.h */,
+				B658898418DA95E0006E5DA2 /* C3DLineRender.cpp */,
+				B658898518DA95E0006E5DA2 /* C3DLineRender.h */,
+				B658898618DA95E0006E5DA2 /* C3DMaterial.cpp */,
+				B658898718DA95E0006E5DA2 /* C3DMaterial.h */,
+				B658898818DA95E0006E5DA2 /* C3DMaterialManager.cpp */,
+				B658898918DA95E0006E5DA2 /* C3DMaterialManager.h */,
+				B658898A18DA95E0006E5DA2 /* C3DMath.h */,
+				B658898B18DA95E0006E5DA2 /* C3DMathUtilty.cpp */,
+				B658898C18DA95E0006E5DA2 /* C3DMathUtilty.h */,
+				B658898D18DA95E0006E5DA2 /* C3DMatrix.cpp */,
+				B658898E18DA95E0006E5DA2 /* C3DMatrix.h */,
+				B658898F18DA95E0006E5DA2 /* C3DMatrix.inl */,
+				B658899018DA95E0006E5DA2 /* C3DMesh.cpp */,
+				B658899118DA95E0006E5DA2 /* C3DMesh.h */,
+				B658899218DA95E0006E5DA2 /* C3DMeshSkin.cpp */,
+				B658899318DA95E0006E5DA2 /* C3DMeshSkin.h */,
+				B658899418DA95E0006E5DA2 /* C3DModel.cpp */,
+				B658899518DA95E0006E5DA2 /* C3DModel.h */,
+				B658899618DA95E0006E5DA2 /* C3DModelNode.cpp */,
+				B658899718DA95E0006E5DA2 /* C3DModelNode.h */,
+				B658899818DA95E0006E5DA2 /* C3DMorph.cpp */,
+				B658899918DA95E0006E5DA2 /* C3DMorph.h */,
+				B658899A18DA95E0006E5DA2 /* C3DMorphMesh.cpp */,
+				B658899B18DA95E0006E5DA2 /* C3DMorphMesh.h */,
+				B658899C18DA95E0006E5DA2 /* C3DMorphModel.cpp */,
+				B658899D18DA95E0006E5DA2 /* C3Dneon_matrix_impl.c */,
+				B658899E18DA95E0006E5DA2 /* C3Dneon_matrix_impl.h */,
+				B658899F18DA95E0006E5DA2 /* C3DNode.cpp */,
+				B65889A018DA95E0006E5DA2 /* C3DNode.h */,
+				B65889A118DA95E0006E5DA2 /* C3DNoise.cpp */,
+				B65889A218DA95E0006E5DA2 /* C3DNoise.h */,
+				B65889A318DA95E0006E5DA2 /* C3DOBB.cpp */,
+				B65889A418DA95E0006E5DA2 /* C3DOBB.h */,
+				B65889A518DA95E0006E5DA2 /* C3DParticleEmitter.cpp */,
+				B65889A618DA95E0006E5DA2 /* C3DParticleEmitter.h */,
+				B65889A718DA95E0006E5DA2 /* C3DParticleRender.cpp */,
+				B65889A818DA95E0006E5DA2 /* C3DParticleRender.h */,
+				B65889A918DA95E0006E5DA2 /* C3DParticleSystem.cpp */,
+				B65889AA18DA95E0006E5DA2 /* C3DParticleSystem.h */,
+				B65889AB18DA95E0006E5DA2 /* C3DParticleSystemCommon.cpp */,
+				B65889AC18DA95E0006E5DA2 /* C3DParticleSystemCommon.h */,
+				B65889AD18DA95E0006E5DA2 /* C3DPass.cpp */,
+				B65889AE18DA95E0006E5DA2 /* C3DPass.h */,
+				B65889AF18DA95E0006E5DA2 /* C3DPlane.cpp */,
+				B65889B018DA95E0006E5DA2 /* C3DPlane.h */,
+				B65889B118DA95E0006E5DA2 /* C3DPostEffect.cpp */,
+				B65889B218DA95E0006E5DA2 /* C3DPostEffect.h */,
+				B65889B318DA95E0006E5DA2 /* C3DPostProcess.cpp */,
+				B65889B418DA95E0006E5DA2 /* C3DPostProcess.h */,
+				B65889B518DA95E0006E5DA2 /* C3DProfile.cpp */,
+				B65889B618DA95E0006E5DA2 /* C3DProfile.h */,
+				B65889B718DA95E0006E5DA2 /* C3DQuaternion.cpp */,
+				B65889B818DA95E0006E5DA2 /* C3DQuaternion.h */,
+				B65889B918DA95E0006E5DA2 /* C3DQuaternion.inl */,
+				B65889BA18DA95E0006E5DA2 /* C3DRandom.cpp */,
+				B65889BB18DA95E0006E5DA2 /* C3DRandom.h */,
+				B65889BC18DA95E0006E5DA2 /* C3DRay.cpp */,
+				B65889BD18DA95E0006E5DA2 /* C3DRay.h */,
+				B65889BE18DA95E0006E5DA2 /* C3DRenderBlock.cpp */,
+				B65889BF18DA95E0006E5DA2 /* C3DRenderBlock.h */,
+				B65889C018DA95E0006E5DA2 /* C3DRenderChannel.cpp */,
+				B65889C118DA95E0006E5DA2 /* C3DRenderChannel.h */,
+				B65889C218DA95E0006E5DA2 /* C3DRenderNode.cpp */,
+				B65889C318DA95E0006E5DA2 /* C3DRenderNode.h */,
+				B65889C418DA95E0006E5DA2 /* C3DRenderState.cpp */,
+				B65889C518DA95E0006E5DA2 /* C3DRenderState.h */,
+				B65889C618DA95E0006E5DA2 /* C3DRenderSystem.cpp */,
+				B65889C718DA95E0006E5DA2 /* C3DRenderSystem.h */,
+				B65889C818DA95E0006E5DA2 /* C3DRenderTarget.cpp */,
+				B65889C918DA95E0006E5DA2 /* C3DRenderTarget.h */,
+				B65889CA18DA95E0006E5DA2 /* C3DResource.cpp */,
+				B65889CB18DA95E0006E5DA2 /* C3DResource.h */,
+				B65889CC18DA95E0006E5DA2 /* C3DResourceLoader.cpp */,
+				B65889CD18DA95E0006E5DA2 /* C3DResourceLoader.h */,
+				B65889CE18DA95E0006E5DA2 /* C3DResourceManager.cpp */,
+				B65889CF18DA95E0006E5DA2 /* C3DResourceManager.h */,
+				B65889D018DA95E0006E5DA2 /* C3DResourcePool.cpp */,
+				B65889D118DA95E0006E5DA2 /* C3DResourcePool.h */,
+				B65889D218DA95E0006E5DA2 /* C3DSampler.cpp */,
+				B65889D318DA95E0006E5DA2 /* C3DSampler.h */,
+				B65889D418DA95E0006E5DA2 /* C3DSamplerCube.cpp */,
+				B65889D518DA95E0006E5DA2 /* C3DSamplerCube.h */,
+				B65889D618DA95E0006E5DA2 /* C3DScene.cpp */,
+				B65889D718DA95E0006E5DA2 /* C3DScene.h */,
+				B65889D818DA95E0006E5DA2 /* C3DShadowMap.cpp */,
+				B65889D918DA95E0006E5DA2 /* C3DShadowMap.h */,
+				B65889DA18DA95E0006E5DA2 /* C3DSkeleton.cpp */,
+				B65889DB18DA95E0006E5DA2 /* C3DSkeleton.h */,
+				B65889DC18DA95E0006E5DA2 /* C3DSkinlessModel.cpp */,
+				B65889DD18DA95E0006E5DA2 /* C3DSkinlessModel.h */,
+				B65889DE18DA95E0006E5DA2 /* C3DSkinModel.cpp */,
+				B65889DF18DA95E0006E5DA2 /* C3DSkinModel.h */,
+				B65889E018DA95E0006E5DA2 /* C3DSprite.cpp */,
+				B65889E118DA95E0006E5DA2 /* C3DSprite.h */,
+				B65889E218DA95E0006E5DA2 /* C3DSpriteManager.cpp */,
+				B65889E318DA95E0006E5DA2 /* C3DSpriteManager.h */,
+				B65889E418DA95E0006E5DA2 /* C3DStat.cpp */,
+				B65889E518DA95E0006E5DA2 /* C3DStat.h */,
+				B65889E618DA95E0006E5DA2 /* C3DStaticObj.cpp */,
+				B65889E718DA95E0006E5DA2 /* C3DStaticObj.h */,
+				B65889E818DA95E0006E5DA2 /* C3DStream.cpp */,
+				B65889E918DA95E0006E5DA2 /* C3DStream.h */,
+				B65889EA18DA95E0006E5DA2 /* C3DTechnique.cpp */,
+				B65889EB18DA95E0006E5DA2 /* C3DTechnique.h */,
+				B65889EC18DA95E0006E5DA2 /* C3DTexture.cpp */,
+				B65889ED18DA95E0006E5DA2 /* C3DTexture.h */,
+				B65889EE18DA95E0006E5DA2 /* C3DTexture3D.cpp */,
+				B65889EF18DA95E0006E5DA2 /* C3DTexture3D.h */,
+				B65889F018DA95E0006E5DA2 /* C3DTintPSA.cpp */,
+				B65889F118DA95E0006E5DA2 /* C3DTintPSA.h */,
+				B65889F218DA95E0006E5DA2 /* C3DTransform.cpp */,
+				B65889F318DA95E0006E5DA2 /* C3DTransform.h */,
+				B65889F418DA95E0006E5DA2 /* C3DTransformPSA.cpp */,
+				B65889F518DA95E0006E5DA2 /* C3DTransformPSA.h */,
+				B65889F618DA95E0006E5DA2 /* C3DVector2.cpp */,
+				B65889F718DA95E0006E5DA2 /* C3DVector2.h */,
+				B65889F818DA95E0006E5DA2 /* C3DVector2.inl */,
+				B65889F918DA95E0006E5DA2 /* C3DVector3.cpp */,
+				B65889FA18DA95E0006E5DA2 /* C3DVector3.h */,
+				B65889FB18DA95E0006E5DA2 /* C3DVector3.inl */,
+				B65889FC18DA95E0006E5DA2 /* C3DVector4.cpp */,
+				B65889FD18DA95E0006E5DA2 /* C3DVector4.h */,
+				B65889FE18DA95E0006E5DA2 /* C3DVector4.inl */,
+				B65889FF18DA95E0006E5DA2 /* C3DVertexDeclaration.cpp */,
+				B6588A0018DA95E0006E5DA2 /* C3DVertexDeclaration.h */,
+				B6588A0118DA95E0006E5DA2 /* C3DVertexFormat.cpp */,
+				B6588A0218DA95E0006E5DA2 /* C3DVertexFormat.h */,
+				B6588A0318DA95E0006E5DA2 /* C3DViewport.cpp */,
+				B6588A0418DA95E0006E5DA2 /* C3DViewport.h */,
 				B6588A0518DA95E0006E5DA2 /* cocos3d.h */,
 				B6588A0618DA95E0006E5DA2 /* EnumDef_GL.h */,
-				8466075418E2D94B0050F4FA /* animation */,
-				8466075C18E2D9E20050F4FA /* common */,
-				8466075D18E2DA530050F4FA /* face */,
-				8466075E18E2DA620050F4FA /* geo */,
-				8466075F18E2DA670050F4FA /* light */,
-				8466076018E2DA6F0050F4FA /* material */,
-				8466076118E2DA7A0050F4FA /* math */,
-				8466076218E2DA810050F4FA /* mesh */,
-				8466076318E2DA940050F4FA /* model */,
-				8466076418E2DA9B0050F4FA /* morph */,
-				8466076518E2DAAA0050F4FA /* node */,
-				8466076618E2DAB80050F4FA /* other */,
-				8466076718E2DAC20050F4FA /* particle */,
-				8466076818E2DACC0050F4FA /* performance */,
-				8466076918E2DAD50050F4FA /* posteffect */,
-				8466076A18E2DAE20050F4FA /* render */,
-				8466076B18E2DAE80050F4FA /* resource */,
-				8466076C18E2DAF20050F4FA /* shadow */,
+				B6588A0718DA95E0006E5DA2 /* FacialAnimation.cpp */,
+				B6588A0818DA95E0006E5DA2 /* FacialAnimation.h */,
+				B6588A0918DA95E0006E5DA2 /* FacialAnimManager.cpp */,
+				B6588A0A18DA95E0006E5DA2 /* FacialAnimManager.h */,
+				B6588A0B18DA95E0006E5DA2 /* Geo.cpp */,
+				B6588A0C18DA95E0006E5DA2 /* Geo.h */,
+				B6588A0D18DA95E0006E5DA2 /* MaterialParameter.cpp */,
+				B6588A0E18DA95E0006E5DA2 /* MaterialParameter.h */,
+				B6588A0F18DA95E0006E5DA2 /* MeshPart.cpp */,
+				B6588A1018DA95E0006E5DA2 /* MeshPart.h */,
 			);
 			name = cocos3d;
 			sourceTree = "<group>";

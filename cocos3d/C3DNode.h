@@ -361,15 +361,34 @@ public:
      */
     void setScreenPos(int x, int y);
 
-	/**
-     *  Set active
-     */
-	virtual void active(bool active);
+	///**
+ //    *  Set active
+ //    */
+	//virtual void active(bool active);
 
-	/**
-     *  Checks active
+	///**
+ //    *  Checks active
+ //    */
+	//virtual bool active();
+	
+	 /**
+     * Sets whether the node is visible
+     *
+     * The default value is true, a node is default to visible
+     *
+     * @param visible   true if the node is visible, false if the node is hidden.
      */
-	virtual bool active();
+    virtual void setVisible(bool visible);
+
+    /**
+     * Determines if the node is visible
+     *
+     * @see `setVisible(bool)`
+     *
+     * @return true if the node is visible, false if the node is hidden.
+     */
+    virtual bool isVisible() const;
+
 
 	/**
      *  Gets child list
@@ -466,7 +485,7 @@ protected:
      * A flag indicating if the Node's hierarchy has changed.
      */
     bool _notifyHierarchyChanged;
-	bool _active;
+	bool _visible;
 
 	C3DAABB* _bb;
     C3DAABB* _bbOrigin; // original bounding box
