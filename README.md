@@ -111,7 +111,7 @@ cocos3d-x is a multi-platform game framework for building 3d games,which is base
    * Forum: 
    * Twitter: 
    * Weibo:
-   * QQ:
+   * QQ Group:194861571
    
 ### some useful web resource about 3d
 
