@@ -187,7 +187,7 @@ void MaterialTestLayer::setUpLight()
 	pointLightModel->addChild(pointLight);
 
 	pointLightModel->setMaterial("demores/ball/projected_texture_ball.material");
-	pointLightModel->active(false);
+	pointLightModel->setVisible(false);
 }
 
 void MaterialTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
@@ -257,7 +257,7 @@ void MaterialTestLayer::menuCallback( CCObject * pSender )
 	C3DLight*	pointLight = static_cast<C3DLight*>(pointLightModelNode->findNode("pointLight"));
 
 	if(pointLightModelNode)
-		pointLightModelNode->active(false);
+		pointLightModelNode->setVisible(false);
 
 	if(pointLight)
 		pointLight->setLightEnable(false);
@@ -288,7 +288,7 @@ void MaterialTestLayer::menuCallback( CCObject * pSender )
 		case PROJECTED_TEXTURE:
 			_sm->setMaterial("demores/materialtest/1_projected_texture.material");
 			if(pointLightModelNode)
-				pointLightModelNode->active(true);
+				pointLightModelNode->setVisible(true);
 			if(pointLight)
 				pointLight->setLightEnable(true);
 			break;

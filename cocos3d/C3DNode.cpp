@@ -13,7 +13,7 @@
 namespace cocos3d
 {
 C3DNode::C3DNode()
-	  : _scene(NULL),_parent(NULL),_active(true),
+	: _scene(NULL),_parent(NULL),_visible(true),
     _dirtyBits(NODE_DIRTY_ALL), _notifyHierarchyChanged(true), _listeners(NULL)
 {
    _id = "";
@@ -28,7 +28,7 @@ C3DNode::C3DNode()
 }
 
 C3DNode::C3DNode(const std::string& id)
-    : _scene(NULL),_parent(NULL),_active(true),
+    : _scene(NULL),_parent(NULL),_visible(true),
     _dirtyBits(NODE_DIRTY_ALL), _notifyHierarchyChanged(true), _listeners(NULL)
 {
     if (!id.empty())
@@ -215,7 +215,7 @@ void C3DNode::update(long elapsedTime)
     for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
-		if(node->active())
+		if(node->isVisible())
 			node->update(elapsedTime);
     }
 }
@@ -226,7 +226,7 @@ void C3DNode::draw()
     for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
-		if(node->active())
+		if(node->isVisible())
 			node->draw();
     }
 }
@@ -599,15 +599,16 @@ void C3DNode::setScreenPos(int x, int y)
     }
 }
 
-bool C3DNode::active()
+bool C3DNode::isVisible() const
 {
-	return _active;
+	return _visible;
 }
 
-void C3DNode::active(bool active)
+void C3DNode::setVisible(bool visible)
 {
-	_active = active;
+	_visible = visible;
 }
+
 
 void C3DNode::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context)
 {
@@ -616,7 +617,7 @@ void C3DNode::copyFrom(const C3DTransform* other, C3DNode::CloneContext& context
 
 	C3DTransform::copyFrom(other);
 	const C3DNode* otherNode = static_cast<const C3DNode*>(other);
-	_active = otherNode->_active;
+	_visible = otherNode->_visible;
 	//_scene = otherNode->_scene;
 	_id = otherNode->_id + context.idSuffix;
 	_world = otherNode->_world;
@@ -814,7 +815,7 @@ C3DOBB* C3DNode::getOBB()
 
 void C3DNode::drawAABB()
 {
-	if(_active == false)
+	if(_visible == false)
 		return;
 
 	if(this->getAABB() == NULL)
@@ -827,7 +828,7 @@ void C3DNode::drawAABB()
 
 void C3DNode::drawOBB()
 {
-	if(_active == false)
+	if(_visible == false)
 		return;
 
     if (_obb.extents.isZero())

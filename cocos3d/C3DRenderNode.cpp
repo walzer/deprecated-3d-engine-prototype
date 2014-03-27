@@ -90,7 +90,7 @@ C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fi
 
 void C3DRenderNode::draw()
 {
-	if(_active == false)
+	if(_visible == false)
 		return;
 
 	if (_isVisibleByCamera)
@@ -196,7 +196,7 @@ void C3DRenderNode::detach(const std::string& nodeName, C3DNode* attachment)
 
 void C3DRenderNode::drawCollitionBox()
 {
-	if(_active == false)
+	if(_visible == false)
 		return;
 
 	std::vector<C3DCollitionBox*>::iterator iter = m_collitionBoxs.begin();
