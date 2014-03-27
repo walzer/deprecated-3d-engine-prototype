@@ -6,6 +6,7 @@
 #include "C3DRenderState.h"
 #include "C3DElementNode.h"
 #include "C3DSamplerCube.h"
+#include "Base.h"
 
 #define OPENGL_ES_DEFINE  "#define OPENGL_ES"
 
@@ -115,6 +116,47 @@ void replaceIncludes(const std::string& source, std::string& out)
     }
 }
 
+void C3DEffect::reload()
+{
+	setCurrentEffect(NULL);
+
+	LOG_TRACE_VARG("---3DEffect::reload %s---", _uniqueKey.c_str());
+	    // Free uniforms.
+    for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); )
+    {
+        SAFE_DELETE(itr->second);
+		++itr;
+    }
+
+	_uniforms.clear();
+	_vertexAttributes.clear();
+
+    _program = 0;
+
+	std::vector<std::string> a = StringTool::StringSplitByChar(_uniqueKey,';');
+	if(a.size() < 2)
+		return;
+
+	std::string vshpath = a[0];
+	std::string fshpath = a[1];
+	std::string define;
+	if(a.size()==3)
+		define = a[2];
+
+	C3DElementNode* elementNode = C3DElementNode::createEmptyNode("test", "effect");
+
+	if(elementNode != NULL)
+	{
+		elementNode->setElement("vertexShader", vshpath.c_str());
+		elementNode->setElement("fragmentShader", fshpath.c_str());
+		if(define.c_str() != NULL)
+			elementNode->setElement("defines", define.c_str());
+	}
+
+	load(elementNode);
+	LOG_ERROR("---3DEffect::reload finished---");
+}
+
 bool C3DEffect::load(C3DElementNode* node)
 {
 	C3DResource::load(node);
@@ -122,6 +164,19 @@ bool C3DEffect::load(C3DElementNode* node)
 	const std::string& vshPath = node->getElement("vertexShader");
 	const std::string& fshPath = node->getElement("fragmentShader");
 	const std::string& defines = node->getElement("defines");
+
+	if(_uniqueKey.empty())
+	{
+		_uniqueKey  = vshPath;
+		_uniqueKey += ';';
+		_uniqueKey += fshPath;
+
+		if (!defines.empty())
+		{		
+			_uniqueKey += ';';
+			_uniqueKey += defines;
+		}
+	}
 
 	_vshPath = vshPath;
 	_fshPath = fshPath;
@@ -140,7 +195,7 @@ bool C3DEffect::load(C3DElementNode* node)
 		return false;
     }
 
-    if(this->load(vshSource,fshSource,defines) == false)
+    if(this->load(vshSource, fshSource, defines) == false)
 	{
 		LOG_ERROR_VARG("Failed to create effect from shaders: %s, %s", _vshPath.c_str(), _fshPath.c_str());
 	}

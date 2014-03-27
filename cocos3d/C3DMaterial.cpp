@@ -32,6 +32,19 @@ C3DMaterial::~C3DMaterial()
     memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
 }
 
+void techniqueReload(C3DTechnique* tech)
+{
+	tech->reload();
+}
+
+void C3DMaterial::reload()
+{
+	LOG_TRACE_VARG("---C3DMaterial:%s begin reload---", getResourceName().c_str());
+
+	C3DRenderState::reload();
+	for_each(_techniques.begin(), _techniques.end(), techniqueReload);
+}
+
 C3DMaterial* C3DMaterial::create(const std::string& fileName)
 {
 	assert(!fileName.empty());

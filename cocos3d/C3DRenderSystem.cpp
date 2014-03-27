@@ -14,6 +14,7 @@
 
 #include "C3DEffectManager.h"
 #include "C3DMaterialManager.h"
+#include "C3DSpriteManager.h"
 
 namespace cocos3d
 {
@@ -36,6 +37,17 @@ C3DRenderSystem::C3DRenderSystem()
 
     initialize();
 
+}
+
+void C3DRenderSystem::reload()
+{
+	LOG_ERROR("---C3DRenderSystem begin reload---");
+
+	C3DEffectManager::getInstance()->reload();
+	C3DMaterialManager::getInstance()->reload();
+	C3DSpriteManager::getInstance()->reload();
+
+	LOG_ERROR("---C3DRenderSystem end reload---");
 }
 
 C3DRenderSystem* C3DRenderSystem::create()

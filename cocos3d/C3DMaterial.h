@@ -18,7 +18,7 @@ class C3DEffect;
  * when multiple techniques are loaded using a material file,
  * the current technique can be set at runtime.
  */
-class C3DMaterial : public C3DRenderState,public C3DResource
+class C3DMaterial : public C3DRenderState, public C3DResource
 {
     friend class C3DTechnique;
     friend class C3DPass;
@@ -42,7 +42,7 @@ public:
 	C3DMaterial(const std::string& name);
 
     virtual ~C3DMaterial();
-
+	virtual void reload();
 	 /**
      * create a material from the file.
      *

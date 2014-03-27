@@ -50,6 +50,7 @@ public:
      * load 3D sprite.
      */
 	void loadSuperModel(C3DSprite* superModel);
+	void reLoadSuperModel(C3DSprite* superModel);
 
 	/**
      * load 3D static object.
@@ -152,6 +153,7 @@ private:
      * @return The reference object or NULL if there was an error.
      */
     Reference* seekToFirstType(unsigned int type);
+	unsigned int seekToNextType();
 
     /**
      * Internal method to load a node.
@@ -167,7 +169,7 @@ private:
      *
      * @return The loaded mesh, or NULL if the mesh could not be loaded.
      */
-    C3DMesh* loadMesh(const std::string& nodeId,bool hasMorph);
+    C3DMesh* loadMesh(const std::string& nodeId, bool hasMorph);
 
     /**
      * Reads an xref string from the current file position.
@@ -185,6 +187,7 @@ private:
      * @return A pointer to new node or NULL if there was an error.
      */
 	C3DNode* readNode(C3DRenderNode* compoundModelContext);
+	void reloadNode(C3DNode* context);
 
     /**
      * Reads a camera from the current file position.

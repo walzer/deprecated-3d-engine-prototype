@@ -375,6 +375,16 @@ void C3DRenderState::bind(C3DPass* pass)
     }
 }
 
+void paramterReload(MaterialParameter* param)
+{
+	param->reload();
+}
+
+void C3DRenderState::reload()
+{
+	for_each(_parameters.begin(), _parameters.end(), paramterReload);
+}
+
 void C3DRenderState::setParamMethonAutoUniform(C3DPass* pass)
 {
 	C3DRenderState* rs = NULL;

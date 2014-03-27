@@ -51,7 +51,7 @@ public:
      * @param clearStencil The stencil value to clear to when the flags includes the color buffer.
     */
     void clear(ClearFlags flags, const C3DVector4* clearColor, float clearDepth, int clearStencil);
-
+	void reload();
 protected:
 
 	/**

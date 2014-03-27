@@ -158,6 +158,9 @@ public:
 		METHOD,
 		METHOD_PARAM
 	} _type;
+
+	
+	void reload();
 private:
 
     MaterialParameter(const std::string& name);

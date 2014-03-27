@@ -192,7 +192,7 @@ public:
     static C3DEffect* getCurrentEffect();
 
     static void setCurrentEffect(C3DEffect* effect);
-
+	virtual void reload();
 private:
 
 	 /**
@@ -216,6 +216,9 @@ private:
 	std::string _vshPath;
     std::string _fshPath;
     std::string _defines;
+
+	std::string	_uniqueKey;
+
 };
 
 /**

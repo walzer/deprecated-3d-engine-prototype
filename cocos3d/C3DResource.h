@@ -83,7 +83,8 @@ public:
 	void copyFrom(const C3DResource* other);
 
 	int getCloneNum();
-
+	
+	virtual void reload(){}
 
 private:
 
