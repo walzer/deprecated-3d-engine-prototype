@@ -448,12 +448,50 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 		if(hasMesh)
 		{
 			// Read mesh
-			C3DMesh* mesh = loadMesh(nodeID, hasMorph);
-			if(mesh != NULL)
+			//-----------------------------------------------------------------------------
+			MeshData* meshData = readMeshData();
+			if (meshData == NULL)
 			{
-				modelNode->getModel()->setMesh(mesh);
+				return;
 			}
-			SAFE_RELEASE(mesh);
+
+			// Create C3DMesh
+			C3DMesh* mesh = modelNode->getModel()->getMesh();
+			if (mesh == NULL)
+			{
+				LOG_ERROR_VARG("Failed to create mesh: %s", nodeID.c_str());
+				SAFE_DELETE_ARRAY(meshData);
+				return;
+			}
+
+			mesh->clear();
+
+			mesh->_url = _path;
+			mesh->_url += "#";
+			mesh->_url += nodeID;
+			mesh->_url += "_Mesh";
+
+			mesh->init(meshData->vertexFormat, meshData->vertexCount, hasMorph);
+			mesh->setVertexData(meshData->vertexData, 0, meshData->vertexCount);
+
+			// Create mesh parts
+			for (unsigned int i = 0; i < meshData->parts.size(); ++i)
+			{
+				MeshPartData* partData = meshData->parts[i];
+
+				MeshPart* part = mesh->addPart(partData->primitiveType, partData->indexFormat, partData->indexCount, false);
+				if (part == NULL)
+				{
+					LOG_ERROR_VARG("Failed to create mesh part (i=%d): %s", i, nodeID.c_str());
+					SAFE_DELETE(meshData);
+					return;
+				}
+				part->setIndexData(partData->indexData, 0, partData->indexCount);
+			}
+
+			mesh->_boundingBox->set(meshData->boundingBox->_min,meshData->boundingBox->_max);
+
+			//-----------------------------------------------------------------------------
 		}
 	}
 
@@ -571,7 +609,8 @@ C3DNode* C3DResourceLoader::loadNode(const std::string& id, C3DSprite* superMode
 C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
 {
     std::string id = getIdFromOffset();
-	LOG_TRACE_VARG("+++C3DResourceLoader::loadNode(%s)+++", id.c_str());
+	LOG_ERROR_VARG("+++C3DResourceLoader::loadNode(%s)+++", id.c_str());
+
 
     // Read node type
     unsigned int nodeType;
