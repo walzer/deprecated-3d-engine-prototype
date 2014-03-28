@@ -58,7 +58,14 @@ extern void printError(const char* format, ...);
     { \
         LOGI(x, __VA_ARGS__); \
     }
-
+#define LOG_TRACE(x) \
+    { \
+        LOGI(x); \
+    }
+#define LOG_TRACE_VARG(x, ...) \
+    { \
+        LOGI(x, __VA_ARGS__); \
+    }
 // Warning macro
 #ifdef WARN
 #undef WARN
@@ -78,6 +85,14 @@ extern void printError(const char* format, ...);
     { \
         printError(x, __VA_ARGS__); \
         assert(#x == 0); \
+    }
+#define LOG_TRACE(x) \
+    { \
+        printError(x); \
+    }
+#define LOG_TRACE_VARG(x, ...) \
+    { \
+        printError(x, __VA_ARGS__); \
     }
 
 // Warning macro

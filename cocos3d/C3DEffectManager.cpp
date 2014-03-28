@@ -4,7 +4,9 @@
 #include "C3DEffectManager.h"
 #include "C3DElementNode.h"
 #include "StringTool.h"
+#include "Base.h"
 
+#include "C3DResourcePool.h"
 namespace cocos3d
 {
 static C3DEffectManager* __effectManagerInstance = NULL;

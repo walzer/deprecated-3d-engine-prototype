@@ -35,7 +35,7 @@ class C3DActionListener;
 /**
 *Defines this dynamic object of the scene,which can play animation,change material.
 */
-class  C3DSprite : public C3DRenderNode/*,public C3DResource*/
+class  C3DSprite : public C3DRenderNode
 {
 	friend class C3DScene;
 	friend class C3DResourceLoader;
@@ -129,16 +129,14 @@ public:
 
 	void stopAllAnimationClip();
 
-	//FacialAnimManager* getFacialAnimManager();
-
     C3DAnimation* getAnimation() { return _animation; }
+
+	virtual void reload();
 
 protected:
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
 
 private:
-
-	//FacialAnimManager * _facialAnimManager;
 
 	C3DSkeleton* _skeleton;
 	C3DAnimation* _animation;

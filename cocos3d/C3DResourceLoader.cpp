@@ -239,6 +239,31 @@ C3DResourceLoader::Reference* C3DResourceLoader::seekToFirstType(unsigned int ty
     return NULL;
 }
 
+unsigned int C3DResourceLoader::seekToNextType()
+{
+	size_t tp		 = _stream->tell();
+
+	size_t idx		 = numeric_limits<size_t>::max();
+	size_t minOffset = numeric_limits<size_t>::max();
+
+	for(size_t i=0; i<_referenceCount; ++i)
+	{
+		if(_references[i].offset >= tp && _references[i].offset < minOffset)
+		{
+			minOffset = _references[i].offset;
+			idx = i;
+		}
+	}
+
+	if(idx<_referenceCount)
+	{
+		_stream->seek(_references[idx].offset, SEEK_SET);
+		return _references[idx].type;
+	}
+
+	return -1;
+}
+
 void C3DResourceLoader::loadSuperModel(C3DSprite* superModel,std::string nodeName)
 {
 	clearLoadSession();
@@ -327,6 +352,154 @@ bool C3DResourceLoader::loadAnimation(C3DSprite* superModel)
 //    return ;
     return loadAnimation2(superModel);
 }
+
+void C3DResourceLoader::reLoadSuperModel(C3DSprite* superModel)
+{
+	Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);
+    if (!ref)
+    {
+        return;
+    }
+
+    // Read the number of children
+    unsigned int childrenCount;
+    if (!_stream->read(&childrenCount))
+    {
+        return;
+    }
+
+	// Read each child directly into the scene
+	for (unsigned int i = 0; i < childrenCount; ++i)
+	{
+		reloadNode(superModel);
+	}
+}
+
+void C3DResourceLoader::reloadNode(C3DNode* context)
+{
+    std::string nodeID(getIdFromOffset());
+	LOG_ERROR_VARG("---C3DResourceLoader::reloadNode(%s)---", nodeID.c_str());
+
+    // Read node type
+    unsigned int eNodeType;
+    if (!_stream->read(&eNodeType))
+    {
+        return;
+    }
+
+    C3DNode* curNode = context->findNode(nodeID, false);
+	if(NULL==curNode)
+		return;
+
+	// skip the transform
+	_stream->seek(sizeof(float)*16, SEEK_CUR);
+
+    // Skip over the parent ID.
+    _stream->readString();
+
+    // Read children
+    unsigned int childrenCount;
+    _stream->read(&childrenCount);
+
+    if (childrenCount > 0)
+    {
+        for (unsigned int i = 0; i < childrenCount; ++i)
+        {
+            reloadNode(curNode);
+        }
+	}
+
+	//--------------------------------------------------------------
+	if(C3DNode::NodeType_Model == curNode->getType())
+	{
+		// Read model
+		C3DModelNode* modelNode = static_cast<C3DModelNode*>(curNode);
+
+		// reloadModel:-----------------------------------------------------------------
+		unsigned char hasMesh;
+		if (!_stream->read(&hasMesh))
+		{
+			LOG_ERROR_VARG("Failed to load hasMesh in bundle '%s'.", _path.c_str());
+			return;
+		}
+
+		// TODO: read morph
+		unsigned char hasMorph;
+		if (!_stream->read(&hasMorph))
+		{
+			LOG_ERROR_VARG("Failed to load hasMorph in bundle '%s'.", _path.c_str());
+			return;
+		}
+
+		unsigned char hasSkin;
+		if (!_stream->read(&hasSkin))
+		{
+			LOG_ERROR_VARG("Failed to load hasSkin in bundle '%s'.", _path.c_str());
+			return;
+		}
+
+		unsigned char hasMaterial;
+		if (!_stream->read(&hasMaterial))
+		{
+			LOG_ERROR_VARG("Failed to load hasMaterial in bundle '%s'.", _path.c_str());
+			return;
+		}
+
+		if(hasMesh)
+		{
+			// Read mesh
+			//-----------------------------------------------------------------------------
+			MeshData* meshData = readMeshData();
+			if (meshData == NULL)
+			{
+				return;
+			}
+
+			// Create C3DMesh
+			C3DMesh* mesh = modelNode->getModel()->getMesh();
+			if (mesh == NULL)
+			{
+				LOG_ERROR_VARG("Failed to create mesh: %s", nodeID.c_str());
+				SAFE_DELETE_ARRAY(meshData);
+				return;
+			}
+
+			mesh->clear();
+
+			mesh->_url = _path;
+			mesh->_url += "#";
+			mesh->_url += nodeID;
+			mesh->_url += "_Mesh";
+
+			mesh->init(meshData->vertexFormat, meshData->vertexCount, hasMorph);
+			mesh->setVertexData(meshData->vertexData, 0, meshData->vertexCount);
+
+			// Create mesh parts
+			for (unsigned int i = 0; i < meshData->parts.size(); ++i)
+			{
+				MeshPartData* partData = meshData->parts[i];
+
+				MeshPart* part = mesh->addPart(partData->primitiveType, partData->indexFormat, partData->indexCount, false);
+				if (part == NULL)
+				{
+					LOG_ERROR_VARG("Failed to create mesh part (i=%d): %s", i, nodeID.c_str());
+					SAFE_DELETE(meshData);
+					return;
+				}
+				part->setIndexData(partData->indexData, 0, partData->indexCount);
+			}
+
+			mesh->_boundingBox->set(meshData->boundingBox->_min,meshData->boundingBox->_max);
+
+			//-----------------------------------------------------------------------------
+		}
+	}
+
+	seekToNextType();
+
+	return;
+}
+
 void C3DResourceLoader::loadSuperModel(C3DSprite* superModel)
 {
     clearLoadSession();
@@ -404,6 +577,7 @@ void C3DResourceLoader::loadSceneModel(C3DStaticObj* sceneModel)
 
     return ;
 }
+
 C3DNode* C3DResourceLoader::loadNode(const std::string& id, C3DSprite* superModelContext)
 {
     assert(!id.empty());
@@ -435,6 +609,8 @@ C3DNode* C3DResourceLoader::loadNode(const std::string& id, C3DSprite* superMode
 C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
 {
     std::string id = getIdFromOffset();
+	LOG_ERROR_VARG("+++C3DResourceLoader::loadNode(%s)+++", id.c_str());
+
 
     // Read node type
     unsigned int nodeType;
@@ -560,9 +736,9 @@ C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
     default:
         return NULL;
     }
-
     return node;
 }
+
 void C3DResourceLoader::readCamera(C3DCamera* camera)
 {
 	if(camera == NULL)

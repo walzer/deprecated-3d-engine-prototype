@@ -337,6 +337,12 @@ void MaterialParameter::bind(C3DEffect* effect)
     }
 }
 
+void MaterialParameter::reload()
+{
+	LOG_TRACE_VARG("---MaterialParameter:%s begin reload with [%p]---", _name.c_str(), _uniform, _uniform!=NULL? _uniform->getName().c_str(): "NONAME");
+	_uniform = NULL;
+}
+
 void MaterialParameter::setParamMethonAutoUniform(C3DEffect* effect)
 {
     // If we had a Uniform cached that is not from the passed in effect,
