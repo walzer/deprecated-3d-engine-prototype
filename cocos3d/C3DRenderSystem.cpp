@@ -36,18 +36,17 @@ C3DRenderSystem::C3DRenderSystem()
 	_renderChannelManager->retain();
 
     initialize();
-
 }
 
 void C3DRenderSystem::reload()
 {
-	LOG_ERROR("---C3DRenderSystem begin reload---");
+	LOG_TRACE("---C3DRenderSystem begin reload---");
 
 	C3DEffectManager::getInstance()->reload();
 	C3DMaterialManager::getInstance()->reload();
 	C3DSpriteManager::getInstance()->reload();
 
-	LOG_ERROR("---C3DRenderSystem end reload---");
+	LOG_TRACE("---C3DRenderSystem end reload---");
 }
 
 C3DRenderSystem* C3DRenderSystem::create()
@@ -62,9 +61,6 @@ C3DRenderSystem* C3DRenderSystem::create()
 
 C3DRenderSystem* C3DRenderSystem::getInstance()
 {
- //   CCAssert(__renderSystemInstance, "Render system not created");
-	//return __renderSystemInstance;
-
 	if (!__renderSystemInstance)
     {
         __renderSystemInstance = new C3DRenderSystem();
@@ -97,7 +93,6 @@ void C3DRenderSystem::initialize()
 
 void C3DRenderSystem::finalize()
 {
-
 	_renderChannelManager->clear();
 
     C3DStateBlock::finalize();

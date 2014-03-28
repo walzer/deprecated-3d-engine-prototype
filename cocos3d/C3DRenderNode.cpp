@@ -64,6 +64,16 @@ C3DRenderNode::~C3DRenderNode()
 	m_collitionBoxs.clear();
 }
 
+void C3DRenderNode::reload()
+{
+	C3DResourceLoader* bundle = C3DResourceLoader::create(_fileName);
+	if (bundle == NULL)
+		return;
+
+	bundle->reLoadSuperModel(this);
+	bundle->release();
+}
+
 C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fileName)
 {
 	// Load mesh/scene from file

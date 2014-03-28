@@ -30,11 +30,9 @@ public:
 
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
 	virtual C3DNode* clone(CloneContext& context) const;
-
 private:
 
     C3DStaticObj(const std::string& id);
-
     ~C3DStaticObj();
 };
 }

@@ -5,7 +5,7 @@
 
 #ifdef WIN32
 #ifdef _DEBUG
-//#include <vld.h>
+#include <vld.h>
 #endif
 #endif
 

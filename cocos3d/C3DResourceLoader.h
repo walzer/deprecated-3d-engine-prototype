@@ -38,6 +38,7 @@ class C3DSprite;
 class C3DResourceLoader : public cocos2d::CCObject
 {
 friend class C3DRenderNode;
+friend class C3DSpriteManager;
 
 public:
 
@@ -50,7 +51,7 @@ public:
      * load 3D sprite.
      */
 	void loadSuperModel(C3DSprite* superModel);
-	void reLoadSuperModel(C3DSprite* superModel);
+	void reLoadSuperModel(C3DRenderNode* superModel);
 
 	/**
      * load 3D static object.
@@ -86,6 +87,7 @@ public:
      */
     const std::string getObjectID(unsigned int index) const;
 
+	unsigned int seekToNextType();
 private:
 
     class Reference
@@ -153,7 +155,6 @@ private:
      * @return The reference object or NULL if there was an error.
      */
     Reference* seekToFirstType(unsigned int type);
-	unsigned int seekToNextType();
 
     /**
      * Internal method to load a node.

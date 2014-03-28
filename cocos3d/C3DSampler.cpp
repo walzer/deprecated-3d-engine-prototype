@@ -7,7 +7,10 @@
 namespace cocos3d
 {
 C3DSampler::C3DSampler()
-    : _texture(NULL), _wrapS(Texture_Wrap_CLAMP), _wrapT(Texture_Wrap_CLAMP), _magFilter(Texture_Filter_LINEAR)
+    : _texture(NULL), 
+	_wrapS(Texture_Wrap_CLAMP), 
+	_wrapT(Texture_Wrap_CLAMP), 
+	_magFilter(Texture_Filter_LINEAR)
 {
     _minFilter = Texture_Filter_LINEAR;
     _dirtyBit = Texture_All_Dirty;
@@ -251,6 +254,11 @@ bool C3DSampler::load(C3DElementNode* node)
 	return true;
 }
 
+void C3DSampler::reload()
+{
+	_dirtyBit = Texture_Wrap_Dirty;
+}
+
 bool C3DSampler::save(C3DElementNode* node)
 {
     node->setElement("path", this->getPath());
@@ -261,4 +269,5 @@ bool C3DSampler::save(C3DElementNode* node)
     node->setElement("magFilter", textureFilterModeToString(this->getMagFilter()));
 	return true;
 }
+
 }

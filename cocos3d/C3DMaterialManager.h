@@ -18,13 +18,13 @@ public:
 	static C3DMaterialManager* getInstance();
 
 	virtual C3DResource* createResource(const std::string& name);
-
 	virtual C3DResource* cloneResource(C3DResource* resource);
+
+	virtual void reload();
 
 private:
 
     C3DMaterialManager();
-
     ~C3DMaterialManager();
 };
 }

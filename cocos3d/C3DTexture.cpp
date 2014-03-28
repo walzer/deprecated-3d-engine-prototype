@@ -58,7 +58,7 @@ C3DTexture* C3DTexture::create(const std::string& path, bool generateMipmaps)
         }
     }
 
-    CCTexture2D* tex = CCTextureCache::sharedTextureCache()->addImage(path.c_str());
+	CCTexture2D* tex = Director::getInstance()->getTextureCache()->addImage(path);
     if (tex == NULL)
     {
         LOG_ERROR_VARG("failed to load texture file: %s", path.c_str());

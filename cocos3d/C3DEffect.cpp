@@ -154,7 +154,7 @@ void C3DEffect::reload()
 	}
 
 	load(elementNode);
-	LOG_ERROR("---3DEffect::reload finished---");
+	LOG_TRACE("---3DEffect::reload finished---");
 }
 
 bool C3DEffect::load(C3DElementNode* node)

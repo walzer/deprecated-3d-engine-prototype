@@ -1,6 +1,5 @@
 #include "FullDemoLayer.h"
 
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -27,6 +26,7 @@
 #include "C3DSpriteManager.h"
 #include "C3DAnimation.h"
 #include "C3DProfile.h"
+#include "C3DSpriteManager.h"
 
 using namespace cocos3d;
 
@@ -156,15 +156,10 @@ void FullDemoLayer::setUpScene()
 
 void FullDemoLayer::createStaticModel()
 {
-	C3DStaticObj* sm = cocos3d::C3DStaticObj::create("scene");
-	if(sm != NULL)
-	{
-		sm->loadFromFile("demores/fulldemo/scene/scene.ckb");
-		sm->translate(0, -1, 0);
-		sm->scale(1, 1, 1);
-		//sm->showAABB(true);
-		_scene->addChild(sm);
-	}
+	C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/scene/scene.ckb"));
+	sm->translate(0, -1, 0);
+	sm->scale(1, 1, 1);
+	_scene->addChild(sm);
 }
 
 void FullDemoLayer::switchProfileShow()
@@ -229,7 +224,8 @@ void FullDemoLayer::createParticleEffect()
 		newPS->setScale(CCRANDOM_0_1() * 0.5f + 1.0f );
 		_scene->addChild(newPS);
 
-		cocos3d::C3DRenderNode* m = ((C3DRenderNode*)_scene->findNode("scene"));//C3DLayer::getInstance()->getSpriteManager()->findEntity("girl");
+		// zhukaixy: Node的名字先这么凑合用一下吧
+		cocos3d::C3DRenderNode* m = ((C3DRenderNode*)_scene->findNode("demores/fulldemo/scene/scene.ckb"));//C3DLayer::getInstance()->getSpriteManager()->findEntity("girl");
 		if(m)
 		{
 			std::string name;
@@ -242,7 +238,7 @@ void FullDemoLayer::createParticleEffect()
 				name = "guaidian_0" + context.idSuffix;
 		    }
 
-			m->attach(name.c_str(),newPS);
+			m->attach(name, newPS);
 		}
 	}
 

@@ -130,9 +130,6 @@ public:
 	void stopAllAnimationClip();
 
     C3DAnimation* getAnimation() { return _animation; }
-
-	virtual void reload();
-
 protected:
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
 

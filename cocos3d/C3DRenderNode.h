@@ -54,6 +54,8 @@ public:
 	virtual bool load(bool isLoadAll=false){ return false; }
 	virtual bool load(const std::string& fileName){ return false; }
 
+	virtual void reload();
+
 	/**
     * Render for handling rendering routines.
     */

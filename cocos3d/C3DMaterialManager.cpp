@@ -75,4 +75,11 @@ C3DResource* C3DMaterialManager::cloneResource(C3DResource* resource)
     }
 	return NULL;
 }
+
+void C3DMaterialManager::reload()
+{
+	C3DResourceManager::reload();
+	C3DRenderState::activeTexture(0);
+}
+
 }
