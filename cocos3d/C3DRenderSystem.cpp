@@ -15,6 +15,8 @@
 #include "C3DEffectManager.h"
 #include "C3DMaterialManager.h"
 
+#include "C3DDeviceAdapter.h"
+
 namespace cocos3d
 {
 static C3DRenderSystem* __renderSystemInstance = NULL;
@@ -33,6 +35,11 @@ C3DRenderSystem::C3DRenderSystem()
 
 	_renderChannelManager = RenderChannelManager::getInstance();
 	_renderChannelManager->retain();
+
+
+	_deviceAdapter = new C3DDeviceAdapter();
+
+	_deviceAdapter->getCpuCount();
 
     initialize();
 
@@ -68,6 +75,8 @@ C3DRenderSystem::~C3DRenderSystem()
 	SAFE_RELEASE( _renderChannelManager );
 	SAFE_RELEASE(_effectManager);
 	SAFE_RELEASE(_materialManager);
+
+	SAFE_DELETE(_deviceAdapter);
 }
 
 void C3DRenderSystem::initialize()
@@ -81,6 +90,8 @@ void C3DRenderSystem::initialize()
     _viewport = new C3DViewport(0, 0, (int)size.width, (int)size.height);
 
 	C3DEffectManager::getInstance()->preload("config/effect.config");
+
+
 }
 
 void C3DRenderSystem::finalize()
@@ -94,6 +105,8 @@ void C3DRenderSystem::finalize()
 	C3DMaterialManager::getInstance()->removeAll();
     SAFE_DELETE(_viewport);
 	SAFE_DELETE(_clearColor);
+
+
 }
 
 void C3DRenderSystem::setViewport(float x, float y, float width, float height)

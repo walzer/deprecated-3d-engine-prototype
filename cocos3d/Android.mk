@@ -102,9 +102,12 @@ C3DMorph.cpp \
 C3DMorphMesh.cpp \
 C3DMorphModel.cpp \
 Rectangle.cpp \
-StringTool.cpp
+StringTool.cpp \
+C3DDeviceAdapter_android.cpp \
+
 
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static
+//LOCAL_WHOLE_STATIC_LIBRARIES += cpufeatures
 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH) \
@@ -116,5 +119,7 @@ $(LOCAL_PATH)/physics \
                 
                     
 include $(BUILD_STATIC_LIBRARY)
+
+$(call import-module,android/cpufeatures)
 
                            

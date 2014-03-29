@@ -3,6 +3,7 @@
 #include "EnumDef_GL.h"
 #include "cocos2d.h"
 
+
 namespace cocos3d
 {
 class Rectangle;
@@ -13,6 +14,7 @@ class RenderChannelManager;
 class C3DEffectManager;
 class C3DMaterialManager;
 class C3DScreenProcessManager;
+class C3DDeviceAdapter;
 
 /**
 Defines the view port and clear flag
@@ -81,6 +83,8 @@ protected:
 
     float _clearDepth;                          // The clear depth value last used for clearing the depth buffer.
     int _clearStencil;                          // The clear stencil value last used for clearing the stencil buffer.
+
+	C3DDeviceAdapter* _deviceAdapter;
 };
 }
 
