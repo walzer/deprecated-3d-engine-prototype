@@ -32,7 +32,7 @@ namespace cocos3d
 {
 C3DSprite::C3DSprite(const std::string& id) :C3DRenderNode(id)
 {
-	_active = true;
+	//_active = true;
 
 	//_facialAnimManager = NULL;
 
@@ -202,7 +202,7 @@ bool C3DSprite::loadMesh(const std::string& meshName)
 
 void C3DSprite::update(long elapsedTime)
 {
-	if(_active == false)
+	if(isVisible() == false)
 		return;
 
 	C3DRenderNode::update(elapsedTime);
