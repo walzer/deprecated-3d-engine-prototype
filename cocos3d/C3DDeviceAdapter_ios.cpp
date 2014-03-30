@@ -19,7 +19,7 @@ int C3DDeviceAdapter::getCpuCount()
 {
 	int m = 0;
 
-    LOG_ERROR_VARG("failed to load texture file: %d", m);
+    LOG_ERROR_VARG("the cpu counter is : %d", m);
 
 	return m;
 }

@@ -17,12 +17,14 @@ C3DDeviceAdapter::~C3DDeviceAdapter()
 
 int C3DDeviceAdapter::getCpuCount()
 {
-	int m = 0;
+	int m = 4;
 
     LOG_ERROR_VARG("the cpu counter is : %d", m);
 
 	return m;
 }
+
+
 
 
 

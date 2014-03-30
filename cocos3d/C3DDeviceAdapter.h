@@ -1,7 +1,9 @@
 #ifndef DEVICEADAPTER_H_
 #define DEVICEADAPTER_H_
-#include "CCPlatformConfig.h"
 
+#include "Base.h"
+#include "CCPlatformConfig.h"
+#include "CCConfiguration.h"
 
 namespace cocos3d
 {
@@ -16,9 +18,17 @@ public:
 
 	int getCpuCount();
 
-	int isSupportVAO();
+	bool isSupportVAO()
+	{
+		
+		int supportsShareableVAO = cocos2d::Configuration::getInstance()->checkForGLExtension("vertex_array_object");
 
+		 LOG_ERROR_VARG("the gpu support VAO : %d",supportsShareableVAO);
 
+     	 return supportsShareableVAO;
+
+	}
+	
 
   
 private:
