@@ -5,16 +5,21 @@
 #include "CCPlatformConfig.h"
 #include "CCConfiguration.h"
 
+#include "cocos2d.h"
+
 namespace cocos3d
 {
 
 
-class C3DDeviceAdapter
+class C3DDeviceAdapter : public cocos2d::CCObject
 {
   
 public:
 	 C3DDeviceAdapter();
     ~C3DDeviceAdapter();
+
+	static C3DDeviceAdapter* getInstance();
+	
 
 	int getCpuCount();
 
@@ -23,7 +28,7 @@ public:
 		
 		int supportsShareableVAO = cocos2d::Configuration::getInstance()->checkForGLExtension("vertex_array_object");
 
-		 LOG_ERROR_VARG("the gpu support VAO : %d",supportsShareableVAO);
+		// LOG_ERROR_VARG("the gpu support VAO : %d",supportsShareableVAO);
 
      	 return supportsShareableVAO;
 
@@ -32,6 +37,8 @@ public:
 
   
 private:
+
+	static C3DDeviceAdapter* _instance;
 
    
 

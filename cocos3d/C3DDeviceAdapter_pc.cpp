@@ -6,6 +6,9 @@
 
 namespace cocos3d
 {
+
+C3DDeviceAdapter* C3DDeviceAdapter::_instance = NULL;
+
 C3DDeviceAdapter::C3DDeviceAdapter()
 {
 }
@@ -13,6 +16,16 @@ C3DDeviceAdapter::C3DDeviceAdapter()
 C3DDeviceAdapter::~C3DDeviceAdapter()
 {
 
+}
+
+C3DDeviceAdapter* C3DDeviceAdapter::getInstance()
+{
+	if ( _instance == NULL )
+	{
+		_instance = new C3DDeviceAdapter();
+		_instance->autorelease();
+	}
+	return _instance;
 }
 
 int C3DDeviceAdapter::getCpuCount()
@@ -23,6 +36,8 @@ int C3DDeviceAdapter::getCpuCount()
 
 	return m;
 }
+
+
 
 
 
