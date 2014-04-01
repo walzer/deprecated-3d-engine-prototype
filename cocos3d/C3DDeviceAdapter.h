@@ -13,34 +13,76 @@ namespace cocos3d
 
 class C3DDeviceAdapter : public cocos2d::CCObject
 {
-  
 public:
-	 C3DDeviceAdapter();
-    ~C3DDeviceAdapter();
+	enum DeviceLevel
+    {
+		Unknow = 0,
+        Low, //one cpu
+		Mid, //two cpu
+        High, // four cpu
+    };
+public:
+	 C3DDeviceAdapter()
+	 {
+		 _cpuCount = 1;
+		 _deviceLevel = DeviceLevel::Low;
+		 _supportVAO = false;
+
+		 checkDevice();
+		 checkVAO();
+	 }
+
+	 ~C3DDeviceAdapter(){}
 
 	static C3DDeviceAdapter* getInstance();
 	
+    void checkCpuInfo();
 
-	int getCpuCount();
+	void checkVAO()
+	{
+		_supportVAO = cocos2d::Configuration::getInstance()->checkForGLExtension("vertex_array_object");
+
+		WARN_VARG("the gpu support VAO : %d",_supportVAO);
+	}
+
+	void checkDevice()
+	{
+		checkCpuInfo();
+		
+		if(_cpuCount == 1)
+			_deviceLevel = DeviceLevel::Low;
+		else if(_cpuCount == 2)
+			_deviceLevel = DeviceLevel::Mid;
+		else if(_cpuCount >= 4)
+			_deviceLevel = DeviceLevel::High;
+		else
+			_deviceLevel = DeviceLevel::Unknow;
+
+		WARN_VARG("the devicelevel is : %d",(int)_deviceLevel);
+	}
+
+	unsigned int getCpuCount()
+	{
+		return _cpuCount;
+	}
+
+	DeviceLevel getDeviceLevel()
+	{
+		return _deviceLevel;
+	}
 
 	bool isSupportVAO()
 	{
-		
-		int supportsShareableVAO = cocos2d::Configuration::getInstance()->checkForGLExtension("vertex_array_object");
-
-		// LOG_ERROR_VARG("the gpu support VAO : %d",supportsShareableVAO);
-
-     	 return supportsShareableVAO;
-
+     	 return _supportVAO;
 	}
 	
 
-  
 private:
 
 	static C3DDeviceAdapter* _instance;
-
-   
+	unsigned int _cpuCount;
+	DeviceLevel _deviceLevel;
+	bool _supportVAO;
 
 };
 }

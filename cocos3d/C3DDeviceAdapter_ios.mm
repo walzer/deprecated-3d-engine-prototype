@@ -18,16 +18,15 @@ C3DDeviceAdapter::~C3DDeviceAdapter()
 
 }
 
-int C3DDeviceAdapter::getCpuCount()
+void C3DDeviceAdapter::checkCpuInfo()
 {
     size_t size = sizeof(int);
-    int cpu_num = 0;
+   
     int mib[2] = {CTL_HW, HW_NCPU};
-    sysctl(mib, 2, &cpu_num, &size, NULL, 0);
-    return cpu_num;
+    sysctl(mib, 2, &_cpuCount, &size, NULL, 0);
+
+	WARN_VARG("default set the cpu counter of pc is : %d", _cpuCount);
 }
-
-
 
 }
 
