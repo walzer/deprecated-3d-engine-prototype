@@ -37,9 +37,8 @@ C3DRenderSystem::C3DRenderSystem()
 	_renderChannelManager->retain();
 
 
-	_deviceAdapter = new C3DDeviceAdapter();
-
-	_deviceAdapter->getCpuCount();
+	_deviceAdapter = C3DDeviceAdapter::getInstance();
+	_deviceAdapter->retain();
 
     initialize();
 
@@ -76,7 +75,7 @@ C3DRenderSystem::~C3DRenderSystem()
 	SAFE_RELEASE(_effectManager);
 	SAFE_RELEASE(_materialManager);
 
-	SAFE_DELETE(_deviceAdapter);
+	SAFE_RELEASE(_deviceAdapter);
 }
 
 void C3DRenderSystem::initialize()
