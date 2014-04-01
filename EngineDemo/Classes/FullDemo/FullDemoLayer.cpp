@@ -1,6 +1,5 @@
 #include "FullDemoLayer.h"
 
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -27,6 +26,7 @@
 #include "C3DSpriteManager.h"
 #include "C3DAnimation.h"
 #include "C3DProfile.h"
+#include "C3DSpriteManager.h"
 
 using namespace cocos3d;
 
@@ -144,27 +144,18 @@ void FullDemoLayer::setUpScene()
 
 	createMainPlayer();
 
-	createStaticModel();
-
+	/*createStaticModel();
 	createEnemy();
-	//createNpc();
-
 	createParticleEffect();
-
-    setUpProfile();
+    setUpProfile();*/
 }
 
 void FullDemoLayer::createStaticModel()
 {
-	C3DStaticObj* sm = cocos3d::C3DStaticObj::create("scene");
-	if(sm != NULL)
-	{
-		sm->loadFromFile("demores/fulldemo/scene/scene.ckb");
-		sm->translate(0, -1, 0);
-		sm->scale(1, 1, 1);
-		//sm->showAABB(true);
-		_scene->addChild(sm);
-	}
+	C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/scene/scene.ckb"));
+	sm->translate(0, -1, 0);
+	sm->scale(1, 1, 1);
+	_scene->addChild(sm);
 }
 
 void FullDemoLayer::switchProfileShow()
@@ -229,7 +220,8 @@ void FullDemoLayer::createParticleEffect()
 		newPS->setScale(CCRANDOM_0_1() * 0.5f + 1.0f );
 		_scene->addChild(newPS);
 
-		cocos3d::C3DRenderNode* m = ((C3DRenderNode*)_scene->findNode("scene"));//C3DLayer::getInstance()->getSpriteManager()->findEntity("girl");
+		// zhukaixy: Node的名字先这么凑合用一下吧
+		cocos3d::C3DRenderNode* m = ((C3DRenderNode*)_scene->findNode("demores/fulldemo/scene/scene.ckb"));
 		if(m)
 		{
 			std::string name;
@@ -242,7 +234,7 @@ void FullDemoLayer::createParticleEffect()
 				name = "guaidian_0" + context.idSuffix;
 		    }
 
-			m->attach(name.c_str(),newPS);
+			m->attach(name, newPS);
 		}
 	}
 
@@ -258,8 +250,7 @@ void FullDemoLayer::createParticleEffect()
     
 void FullDemoLayer::createEffect()
 {
-    C3DStaticObj* sm = C3DStaticObj::create("123");
-    sm->loadFromFile("effect/fadecircle.ckb");
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DSpriteManager::getInstance()->getResource("effect/fadecircle.ckb"));
 
     sm->setMaterial("effect/fadecircle.material");
     sm->translate(0, 0, 0);
@@ -359,16 +350,13 @@ void FullDemoLayer::createEnemy()
 
 void FullDemoLayer::createNpc()
 {
-	cocos3d::C3DSprite* entity = NULL;
-
-    entity = cocos3d::C3DSprite::create("npc");
+	cocos3d::C3DSprite* entity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/girl/test.ckb"));
 	if(entity != NULL)
 	{
 		std::string name = "npc";
 		C3DActor* npc = new Npc(name,entity,this);
 		_actors.push_back(npc);
 
-		entity->loadFromFile("demores/girl/test.ckb");
 		entity->addAnimationClip("idle",0,80,0,1.0f);
 		entity->addAnimationClip("speak",81,320,1,1.0f);
 		entity->playAnimationClip("idle");
@@ -410,13 +398,10 @@ void FullDemoLayer::createNpc()
 		npc->setMorphToMesh("eye", 0,0.0f);
 		npc->setMorphToMesh("nose",1,0.0f);
 
-		//entity->setRotationX(MATH_DEG_TO_RAD(-90));
-		//entity->rotateZ(MATH_DEG_TO_RAD(90));
 		entity->setPosition(-42.0f,0.0f,0.0f);
 		entity->setScale(8.0f,8.0f,8.0f);
 
         _scene->addChild(entity);
-		//entity->showAABB(true);
 	}
 }
 

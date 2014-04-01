@@ -206,9 +206,10 @@ void C3DEffectManager::preload(C3DElementNode* node)
 	std::string uniqueId = vshPath;
     uniqueId += ';';
     uniqueId += fshPath;
-    uniqueId += ';';
+    
 	if (!defines.empty())
     {
+		uniqueId += ';';
         uniqueId += defines;
     }
 

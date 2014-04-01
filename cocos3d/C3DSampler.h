@@ -91,6 +91,9 @@ public:
 	bool load(C3DElementNode* node);
 	bool save(C3DElementNode* node);
 
+	void reload();
+protected:
+	void check();
 private:
 
     C3DTexture* _texture;

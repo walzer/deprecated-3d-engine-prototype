@@ -332,17 +332,12 @@ void C3DActor::changePart(const std::string& type,int index)
 void C3DActor::setMaterial(const std::string& type,const std::string& modelName,const std::string& matName)
 {
 	cocos3d::C3DNode* node = (static_cast<cocos3d::C3DSprite*>(_node))->findNode(modelName.c_str());
-
 	if( node == NULL)
 	{
-		(static_cast<cocos3d::C3DSprite*>(_node))->loadNode(modelName);
-		node = (static_cast<cocos3d::C3DSprite*>(_node))->findNode(modelName.c_str());
-		if(node==NULL)
-			return;
+		return;
 	}
 
 	static_cast<cocos3d::C3DModelNode*>(node)->getModel()->setMaterial(matName.c_str());
-
 	(*_models)[type] = node;
 }
 

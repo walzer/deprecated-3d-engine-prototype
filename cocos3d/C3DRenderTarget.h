@@ -2,6 +2,7 @@
 #define RENDERTARGET_H_
 
 #include "cocos2d.h"
+#include "C3DTexture.h"
 
 namespace cocos3d
 {
@@ -10,7 +11,7 @@ class C3DTexture;
  * Represents a linear area of display memory and usually reside
  * in the display memory of the display card.
  */
-class C3DRenderTarget : public cocos2d::CCObject
+class C3DRenderTarget : public C3DTexture
 {
 public:
 
@@ -25,11 +26,6 @@ public:
 	 */
     const std::string& getID() const;
 
-	/**
-	 * get texture
-	 */
-    C3DTexture* getTexture() const;
-
 private:
 
 	/**
@@ -40,7 +36,6 @@ private:
 
 	//properties
     std::string _id;
-    C3DTexture* _texture;
 };
 }
 

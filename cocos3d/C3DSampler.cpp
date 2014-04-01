@@ -7,19 +7,23 @@
 namespace cocos3d
 {
 C3DSampler::C3DSampler()
-    : _texture(NULL), _wrapS(Texture_Wrap_CLAMP), _wrapT(Texture_Wrap_CLAMP), _magFilter(Texture_Filter_LINEAR)
+    : _texture(NULL),
+	_wrapS(Texture_Wrap_CLAMP),
+	_wrapT(Texture_Wrap_CLAMP), 
+	_minFilter(Texture_Filter_LINEAR),
+	_magFilter(Texture_Filter_LINEAR),
+	_dirtyBit(Texture_All_Dirty)
 {
-    _minFilter = Texture_Filter_LINEAR;
-    _dirtyBit = Texture_All_Dirty;
 }
 
 C3DSampler::C3DSampler(C3DTexture* texture)
-    : _texture(texture), _magFilter(Texture_Filter_LINEAR)
+    : _texture(texture),
+	_magFilter(Texture_Filter_LINEAR),
+	_dirtyBit(Texture_All_Dirty)
 {
 	texture->retain();
 	setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     _minFilter = texture->isMipmapped() ? Texture_Filter_LINEAR_MIPMAP_LINEAR : Texture_Filter_LINEAR;
-    _dirtyBit = Texture_All_Dirty;
 }
 
 C3DSampler::~C3DSampler()
@@ -54,9 +58,21 @@ void C3DSampler::setTexture(const std::string& path, bool generateMipmaps)
 
 	assert(texture != NULL);
 
-    _texture = texture;
+	_texture = texture;
 	_texture->retain();
-    _dirtyBit = Texture_All_Dirty;
+
+	_dirtyBit = Texture_All_Dirty;
+}
+
+void C3DSampler::check()
+{
+	if(_texture)
+	{
+		_minFilter = _texture->isMipmapped() ? Texture_Filter_NEAREST_MIPMAP_LINEAR : Texture_Filter_LINEAR;
+		_magFilter = Texture_Filter_LINEAR;
+
+		_dirtyBit = Texture_All_Dirty;
+	}
 }
 
 inline unsigned long nextPOT(unsigned long x)
@@ -93,9 +109,15 @@ void C3DSampler::setWrapMode(Texture_Wrap wrapS, Texture_Wrap wrapT)
 
 void C3DSampler::setFilterMode(Texture_Filter minificationFilter, Texture_Filter magnificationFilter)
 {
-    _minFilter = minificationFilter;
-    _magFilter = magnificationFilter;
-    _dirtyBit |= Texture_Filter_Dirty;
+	assert(_texture);
+
+	if(_texture)
+	{
+		_minFilter = _texture->isMipmapped() ? Texture_Filter_NEAREST_MIPMAP_LINEAR : Texture_Filter_LINEAR;
+		_magFilter = Texture_Filter_LINEAR;
+
+		_dirtyBit = Texture_All_Dirty;
+	}
 }
 
 C3DTexture* C3DSampler::getTexture() const
@@ -107,7 +129,6 @@ void C3DSampler::bind()
 {
 	//GLint currentTextureId;
    // glGetIntegerv(GL_TEXTURE_BINDING_2D, &currentTextureId);
-
 	if(_texture == NULL)
 		return;
 
@@ -126,6 +147,12 @@ void C3DSampler::bind()
     }
 
 	//glBindTexture(GL_TEXTURE_2D, (GLuint)currentTextureId) ;
+}
+
+void C3DSampler::reload()
+{
+	check();
+	_dirtyBit = Texture_All_Dirty;
 }
 
 const std::string C3DSampler::getPath() const

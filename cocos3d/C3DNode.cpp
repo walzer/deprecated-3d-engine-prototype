@@ -97,16 +97,15 @@ C3DNode::Type C3DNode::getType() const
 void C3DNode::addChild(C3DNode* child)
 {
     assert(child);
+	child->retain();
 
     if (child->_parent == this)
     {
-       //  This node is already present in our hierarchy
+       // This node is already present in our hierarchy
         return;
     }
 
-    child->retain();
-
-   //  If the item belongs to another hierarchy, remove it first.
+	// If the item belongs to another hierarchy, remove it first.
     if (child->_parent)
     {
         child->_parent->removeChild(child);

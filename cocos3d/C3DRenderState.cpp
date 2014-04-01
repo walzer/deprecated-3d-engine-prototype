@@ -382,6 +382,7 @@ void paramterReload(MaterialParameter* param)
 
 void C3DRenderState::reload()
 {
+	C3DRenderState::_activeTexture = 0;
 	for_each(_parameters.begin(), _parameters.end(), paramterReload);
 }
 

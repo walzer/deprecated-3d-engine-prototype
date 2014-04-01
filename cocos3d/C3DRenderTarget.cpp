@@ -7,14 +7,13 @@ namespace cocos3d
 static std::vector<C3DRenderTarget*> __renderTargets;
 
 C3DRenderTarget::C3DRenderTarget(const std::string& id)
-    : _id(id), _texture(NULL)
+    : _id(id)
 {
+	C3DTextureMgr::getInstance()->add(this);
 }
 
 C3DRenderTarget::~C3DRenderTarget()
 {
-    SAFE_RELEASE(_texture);
-
     // Remove ourself from the cache
     std::vector<C3DRenderTarget*>::iterator it = std::find(__renderTargets.begin(), __renderTargets.end(), this);
     if (it != __renderTargets.end())
@@ -26,15 +25,8 @@ C3DRenderTarget::~C3DRenderTarget()
 C3DRenderTarget* C3DRenderTarget::create(const std::string& id, unsigned int width, unsigned int height, unsigned int fmt)
 {
     // Create a new texture with the given width
-    C3DTexture* texture = C3DTexture::create(width, height, (C3DTexture::Format)fmt, false);
-    if (texture == NULL)
-    {
-        return NULL;
-    }
-
     C3DRenderTarget* renderTarget = new C3DRenderTarget(id);
-    renderTarget->_texture = texture;
-	texture->retain();
+    renderTarget->init(width, height, C3DTexture::Format(fmt), false);
 
     __renderTargets.push_back(renderTarget);
 
@@ -63,8 +55,4 @@ const std::string& C3DRenderTarget::getID() const
     return _id;
 }
 
-C3DTexture* C3DRenderTarget::getTexture() const
-{
-    return _texture;
-}
 }

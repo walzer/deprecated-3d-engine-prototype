@@ -19,10 +19,10 @@ C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType)
 
 C3DMesh::~C3DMesh()
 {
-	clear();
+	reload();
 }
 
-void C3DMesh::clear()
+void C3DMesh::reload()
 {
 	for (unsigned int i = 0; i < _partCount; ++i)
     {

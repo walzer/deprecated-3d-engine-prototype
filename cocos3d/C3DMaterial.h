@@ -43,6 +43,7 @@ public:
 
     virtual ~C3DMaterial();
 	virtual void reload();
+
 	 /**
      * create a material from the file.
      *
@@ -75,7 +76,6 @@ public:
     static C3DMaterial* create(const std::string& vshPath, const std::string& fshPath, const std::string& defines = "");
 
   //  static C3DMaterial* create(C3DEffect* effect);
-
     unsigned int getTechniqueCount() const;
 
 	 /**

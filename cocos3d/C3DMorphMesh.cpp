@@ -13,40 +13,15 @@ C3DMorphMesh::C3DMorphMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitive
 
 C3DMorphMesh::~C3DMorphMesh()
 {
-	SAFE_DELETE_ARRAY(_vertexData);
+	reload();
 }
 
 C3DMorphMesh* C3DMorphMesh::createMesh(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic)
 {
-    GLuint vbo;
-    GL_ASSERT( glGenBuffers(1, &vbo) );
-    if (GL_LAST_ERROR())
-    {
-        return NULL;
-    }
+	auto mesh = new C3DMorphMesh(vertexFormat);
+	mesh->init(vertexFormat, vertexCount, dynamic);
 
-    GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, vbo) );
-    if (GL_LAST_ERROR())
-    {
-        glDeleteBuffers(1, &vbo);
-        return NULL;
-    }
-
-    GL_CHECK( glBufferData(GL_ARRAY_BUFFER, vertexFormat->getVertexSize() * vertexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
-    if (GL_LAST_ERROR())
-    {
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
-        glDeleteBuffers(1, &vbo);
-        return NULL;
-    }
-
-	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
-    C3DMorphMesh* mesh = new C3DMorphMesh(vertexFormat);
-    mesh->_vertexCount = vertexCount;
-    mesh->_vertexBuffer = vbo;
-    mesh->_dynamic = dynamic;
-
-    return mesh;
+	return mesh;
 }
 
 void C3DMorphMesh::setVertexData(void* vertexData, unsigned int vertexStart, unsigned int vertexCount)
@@ -77,6 +52,12 @@ void C3DMorphMesh::setMorphVertexData(void* vertexData)
 	int vertexByteCount = _vertexCount*_vertexFormat->getVertexSize();
     _vertexData = new unsigned char[vertexByteCount];
 	memcpy(_vertexData,vertexData,vertexByteCount);
+}
+
+void C3DMorphMesh::reload()
+{
+	C3DMesh::reload();
+	SAFE_DELETE_ARRAY(_vertexData);
 }
 
 void C3DMorphMesh::clearMorph(C3DMorph* morph)

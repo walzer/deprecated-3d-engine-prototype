@@ -64,29 +64,39 @@ C3DRenderNode::~C3DRenderNode()
 	m_collitionBoxs.clear();
 }
 
-C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fileName)
+void C3DRenderNode::reload()
 {
-	// Load mesh/scene from file
-	C3DResourceLoader* loader = C3DResourceLoader::create(fileName);
+ 	C3DResourceLoader* bundle = C3DResourceLoader::create(_fileName);
+	if (bundle == NULL)
+		return;
 
-	if (loader == NULL)
-        return NULL;
-
-	C3DRenderNode* renderNode = NULL;
-	if(loader->_isSkin == true)
-	{
-		renderNode = C3DSprite::create(id);
-	}
-	else
-	{
-		renderNode = C3DStaticObj::create(id);
-	}
-
-	renderNode->_fileName = fileName;
-	loader->autorelease();
-
-	return renderNode;
+	bundle->reLoadSuperModel(this);
+	bundle->release();
 }
+
+//C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fileName)
+//{
+//	// Load mesh/scene from file
+//	C3DResourceLoader* loader = C3DResourceLoader::create(fileName);
+//
+//	if (loader == NULL)
+//        return NULL;
+//
+//	C3DRenderNode* renderNode = NULL;
+//	if(loader->_isSkin == true)
+//	{
+//		renderNode = C3DSprite::create(id);
+//	}
+//	else
+//	{
+//		renderNode = C3DStaticObj::create(id);
+//	}
+//
+//	renderNode->_fileName = fileName;
+//	loader->autorelease();
+//
+//	return renderNode;
+//}
 
 void C3DRenderNode::draw()
 {

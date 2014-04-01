@@ -15,6 +15,8 @@
 #include "C3DEffectManager.h"
 #include "C3DMaterialManager.h"
 #include "C3DSpriteManager.h"
+#include "C3DTexture.h"
+#include "C3DFrameBuffer.h"
 
 namespace cocos3d
 {
@@ -37,17 +39,26 @@ C3DRenderSystem::C3DRenderSystem()
 
     initialize();
 
+	C3DTextureMgr::getInstance()->retain();
+	C3DFrameBufferMgr::getInstance()->retain();
 }
 
 void C3DRenderSystem::reload()
 {
-	LOG_ERROR("---C3DRenderSystem begin reload---");
+	LOG_TRACE("---C3DRenderSystem begin reload---");
 
+// 	cocos2d::GL::invalidateStateCache();
+// 	cocos2d::ShaderCache::getInstance()->reloadDefaultShaders();
+// 	cocos2d::DrawPrimitives::init();
+	cocos2d::VolatileTextureMgr::reloadAllTextures();
+
+	C3DTextureMgr::getInstance()->reload();
+	C3DFrameBufferMgr::getInstance()->reload();
 	C3DEffectManager::getInstance()->reload();
 	C3DMaterialManager::getInstance()->reload();
 	C3DSpriteManager::getInstance()->reload();
 
-	LOG_ERROR("---C3DRenderSystem end reload---");
+	LOG_TRACE("---C3DRenderSystem end reload---");
 }
 
 C3DRenderSystem* C3DRenderSystem::create()
@@ -62,9 +73,6 @@ C3DRenderSystem* C3DRenderSystem::create()
 
 C3DRenderSystem* C3DRenderSystem::getInstance()
 {
- //   CCAssert(__renderSystemInstance, "Render system not created");
-	//return __renderSystemInstance;
-
 	if (!__renderSystemInstance)
     {
         __renderSystemInstance = new C3DRenderSystem();
@@ -97,7 +105,6 @@ void C3DRenderSystem::initialize()
 
 void C3DRenderSystem::finalize()
 {
-
 	_renderChannelManager->clear();
 
     C3DStateBlock::finalize();

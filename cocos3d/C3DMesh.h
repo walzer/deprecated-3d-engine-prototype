@@ -54,7 +54,7 @@ public:
 protected:
 	C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);
 	void init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic);
-	void clear();
+	virtual void reload();
 
 protected:
 

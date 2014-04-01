@@ -35,6 +35,7 @@ bool FullDemoUILayer::init()
 	CCMenuItemImage *pItemFarAttack = CCMenuItemImage::create("icons/range_attack.png","icons/range_attack_selected.png",CC_CALLBACK_1(FullDemoUILayer::menuCallback_farAttack,this) );
 	CCMenuItemImage *pItemLightingSkill = CCMenuItemImage::create("icons/lighting.png","icons/lighting_selected.png",CC_CALLBACK_1(FullDemoUILayer::menuCallback_lightingSkill,this) );
 	CCMenuItemImage *pItemShowMiniMap = CCMenuItemImage::create("icons/mini_map.png","icons/mini_map_selected.png",CC_CALLBACK_1(FullDemoUILayer::menuCallback_showMini,this) );
+
     CCLabelTTF* label = CCLabelTTF::create("Performance", "Arial", 20);
     CCMenuItemLabel *pItemShowPerformance = CCMenuItemLabel::create(label, CC_CALLBACK_1(FullDemoUILayer::menuCallback_showPerformance,this) );
 
@@ -48,7 +49,7 @@ bool FullDemoUILayer::init()
     pItemShowPerformance->setPosition(	ccp(menuStartX + placeHolderWidth*5, VisibleRect::bottom().y + 50 ) );
 
 	//CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill,pItemShowMiniMap, pItemShowPerformance,NULL);
-    CCMenu* pMenu = CCMenu::create(pItemNearAttack,pItemFarAttack,pItemLightingSkill ,NULL);
+    CCMenu* pMenu = CCMenu::create(pItemNearAttack, pItemFarAttack, pItemLightingSkill, pItemShowPerformance, NULL);
     pMenu->setPosition( CCPointZero );
     this->addChild(pMenu, 10);
 
@@ -80,6 +81,7 @@ void FullDemoUILayer::menuCallback_showPerformance(CCObject* pSender)
         return;
     FullDemoLayer::getInstance()->switchProfileShow();
 }
+
 void FullDemoUILayer::menuCloseCallback(CCObject* pSender)
 {
     CCDirector::sharedDirector()->end();
