@@ -122,10 +122,9 @@ void C3DEffect::reload()
 
 	LOG_TRACE_VARG("---3DEffect::reload %s---", _uniqueKey.c_str());
 	    // Free uniforms.
-    for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); )
+    for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); ++itr)
     {
         SAFE_DELETE(itr->second);
-		++itr;
     }
 
 	_uniforms.clear();
@@ -154,7 +153,7 @@ void C3DEffect::reload()
 	}
 
 	load(elementNode);
-	LOG_ERROR("---3DEffect::reload finished---");
+	LOG_TRACE("---3DEffect::reload finished---");
 }
 
 bool C3DEffect::load(C3DElementNode* node)
@@ -165,18 +164,17 @@ bool C3DEffect::load(C3DElementNode* node)
 	const std::string& fshPath = node->getElement("fragmentShader");
 	const std::string& defines = node->getElement("defines");
 
-	if(_uniqueKey.empty())
-	{
-		_uniqueKey  = vshPath;
-		_uniqueKey += ';';
-		_uniqueKey += fshPath;
+	//---------------------------------------------------------
+	_uniqueKey  = vshPath;
+	_uniqueKey += ';';
+	_uniqueKey += fshPath;
 
-		if (!defines.empty())
-		{		
-			_uniqueKey += ';';
-			_uniqueKey += defines;
-		}
+	if (!defines.empty())
+	{		
+		_uniqueKey += ';';
+		_uniqueKey += defines;
 	}
+	//---------------------------------------------------------
 
 	_vshPath = vshPath;
 	_fshPath = fshPath;

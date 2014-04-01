@@ -39,11 +39,10 @@ class  C3DRenderNode : public C3DNode,public C3DResource
 public:
 
 	C3DRenderNode(const std::string& id);
-
     ~C3DRenderNode();
 
-	// create sprite and add it to autorelease pool
-    static C3DRenderNode* create(const std::string& id,const std::string& fileName);
+	// zhukaixy: 删除如下接口create sprite and add it to autorelease pool
+    // static C3DRenderNode* create(const std::string& id,const std::string& fileName);
 
 	/**
     * load sprite from file.
@@ -53,6 +52,8 @@ public:
 	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false){ return false; }
 	virtual bool load(bool isLoadAll=false){ return false; }
 	virtual bool load(const std::string& fileName){ return false; }
+
+	virtual void reload();
 
 	/**
     * Render for handling rendering routines.

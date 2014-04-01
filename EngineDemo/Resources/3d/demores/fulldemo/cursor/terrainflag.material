@@ -9,6 +9,8 @@ material
 			vertexShader = shaders/textured.vsh
 			fragmentShader = shaders/textured.fsh
 			u_diffuseColor = 1,1,1,1
+			
+			u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
 
 			sampler u_diffuseTexture
 			{

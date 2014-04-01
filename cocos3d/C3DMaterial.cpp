@@ -10,6 +10,7 @@
 #include "C3DVector3.h"
 #include "C3DVector4.h"
 #include "C3DRenderChannel.h"
+#include "C3DMaterialManager.h"
 
 namespace cocos3d
 {

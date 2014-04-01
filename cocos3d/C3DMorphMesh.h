@@ -31,7 +31,8 @@ public:
 	void clearMorph(C3DMorph* morph);
 
     virtual ~C3DMorphMesh();
-
+protected:
+	virtual void reload();
 private:
 	void setMorphVertexData(void* vertexData);
 	C3DMorphMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);

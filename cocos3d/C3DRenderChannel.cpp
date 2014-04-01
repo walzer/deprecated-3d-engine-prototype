@@ -239,6 +239,6 @@ C3DTexture* RenderChannelManager::get3DSceneTexture(void)
 		createFrameBuffer();
 	}
 
-	return _frameBuffer->getRenderTarget()->getTexture();
+	return _frameBuffer->getRenderTarget();
 }
 } 

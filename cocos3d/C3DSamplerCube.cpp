@@ -53,6 +53,11 @@ void C3DSamplerCube::bind()
     glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
+void C3DSamplerCube::reload()
+{
+
+}
+
 bool C3DSamplerCube::load(C3DElementNode* node)
 {
 	// Read the texture uniform name
@@ -80,6 +85,7 @@ bool C3DSamplerCube::load(C3DElementNode* node)
 
 	return true;
 }
+
 bool C3DSamplerCube::save(C3DElementNode* node)
 {
 	node->setElement("path_left", _path_left);
@@ -90,4 +96,5 @@ bool C3DSamplerCube::save(C3DElementNode* node)
     node->setElement("path_back", _path_back);
 	return true;
 }
+
 }

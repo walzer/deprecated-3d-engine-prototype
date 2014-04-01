@@ -389,14 +389,4 @@ void C3DSprite::stopAllAnimationClip()
 	_animation->update(0);
 }
 
-void C3DSprite::reload()
-{
-	// Load mesh/scene from file
-	C3DResourceLoader* bundle = C3DResourceLoader::create(_fileName);
-	if (bundle == NULL)
-        return;
-
-	bundle->reLoadSuperModel(this);
-}
-
 }

@@ -39,17 +39,14 @@ class  C3DSprite : public C3DRenderNode
 {
 	friend class C3DScene;
 	friend class C3DResourceLoader;
+	friend class C3DSpriteManager;
 
 public:
 
 	C3DSprite(const std::string& id);
-
     ~C3DSprite(void);
 
 	C3DNode::Type getType() const;
-
-	 // create sprite and add it to autorelease pool
-    static C3DSprite* create(const std::string& id);
 
 	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false);
 	virtual bool load(bool isLoadAll=false);
@@ -130,10 +127,10 @@ public:
 	void stopAllAnimationClip();
 
     C3DAnimation* getAnimation() { return _animation; }
-
-	virtual void reload();
-
 protected:
+	// create sprite and add it to autorelease pool
+	static C3DSprite* create(const std::string& id);
+
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
 
 private:

@@ -18,7 +18,6 @@ namespace cocos3d
 C3DStaticObj* C3DStaticObj::create(const std::string& id)
 {
 	C3DStaticObj* pRet = new C3DStaticObj(id);
-
     pRet->autorelease();
     return pRet;
 }
@@ -30,13 +29,17 @@ C3DStaticObj::C3DStaticObj(const std::string& id):C3DRenderNode(id)
 C3DStaticObj::~C3DStaticObj()
 {
 }
+
 C3DNode::Type C3DStaticObj::getType() const
 {
 	return C3DNode::NodeType_SceneModel;
 }
 
+// zhukaixy: 下面这两个方法是一样的吧
 bool C3DStaticObj::loadFromFile(const std::string& fileName,bool isLoadAll)
 {
+	_fileName = fileName;
+
 	// Load mesh/scene from file
 	C3DResourceLoader* bundle = C3DResourceLoader::create(fileName);
 
@@ -55,6 +58,8 @@ bool C3DStaticObj::loadFromFile(const std::string& fileName,bool isLoadAll)
 
 bool C3DStaticObj::load(const std::string& fileName)
 {
+	_fileName = fileName;
+
 	// Load mesh/scene from file
 	C3DResourceLoader* bundle = C3DResourceLoader::create(fileName);
 	if (bundle == NULL)
@@ -71,6 +76,7 @@ bool C3DStaticObj::load(const std::string& fileName)
     return true;
 }
 
+// zhukaixy: 可以删掉
 bool C3DStaticObj::load(bool isLoadAll)
 {
 	//if(_loader == NULL)

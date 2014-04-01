@@ -1,13 +1,17 @@
 #include "Base.h"
 #include "C3DSprite.h"
+#include "C3DStaticObj.h"
 #include "C3DSpriteManager.h"
 #include "StringTool.h"
 #include "C3DRenderNode.h"
+
+#include "C3DResourceLoader.h"
 
 namespace cocos3d
 {
 static C3DSpriteManager* __spriteManagerInstance = NULL;
 
+// zhukaixy: 这个类叫C3DRenderNodeManager更合适点
 C3DSpriteManager::C3DSpriteManager()
 {
 }
@@ -29,16 +33,38 @@ C3DSpriteManager* C3DSpriteManager::getInstance()
 
 C3DResource* C3DSpriteManager::createResource(const std::string& name)
 {
-	//C3DResource* sprite = new C3DSprite(name);
-	C3DResource* sprite = new C3DSprite(name);
-	sprite->autorelease();
+	/*C3DResource* sprite = new C3DSprite(name);
 
 	if(sprite->load(name) == true)
 	{
 		this->setResourceState(sprite,C3DResource::State_Used);
 	}
 
-	return sprite;
+	return sprite;*/
+	
+	// zhukaixy：这个地方和C3DRenderNode重复了-------------------------------------------------------------------
+	C3DResourceLoader* loader = C3DResourceLoader::create(name);
+	loader->autorelease();
+
+	if (loader == NULL)
+		return NULL;
+
+	C3DRenderNode* renderNode = NULL;
+	if(loader->_isSkin == true)
+	{
+		renderNode = C3DSprite::create(name);
+	}
+	else
+	{
+		renderNode = C3DStaticObj::create(name);
+	}
+	
+	if(renderNode->load(name) == true)
+	{
+		this->setResourceState(renderNode, C3DResource::State_Used);
+	}
+
+	return renderNode;
 }
 
 void C3DSpriteManager::preload( const std::string& name )

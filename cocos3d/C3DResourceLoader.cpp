@@ -178,6 +178,7 @@ const std::string C3DResourceLoader::getIdFromOffset() const
     return getIdFromOffset((unsigned int) _stream->tell());
 }
 
+// zhukaixy: 可以考虑对offset进行排序，加快查找速度
 const std::string C3DResourceLoader::getIdFromOffset(unsigned int offset) const
 {
     // Search the ref table for the given offset
@@ -287,15 +288,14 @@ void C3DResourceLoader::loadSuperModel(C3DSprite* superModel,std::list<std::stri
 	for(std::list<std::string>::iterator iter = models->begin();iter != models->end();++iter)
     {
 		C3DNode* node = this->loadNode(*iter, superModel);
-
         if (node)
         {
 			superModel->addChild( node);
-            node->release(); // scene now owns node
+            node->release();
         }
     }
 
-	 resolveJointReferences(superModel);
+	resolveJointReferences(superModel);
 
     return ;
 }
@@ -353,7 +353,7 @@ bool C3DResourceLoader::loadAnimation(C3DSprite* superModel)
     return loadAnimation2(superModel);
 }
 
-void C3DResourceLoader::reLoadSuperModel(C3DSprite* superModel)
+void C3DResourceLoader::reLoadSuperModel(C3DRenderNode* superModel)
 {
 	Reference* ref = seekToFirstType(BUNDLE_TYPE_SCENE);
     if (!ref)
@@ -375,10 +375,33 @@ void C3DResourceLoader::reLoadSuperModel(C3DSprite* superModel)
 	}
 }
 
+
+class seekCheck
+{
+public:
+	seekCheck(C3DResourceLoader* obj);
+	~seekCheck();
+private:
+	C3DResourceLoader* _object;
+};
+
+seekCheck::seekCheck(C3DResourceLoader* obj):_object(obj)
+{
+
+}
+
+seekCheck::~seekCheck()
+{
+	if(_object)
+		_object->seekToNextType();
+}
+
 void C3DResourceLoader::reloadNode(C3DNode* context)
 {
+	seekCheck autoSeek(this);
+
     std::string nodeID(getIdFromOffset());
-	LOG_ERROR_VARG("---C3DResourceLoader::reloadNode(%s)---", nodeID.c_str());
+	LOG_TRACE_VARG("---C3DResourceLoader::reloadNode(%s)---", nodeID.c_str());
 
     // Read node type
     unsigned int eNodeType;
@@ -386,6 +409,9 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
     {
         return;
     }
+
+	if(nodeID.empty())
+		return;
 
     C3DNode* curNode = context->findNode(nodeID, false);
 	if(NULL==curNode)
@@ -464,7 +490,7 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 				return;
 			}
 
-			mesh->clear();
+			mesh->reload();
 
 			mesh->_url = _path;
 			mesh->_url += "#";
@@ -494,8 +520,6 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 			//-----------------------------------------------------------------------------
 		}
 	}
-
-	seekToNextType();
 
 	return;
 }
@@ -609,8 +633,6 @@ C3DNode* C3DResourceLoader::loadNode(const std::string& id, C3DSprite* superMode
 C3DNode* C3DResourceLoader::readNode(C3DRenderNode* compoundModelContext)
 {
     std::string id = getIdFromOffset();
-	LOG_ERROR_VARG("+++C3DResourceLoader::loadNode(%s)+++", id.c_str());
-
 
     // Read node type
     unsigned int nodeType;

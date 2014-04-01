@@ -6,13 +6,13 @@ namespace cocos3d
 static std::vector<C3DDepthStencilTarget*> __depthStencilTargets;
 
 C3DDepthStencilTarget::C3DDepthStencilTarget(const std::string& id, Format format)
-    : _id(id), _format(format), _depthTexture(NULL), _stencilBuffer(0)
+    : _id(id), _format(format), _stencilBuffer(0)
 {
+	C3DTextureMgr::getInstance()->add(this);
 }
 
 C3DDepthStencilTarget::~C3DDepthStencilTarget()
 {
-    SAFE_RELEASE(_depthTexture);
 
     // Destroy GL resources.
     if (_stencilBuffer)
@@ -30,13 +30,6 @@ C3DDepthStencilTarget::~C3DDepthStencilTarget()
 
 C3DDepthStencilTarget* C3DDepthStencilTarget::create(const std::string& id, Format format, unsigned int width, unsigned int height)
 {
-    // Create a backing texture buffer.
-    C3DTexture* depthTexture = C3DTexture::create(width, height, C3DTexture::DEPTH, false);
-    if (depthTexture == NULL)
-    {
-        return NULL;
-    }
-
     // Create stencil renderbuffer if format is DEPTH24_STENCIL8
     RenderBufferHandle stencilBuffer = 0;
     if (format == DEPTH24_STENCIL8)
@@ -56,9 +49,8 @@ C3DDepthStencilTarget* C3DDepthStencilTarget::create(const std::string& id, Form
 
     // Create the depth stencil target
     C3DDepthStencilTarget* depthStencilTarget = new C3DDepthStencilTarget(id, format);
-    depthStencilTarget->_depthTexture = depthTexture;
+    depthStencilTarget->init(width, height, C3DTexture::DEPTH, false);;
     depthStencilTarget->_stencilBuffer = stencilBuffer;
-	depthTexture->retain();
 
     // Add it to the cache
     __depthStencilTargets.push_back(depthStencilTarget);
@@ -93,8 +85,27 @@ C3DDepthStencilTarget::Format C3DDepthStencilTarget::getFormat() const
     return _format;
 }
 
-C3DTexture* C3DDepthStencilTarget::getTexture() const
+void C3DDepthStencilTarget::reload()
 {
-    return _depthTexture;
+	C3DTexture::reload();
+
+	RenderBufferHandle stencilBuffer = 0;
+	if (_format == DEPTH24_STENCIL8)
+	{
+		// Backup the existing render buffer
+		GLint currentRbo = 0;
+		GL_ASSERT( glGetIntegerv(GL_RENDERBUFFER_BINDING, &currentRbo) );
+
+		// Create the new render buffer
+		GL_ASSERT( glGenRenderbuffers(1, &stencilBuffer) );
+		GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, stencilBuffer) );
+		GL_ASSERT( glRenderbufferStorage(GL_RENDERBUFFER, GL_STENCIL_INDEX8, _width, _height) );
+
+		// Restore the old render buffer
+		GL_ASSERT( glBindRenderbuffer(GL_RENDERBUFFER, currentRbo) );
+	}
+
+	_stencilBuffer = stencilBuffer;
 }
+
 }
