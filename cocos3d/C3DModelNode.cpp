@@ -4,6 +4,7 @@
 #include "C3DScene.h"
 #include "C3DNode.h"
 #include "C3DRenderChannel.h"
+#include "C3DMaterial.h"
 
 namespace cocos3d
 {
@@ -61,7 +62,14 @@ void C3DModelNode::draw()
 		C3DRenderChannel* channel = _model->getRenderChannel();
 		if(channel != NULL && !_scene->isInShadowPass() )
 		{
-			channel->addItem( _model, _model->distanceToCamera() );
+			if(channel->getName() == RenderChannelManager::ChannelOpacity)
+			{
+				channel->addItem( _model, _model->distanceToCamera(), _model->getMaterial()->getResourceName() );
+			}
+			else
+			{
+				channel->addItem( _model, _model->distanceToCamera(), "Transparency");
+			}
 		}
 		else
 		{
