@@ -36,7 +36,6 @@ C3DRenderSystem::C3DRenderSystem()
 	_renderChannelManager = RenderChannelManager::getInstance();
 	_renderChannelManager->retain();
 
-
 	_deviceAdapter = C3DDeviceAdapter::getInstance();
 	_deviceAdapter->retain();
 
