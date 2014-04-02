@@ -20,6 +20,7 @@
 
 namespace cocos3d
 {
+C3DPostProcess* g_pPostProcess = NULL;
 
 C3DPostProcess::C3DPostProcess(const std::string& id,C3DFrameBuffer* buffer)
 	: C3DNode(id)
@@ -27,7 +28,7 @@ C3DPostProcess::C3DPostProcess(const std::string& id,C3DFrameBuffer* buffer)
 	, _isDraw( false )
 {
 	_curPostEffect = NULL;
-
+	g_pPostProcess = this;
 }
 
 C3DPostProcess::~C3DPostProcess()
@@ -51,6 +52,8 @@ C3DPostProcess::~C3DPostProcess()
 		SAFE_RELEASE( (*ite).second );
 	}
 	_postEffects.clear();
+
+	g_pPostProcess = NULL;
 }
 
 C3DPostProcess* C3DPostProcess::create(const std::string& id, unsigned int texWidth, unsigned int texHeight/*, const std::string& techniqueId*/)
@@ -210,4 +213,13 @@ std::vector<std::string> C3DPostProcess::getEffectNames(void) const
 	}
 	return names;
 }
+
+void C3DPostProcess::reload()
+{	std::vector<std::string> names;
+	for ( PostEffects::const_iterator ite = _postEffects.begin(); ite != _postEffects.end(); ++ite )
+	{
+		(*ite).second->reload();
+	}
+}
+
 }

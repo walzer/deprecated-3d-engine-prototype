@@ -27,7 +27,9 @@
 namespace cocos3d
 {
 C3DPostEffect::C3DPostEffect(C3DPostProcess* postProcess, const std::string& szName)
-	: _model( NULL )
+	: _model( NULL ),
+	_x(0),
+	_y(0)
 {
     _name = szName;
 
@@ -61,9 +63,28 @@ bool C3DPostEffect::init(const std::string& szMaterial)
 
 void C3DPostEffect::setGridSize( unsigned int x, unsigned int y )
 {
+	_x = x;
+	_y = y;
+
 	C3DMesh* mesh = Geo::createQuadFullscreen( x, y );
 	_model->setMesh( mesh );
 	SAFE_RELEASE(mesh);
+}
+
+void C3DPostEffect::reload()
+{
+	if(_x == 0 && _y ==0)
+	{
+		C3DMesh* mesh = Geo::createQuadFullscreen( 1, 1 );
+		_model->setMesh( mesh );
+		SAFE_RELEASE(mesh);
+	}
+	else
+	{
+		C3DMesh* mesh = Geo::createQuadFullscreen( _x, _y );
+		_model->setMesh( mesh );
+		SAFE_RELEASE(mesh);
+	}
 }
 
 C3DPostEffect::~C3DPostEffect()

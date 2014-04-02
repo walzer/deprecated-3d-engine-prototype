@@ -339,45 +339,7 @@ void MaterialParameter::bind(C3DEffect* effect)
 
 void MaterialParameter::reload()
 {
-	LOG_TRACE_VARG("---MaterialParameter:%s begin reload with [%p]---", _name.c_str(), _uniform, _uniform!=NULL? _uniform->getName().c_str(): "NONAME");
 	_uniform = NULL;
-
-	switch (_type)
-	{
-	case cocos3d::MaterialParameter::NONE:
-		break;
-	case cocos3d::MaterialParameter::FLOAT:
-		break;
-	case cocos3d::MaterialParameter::INT:
-		break;
-	case cocos3d::MaterialParameter::VECTOR2:
-		break;
-	case cocos3d::MaterialParameter::VECTOR3:
-		break;
-	case cocos3d::MaterialParameter::VECTOR4:
-		break;
-	case cocos3d::MaterialParameter::MATRIX:
-		break;
-	case cocos3d::MaterialParameter::SAMPLER:
-		{
-			// zhukaixy: 暂时处理一下吧
-			//const_cast<C3DSampler*>(_value.samplerValue)->reload();
-		}
-		break;
-	case cocos3d::MaterialParameter::SAMPLERCUBE:
-		{
-			const_cast<C3DSamplerCube*>(_value.samplerCubeValue)->reload();
-		}
-		break;
-	case cocos3d::MaterialParameter::TEXTURE:
-		break;
-	case cocos3d::MaterialParameter::METHOD:
-		break;
-	case cocos3d::MaterialParameter::METHOD_PARAM:
-		break;
-	default:
-		break;
-	}
 }
 
 void MaterialParameter::setParamMethonAutoUniform(C3DEffect* effect)

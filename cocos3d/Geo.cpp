@@ -45,6 +45,7 @@ C3DMesh* Geo::createBoard(float x, float y, float width, float height)
 
 C3DMesh* Geo::createQuadFullscreen( unsigned int sizeX , unsigned int sizeY )
 {
+	LOG_TRACE_VARG("createQuadFullscreen(%d, %d)", sizeX, sizeY);
 	static float xMin = -1.0f;
 	static float yMin = -1.0f;
 	static float xMax = 1.0f;

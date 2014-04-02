@@ -176,9 +176,10 @@ std::string C3DEffectManager::generateID( std::string& vshPath, std::string& fsh
 	std::string uniqueId = vshPath;
 	uniqueId += ';';
 	uniqueId += fshPath;
-	uniqueId += ';';
+
 	if (define.c_str() != 0)
-	{
+	{	
+		uniqueId += ';';
 		uniqueId += define;
 	}
 

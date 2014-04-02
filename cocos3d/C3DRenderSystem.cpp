@@ -18,6 +18,7 @@
 #include "C3DTexture.h"
 #include "C3DFrameBuffer.h"
 #include "C3DSampler.h"
+#include "C3DPostProcess.h"
 
 namespace cocos3d
 {
@@ -68,6 +69,9 @@ void C3DRenderSystem::reload()
 	C3DEffectManager::getInstance()->reload();
 	C3DMaterialManager::getInstance()->reload();
 	C3DSpriteManager::getInstance()->reload();
+
+	if(g_pPostProcess)
+		g_pPostProcess->reload();
 
 	LOG_TRACE("---C3DRenderSystem end reload---");
 }
