@@ -7,34 +7,25 @@
 namespace cocos3d
 {
 
-C3DDeviceAdapter* C3DDeviceAdapter::_instance = NULL;
+C3DDeviceAdapter* C3DDeviceAdapter::_deviceAdapterInstance = NULL;
 
-C3DDeviceAdapter::C3DDeviceAdapter()
-{
-}
-
-C3DDeviceAdapter::~C3DDeviceAdapter()
-{
-
-}
 
 C3DDeviceAdapter* C3DDeviceAdapter::getInstance()
 {
-	if ( _instance == NULL )
+	if ( _deviceAdapterInstance == NULL )
 	{
-		_instance = new C3DDeviceAdapter();
-		_instance->autorelease();
+		_deviceAdapterInstance = new C3DDeviceAdapter();
+		_deviceAdapterInstance->autorelease();
 	}
-	return _instance;
+	return _deviceAdapterInstance;
 }
 
-int C3DDeviceAdapter::getCpuCount()
+void C3DDeviceAdapter::checkCpuInfo()
 {
-	int m = 4;
+	_cpuCount = 4;
 
-    LOG_ERROR_VARG("the cpu counter is : %d", m);
+    WARN_VARG("default set the cpu counter of pc is : %d", _cpuCount);
 
-	return m;
 }
 
 

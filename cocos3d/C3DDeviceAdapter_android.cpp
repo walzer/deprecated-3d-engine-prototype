@@ -6,22 +6,24 @@
 #include <cpu-features.h>
 namespace cocos3d
 {
-C3DDeviceAdapter::C3DDeviceAdapter()
+C3DDeviceAdapter* C3DDeviceAdapter::_deviceAdapterInstance = NULL;
+
+C3DDeviceAdapter* C3DDeviceAdapter::getInstance()
 {
+	if ( _deviceAdapterInstance == NULL )
+	{
+		_deviceAdapterInstance = new C3DDeviceAdapter();
+		_deviceAdapterInstance->autorelease();
+	}
+	return _deviceAdapterInstance;
 }
 
-C3DDeviceAdapter::~C3DDeviceAdapter()
+void C3DDeviceAdapter::checkCpuInfo()
 {
+	_cpuCount = android_getCpuCount();
 
-}
+    WARN_VARG("the cpu counter is : %d", _cpuCount);
 
-int C3DDeviceAdapter::getCpuCount()
-{
-	int m = android_getCpuCount();
-
-    LOG_ERROR_VARG("the cpu counter is : %d", m);
-
-	return m;
 }
 
 

@@ -1,0 +1,88 @@
+Particle particle system
+{
+	particleCountMax = 5000
+
+	Render particle render
+	{
+		texture = particles/chenai.png 
+	}
+
+	Emitter emitter
+	{
+		emissionRate = 50
+		ellipsoid = true
+		sizeStartMin = 1.5
+		sizeStartMax = 2
+		ageMin = 3000
+		ageMax = 3000
+		position = 0,0,0
+		positionVar = 1,1,1
+		velocity = 0,1,0
+		velocityVar = 1,2,1
+		rotationPerParticleSpeedMin = -1.5
+		rotationPerParticleSpeedMax = 1.5
+		rotationSpeedMin = 0
+		rotationSpeedMax = 0
+		rotationAxis = 0,0,0
+		rotationAxisVar = 0,0,0
+		orbitPosition = true
+		orbitVelocity = true
+		orbitAcceleration = false
+	}
+
+	Actions action
+	{
+
+		ForcePSA ForcePSA
+		{
+			name = forcePSA1
+			force = 1,0,0
+		}
+
+		TransformPSA TransformPSA
+		{
+			name = transformPSA1
+			endSize = 5
+			sizeRate = 1
+		}
+
+		TintPSA TintPSA
+		{
+			name = tintPSA1
+			period = 10000
+
+			Tints Tints
+			{
+
+				Tint Tint
+				{
+					time = 0
+					color = 0,0,1,1
+				}
+
+				Tint Tint
+				{
+					time = 5000
+					color = 0,1,0,1
+				}
+
+				Tint Tint
+				{
+					time = 10000
+					color = 1,0,0,1
+				}
+
+			}
+
+		}
+
+		ForcePSA ForcePSA
+		{
+			name = forceAction
+			force = 0,0,0
+		}
+
+	}
+
+}
+

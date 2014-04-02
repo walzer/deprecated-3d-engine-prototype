@@ -3,6 +3,8 @@
 #include "C3DEffect.h"
 #include "C3DVertexFormat.h"
 
+#include "C3DDeviceAdapter.h"
+
 // Graphics (GLSL)
 #define VERTEX_ATTRIBUTE_POSITION_NAME              "a_position"
 #define VERTEX_ATTRIBUTE_NORMAL_NAME                "a_normal"
@@ -36,17 +38,17 @@ C3DVertexDeclaration::~C3DVertexDeclaration()
 
     SAFE_RELEASE(_mesh);
 
-  //  SAFE_RELEASE(_effect);
-
     SAFE_DELETE_ARRAY(_attributes);
 
-#ifdef USE_VAO
-    if (_handle)
-    {
-        /*GL_ASSERT*/( glDeleteVertexArrays(1, &_handle) );
-        _handle = 0;
-    }
-#endif
+	if(C3DDeviceAdapter::getInstance()->isSupportVAO())
+	{
+	    if (_handle)
+		{
+			/*GL_ASSERT*/( glDeleteVertexArrays(1, &_handle) );
+			_handle = 0;
+		}
+	}
+
 }
 
 C3DVertexDeclaration* C3DVertexDeclaration::create(C3DMesh* mesh, C3DEffect* effect)
@@ -99,30 +101,51 @@ C3DVertexDeclaration* C3DVertexDeclaration::create(C3DMesh* mesh, const C3DVerte
     // Create a new C3DVertexDeclaration.
     C3DVertexDeclaration* b = new C3DVertexDeclaration();
 
-#ifdef USE_VAO
-    if (mesh && glGenVertexArrays)
-    {
-        GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
-        GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
+	if(C3DDeviceAdapter::getInstance()->isSupportVAO())
+	{
+		WARN("11111111111111 use vao 111111111111111111");
+		if (mesh && glGenVertexArrays)
+		{
+			GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
+			GL_ASSERT( glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0) );
 
-        // Use hardware VAOs.
-        GL_ASSERT( glGenVertexArrays(1, &b->_handle) );
+			// Use hardware VAOs.
+			GL_ASSERT( glGenVertexArrays(1, &b->_handle) );
 
-        if (b->_handle == 0)
-        {
-            SAFE_DELETE(b);
-            return NULL;
-        }
+			if (b->_handle == 0)
+			{
+				SAFE_DELETE(b);
+				return NULL;
+			}
 
-        // Bind the new VAO.
-        GL_ASSERT( glBindVertexArray(b->_handle) );
+			// Bind the new VAO.
+			GL_ASSERT( glBindVertexArray(b->_handle) );
 
-        // Bind the C3DMesh VBO so our glVertexAttribPointer calls use it.
-        GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, mesh->getVertexBuffer()) );
-    }
-    else
-#endif
-    {
+			// Bind the C3DMesh VBO so our glVertexAttribPointer calls use it.
+			GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, mesh->getVertexBuffer()) );
+		}
+		else
+		{
+			// Construct a software representation of a VAO.
+			C3DVertexDeclaration::C3DVertexAttribute* attribs = new C3DVertexDeclaration::C3DVertexAttribute[__maxVertexAttribs];
+			for (unsigned int i = 0; i < __maxVertexAttribs; ++i)
+			{
+				// Set GL defaults
+				attribs[i].enabled = GL_FALSE;
+				attribs[i].size = 4;
+				attribs[i].stride = 0;
+				attribs[i].type = GL_FLOAT;
+				attribs[i].normalized = GL_FALSE;
+				attribs[i].pointer = 0;
+			}
+			b->_attributes = attribs;
+		}
+
+	}
+	else
+	{
+		WARN("11111111111111 not use vao 111111111111111111");
+	
         // Construct a software representation of a VAO.
         C3DVertexDeclaration::C3DVertexAttribute* attribs = new C3DVertexDeclaration::C3DVertexAttribute[__maxVertexAttribs];
         for (unsigned int i = 0; i < __maxVertexAttribs; ++i)
@@ -136,7 +159,8 @@ C3DVertexDeclaration* C3DVertexDeclaration::create(C3DMesh* mesh, const C3DVerte
             attribs[i].pointer = 0;
         }
         b->_attributes = attribs;
-    }
+
+	}
 
     if (mesh)
     {
@@ -219,13 +243,14 @@ C3DVertexDeclaration* C3DVertexDeclaration::create(C3DMesh* mesh, const C3DVerte
         offset += e->size * sizeof(float);
     }
 
-#ifdef USE_VAO
-    if (b->_handle)
-    {
-		GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
-        GL_ASSERT( glBindVertexArray(0) );
-    }
-#endif
+	if(C3DDeviceAdapter::getInstance()->isSupportVAO())
+	{
+		if (b->_handle)
+		{
+			GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
+			GL_ASSERT( glBindVertexArray(0) );
+		}
+	}
 
     return b;
 }
@@ -256,15 +281,52 @@ void C3DVertexDeclaration::setVertexAttribPointer(GLuint indx, GLint size, GLenu
 
 void C3DVertexDeclaration::bind()
 {
-#ifdef USE_VAO
-    if (_handle)
-    {
-        // Hardware mode
-        GL_ASSERT( glBindVertexArray(_handle) );
-    }
-    else
-#endif
-    {
+
+	if( C3DDeviceAdapter::getInstance()->isSupportVAO() == true)
+	{
+		if (_handle)
+		{
+			// Hardware mode
+			GL_ASSERT( glBindVertexArray(_handle) );
+		}
+		else
+		{
+			// Software mode
+			if (_mesh)
+			{
+				GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, _mesh->getVertexBuffer()) );
+			}
+			else
+			{
+				GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
+			}
+
+			int mask = __curvaEnableMask ^ _vaEnableMask;
+			for(GLuint i = 0; i < __maxVertexAttribs; i++)
+			{
+				C3DVertexAttribute& a = _attributes[i];
+				if (a.enabled)
+				{
+					GL_ASSERT( glVertexAttribPointer(i, a.size, a.type, a.normalized, a.stride, a.pointer) );
+				}
+				if (mask & (1 << i))
+				{
+					if (a.enabled)
+					{
+						GL_ASSERT(glEnableVertexAttribArray(i));
+					}
+					else
+					{
+						GL_ASSERT(glDisableVertexAttribArray(i));
+					}
+				}
+			}
+			__curvaEnableMask = _vaEnableMask;
+		}
+	}
+	else
+	{
+		 
         // Software mode
         if (_mesh)
         {
@@ -296,26 +358,37 @@ void C3DVertexDeclaration::bind()
             }
         }
         __curvaEnableMask = _vaEnableMask;
-    }
+ 
+	}
 }
 
 void C3DVertexDeclaration::unbind()
 {
-#ifdef USE_VAO
-    if (_handle)
-    {
-        // Hardware mode
-        GL_ASSERT( glBindVertexArray(0) );
-    }
-    else
-#endif
-    {
-        // Software mode
+
+	if(C3DDeviceAdapter::getInstance()->isSupportVAO())
+	{
+		if (_handle)
+		{
+			// Hardware mode
+			GL_ASSERT( glBindVertexArray(0) );
+		}
+		else
+		{
+			// Software mode
+			if (_mesh)
+			{
+				GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
+			}
+        }
+	}
+	else
+	{
+	    // Software mode
         if (_mesh)
         {
             GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
         }
-    }
+	}
 }
 
 int C3DVertexDeclaration::getCurVertAttEnables()
