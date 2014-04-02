@@ -8,16 +8,18 @@
 
 namespace cocos3d
 {
+    C3DDeviceAdapter* C3DDeviceAdapter::_deviceAdapterInstance = NULL;
     
-C3DDeviceAdapter::C3DDeviceAdapter()
-{
-}
-
-C3DDeviceAdapter::~C3DDeviceAdapter()
-{
-
-}
-
+    C3DDeviceAdapter* C3DDeviceAdapter::getInstance()
+    {
+        if ( _deviceAdapterInstance == NULL )
+        {
+            _deviceAdapterInstance = new C3DDeviceAdapter();
+            _deviceAdapterInstance->autorelease();
+        }
+        return _deviceAdapterInstance;
+    }
+    
 void C3DDeviceAdapter::checkCpuInfo()
 {
     size_t size = sizeof(int);

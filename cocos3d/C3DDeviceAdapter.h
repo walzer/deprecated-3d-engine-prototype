@@ -22,6 +22,7 @@ public:
         High, // four cpu
     };
 public:
+    
 	 C3DDeviceAdapter()
 	 {
 		 _cpuCount = 1;
@@ -32,7 +33,12 @@ public:
 		 checkVAO();
 	 }
 
-	 ~C3DDeviceAdapter(){}
+    ~C3DDeviceAdapter()
+    {
+ 
+        _deviceAdapterInstance = NULL;
+    }
+    
 
 	static C3DDeviceAdapter* getInstance();
 	
@@ -73,13 +79,14 @@ public:
 
 	bool isSupportVAO()
 	{
-     	 return _supportVAO;
+     	return _supportVAO;
+      // return true;
 	}
 	
 
 private:
 
-	static C3DDeviceAdapter* _instance;
+	static C3DDeviceAdapter* _deviceAdapterInstance;
 	unsigned int _cpuCount;
 	DeviceLevel _deviceLevel;
 	bool _supportVAO;
