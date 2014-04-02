@@ -127,11 +127,12 @@ namespace cocos3d
 		//------------------------------------------
         unsigned int _width;
         unsigned int _height;
-        bool _mipmapped;
+        bool		 _mipmapped;
 
         cocos2d::Texture2D * _2DTex;
     };
 
+	//-----------------------------------------------------------------------
 	class C3DTextureMgr : public cocos2d::Ref
 	{
 	public:
@@ -141,6 +142,7 @@ namespace cocos3d
 
 		void add(C3DTexture* texture);
 		void remove(C3DTexture* texture);
+		C3DTexture* get(const std::string& strID);
 
 		void reload();
 	protected:

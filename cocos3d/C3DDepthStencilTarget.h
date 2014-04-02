@@ -45,11 +45,6 @@ public:
     static C3DDepthStencilTarget* getDepthStencilTarget(const std::string& id);
 
 	/**
-     * id string
-     */
-    const std::string& getID() const;
-
-	/**
      * DepthStencilTarget format.
      */
     Format getFormat() const;
@@ -66,8 +61,6 @@ private:
     C3DDepthStencilTarget(const std::string& id, Format format);
     ~C3DDepthStencilTarget();
 
-	//properties
-    std::string _id;
     Format _format;
     RenderBufferHandle _stencilBuffer;
 };

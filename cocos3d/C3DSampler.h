@@ -92,17 +92,35 @@ public:
 	bool save(C3DElementNode* node);
 
 	void reload();
-protected:
-	void check();
 private:
 
-    C3DTexture* _texture;
+    C3DTexture* _3DTexture;
     Texture_Wrap _wrapS;
     Texture_Wrap _wrapT;
     Texture_Filter _minFilter;
     Texture_Filter _magFilter;
 
     int _dirtyBit;
+};
+
+//-------------------------------------------------------------------------------------
+
+class C3DSampleMgr
+{
+public:
+	typedef std::vector<C3DSampler*> T_CACHE_CONTAINER;
+public:
+	static C3DSampleMgr* getInstance();
+
+	void add(C3DSampler* texture);
+	void remove(C3DSampler* texture);
+
+	void reload();
+protected:
+	C3DSampleMgr();
+	~C3DSampleMgr();
+protected:
+	T_CACHE_CONTAINER _textureCache;
 };
 
 extern Texture_Wrap parseTextureWrapMode(const std::string& str, Texture_Wrap defaultValue);

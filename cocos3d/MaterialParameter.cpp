@@ -361,7 +361,7 @@ void MaterialParameter::reload()
 	case cocos3d::MaterialParameter::SAMPLER:
 		{
 			// zhukaixy: 暂时处理一下吧
-			const_cast<C3DSampler*>(_value.samplerValue)->reload();
+			//const_cast<C3DSampler*>(_value.samplerValue)->reload();
 		}
 		break;
 	case cocos3d::MaterialParameter::SAMPLERCUBE:

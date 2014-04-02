@@ -7,7 +7,6 @@
 
 namespace cocos3d
 {
-static std::vector<C3DFrameBuffer*> __frameBuffers;
 
 C3DFrameBuffer::C3DFrameBuffer(const std::string& id) :
     _id(id), _handle(0), _renderTarget(NULL), _depthStencilTarget(NULL), _width(1), _height(1),
@@ -24,13 +23,6 @@ C3DFrameBuffer::~C3DFrameBuffer()
     if (_handle)
     {
         GL_ASSERT( glDeleteFramebuffers(1, &_handle) );
-    }
-
-    // Remove self from vector.
-    std::vector<C3DFrameBuffer*>::iterator it = std::find(__frameBuffers.begin(), __frameBuffers.end(), this);
-    if (it != __frameBuffers.end())
-    {
-        __frameBuffers.erase(it);
     }
 
 	C3DFrameBufferMgr::getInstance()->remove(this);
@@ -83,7 +75,6 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
         frameBuffer->setDepthStencilTarget(depthTarget);
 
     // Add to the global list of managed frame buffers
-    __frameBuffers.push_back(frameBuffer);
     frameBuffer->_width = width;
     frameBuffer->_height = height;
     frameBuffer->autorelease();
@@ -92,18 +83,7 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
 
 C3DFrameBuffer* C3DFrameBuffer::getFrameBuffer(const std::string& id)
 {
-    // Search the vector for a matching ID.
-    std::vector<C3DFrameBuffer*>::const_iterator it;
-    for (it = __frameBuffers.begin(); it < __frameBuffers.end(); it++)
-    {
-        C3DFrameBuffer* fb = *it;
-        if (id == fb->getID())
-        {
-            return fb;
-        }
-    }
-
-    return NULL;
+	return C3DFrameBufferMgr::getInstance()->get(id);
 }
 
 const std::string& C3DFrameBuffer::getID() const
@@ -116,7 +96,6 @@ void C3DFrameBuffer::reload()
 	GLuint handle = 0;
 	GL_ASSERT( glGenFramebuffers(1, &handle) );
 
-	LOG_TRACE_VARG("@@@@FrameBuffer::reload(%s) %d-->%d", _id.c_str(), _handle, handle);
 	_handle = handle;
 
 	setRenderTarget(_renderTarget);
@@ -202,7 +181,6 @@ C3DDepthStencilTarget* C3DFrameBuffer::getDepthStencilTarget() const
 
 void C3DFrameBuffer::bind()
 {
-	LOG_TRACE_VARG("@@@FrameBuf::bind(%s) with handle:%d", _id.c_str(), _handle);
     CCAssert(!_isBind, "Already bind framebuffer");
 
     GL_ASSERT( glGetIntegerv(GL_FRAMEBUFFER_BINDING, &_oldFBO));
@@ -222,7 +200,7 @@ void C3DFrameBuffer::bindDefault()
     cocos2d::CCDirector::getInstance()->setViewport();
 
     std::vector<C3DFrameBuffer*>::const_iterator it;
-    for (it = __frameBuffers.begin(); it < __frameBuffers.end(); it++)
+    //for (it = __frameBuffers.begin(); it < __frameBuffers.end(); it++)
     {
         C3DFrameBuffer* fb = *it;
         fb->_isBind = false;
@@ -232,7 +210,6 @@ void C3DFrameBuffer::bindDefault()
 
 void C3DFrameBuffer::unbind()
 {
-	LOG_TRACE_VARG("@@@FrameBuf::unbind(%s) to handle:%d", _id.c_str(), _oldFBO);
     CCAssert(_isBind, "frame buffer is not bind");
     GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _oldFBO) );
     C3DRenderSystem::getInstance()->setViewport(&_oldViewport);
@@ -263,25 +240,36 @@ C3DFrameBufferMgr* C3DFrameBufferMgr::getInstance()
 
 void C3DFrameBufferMgr::add(C3DFrameBuffer* texture)
 {
-	T_CACHE_CONTAINER::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
-	if (itr == _textureCache.end())
+	T_CACHE_CONTAINER::iterator itr = std::find(_frameBufs.begin(), _frameBufs.end(), texture);
+	if (itr == _frameBufs.end())
 	{
-		_textureCache.push_back(texture);
+		_frameBufs.push_back(texture);
 	}
 }
 
 void C3DFrameBufferMgr::remove(C3DFrameBuffer* texture)
 {
-	T_CACHE_CONTAINER::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
-	if (itr != _textureCache.end())
+	T_CACHE_CONTAINER::iterator itr = std::find(_frameBufs.begin(), _frameBufs.end(), texture);
+	if (itr != _frameBufs.end())
 	{
-		_textureCache.erase(itr);
+		_frameBufs.erase(itr);
 	}
+}
+
+C3DFrameBuffer* C3DFrameBufferMgr::get(const std::string& strID)
+{
+	for(T_CACHE_CONTAINER::iterator iter = _frameBufs.begin(); iter!=_frameBufs.end(); ++iter)
+	{
+		if((*iter)->getID() == strID)
+			return *iter;
+	}
+
+	return NULL;
 }
 
 void C3DFrameBufferMgr::reload()
 {
-	for(T_CACHE_CONTAINER::iterator iter = _textureCache.begin(); iter!=_textureCache.end(); ++iter)
+	for(T_CACHE_CONTAINER::iterator iter = _frameBufs.begin(); iter!=_frameBufs.end(); ++iter)
 	{
 		(*iter)->reload();
 	}

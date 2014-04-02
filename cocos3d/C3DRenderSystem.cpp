@@ -17,6 +17,7 @@
 #include "C3DSpriteManager.h"
 #include "C3DTexture.h"
 #include "C3DFrameBuffer.h"
+#include "C3DSampler.h"
 
 namespace cocos3d
 {
@@ -41,19 +42,29 @@ C3DRenderSystem::C3DRenderSystem()
 
 	C3DTextureMgr::getInstance()->retain();
 	C3DFrameBufferMgr::getInstance()->retain();
+
+	//_RSBackup = new C3DStateBlock();
+}
+
+void C3DRenderSystem::onLostDevice()
+{
+	//_RSBackup->backUpGLState();
 }
 
 void C3DRenderSystem::reload()
 {
 	LOG_TRACE("---C3DRenderSystem begin reload---");
 
-// 	cocos2d::GL::invalidateStateCache();
-// 	cocos2d::ShaderCache::getInstance()->reloadDefaultShaders();
-// 	cocos2d::DrawPrimitives::init();
-	cocos2d::VolatileTextureMgr::reloadAllTextures();
+	//cocos2d::GL::invalidateStateCache();
+	//cocos2d::ShaderCache::getInstance()->reloadDefaultShaders();
+	//cocos2d::DrawPrimitives::init();
+	//cocos2d::VolatileTextureMgr::reloadAllTextures();
+
+	//_RSBackup->restoreGLState(true);
 
 	C3DTextureMgr::getInstance()->reload();
 	C3DFrameBufferMgr::getInstance()->reload();
+	C3DSampleMgr::getInstance()->reload();
 	C3DEffectManager::getInstance()->reload();
 	C3DMaterialManager::getInstance()->reload();
 	C3DSpriteManager::getInstance()->reload();

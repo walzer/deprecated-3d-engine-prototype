@@ -382,7 +382,7 @@ void paramterReload(MaterialParameter* param)
 
 void C3DRenderState::reload()
 {
-	C3DRenderState::_activeTexture = 0;
+	C3DRenderState::_activeTexture = std::numeric_limits<size_t>::max();
 	for_each(_parameters.begin(), _parameters.end(), paramterReload);
 }
 

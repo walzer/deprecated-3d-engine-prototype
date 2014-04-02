@@ -7,28 +7,32 @@
 namespace cocos3d
 {
 C3DSampler::C3DSampler()
-    : _texture(NULL),
+    : _3DTexture(NULL),
 	_wrapS(Texture_Wrap_CLAMP),
 	_wrapT(Texture_Wrap_CLAMP), 
 	_minFilter(Texture_Filter_LINEAR),
 	_magFilter(Texture_Filter_LINEAR),
 	_dirtyBit(Texture_All_Dirty)
 {
+	C3DSampleMgr::getInstance()->add(this);
 }
 
 C3DSampler::C3DSampler(C3DTexture* texture)
-    : _texture(texture),
+    : _3DTexture(texture),
 	_magFilter(Texture_Filter_LINEAR),
 	_dirtyBit(Texture_All_Dirty)
 {
 	texture->retain();
 	setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     _minFilter = texture->isMipmapped() ? Texture_Filter_LINEAR_MIPMAP_LINEAR : Texture_Filter_LINEAR;
+
+	C3DSampleMgr::getInstance()->add(this);
 }
 
 C3DSampler::~C3DSampler()
 {
-    SAFE_RELEASE(_texture);
+    SAFE_RELEASE(_3DTexture);
+	C3DSampleMgr::getInstance()->remove(this);
 }
 
 C3DSampler* C3DSampler::create(C3DTexture* texture)
@@ -53,26 +57,15 @@ C3DSampler* C3DSampler::create(const std::string& path, bool generateMipmaps)
 
 void C3DSampler::setTexture(const std::string& path, bool generateMipmaps)
 {
-	SAFE_RELEASE(_texture);
+	SAFE_RELEASE(_3DTexture);
     C3DTexture* texture = C3DTexture::create(path, generateMipmaps);
 
 	assert(texture != NULL);
 
-	_texture = texture;
-	_texture->retain();
+	_3DTexture = texture;
+	_3DTexture->retain();
 
 	_dirtyBit = Texture_All_Dirty;
-}
-
-void C3DSampler::check()
-{
-	if(_texture)
-	{
-		_minFilter = _texture->isMipmapped() ? Texture_Filter_NEAREST_MIPMAP_LINEAR : Texture_Filter_LINEAR;
-		_magFilter = Texture_Filter_LINEAR;
-
-		_dirtyBit = Texture_All_Dirty;
-	}
 }
 
 inline unsigned long nextPOT(unsigned long x)
@@ -89,10 +82,10 @@ inline unsigned long nextPOT(unsigned long x)
 void C3DSampler::setWrapMode(Texture_Wrap wrapS, Texture_Wrap wrapT)
 {
 	bool sizePot(true);
-	if ( _texture != NULL )
+	if ( _3DTexture != NULL )
 	{
-		if (   nextPOT( _texture->getWidth() ) != _texture->getWidth()
-			|| nextPOT( _texture->getHeight() ) != _texture->getHeight() )
+		if (   nextPOT( _3DTexture->getWidth() ) != _3DTexture->getWidth()
+			|| nextPOT( _3DTexture->getHeight() ) != _3DTexture->getHeight() )
 		{
 			sizePot = false;
 			if ( wrapS != Texture_Wrap_CLAMP || wrapT != Texture_Wrap_CLAMP )
@@ -109,30 +102,35 @@ void C3DSampler::setWrapMode(Texture_Wrap wrapS, Texture_Wrap wrapT)
 
 void C3DSampler::setFilterMode(Texture_Filter minificationFilter, Texture_Filter magnificationFilter)
 {
-	assert(_texture);
+	assert(_3DTexture);
 
-	if(_texture)
+	if(_3DTexture)
 	{
-		_minFilter = _texture->isMipmapped() ? Texture_Filter_NEAREST_MIPMAP_LINEAR : Texture_Filter_LINEAR;
+		_minFilter = _3DTexture->isMipmapped() ? Texture_Filter_NEAREST_MIPMAP_LINEAR : Texture_Filter_LINEAR;
 		_magFilter = Texture_Filter_LINEAR;
-
-		_dirtyBit = Texture_All_Dirty;
 	}
+	else
+	{
+		_minFilter = minificationFilter;
+		_magFilter = magnificationFilter;
+	}
+
+	_dirtyBit |= Texture_Filter_Dirty;
 }
 
 C3DTexture* C3DSampler::getTexture() const
 {
-    return _texture;
+    return _3DTexture;
 }
 
 void C3DSampler::bind()
 {
 	//GLint currentTextureId;
    // glGetIntegerv(GL_TEXTURE_BINDING_2D, &currentTextureId);
-	if(_texture == NULL)
+	if(_3DTexture == NULL)
 		return;
 
-    GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _texture->getHandle()) );
+    GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _3DTexture->getHandle()) );
     if (_dirtyBit & Texture_Wrap_Dirty)
     {
         GL_ASSERT( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLenum)_wrapS) );
@@ -151,14 +149,13 @@ void C3DSampler::bind()
 
 void C3DSampler::reload()
 {
-	check();
 	_dirtyBit = Texture_All_Dirty;
 }
 
 const std::string C3DSampler::getPath() const
 {
-    if (_texture)
-        return _texture->getPath();
+    if (_3DTexture)
+        return _3DTexture->getPath();
     else
         return "";
 }
@@ -270,7 +267,7 @@ bool C3DSampler::load(C3DElementNode* node)
     Texture_Filter minFilter = parseTextureFilterMode(node->getElement("minFilter"), mipmap ? Texture_Filter_NEAREST_MIPMAP_LINEAR : Texture_Filter_LINEAR);
     Texture_Filter magFilter = parseTextureFilterMode(node->getElement("magFilter"), Texture_Filter_LINEAR);
 
-	this->setTexture(path,mipmap);
+	this->setTexture(path, mipmap);
 
     this->setWrapMode(wrapS, wrapT);
     this->setFilterMode(minFilter, magFilter);
@@ -287,5 +284,52 @@ bool C3DSampler::save(C3DElementNode* node)
     node->setElement("minFilter", textureFilterModeToString(this->getMinFilter()));
     node->setElement("magFilter", textureFilterModeToString(this->getMagFilter()));
 	return true;
+}
+
+//-----------------------------------------------------------------------------------
+static C3DSampleMgr* g_3DSampleMgr = NULL;
+
+C3DSampleMgr::C3DSampleMgr()
+{
+}
+
+C3DSampleMgr::~C3DSampleMgr()
+{
+	g_3DSampleMgr = NULL;
+}
+
+C3DSampleMgr* C3DSampleMgr::getInstance()
+{
+	if (!g_3DSampleMgr)
+	{
+		g_3DSampleMgr = new C3DSampleMgr();
+	}
+	return g_3DSampleMgr;
+}
+
+void C3DSampleMgr::add(C3DSampler* texture)
+{
+	std::vector<C3DSampler*>::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
+	if (itr == _textureCache.end())
+	{
+		_textureCache.push_back(texture);
+	}
+}
+
+void C3DSampleMgr::remove(C3DSampler* texture)
+{
+	std::vector<C3DSampler*>::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
+	if (itr != _textureCache.end())
+	{
+		_textureCache.erase(itr);
+	}
+}
+
+void C3DSampleMgr::reload()
+{
+	for(T_CACHE_CONTAINER::iterator iter = _textureCache.begin(); iter!=_textureCache.end(); ++iter)
+	{
+		(*iter)->reload();
+	}
 }
 }

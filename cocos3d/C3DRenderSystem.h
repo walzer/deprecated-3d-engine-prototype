@@ -13,6 +13,7 @@ class RenderChannelManager;
 class C3DEffectManager;
 class C3DMaterialManager;
 class C3DScreenProcessManager;
+class C3DStateBlock;
 
 /**
 Defines the view port and clear flag
@@ -51,6 +52,7 @@ public:
      * @param clearStencil The stencil value to clear to when the flags includes the color buffer.
     */
     void clear(ClearFlags flags, const C3DVector4* clearColor, float clearDepth, int clearStencil);
+	void onLostDevice();
 	void reload();
 protected:
 
@@ -81,6 +83,8 @@ protected:
 
     float _clearDepth;                          // The clear depth value last used for clearing the depth buffer.
     int _clearStencil;                          // The clear stencil value last used for clearing the stencil buffer.
+
+	C3DStateBlock*	_RSBackup;
 };
 }
 
