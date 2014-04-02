@@ -56,3 +56,6 @@ xcschememanagement.plist
 xcuserdata/
 DerivedData/
 
+#Ignore cocos2dx
+cocos2dx/
+
