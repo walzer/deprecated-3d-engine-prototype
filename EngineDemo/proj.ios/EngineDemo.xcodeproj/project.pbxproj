@@ -135,6 +135,8 @@
 		B6588A7718DA95E0006E5DA2 /* MeshPart.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6588A0F18DA95E0006E5DA2 /* MeshPart.cpp */; };
 		B6588A7D18DA95F1006E5DA2 /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6588A7818DA95F1006E5DA2 /* Rectangle.cpp */; };
 		B6588A7E18DA95F1006E5DA2 /* StringTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6588A7A18DA95F1006E5DA2 /* StringTool.cpp */; };
+		B6872DA118EBE52F002F5CD4 /* PerformanceTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6872D9F18EBE52F002F5CD4 /* PerformanceTestLayer.cpp */; };
+		B6872DA418EBE56B002F5CD4 /* C3DDeviceAdapter_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6872DA218EBE56B002F5CD4 /* C3DDeviceAdapter_ios.mm */; };
 		B6A7DB1717D7257A0030D101 /* ChangeClothesTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6A7DB1317D725790030D101 /* ChangeClothesTestLayer.cpp */; };
 		B6A7DB1817D7257A0030D101 /* ClothUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6A7DB1517D725790030D101 /* ClothUILayer.cpp */; };
 		B6A7DB1F17D7261C0030D101 /* FullDemoLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6A7DB1B17D7261C0030D101 /* FullDemoLayer.cpp */; };
@@ -516,6 +518,10 @@
 		B6588A7A18DA95F1006E5DA2 /* StringTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StringTool.cpp; path = ../../cocos3d/StringTool.cpp; sourceTree = "<group>"; };
 		B6588A7B18DA95F1006E5DA2 /* StringTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringTool.h; path = ../../cocos3d/StringTool.h; sourceTree = "<group>"; };
 		B6588A7C18DA95F1006E5DA2 /* Vertex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vertex.h; path = ../../cocos3d/Vertex.h; sourceTree = "<group>"; };
+		B6872D9F18EBE52F002F5CD4 /* PerformanceTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformanceTestLayer.cpp; path = PerformanceTest/PerformanceTestLayer.cpp; sourceTree = "<group>"; };
+		B6872DA018EBE52F002F5CD4 /* PerformanceTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceTestLayer.h; path = PerformanceTest/PerformanceTestLayer.h; sourceTree = "<group>"; };
+		B6872DA218EBE56B002F5CD4 /* C3DDeviceAdapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = C3DDeviceAdapter_ios.mm; path = ../../cocos3d/C3DDeviceAdapter_ios.mm; sourceTree = "<group>"; };
+		B6872DA318EBE56B002F5CD4 /* C3DDeviceAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DDeviceAdapter.h; path = ../../cocos3d/C3DDeviceAdapter.h; sourceTree = "<group>"; };
 		B6A7DB1317D725790030D101 /* ChangeClothesTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ChangeClothesTestLayer.cpp; path = ChangeCloth/ChangeClothesTestLayer.cpp; sourceTree = "<group>"; };
 		B6A7DB1417D725790030D101 /* ChangeClothesTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ChangeClothesTestLayer.h; path = ChangeCloth/ChangeClothesTestLayer.h; sourceTree = "<group>"; };
 		B6A7DB1517D725790030D101 /* ClothUILayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClothUILayer.cpp; path = ChangeCloth/ClothUILayer.cpp; sourceTree = "<group>"; };
@@ -676,6 +682,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B6872D9718EBE51A002F5CD4 /* PerformanceTest */ = {
+			isa = PBXGroup;
+			children = (
+				B6872D9F18EBE52F002F5CD4 /* PerformanceTestLayer.cpp */,
+				B6872DA018EBE52F002F5CD4 /* PerformanceTestLayer.h */,
+			);
+			name = PerformanceTest;
+			sourceTree = "<group>";
+		};
 		B6A7DB1917D725860030D101 /* ChangeCloth */ = {
 			isa = PBXGroup;
 			children = (
@@ -751,6 +766,8 @@
 		B6AFD70E1867DBF10098D989 /* cocos3d */ = {
 			isa = PBXGroup;
 			children = (
+				B6872DA218EBE56B002F5CD4 /* C3DDeviceAdapter_ios.mm */,
+				B6872DA318EBE56B002F5CD4 /* C3DDeviceAdapter.h */,
 				B6588A7818DA95F1006E5DA2 /* Rectangle.cpp */,
 				B6588A7918DA95F1006E5DA2 /* Rectangle.h */,
 				B6588A7A18DA95F1006E5DA2 /* StringTool.cpp */,
@@ -1014,6 +1031,7 @@
 		BF23D4E2143315EB00657E08 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				B6872D9718EBE51A002F5CD4 /* PerformanceTest */,
 				A904087818113C7500C4FBAD /* C3DActor.cpp */,
 				A904087918113C7500C4FBAD /* C3DActor.h */,
 				A904087A18113C7500C4FBAD /* C3DBaseActor.cpp */,
@@ -1328,6 +1346,7 @@
 				B6588A6518DA95E0006E5DA2 /* C3DTexture.cpp in Sources */,
 				B6588A6618DA95E0006E5DA2 /* C3DTexture3D.cpp in Sources */,
 				B6588A6718DA95E0006E5DA2 /* C3DTintPSA.cpp in Sources */,
+				B6872DA118EBE52F002F5CD4 /* PerformanceTestLayer.cpp in Sources */,
 				B6588A6818DA95E0006E5DA2 /* C3DTransform.cpp in Sources */,
 				B6588A6918DA95E0006E5DA2 /* C3DTransformPSA.cpp in Sources */,
 				B6588A6A18DA95E0006E5DA2 /* C3DVector2.cpp in Sources */,
@@ -1336,6 +1355,7 @@
 				B6588A7018DA95E0006E5DA2 /* C3DVertexDeclaration.cpp in Sources */,
 				B6588A7118DA95E0006E5DA2 /* C3DVertexFormat.cpp in Sources */,
 				B6588A7218DA95E0006E5DA2 /* C3DViewport.cpp in Sources */,
+				B6872DA418EBE56B002F5CD4 /* C3DDeviceAdapter_ios.mm in Sources */,
 				B6588A7318DA95E0006E5DA2 /* FacialAnimation.cpp in Sources */,
 				B6588A7418DA95E0006E5DA2 /* FacialAnimManager.cpp in Sources */,
 				B6588A7518DA95E0006E5DA2 /* Geo.cpp in Sources */,
@@ -1410,7 +1430,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv6 armv7 i386 armv7s";
 			};
 			name = Debug;
 		};
@@ -1445,14 +1465,14 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv6 armv7 i386 armv7s";
 			};
 			name = Release;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1477,16 +1497,17 @@
 					"$(SRCROOT)/../../cocos2dx/external",
 					"$(SRCROOT)/../../cocos2dx/cocos/storage",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv6 armv7 i386 armv7s";
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1514,7 +1535,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "armv6 armv7 i386";
+				VALID_ARCHS = "armv6 armv7 i386 armv7s";
 			};
 			name = Release;
 		};

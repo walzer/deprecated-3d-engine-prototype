@@ -9,14 +9,7 @@
 namespace cocos3d
 {
     
-C3DDeviceAdapter::C3DDeviceAdapter()
-{
-}
-
-C3DDeviceAdapter::~C3DDeviceAdapter()
-{
-
-}
+C3DDeviceAdapter* C3DDeviceAdapter::_instance = NULL;
 
 void C3DDeviceAdapter::checkCpuInfo()
 {
@@ -28,6 +21,16 @@ void C3DDeviceAdapter::checkCpuInfo()
 	WARN_VARG("default set the cpu counter of pc is : %d", _cpuCount);
 }
 
+C3DDeviceAdapter* C3DDeviceAdapter::getInstance()
+{
+    if (_instance == NULL)
+    {
+        static C3DDeviceAdapter adapter;
+        _instance = &adapter;
+    }
+    return _instance;
+}
+    
 }
 
 #endif
