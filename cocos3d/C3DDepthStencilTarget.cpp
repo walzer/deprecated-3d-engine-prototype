@@ -3,29 +3,20 @@
 
 namespace cocos3d
 {
-static std::vector<C3DDepthStencilTarget*> __depthStencilTargets;
-
 C3DDepthStencilTarget::C3DDepthStencilTarget(const std::string& id, Format format)
-    : _id(id), _format(format), _stencilBuffer(0)
+    :_format(format), _stencilBuffer(0)
 {
-	C3DTextureMgr::getInstance()->add(this);
+	_path = id;
 }
 
 C3DDepthStencilTarget::~C3DDepthStencilTarget()
 {
-
     // Destroy GL resources.
     if (_stencilBuffer)
     {
         GL_ASSERT( glDeleteTextures(1, &_stencilBuffer) );
     }
 
-    // Remove from vector.
-    std::vector<C3DDepthStencilTarget*>::iterator it = std::find(__depthStencilTargets.begin(), __depthStencilTargets.end(), this);
-    if (it != __depthStencilTargets.end())
-    {
-        __depthStencilTargets.erase(it);
-    }
 }
 
 C3DDepthStencilTarget* C3DDepthStencilTarget::create(const std::string& id, Format format, unsigned int width, unsigned int height)
@@ -52,32 +43,13 @@ C3DDepthStencilTarget* C3DDepthStencilTarget::create(const std::string& id, Form
     depthStencilTarget->init(width, height, C3DTexture::DEPTH, false);;
     depthStencilTarget->_stencilBuffer = stencilBuffer;
 
-    // Add it to the cache
-    __depthStencilTargets.push_back(depthStencilTarget);
-
     depthStencilTarget->autorelease();
     return depthStencilTarget;
 }
 
 C3DDepthStencilTarget* C3DDepthStencilTarget::getDepthStencilTarget(const std::string& id)
 {
-    // Search the vector for a matching ID.
-    std::vector<C3DDepthStencilTarget*>::const_iterator it;
-    for (it = __depthStencilTargets.begin(); it < __depthStencilTargets.end(); it++)
-    {
-        C3DDepthStencilTarget* dst = *it;
-        if (id==dst->getID())
-        {
-            return dst;
-        }
-    }
-
-    return NULL;
-}
-
-const std::string& C3DDepthStencilTarget::getID() const
-{
-    return _id;
+	return static_cast<C3DDepthStencilTarget*>(C3DTextureMgr::getInstance()->get(id));
 }
 
 C3DDepthStencilTarget::Format C3DDepthStencilTarget::getFormat() const

@@ -6,6 +6,7 @@
 #include "MainLayer.h"
 #include "AppMacros.h"
 #include "cocos3d.h"
+#include "C3DRenderSystem.h"
 
 USING_NS_CC;
 using namespace std;
@@ -108,6 +109,7 @@ void AppDelegate::applicationDidEnterBackground() {
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
+	//cocos3d::C3DRenderSystem::getInstance()->onLostDevice();
     CCDirector::sharedDirector()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here

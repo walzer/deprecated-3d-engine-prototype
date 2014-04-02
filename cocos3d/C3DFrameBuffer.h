@@ -115,13 +115,14 @@ public:
 
 	void add(C3DFrameBuffer* texture);
 	void remove(C3DFrameBuffer* texture);
+	C3DFrameBuffer* get(const std::string& strID);
 
 	void reload();
 protected:
 	C3DFrameBufferMgr();
 	~C3DFrameBufferMgr();
 protected:
-	T_CACHE_CONTAINER _textureCache;
+	T_CACHE_CONTAINER _frameBufs;
 };}
 
 #endif

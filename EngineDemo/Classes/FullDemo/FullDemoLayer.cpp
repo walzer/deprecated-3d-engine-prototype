@@ -144,10 +144,10 @@ void FullDemoLayer::setUpScene()
 
 	createMainPlayer();
 
-	/*createStaticModel();
+	createStaticModel();
 	createEnemy();
 	createParticleEffect();
-    setUpProfile();*/
+    setUpProfile();
 }
 
 void FullDemoLayer::createStaticModel()

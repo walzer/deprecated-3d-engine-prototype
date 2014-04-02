@@ -19,10 +19,12 @@ C3DTexture::C3DTexture() :
 	_height(0),
 	_2DTex(NULL)
 {
+	C3DTextureMgr::getInstance()->add(this);
 }
 
 C3DTexture::C3DTexture(const C3DTexture& copy)
 {
+	C3DTextureMgr::getInstance()->add(this);
 }
 
 C3DTexture::~C3DTexture()
@@ -33,13 +35,15 @@ C3DTexture::~C3DTexture()
 
 void C3DTexture::reload()
 {
-	if (_mipmapped)
+	if(NULL != _2DTex && _mipmapped)
+	{
 		_2DTex->generateMipmap();
+	}
 
 	if(_handle)
 	{
 		// Cocos3D managed resource
-		init(_width, _height, _fmt, _mipmapped);
+		init(_width, _height, _fmt, false);
 	}
 }
 
@@ -201,6 +205,7 @@ void C3DTexture::init(int width, int height, C3DTexture::Format fmt, bool genera
 
     GL_ASSERT(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, (GLenum)fmt, type, 0));
 
+	LOG_TRACE_VARG("3DTexUpdate:%d--%d", _handle, handle);
     _handle = handle;
 	_fmt = fmt;
 
@@ -314,9 +319,10 @@ C3DTextureMgr* C3DTextureMgr::getInstance()
 	return g_3DTextureMgr;
 }
 
+// zhukaixy: 2DTexture应该单独的建立一个队列
 void C3DTextureMgr::add(C3DTexture* texture)
 {
-	std::vector<C3DTexture*>::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
+	T_CACHE_CONTAINER::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
 	if (itr == _textureCache.end())
 	{
 		_textureCache.push_back(texture);
@@ -325,10 +331,19 @@ void C3DTextureMgr::add(C3DTexture* texture)
 
 void C3DTextureMgr::remove(C3DTexture* texture)
 {
-	std::vector<C3DTexture*>::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
+	T_CACHE_CONTAINER::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
 	if (itr != _textureCache.end())
 	{
 		_textureCache.erase(itr);
+	}
+}
+
+C3DTexture* C3DTextureMgr::get(const std::string& strID)
+{
+	for(T_CACHE_CONTAINER::iterator iter = _textureCache.begin(); iter!=_textureCache.end(); ++iter)
+	{
+		if((*iter)->getPath() == strID)
+			return *iter;
 	}
 }
 
