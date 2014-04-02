@@ -319,6 +319,7 @@ C3DTextureMgr* C3DTextureMgr::getInstance()
 	return g_3DTextureMgr;
 }
 
+// zhukaixy: 2DTexture应该单独的建立一个队列
 void C3DTextureMgr::add(C3DTexture* texture)
 {
 	T_CACHE_CONTAINER::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
