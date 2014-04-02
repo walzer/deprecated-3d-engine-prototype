@@ -282,7 +282,7 @@ void C3DVertexDeclaration::setVertexAttribPointer(GLuint indx, GLint size, GLenu
 void C3DVertexDeclaration::bind()
 {
 
-	if( C3DDeviceAdapter::getInstance()->isSupportVAO() )
+	if( C3DDeviceAdapter::getInstance()->isSupportVAO() == true)
 	{
 		if (_handle)
 		{
