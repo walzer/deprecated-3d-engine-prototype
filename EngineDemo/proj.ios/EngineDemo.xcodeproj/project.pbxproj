@@ -141,8 +141,6 @@
 		B6A7DB2017D7261C0030D101 /* FullDemoUILayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6A7DB1D17D7261C0030D101 /* FullDemoUILayer.cpp */; };
 		B6AA220217D64CAA00980A49 /* ParticleTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AA220017D64CAA00980A49 /* ParticleTestLayer.cpp */; };
 		B6AB307B182732E6002F412A /* UI3DLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AB3079182732E6002F412A /* UI3DLayer.cpp */; };
-		B6ABD11318EB9AC900D596BD /* C3DDeviceAdapter_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6ABD11118EB9AC900D596BD /* C3DDeviceAdapter_ios.mm */; };
-		B6ABD11E18EB9BC000D596BD /* PerformanceTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6ABD11C18EB9BC000D596BD /* PerformanceTestLayer.cpp */; };
 		B6AC177617D4400700A0246A /* PostEffectTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AC177417D4400700A0246A /* PostEffectTestLayer.cpp */; };
 		B6AFD84D1867DCAA0098D989 /* BaseBullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AFD8491867DCAA0098D989 /* BaseBullet.cpp */; };
 		B6AFD84E1867DCAA0098D989 /* Lighting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6AFD84B1867DCAA0098D989 /* Lighting.cpp */; };
@@ -530,10 +528,6 @@
 		B6AA220117D64CAA00980A49 /* ParticleTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParticleTestLayer.h; path = ParticleTest/ParticleTestLayer.h; sourceTree = "<group>"; };
 		B6AB3079182732E6002F412A /* UI3DLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UI3DLayer.cpp; path = FullDemo/UI3DLayer.cpp; sourceTree = "<group>"; };
 		B6AB307A182732E6002F412A /* UI3DLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UI3DLayer.h; path = FullDemo/UI3DLayer.h; sourceTree = "<group>"; };
-		B6ABD11118EB9AC900D596BD /* C3DDeviceAdapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = C3DDeviceAdapter_ios.mm; path = ../../cocos3d/C3DDeviceAdapter_ios.mm; sourceTree = "<group>"; };
-		B6ABD11218EB9AC900D596BD /* C3DDeviceAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DDeviceAdapter.h; path = ../../cocos3d/C3DDeviceAdapter.h; sourceTree = "<group>"; };
-		B6ABD11C18EB9BC000D596BD /* PerformanceTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformanceTestLayer.cpp; path = PerformanceTest/PerformanceTestLayer.cpp; sourceTree = "<group>"; };
-		B6ABD11D18EB9BC000D596BD /* PerformanceTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceTestLayer.h; path = PerformanceTest/PerformanceTestLayer.h; sourceTree = "<group>"; };
 		B6AC177417D4400700A0246A /* PostEffectTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PostEffectTestLayer.cpp; path = PostEffect/PostEffectTestLayer.cpp; sourceTree = "<group>"; };
 		B6AC177517D4400700A0246A /* PostEffectTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PostEffectTestLayer.h; path = PostEffect/PostEffectTestLayer.h; sourceTree = "<group>"; };
 		B6AFD8491867DCAA0098D989 /* BaseBullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseBullet.cpp; path = FullDemo/BaseBullet.cpp; sourceTree = "<group>"; };
@@ -727,15 +721,6 @@
 			name = ParticleTest;
 			sourceTree = "<group>";
 		};
-		B6ABD11B18EB9BAE00D596BD /* PerformanceTest */ = {
-			isa = PBXGroup;
-			children = (
-				B6ABD11C18EB9BC000D596BD /* PerformanceTestLayer.cpp */,
-				B6ABD11D18EB9BC000D596BD /* PerformanceTestLayer.h */,
-			);
-			name = PerformanceTest;
-			sourceTree = "<group>";
-		};
 		B6AC177717D4401700A0246A /* PostEffect */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,8 +751,6 @@
 		B6AFD70E1867DBF10098D989 /* cocos3d */ = {
 			isa = PBXGroup;
 			children = (
-				B6ABD11118EB9AC900D596BD /* C3DDeviceAdapter_ios.mm */,
-				B6ABD11218EB9AC900D596BD /* C3DDeviceAdapter.h */,
 				B6588A7818DA95F1006E5DA2 /* Rectangle.cpp */,
 				B6588A7918DA95F1006E5DA2 /* Rectangle.h */,
 				B6588A7A18DA95F1006E5DA2 /* StringTool.cpp */,
@@ -1031,7 +1014,6 @@
 		BF23D4E2143315EB00657E08 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B6ABD11B18EB9BAE00D596BD /* PerformanceTest */,
 				A904087818113C7500C4FBAD /* C3DActor.cpp */,
 				A904087918113C7500C4FBAD /* C3DActor.h */,
 				A904087A18113C7500C4FBAD /* C3DBaseActor.cpp */,
@@ -1361,8 +1343,6 @@
 				B6588A7718DA95E0006E5DA2 /* MeshPart.cpp in Sources */,
 				B6588A7D18DA95F1006E5DA2 /* Rectangle.cpp in Sources */,
 				B6588A7E18DA95F1006E5DA2 /* StringTool.cpp in Sources */,
-				B6ABD11318EB9AC900D596BD /* C3DDeviceAdapter_ios.mm in Sources */,
-				B6ABD11E18EB9BC000D596BD /* PerformanceTestLayer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1430,7 +1410,7 @@
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Debug;
 		};
@@ -1465,7 +1445,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Release;
 		};
@@ -1497,10 +1477,9 @@
 					"$(SRCROOT)/../../cocos2dx/external",
 					"$(SRCROOT)/../../cocos2dx/cocos/storage",
 				);
-				ONLY_ACTIVE_ARCH = YES;
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Debug;
 		};
@@ -1535,7 +1514,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Release;
 		};
