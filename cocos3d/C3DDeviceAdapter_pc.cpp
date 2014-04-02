@@ -7,17 +7,17 @@
 namespace cocos3d
 {
 
-C3DDeviceAdapter* C3DDeviceAdapter::_instance = NULL;
+C3DDeviceAdapter* C3DDeviceAdapter::_deviceAdapterInstance = NULL;
 
 
 C3DDeviceAdapter* C3DDeviceAdapter::getInstance()
 {
-	if ( _instance == NULL )
+	if ( _deviceAdapterInstance == NULL )
 	{
-		_instance = new C3DDeviceAdapter();
-		_instance->autorelease();
+		_deviceAdapterInstance = new C3DDeviceAdapter();
+		_deviceAdapterInstance->autorelease();
 	}
-	return _instance;
+	return _deviceAdapterInstance;
 }
 
 void C3DDeviceAdapter::checkCpuInfo()
