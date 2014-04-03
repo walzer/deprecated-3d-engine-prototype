@@ -282,7 +282,7 @@ void C3DCamera::project(const C3DViewport* viewport, C3DVector3* src, C3DVector2
 
     // Compute screen coordinates by applying our viewport transformation.
     dst->x = viewport->x + (ndcX + 1.0f) * 0.5f * viewport->width;
-    dst->y = viewport->y + (1.0f - (ndcY + 1.0f) * 0.5f) * viewport->height;
+    dst->y = viewport->y + (ndcY + 1.0f) * 0.5f * viewport->height;
 }
 
 void C3DCamera::unproject(const C3DViewport* viewport, C3DVector3* src, C3DVector3* dst)
