@@ -47,6 +47,7 @@ public:
     virtual bool init(const std::string& szMaterial);
 
 	virtual void reload();
+	bool reset();
 
 	std::string getName(void) const
 	{
@@ -62,6 +63,8 @@ public:
 
 	size_t		_x;
 	size_t		_y;
+
+	std::string _szMaterial;
 };
 }
 

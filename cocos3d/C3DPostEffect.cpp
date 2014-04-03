@@ -28,8 +28,8 @@ namespace cocos3d
 {
 C3DPostEffect::C3DPostEffect(C3DPostProcess* postProcess, const std::string& szName)
 	: _model( NULL ),
-	_x(0),
-	_y(0)
+	_x(1),
+	_y(1)
 {
     _name = szName;
 
@@ -40,8 +40,10 @@ C3DPostEffect::C3DPostEffect(C3DPostProcess* postProcess, const std::string& szN
 
 bool C3DPostEffect::init(const std::string& szMaterial)
 {
+	_szMaterial = szMaterial;
+
     SAFE_RELEASE(_material);
-    //_material = C3DMaterial::create(szMaterial);
+
 	_material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(szMaterial));
     if (_material == NULL)
         return false;
@@ -61,30 +63,44 @@ bool C3DPostEffect::init(const std::string& szMaterial)
     return true;
 }
 
+
+bool C3DPostEffect::reset()
+{
+	SAFE_RELEASE(_model);
+	SAFE_RELEASE(_material);
+
+	_material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(_szMaterial));
+	if (_material == NULL)
+		return false;
+
+	_material->retain();
+	C3DTechnique* technique = _material->getTechnique(0u);
+
+	technique->getPass(0u)->getParameter("u_texture")->setValue(_postProcess->getFramebufferSampler());
+
+	C3DMesh* mesh = Geo::createQuadFullscreen(_x, _y);
+	_model = C3DSkinlessModel::create();
+	_model->setMesh(mesh);
+	SAFE_RELEASE(mesh);
+
+	_model->setNode(_postProcess);
+
+	return true;
+}
+
 void C3DPostEffect::setGridSize( unsigned int x, unsigned int y )
 {
-	_x = x;
-	_y = y;
+	_x = std::max<size_t>(x, 1);
+	_y = std::max<size_t>(y, 1);
 
-	C3DMesh* mesh = Geo::createQuadFullscreen( x, y );
+	C3DMesh* mesh = Geo::createQuadFullscreen( _x, _y );
 	_model->setMesh( mesh );
 	SAFE_RELEASE(mesh);
 }
 
 void C3DPostEffect::reload()
 {
-	if(_x == 0 && _y ==0)
-	{
-		C3DMesh* mesh = Geo::createQuadFullscreen( 1, 1 );
-		_model->setMesh( mesh );
-		SAFE_RELEASE(mesh);
-	}
-	else
-	{
-		C3DMesh* mesh = Geo::createQuadFullscreen( _x, _y );
-		_model->setMesh( mesh );
-		SAFE_RELEASE(mesh);
-	}
+	reset();
 }
 
 C3DPostEffect::~C3DPostEffect()
