@@ -27,7 +27,7 @@ void C3DDeviceAdapter::checkCpuInfo()
     int mib[2] = {CTL_HW, HW_NCPU};
     sysctl(mib, 2, &_cpuCount, &size, NULL, 0);
 
-	WARN_VARG("default set the cpu counter of pc is : %d", _cpuCount);
+	WARN_VARG("the cpu counter is : %d", _cpuCount);
 }
 
 }

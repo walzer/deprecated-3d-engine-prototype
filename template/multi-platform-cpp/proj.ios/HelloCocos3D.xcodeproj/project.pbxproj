@@ -126,6 +126,7 @@
 		A9633EC118C09385003BE009 /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = A9633EBD18C09385003BE009 /* CloseSelected.png */; };
 		A9633EC218C09385003BE009 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = A9633EBE18C09385003BE009 /* fonts */; };
 		A9633EC518C09443003BE009 /* Hello3DLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633EC318C09443003BE009 /* Hello3DLayer.cpp */; };
+		A9A854B218ECED630032965A /* C3DDeviceAdapter_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = A9A854B018ECED630032965A /* C3DDeviceAdapter_ios.mm */; };
 		B2C5BBC918DC6D4200C14955 /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5BBAC18DC6C2E00C14955 /* libbox2d iOS.a */; };
 		B2C5BBCA18DC6D4200C14955 /* libchipmunk iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5BBAA18DC6C2E00C14955 /* libchipmunk iOS.a */; };
 		B2C5BBCB18DC6D4200C14955 /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5BBA618DC6C2E00C14955 /* libcocos2dx iOS.a */; };
@@ -487,6 +488,8 @@
 		A9633EBE18C09385003BE009 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		A9633EC318C09443003BE009 /* Hello3DLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Hello3DLayer.cpp; path = ../Classes/Hello3DLayer.cpp; sourceTree = "<group>"; };
 		A9633EC418C09443003BE009 /* Hello3DLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hello3DLayer.h; path = ../Classes/Hello3DLayer.h; sourceTree = "<group>"; };
+		A9A854B018ECED630032965A /* C3DDeviceAdapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = C3DDeviceAdapter_ios.mm; sourceTree = "<group>"; };
+		A9A854B118ECED630032965A /* C3DDeviceAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C3DDeviceAdapter.h; sourceTree = "<group>"; };
 		B2C5BBE318DC6EBB00C14955 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		BCE2E9D818C6FEDF006CEE3B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -612,6 +615,8 @@
 		A9633D7018C09304003BE009 /* cocos3d */ = {
 			isa = PBXGroup;
 			children = (
+				A9A854B018ECED630032965A /* C3DDeviceAdapter_ios.mm */,
+				A9A854B118ECED630032965A /* C3DDeviceAdapter.h */,
 				A9633D7218C09304003BE009 /* AttachNode.cpp */,
 				A9633D7318C09304003BE009 /* AttachNode.h */,
 				A9633D7418C09304003BE009 /* Base.h */,
@@ -1016,6 +1021,7 @@
 				A9633E5418C09304003BE009 /* C3DAnimation.cpp in Sources */,
 				A9633E8B18C09304003BE009 /* C3DRenderBlock.cpp in Sources */,
 				A9633E7118C09304003BE009 /* C3DMatrix.cpp in Sources */,
+				A9A854B218ECED630032965A /* C3DDeviceAdapter_ios.mm in Sources */,
 				A9633E7A18C09304003BE009 /* C3Dneon_matrix_impl.c in Sources */,
 				A9633EA218C09304003BE009 /* C3DTexture.cpp in Sources */,
 				A9633E6618C09304003BE009 /* C3DElementNode.cpp in Sources */,
