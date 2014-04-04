@@ -197,7 +197,7 @@ void C3DScene::preDraw()
 {
     C3DStat::getInstance()->beginStat();
 
-    if (_activeShadowMap && _activeShadowMap->active())
+	if (_activeShadowMap && _activeShadowMap->isVisible())
     {
         _inShadowPass = true;
 
@@ -209,7 +209,7 @@ void C3DScene::preDraw()
 		for (size_t i = 0; i < _children.size(); ++i)
 		{
 			C3DNode* node = _children[i];
-			if(node->active())
+			if(node->isVisible())
 			{
 				node->draw();
 
@@ -240,7 +240,7 @@ void C3DScene::draw()
 	for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
-		if(node->active())
+		if(node->isVisible())
 		{
 			node->draw();
 
@@ -252,7 +252,7 @@ void C3DScene::draw()
 
 void C3DScene::postDraw()
 {
-	if (_activePostProcess && _activePostProcess->active())
+	if (_activePostProcess && _activePostProcess->isVisible())
 	{
 		_activePostProcess->preChannelDraw();
 	}
@@ -261,7 +261,7 @@ void C3DScene::postDraw()
 
 	//....posteffect start ....
 
-	if (_activePostProcess && _activePostProcess->active())
+	if (_activePostProcess && _activePostProcess->isVisible())
 	{
 		_activePostProcess->postChannelDraw();
         _activePostProcess->beginDraw();
@@ -272,7 +272,7 @@ void C3DScene::postDraw()
 
 	for (unsigned int i = 0; i < _postDrawNode.size(); i++)
 	{
-		if(_postDrawNode[i]->active())
+		if(_postDrawNode[i]->isVisible())
 		{
 			_postDrawNode[i]->draw();
 		}
@@ -290,7 +290,7 @@ void C3DScene::update(long elapsedTime)
     for (i = 0; i < _children.size(); ++i)
 	{
 		C3DNode* node = _children[i];
-		if(node->active())
+		if(node->isVisible())
 			node->update(elapsedTime);
     }
 

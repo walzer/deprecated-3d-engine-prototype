@@ -21,27 +21,19 @@ void main()
 	vec4 glow = vec4( 0.0 );
 	float glowWeight = 0.0;
 	float glowParam = 0.5;
-	if ( src.a < 0.001 )
-	{
-	}
-	else if ( src.a <= glowParam )
+	if ( src.a <= glowParam )
 	{
 		glowWeight = src.a/glowParam;
-		glow = src*glowWeight*(1.0-dst)*u_glowIntensity;
 	}
 	else
 	{
 		glowWeight =pow(1.0-clamp(src.a-glowParam, 0.0, (1.0-glowParam))/(1.0-glowParam), 0.125);
-		glow = src*glowWeight*(1.0-dst)*u_glowIntensity;
 	}
+	glow = src*glowWeight*(1.0-dst)*u_glowIntensity;
 	
 	
 	
 	gl_FragColor = dst+glow;
-	//gl_FragColor.r = u_glowIntensity;
-	//gl_FragColor.g = 0.0;
-	//gl_FragColor.b = 0.0;
-	
 	
 	//gl_FragColor = vec4(0.0);
 	//gl_FragColor.r = u_glowIntensity;

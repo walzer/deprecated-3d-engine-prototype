@@ -11,7 +11,8 @@ class C3DRenderTarget;
 
 /**
 Defines view port.
-With corner(x, y) and width, height
+With corner(x, y) and width, height.
+viewport use screen coordinate system 
 */
 class C3DViewport
 {

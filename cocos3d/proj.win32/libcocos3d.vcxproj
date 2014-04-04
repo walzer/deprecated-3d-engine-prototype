@@ -33,6 +33,7 @@
     <ClCompile Include="..\C3DCone.cpp" />
     <ClCompile Include="..\C3DCylinder.cpp" />
     <ClCompile Include="..\C3DDepthStencilTarget.cpp" />
+    <ClCompile Include="..\C3DDeviceAdapter_pc.cpp" />
     <ClCompile Include="..\C3DEffect.cpp" />
     <ClCompile Include="..\C3DEffectManager.cpp" />
     <ClCompile Include="..\C3DElementNode.cpp" />
@@ -136,6 +137,7 @@
     <ClInclude Include="..\C3DCone.h" />
     <ClInclude Include="..\C3DCylinder.h" />
     <ClInclude Include="..\C3DDepthStencilTarget.h" />
+    <ClInclude Include="..\C3DDeviceAdapter.h" />
     <ClInclude Include="..\C3DEffect.h" />
     <ClInclude Include="..\C3DEffectManager.h" />
     <ClInclude Include="..\C3DElementNode.h" />
