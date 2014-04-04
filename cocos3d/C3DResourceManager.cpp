@@ -142,6 +142,7 @@ void C3DResourceManager::update(long elapsedTime)
 void C3DResourceManager::reload()
 {
 	_usedPool->reload();
+	_waitPool->reload();
 }
 
 }

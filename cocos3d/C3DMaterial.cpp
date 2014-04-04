@@ -31,7 +31,6 @@ C3DMaterial::~C3DMaterial()
         }
     }
 
-	_techniques.swap(std::vector<C3DTechnique*>());
     //memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
 }
 
