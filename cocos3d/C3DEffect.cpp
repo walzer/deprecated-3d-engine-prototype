@@ -35,7 +35,7 @@ C3DEffect::~C3DEffect()
             __currentEffect = NULL;
         }
 
-        //GL_ASSERT( glDeleteProgram(_program) );
+        GL_ASSERT( glDeleteProgram(_program) );
         _program = 0;
     }
 }
@@ -153,6 +153,9 @@ void C3DEffect::reload()
 	}
 
 	load(elementNode);
+
+	SAFE_DELETE(elementNode);
+
 	LOG_TRACE("---3DEffect::reload finished---");
 }
 
