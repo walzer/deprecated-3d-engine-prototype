@@ -307,7 +307,6 @@ C3DTextureMgr::~C3DTextureMgr()
 {
 	LOG_TRACE_VARG("@C3DTextureMgr::%d", _texCon.size());
 	
-	_texCon.swap(T_CACHE_CONTAINER());
 	g_3DTextureMgr = NULL;
 }
 

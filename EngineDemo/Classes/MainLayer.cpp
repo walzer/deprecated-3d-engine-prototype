@@ -62,7 +62,7 @@ bool MainLayer::init()
 
     addChild(pMenu, 1);
 
-    CCLabelTTF* label = CCLabelTTF::create("MainMenu", "Arial", 24);
+    CCLabelTTF* label = CCLabelTTF::create("MainMenu", "Arial", 48);
     //#endif
     CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(MainLayer::menuBackCallback,this));
 

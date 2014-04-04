@@ -297,7 +297,6 @@ C3DSamplerMgr::~C3DSamplerMgr()
 {
 	LOG_TRACE_VARG("@C3DSampleMgr::%d", _sampleCache.size());
 
-	_sampleCache.swap(T_CACHE_CONTAINER());
 	g_3DSampleMgr = NULL;
 }
 

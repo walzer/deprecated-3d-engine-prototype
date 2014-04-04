@@ -16,10 +16,13 @@ static C3DEffect* __currentEffect = NULL;
 
 C3DEffect::C3DEffect(const std::string& name) : C3DResource(name),_program(0)
 {
+	LOG_TRACE_VARG("+Effect: %s", name.c_str());
 }
 
 C3DEffect::~C3DEffect()
 {
+	LOG_TRACE_VARG("-Effect: %s with ID:%d", getID().c_str(), _program);
+
     // Free uniforms.
     for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); itr++)
     {
@@ -120,7 +123,7 @@ void C3DEffect::reload()
 {
 	setCurrentEffect(NULL);
 
-	LOG_TRACE_VARG("---3DEffect::reload %s---", _uniqueKey.c_str());
+	LOG_TRACE_VARG("Effect::reload %s", _uniqueKey.c_str());
 	    // Free uniforms.
     for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); ++itr)
     {
@@ -156,7 +159,7 @@ void C3DEffect::reload()
 
 	SAFE_DELETE(elementNode);
 
-	LOG_TRACE("---3DEffect::reload finished---");
+	LOG_TRACE("Effect::reload finished");
 }
 
 bool C3DEffect::load(C3DElementNode* node)
@@ -168,6 +171,8 @@ bool C3DEffect::load(C3DElementNode* node)
 	const std::string& defines = node->getElement("defines");
 
 	//---------------------------------------------------------
+	LOG_TRACE_VARG("%s * %s * %s", vshPath.c_str(), fshPath.c_str(), defines.c_str());
+	
 	_uniqueKey  = vshPath;
 	_uniqueKey += ';';
 	_uniqueKey += fshPath;
@@ -177,6 +182,8 @@ bool C3DEffect::load(C3DElementNode* node)
 		_uniqueKey += ';';
 		_uniqueKey += defines;
 	}
+
+	LOG_TRACE_VARG("--%s", _uniqueKey.c_str());
 	//---------------------------------------------------------
 
 	_vshPath = vshPath;
@@ -320,6 +327,7 @@ bool C3DEffect::load(const std::string& vshSource, const std::string& fshSource,
         return false;
     }
 
+	LOG_TRACE_VARG("Effect program id changed:: %d --> %d", _program, program);
     this->_program = program;
 
     // Query and store vertex attribute meta-data from the program.

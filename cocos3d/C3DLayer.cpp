@@ -29,8 +29,6 @@
 #include "CCStdC.h"
 using namespace cocos2d;
 
-#include <vld.h>
-
 GLenum __gl_error_code = GL_NO_ERROR;
 #define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
 namespace cocos3d

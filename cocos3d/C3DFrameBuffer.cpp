@@ -229,7 +229,6 @@ C3DFrameBufferMgr::~C3DFrameBufferMgr()
 {
 	LOG_TRACE_VARG("@C3DFrameBufferMgr::%d", _frameBufs.size());
 
-	_frameBufs.swap(T_CACHE_CONTAINER());
 	g_3DFrmaeBufferMgr = NULL;
 }
 
