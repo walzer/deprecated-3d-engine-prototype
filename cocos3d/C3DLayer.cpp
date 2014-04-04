@@ -29,6 +29,8 @@
 #include "CCStdC.h"
 using namespace cocos2d;
 
+#include <vld.h>
+
 GLenum __gl_error_code = GL_NO_ERROR;
 #define MATH_DEG_TO_RAD(x)          ((x) * 0.0174532925f)
 namespace cocos3d
@@ -192,11 +194,11 @@ void C3DLayer::shutdown()
     {
         finalize();
 
+		SAFE_RELEASE(_spriteManager);
         SAFE_RELEASE(_renderSystem);
 
         _state = UNINITIALIZED;
 
-		 SAFE_RELEASE(_spriteManager);
     }
 }
 

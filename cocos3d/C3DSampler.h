@@ -105,22 +105,22 @@ private:
 
 //-------------------------------------------------------------------------------------
 
-class C3DSampleMgr
+class C3DSamplerMgr :public cocos2d::Ref
 {
 public:
 	typedef std::vector<C3DSampler*> T_CACHE_CONTAINER;
 public:
-	static C3DSampleMgr* getInstance();
+	static C3DSamplerMgr* getInstance();
 
 	void add(C3DSampler* texture);
 	void remove(C3DSampler* texture);
 
 	void reload();
 protected:
-	C3DSampleMgr();
-	~C3DSampleMgr();
+	C3DSamplerMgr();
+	~C3DSamplerMgr();
 protected:
-	T_CACHE_CONTAINER _textureCache;
+	T_CACHE_CONTAINER _sampleCache;
 };
 
 extern Texture_Wrap parseTextureWrapMode(const std::string& str, Texture_Wrap defaultValue);

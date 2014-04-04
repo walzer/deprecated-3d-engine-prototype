@@ -205,7 +205,6 @@ void C3DTexture::init(int width, int height, C3DTexture::Format fmt, bool genera
 
     GL_ASSERT(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, (GLenum)fmt, type, 0));
 
-	LOG_TRACE_VARG("3DTexUpdate:%d--%d", _handle, handle);
     _handle = handle;
 	_fmt = fmt;
 
@@ -306,6 +305,9 @@ C3DTextureMgr::C3DTextureMgr()
 
 C3DTextureMgr::~C3DTextureMgr()
 {
+	LOG_TRACE_VARG("@C3DTextureMgr::%d", _texCon.size());
+	
+	_texCon.swap(T_CACHE_CONTAINER());
 	g_3DTextureMgr = NULL;
 }
 
@@ -322,25 +324,25 @@ C3DTextureMgr* C3DTextureMgr::getInstance()
 // zhukaixy: 2DTexture应该单独的建立一个队列
 void C3DTextureMgr::add(C3DTexture* texture)
 {
-	T_CACHE_CONTAINER::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
-	if (itr == _textureCache.end())
+	T_CACHE_CONTAINER::iterator itr = std::find(_texCon.begin(), _texCon.end(), texture);
+	if (itr == _texCon.end())
 	{
-		_textureCache.push_back(texture);
+		_texCon.push_back(texture);
 	}
 }
 
 void C3DTextureMgr::remove(C3DTexture* texture)
 {
-	T_CACHE_CONTAINER::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
-	if (itr != _textureCache.end())
+	T_CACHE_CONTAINER::iterator itr = std::find(_texCon.begin(), _texCon.end(), texture);
+	if (itr != _texCon.end())
 	{
-		_textureCache.erase(itr);
+		_texCon.erase(itr);
 	}
 }
 
 C3DTexture* C3DTextureMgr::get(const std::string& strID)
 {
-	for(T_CACHE_CONTAINER::iterator iter = _textureCache.begin(); iter!=_textureCache.end(); ++iter)
+	for(T_CACHE_CONTAINER::iterator iter = _texCon.begin(); iter!=_texCon.end(); ++iter)
 	{
 		if((*iter)->getPath() == strID)
 			return *iter;
@@ -349,7 +351,7 @@ C3DTexture* C3DTextureMgr::get(const std::string& strID)
 
 void C3DTextureMgr::reload()
 {
-	for(T_CACHE_CONTAINER::iterator iter = _textureCache.begin(); iter!=_textureCache.end(); ++iter)
+	for(T_CACHE_CONTAINER::iterator iter = _texCon.begin(); iter!=_texCon.end(); ++iter)
 	{
 		(*iter)->reload();
 	}

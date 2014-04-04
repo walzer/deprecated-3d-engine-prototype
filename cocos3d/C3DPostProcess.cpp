@@ -100,6 +100,7 @@ void C3DPostProcess::postChannelDraw()
     CCAssert(_framebuffer, "Empty frame buffer");;
     _framebuffer->unbind();
 }
+
 void C3DPostProcess::beginDraw()
 {
 	_isDraw = true;

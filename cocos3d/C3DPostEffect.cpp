@@ -63,7 +63,6 @@ bool C3DPostEffect::init(const std::string& szMaterial)
     return true;
 }
 
-
 bool C3DPostEffect::reset()
 {
 	SAFE_RELEASE(_model);
@@ -93,21 +92,18 @@ void C3DPostEffect::setGridSize( unsigned int x, unsigned int y )
 	_x = std::max<size_t>(x, 1);
 	_y = std::max<size_t>(y, 1);
 
-	C3DMesh* mesh = Geo::createQuadFullscreen( _x, _y );
-	_model->setMesh( mesh );
-	SAFE_RELEASE(mesh);
+	reload();
 }
 
 void C3DPostEffect::reload()
 {
-	reset();
+	Geo::createQuadFullscreen( _x, _y, _model->getMesh());
 }
 
 C3DPostEffect::~C3DPostEffect()
 {
 	SAFE_RELEASE(_model);
     SAFE_RELEASE(_material);
-	//SAFE_RELEASE(_postProcess);
 }
 
 void C3DPostEffect::draw()

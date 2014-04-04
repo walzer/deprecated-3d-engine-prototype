@@ -33,15 +33,6 @@ C3DSpriteManager* C3DSpriteManager::getInstance()
 
 C3DResource* C3DSpriteManager::createResource(const std::string& name)
 {
-	/*C3DResource* sprite = new C3DSprite(name);
-
-	if(sprite->load(name) == true)
-	{
-		this->setResourceState(sprite,C3DResource::State_Used);
-	}
-
-	return sprite;*/
-	
 	// zhukaixy：这个地方和C3DRenderNode重复了-------------------------------------------------------------------
 	C3DResourceLoader* loader = C3DResourceLoader::create(name);
 	loader->autorelease();

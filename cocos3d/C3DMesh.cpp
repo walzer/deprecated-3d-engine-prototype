@@ -6,8 +6,8 @@
 
 namespace cocos3d
 {
-C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType)
-    :C3DBaseMesh(vertexFormat,primitiveType),
+C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat, PrimitiveType primitiveType)
+    :C3DBaseMesh(vertexFormat, primitiveType),
 	 _vertexBuffer(0),
 	 _vertexCount(0),
 	 _partCount(0),
@@ -34,7 +34,7 @@ void C3DMesh::reload()
 
     if (_vertexBuffer)
     {
-        glDeleteBuffers(1, &_vertexBuffer);
+        //glDeleteBuffers(1, &_vertexBuffer);
         _vertexBuffer = 0;
     }
 

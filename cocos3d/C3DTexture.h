@@ -20,6 +20,7 @@ namespace cocos3d
     class C3DTexture : public cocos2d::CCObject
     {
         friend class C3DSampler;
+		friend class C3DTextureMgr;
 
     public:
 
@@ -118,22 +119,22 @@ namespace cocos3d
         static C3DTexture* createCompressedPVRTC(const std::string& path);
 #endif
 
-        std::string _path;
+        std::string			_path;
 
 		// zhukaixy: Handle不为0说明是一个Cocos3D纹理，否则为Cocos2D管理的纹理(即与_texture互斥)，历史遗留代码稍后处理。
-		GLuint _handle;
-		C3DTexture::Format _fmt;
+		GLuint				_handle;
+		C3DTexture::Format	_fmt;
 
 		//------------------------------------------
-        unsigned int _width;
-        unsigned int _height;
-        bool		 _mipmapped;
+        unsigned int		_width;
+        unsigned int		_height;
+        bool				_mipmapped;
 
-        cocos2d::Texture2D * _2DTex;
+        cocos2d::Texture2D* _2DTex;
     };
 
 	//-----------------------------------------------------------------------
-	class C3DTextureMgr : public cocos2d::Ref
+	class C3DTextureMgr :public cocos2d::Ref
 	{
 	public:
 		typedef std::vector<C3DTexture*> T_CACHE_CONTAINER;
@@ -149,7 +150,7 @@ namespace cocos3d
 		C3DTextureMgr();
 		~C3DTextureMgr();
 	protected:
-		T_CACHE_CONTAINER _textureCache;
+		T_CACHE_CONTAINER _texCon;
 	};
 }
 

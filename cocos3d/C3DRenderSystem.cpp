@@ -39,10 +39,16 @@ C3DRenderSystem::C3DRenderSystem()
 	_renderChannelManager = RenderChannelManager::getInstance();
 	_renderChannelManager->retain();
 
-    initialize();
+	_samplerMgr = C3DSamplerMgr::getInstance();
+	_samplerMgr->retain();
 
-	C3DTextureMgr::getInstance()->retain();
-	C3DFrameBufferMgr::getInstance()->retain();
+	_textureMgr = C3DTextureMgr::getInstance();
+	_textureMgr->retain();
+
+	_frameBufMgr = C3DFrameBufferMgr::getInstance();
+	_frameBufMgr->retain();
+
+    initialize();
 
 	//_RSBackup = new C3DStateBlock();
 }
@@ -63,9 +69,10 @@ void C3DRenderSystem::reload()
 
 	//_RSBackup->restoreGLState(true);
 
-	C3DTextureMgr::getInstance()->reload();
-	C3DFrameBufferMgr::getInstance()->reload();
-	C3DSampleMgr::getInstance()->reload();
+	_textureMgr->reload();
+	_frameBufMgr->reload();
+	_samplerMgr->reload();
+
 	C3DEffectManager::getInstance()->reload();
 	C3DMaterialManager::getInstance()->reload();
 	C3DSpriteManager::getInstance()->reload();
@@ -99,10 +106,17 @@ C3DRenderSystem* C3DRenderSystem::getInstance()
 C3DRenderSystem::~C3DRenderSystem()
 {
 	finalize();
+
 	__renderSystemInstance = NULL;
-	SAFE_RELEASE( _renderChannelManager );
-	SAFE_RELEASE(_effectManager);
-	SAFE_RELEASE(_materialManager);
+
+	SAFE_RELEASE(_renderChannelManager);
+
+	SAFE_RELEASE(_materialManager); 
+	SAFE_RELEASE(_effectManager); 
+
+	SAFE_RELEASE(_samplerMgr); //
+	SAFE_RELEASE(_frameBufMgr) //
+	SAFE_RELEASE(_textureMgr); //
 }
 
 void C3DRenderSystem::initialize()
@@ -124,8 +138,6 @@ void C3DRenderSystem::finalize()
 
     C3DStateBlock::finalize();
 
-	C3DEffectManager::getInstance()->removeAll();
-	C3DMaterialManager::getInstance()->removeAll();
     SAFE_DELETE(_viewport);
 	SAFE_DELETE(_clearColor);
 }

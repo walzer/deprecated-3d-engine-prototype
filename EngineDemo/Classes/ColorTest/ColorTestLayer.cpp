@@ -79,14 +79,14 @@ void ColorTestLayer::draw3D()
 
 void ColorTestLayer::setUpScene()
 {
-    C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
-    sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
-    sm->setMaterial("body", "demores/hua_01/hua_01.material");
-    sm->playAnimationClip("all");
-    sm->setPosition(0.0f, -50, -30.0f);
-    sm->setScale(3.0f);
-
-    _scene->addChild(sm);
+     C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
+     //sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
+     //sm->setMaterial("body", "demores/hua_01/hua_01.material");
+     //sm->playAnimationClip("all");
+     sm->setPosition(0.0f, -50, -30.0f);
+     sm->setScale(3.0f);
+ 
+     _scene->addChild(sm);
 }
 
 void ColorTestLayer::setUpCamera()
