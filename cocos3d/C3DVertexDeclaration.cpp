@@ -301,27 +301,16 @@ void C3DVertexDeclaration::bind()
 				GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
 			}
 
-			int mask = __curvaEnableMask ^ _vaEnableMask;
-			for(GLuint i = 0; i < __maxVertexAttribs; i++)
+			for (unsigned int i = 0; i < __maxVertexAttribs; ++i)
 			{
 				C3DVertexAttribute& a = _attributes[i];
 				if (a.enabled)
 				{
 					GL_ASSERT( glVertexAttribPointer(i, a.size, a.type, a.normalized, a.stride, a.pointer) );
-				}
-				if (mask & (1 << i))
-				{
-					if (a.enabled)
-					{
-						GL_ASSERT(glEnableVertexAttribArray(i));
-					}
-					else
-					{
-						GL_ASSERT(glDisableVertexAttribArray(i));
-					}
+					GL_ASSERT( glEnableVertexAttribArray(i) );
 				}
 			}
-			__curvaEnableMask = _vaEnableMask;
+
 		}
 	}
 	else
@@ -337,27 +326,15 @@ void C3DVertexDeclaration::bind()
             GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
         }
 
-        int mask = __curvaEnableMask ^ _vaEnableMask;
-        for(GLuint i = 0; i < __maxVertexAttribs; i++)
-        {
-            C3DVertexAttribute& a = _attributes[i];
-            if (a.enabled)
-            {
-                GL_ASSERT( glVertexAttribPointer(i, a.size, a.type, a.normalized, a.stride, a.pointer) );
-            }
-            if (mask & (1 << i))
-            {
-                if (a.enabled)
-                {
-                    GL_ASSERT(glEnableVertexAttribArray(i));
-                }
-                else
-                {
-                    GL_ASSERT(glDisableVertexAttribArray(i));
-                }
-            }
-        }
-        __curvaEnableMask = _vaEnableMask;
+        for (unsigned int i = 0; i < __maxVertexAttribs; ++i)
+		{
+			C3DVertexAttribute& a = _attributes[i];
+			if (a.enabled)
+			{
+				GL_ASSERT( glVertexAttribPointer(i, a.size, a.type, a.normalized, a.stride, a.pointer) );
+				GL_ASSERT( glEnableVertexAttribArray(i) );
+			}
+		}
  
 	}
 }
@@ -379,15 +356,32 @@ void C3DVertexDeclaration::unbind()
 			{
 				GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
 			}
+
+			for (unsigned int i = 0; i < __maxVertexAttribs; ++i)
+			{
+				if (_attributes[i].enabled)
+				{
+					GL_ASSERT( glDisableVertexAttribArray(i) );
+				}
+			}
+
         }
 	}
 	else
 	{
 	    // Software mode
-        if (_mesh)
-        {
-            GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
-        }
+			if (_mesh)
+			{
+				GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
+			}
+
+			for (unsigned int i = 0; i < __maxVertexAttribs; ++i)
+			{
+				if (_attributes[i].enabled)
+				{
+					GL_ASSERT( glDisableVertexAttribArray(i) );
+				}
+			}
 	}
 }
 

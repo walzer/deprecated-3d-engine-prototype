@@ -44,6 +44,7 @@ C3DMesh.cpp \
 C3DMeshSkin.cpp \
 C3DModel.cpp \
 C3DModelNode.cpp \
+C3Dneon_matrix_impl.c \
 C3DNode.cpp \
 C3DNoise.cpp \
 C3DOBB.cpp \

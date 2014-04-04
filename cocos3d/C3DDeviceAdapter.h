@@ -79,8 +79,13 @@ public:
 
 	bool isSupportVAO()
 	{
-     	return _supportVAO;
-      // return true;
+	
+    //	return _supportVAO;
+
+		if(_deviceLevel == DeviceLevel::High)
+			return _supportVAO;
+		else
+			return false;
 	}
 	
 
