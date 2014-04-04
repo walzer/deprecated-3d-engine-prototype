@@ -1380,9 +1380,10 @@ bool C3DResourceLoader::loadAnimation2(C3DSprite* superModel)
 
 			C3DNode* targetNode = superModel->findNode(targetId);
 
-			unsigned int nPoint = curve->getPointCount();
-			if (nPoint > nFrame)
-				nFrame = nPoint;
+			float perFrameTime = 30 / 1000.f;// 30 is the 3dMax default frame rate
+			unsigned int nFrameCount = curve->getDruationTime() * perFrameTime + 0.5;
+			if (nFrameCount > nFrame)
+				nFrame = nFrameCount;
 
 			superModel->_animation->createChannel(static_cast<C3DBone*>(targetNode),  curve);
 		}
