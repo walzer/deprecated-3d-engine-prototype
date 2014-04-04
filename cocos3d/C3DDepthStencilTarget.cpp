@@ -16,7 +16,6 @@ C3DDepthStencilTarget::~C3DDepthStencilTarget()
     {
         GL_ASSERT( glDeleteTextures(1, &_stencilBuffer) );
     }
-
 }
 
 C3DDepthStencilTarget* C3DDepthStencilTarget::create(const std::string& id, Format format, unsigned int width, unsigned int height)

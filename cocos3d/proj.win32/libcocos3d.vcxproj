@@ -103,6 +103,7 @@
     <ClCompile Include="..\C3DVertexDeclaration.cpp" />
     <ClCompile Include="..\C3DVertexFormat.cpp" />
     <ClCompile Include="..\C3DViewport.cpp" />
+    <ClCompile Include="..\DeviceCallback.cpp" />
     <ClCompile Include="..\FacialAnimation.cpp" />
     <ClCompile Include="..\FacialAnimManager.cpp" />
     <ClCompile Include="..\Geo.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="..\C3DVertexFormat.h" />
     <ClInclude Include="..\C3DViewport.h" />
     <ClInclude Include="..\cocos3d.h" />
+    <ClInclude Include="..\DeviceCallback.h" />
     <ClInclude Include="..\EnumDef_GL.h" />
     <ClInclude Include="..\FacialAnimation.h" />
     <ClInclude Include="..\FacialAnimManager.h" />

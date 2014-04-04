@@ -35,7 +35,7 @@ C3DEffect::~C3DEffect()
             __currentEffect = NULL;
         }
 
-        GL_ASSERT( glDeleteProgram(_program) );
+        //GL_ASSERT( glDeleteProgram(_program) );
         _program = 0;
     }
 }

@@ -79,9 +79,9 @@ void PerformanceTestLayer::draw3D()
 
 void PerformanceTestLayer::setUpScene()
 {
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 1; i++)
     {
-		for (int j = 0; j < 10; j++)
+		for (int j = 0; j < 1; j++)
 		{
 			C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
 			sm->addAnimationClip("all", 0 , 240, 0, 1.0f);

@@ -31,6 +31,7 @@ C3DFrameBuffer::~C3DFrameBuffer()
 C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width, unsigned int height, unsigned int fmtColor, unsigned int fmtDepth)
 {
     // Create C3DRenderTarget with same ID
+	LOG_TRACE_VARG("++++++++create FBO:%s    %d    %d    %d    %d", id.c_str(), width, height, fmtColor, fmtDepth);
     C3DRenderTarget* renderTarget = NULL;
 
     if (fmtColor)
@@ -100,6 +101,7 @@ void C3DFrameBuffer::reload()
 
 	setRenderTarget(_renderTarget);
 	setDepthStencilTarget(_depthStencilTarget);
+	LOG_TRACE_VARG("++++++++Reload FBO:%s    %d    %d", _id.c_str(), _width, _height);
 }
 
 void C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
@@ -225,6 +227,9 @@ C3DFrameBufferMgr::C3DFrameBufferMgr()
 
 C3DFrameBufferMgr::~C3DFrameBufferMgr()
 {
+	LOG_TRACE_VARG("@C3DFrameBufferMgr::%d", _frameBufs.size());
+
+	_frameBufs.swap(T_CACHE_CONTAINER());
 	g_3DFrmaeBufferMgr = NULL;
 }
 

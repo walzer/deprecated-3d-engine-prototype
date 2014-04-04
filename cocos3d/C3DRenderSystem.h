@@ -15,6 +15,10 @@ class C3DMaterialManager;
 class C3DScreenProcessManager;
 class C3DStateBlock;
 
+class C3DSamplerMgr;
+class C3DTextureMgr;
+class C3DFrameBufferMgr;
+
 /**
 Defines the view port and clear flag
 */
@@ -76,8 +80,11 @@ protected:
     C3DViewport* _viewport;                        // the games's current viewport.
     RenderChannelManager* _renderChannelManager;
 
-	C3DEffectManager* _effectManager;
+	C3DTextureMgr*		_textureMgr;
+	C3DSamplerMgr*		_samplerMgr;
+	C3DEffectManager*	_effectManager;
 	C3DMaterialManager* _materialManager;
+	C3DFrameBufferMgr*	_frameBufMgr;
 
     C3DVector4* _clearColor;                        // The clear color value last used for clearing the color buffer.
 

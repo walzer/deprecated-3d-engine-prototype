@@ -157,9 +157,9 @@ void PostEffectTestLayer::setUpPostEffect()
 	pp->addPostEffect( PEPointWarp::create( postEffectTypes[POINT_WARP], "demores/posteffect/postprocess_point_warp.material", pp ) );
 
 	C3DPostEffect* pe = pp->getPostEffect( postEffectTypes[VORTEX] );
-	pe->setGridSize( width*0.2, height*0.2 );
+	pe->setGridSize( width*0.05, height*0.05 );
 	pe = pp->getPostEffect( postEffectTypes[POINT_WARP] );
-	pe->setGridSize( width*0.2, height*0.2 );
+	pe->setGridSize( width*0.05, height*0.05 );
 }
 
 void PostEffectTestLayer::setUpCamera()
@@ -263,11 +263,11 @@ CCLayer* PostEffectTestLayer::createUILayer()
 
     for (int i = 0; i < POSTEFFECT_NUM; ++i)
     {
-        CCLabelTTF* label = CCLabelTTF::create(postEffectTypes[i], "Arial", 20);
+        CCLabelTTF* label = CCLabelTTF::create(postEffectTypes[i], "Arial", 40);
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(PostEffectTestLayer::menuCallback, this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
-        pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));
+        pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 40) ));
     }
 
     pItemMenu->setPosition(0, 0);

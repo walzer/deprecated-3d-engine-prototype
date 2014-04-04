@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libchipmunk", "..\cocos2dx\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcocos2d", "..\cocos2dx\cocos\2d\cocos2d.vcxproj", "{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fishJoy", "..\projects\fishJoy\proj.win32\fishJoy.vcxproj", "{5B4A7770-0223-4E79-A667-9B893DB3AFB7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -42,6 +44,10 @@ Global
 		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Debug|Win32.Build.0 = Debug|Win32
 		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Release|Win32.ActiveCfg = Release|Win32
 		{98A51BA8-FC3A-415B-AC8F-8C7BD464E93E}.Release|Win32.Build.0 = Release|Win32
+		{5B4A7770-0223-4E79-A667-9B893DB3AFB7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5B4A7770-0223-4E79-A667-9B893DB3AFB7}.Debug|Win32.Build.0 = Debug|Win32
+		{5B4A7770-0223-4E79-A667-9B893DB3AFB7}.Release|Win32.ActiveCfg = Release|Win32
+		{5B4A7770-0223-4E79-A667-9B893DB3AFB7}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

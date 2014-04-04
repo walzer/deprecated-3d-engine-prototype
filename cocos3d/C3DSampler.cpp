@@ -14,7 +14,7 @@ C3DSampler::C3DSampler()
 	_magFilter(Texture_Filter_LINEAR),
 	_dirtyBit(Texture_All_Dirty)
 {
-	C3DSampleMgr::getInstance()->add(this);
+	C3DSamplerMgr::getInstance()->add(this);
 }
 
 C3DSampler::C3DSampler(C3DTexture* texture)
@@ -26,13 +26,13 @@ C3DSampler::C3DSampler(C3DTexture* texture)
 	setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     _minFilter = texture->isMipmapped() ? Texture_Filter_LINEAR_MIPMAP_LINEAR : Texture_Filter_LINEAR;
 
-	C3DSampleMgr::getInstance()->add(this);
+	C3DSamplerMgr::getInstance()->add(this);
 }
 
 C3DSampler::~C3DSampler()
 {
     SAFE_RELEASE(_3DTexture);
-	C3DSampleMgr::getInstance()->remove(this);
+	C3DSamplerMgr::getInstance()->remove(this);
 }
 
 C3DSampler* C3DSampler::create(C3DTexture* texture)
@@ -287,47 +287,51 @@ bool C3DSampler::save(C3DElementNode* node)
 }
 
 //-----------------------------------------------------------------------------------
-static C3DSampleMgr* g_3DSampleMgr = NULL;
+static C3DSamplerMgr* g_3DSampleMgr = NULL;
 
-C3DSampleMgr::C3DSampleMgr()
+C3DSamplerMgr::C3DSamplerMgr()
 {
 }
 
-C3DSampleMgr::~C3DSampleMgr()
+C3DSamplerMgr::~C3DSamplerMgr()
 {
+	LOG_TRACE_VARG("@C3DSampleMgr::%d", _sampleCache.size());
+
+	_sampleCache.swap(T_CACHE_CONTAINER());
 	g_3DSampleMgr = NULL;
 }
 
-C3DSampleMgr* C3DSampleMgr::getInstance()
+C3DSamplerMgr* C3DSamplerMgr::getInstance()
 {
 	if (!g_3DSampleMgr)
 	{
-		g_3DSampleMgr = new C3DSampleMgr();
+		g_3DSampleMgr = new C3DSamplerMgr();
+		g_3DSampleMgr->autorelease();
 	}
 	return g_3DSampleMgr;
 }
 
-void C3DSampleMgr::add(C3DSampler* texture)
+void C3DSamplerMgr::add(C3DSampler* texture)
 {
-	std::vector<C3DSampler*>::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
-	if (itr == _textureCache.end())
+	std::vector<C3DSampler*>::iterator itr = std::find(_sampleCache.begin(), _sampleCache.end(), texture);
+	if (itr == _sampleCache.end())
 	{
-		_textureCache.push_back(texture);
+		_sampleCache.push_back(texture);
 	}
 }
 
-void C3DSampleMgr::remove(C3DSampler* texture)
+void C3DSamplerMgr::remove(C3DSampler* texture)
 {
-	std::vector<C3DSampler*>::iterator itr = std::find(_textureCache.begin(), _textureCache.end(), texture);
-	if (itr != _textureCache.end())
+	std::vector<C3DSampler*>::iterator itr = std::find(_sampleCache.begin(), _sampleCache.end(), texture);
+	if (itr != _sampleCache.end())
 	{
-		_textureCache.erase(itr);
+		_sampleCache.erase(itr);
 	}
 }
 
-void C3DSampleMgr::reload()
+void C3DSamplerMgr::reload()
 {
-	for(T_CACHE_CONTAINER::iterator iter = _textureCache.begin(); iter!=_textureCache.end(); ++iter)
+	for(T_CACHE_CONTAINER::iterator iter = _sampleCache.begin(); iter!=_sampleCache.end(); ++iter)
 	{
 		(*iter)->reload();
 	}
