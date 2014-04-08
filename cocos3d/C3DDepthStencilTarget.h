@@ -2,10 +2,11 @@
 #define DEPTHSTENCILTARGET_H_
 
 #include "Base.h"
-#include "C3DTexture.h"
+#include "cocos2d.h"
 
 namespace cocos3d
 {
+class C3DTexture;
 
 /**
  * Defines a contain for depth and stencil targets in a frame buffer object.
@@ -14,7 +15,7 @@ namespace cocos3d
  * creation of a C3DDepthStencilTarget always attempts to create an underlying
  * depth texture.
  */
-class C3DDepthStencilTarget : public C3DTexture
+class C3DDepthStencilTarget : public cocos2d::Ref
 {
     friend class C3DFrameBuffer;
 
@@ -45,6 +46,11 @@ public:
     static C3DDepthStencilTarget* getDepthStencilTarget(const std::string& id);
 
 	/**
+     * id string
+     */
+    const std::string& getID() const;
+
+	/**
      * DepthStencilTarget format.
      */
     Format getFormat() const;
@@ -52,7 +58,7 @@ public:
 	/**
      * Texture associate to DepthStencilTarge.
      */
-	virtual void reload();
+    C3DTexture* getTexture() const;
 
 private:
 	/**
@@ -61,7 +67,10 @@ private:
     C3DDepthStencilTarget(const std::string& id, Format format);
     ~C3DDepthStencilTarget();
 
+	//properties
+    std::string _id;
     Format _format;
+    C3DTexture* _depthTexture;
     RenderBufferHandle _stencilBuffer;
 };
 }

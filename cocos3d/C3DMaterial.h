@@ -44,6 +44,7 @@ public:
     virtual ~C3DMaterial();
 	virtual void reload();
 
+protected:
 	 /**
      * create a material from the file.
      *
@@ -54,7 +55,7 @@ public:
      * @return The created material.
      */
     static C3DMaterial* create(const std::string& fileName);
-
+public:
 	/**
      * create a material from the material info of an elementnode.
      *

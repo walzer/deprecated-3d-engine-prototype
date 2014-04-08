@@ -15,10 +15,12 @@ C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat, PrimitiveType primitiveType)
 	 _dynamic(false),
 	 _boundingBox(NULL)
 {
+	LOG_TRACE_VARG("%p +C3DMesh", this);
 }
 
 C3DMesh::~C3DMesh()
 {
+	LOG_TRACE_VARG("%p -C3DMesh", this);
 	reload();
 }
 

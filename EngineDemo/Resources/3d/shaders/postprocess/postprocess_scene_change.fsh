@@ -23,7 +23,7 @@ vec3 PostFX( vec2 uv )
   tc -= vec2(0.5, 0.5);
   float dist = length(tc);
 	float percent = (radius - dist) / radius;
-  if ( percent < 1.0 && percent >= 0.0) 
+  if ( percent < 1 && percent >= 0) 
   {
     float theta = percent * percent * angle * 8.0;
     float s = sin(theta);
@@ -39,9 +39,16 @@ vec3 PostFX( vec2 uv )
 
 void main (void)
 {
+
 	vec3 uvw = PostFX( v_texCoord );
 	gl_FragColor = texture2D(u_texture, uvw.xy);
-
-	gl_FragColor.a = clamp(uvw.z, 0.0, 1.0);
-
+  
+  gl_FragColor.a = clamp(uvw.z, 0, 1);
+  //gl_FragColor.r = gl_FragColor.a;
+    //gl_FragColor = texture2D(u_TempTex, v_texCoord);
+    //gl_FragColor.rg = newUV;
+    
+    //gl_FragColor.r = 1;
+    //gl_FragColor.g = 1;
+    //gl_FragColor.b = 1;
 }

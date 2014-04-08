@@ -108,6 +108,7 @@ public:
 		ST_None,
 	};
 	typedef std::list<BaseChannelDrawItem*> ChannelDrawItems;
+	typedef std::map<std::string,ChannelDrawItems> ChannelDrawItemsMap;
 
 public:
 	/**
@@ -127,7 +128,7 @@ public:
 	/**
 	 * add draw item
 	 */
-	virtual void addItem( C3DBaseModel* model, float sortParam );
+	virtual void addItem( C3DBaseModel* model, float sortParamFlo, const std::string& sortParamStr = "" );
 
 	// 如需进行特殊渲染排序，在此进行
 	virtual void preDraw(void);
@@ -155,10 +156,7 @@ public:
 		_channelName = name;
 	}
 
-	inline int itemCount(void)
-	{
-		return _drawItems.size();
-	}
+	int itemCount(void);
 
 	bool getEnable(void) const
 	{
@@ -170,7 +168,7 @@ protected:
 	bool (*compare)( const BaseChannelDrawItem* a, const BaseChannelDrawItem* b );
 private:
 	SortType _sortType;
-	ChannelDrawItems _drawItems;
+	ChannelDrawItemsMap _drawItems;
 	unsigned int _drawItemAlloc;
 	std::string _channelName;
 

@@ -144,6 +144,8 @@ C3DMaterial* C3DMaterial::create(const std::string& vshPath, const std::string& 
 
 	SAFE_DELETE(tpMatNode);
 
+	C3DMaterialManager::getInstance()->setResourceState(material, C3DResource::State_Used);
+
 	return material;
 }
 

@@ -398,10 +398,8 @@ seekCheck::~seekCheck()
 
 void C3DResourceLoader::reloadNode(C3DNode* context)
 {
-	seekCheck autoSeek(this);
-
+	seekCheck	autoSeek(this);
     std::string nodeID(getIdFromOffset());
-	LOG_TRACE_VARG("---C3DResourceLoader::reloadNode(%s)---", nodeID.c_str());
 
     // Read node type
     unsigned int eNodeType;

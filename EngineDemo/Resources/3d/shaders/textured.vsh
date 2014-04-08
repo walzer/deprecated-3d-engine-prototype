@@ -1,3 +1,10 @@
+#ifdef OPENGL_ES
+#ifdef GL_FRAGMENT_PRECISION_HIGH
+precision highp float;
+#else
+precision mediump float;
+#endif
+#endif
 // Uniforms
 uniform mat4 u_worldViewProjectionMatrix;       // Matrix to transform a position to clip space.
 uniform mat4 u_worldMatrix;

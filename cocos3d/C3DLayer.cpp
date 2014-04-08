@@ -280,7 +280,7 @@ void C3DLayer::beginRender()
 
     C3DEffect::setCurrentEffect(NULL);
 
-    C3DVertexDeclaration::setCurVertAttEnables(0, true);
+    //C3DVertexDeclaration::setCurVertAttEnables(0, true);
 
     _renderSystem->setViewport(/*point1.x, point1.y, point2.x - point1.x, point2.y - point1.y*/);
 

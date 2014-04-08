@@ -181,7 +181,6 @@ void C3DModel::setMaterial(C3DMaterial* material, int partIndex)
                 C3DPass* p = t->getPass(j);
                 C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh, p->getEffect());
                 p->setVertexAttributeBinding(b);
-                SAFE_RELEASE(b);
             }
         }
 
@@ -563,7 +562,7 @@ void C3DModel::applyShadowMap(C3DPass* pass)
         return;
 
     C3DShadowMap* shadowMap = _node->get3DScene()->getActiveShadowMap();
-    if (!shadowMap || !shadowMap->active())
+	if (!shadowMap || !shadowMap->isVisible())
         return;
 
     pass->getParameter("u_shadowMatrix")->setValue(shadowMap->getTextureMatrix());

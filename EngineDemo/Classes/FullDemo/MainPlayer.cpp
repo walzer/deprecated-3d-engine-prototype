@@ -109,7 +109,7 @@ void MainPlayer::moveTo(cocos3d::C3DVector3& target)
 
 	if(_terrainFlag)
 	{
-		_terrainFlag->active(true);
+		_terrainFlag->setVisible(true);
 		C3DVector3 m = target;
 		//target.y -= 5;
 		_terrainFlag->setPosition(target);
@@ -156,7 +156,7 @@ void MainPlayer::update(long elapsedTime)
 	{
 		(static_cast<cocos3d::C3DSprite*>(_node))->playAnimationClip("idle");
 		if(_terrainFlag)
-			_terrainFlag->active(false);
+			_terrainFlag->setVisible(false);
 	}
 	else if(isState(_curState,MainPlayer::State_Move) || isState(_curState,MainPlayer::State_RemoteAttack) || isState(_curState,MainPlayer::State_MeleeAttack))
 	{
@@ -176,7 +176,7 @@ void MainPlayer::update(long elapsedTime)
 		(static_cast<cocos3d::C3DSprite*>(_node))->playAnimationClip( "attack_normal" );
 
 		if(_terrainFlag)
-			_terrainFlag->active(false);
+			_terrainFlag->setVisible(false);
 	}
 	else if(isState(_lastState,MainPlayer::State_RemoteAttack) && isState(_curState,MainPlayer::State_Attack))
 	{
@@ -185,7 +185,7 @@ void MainPlayer::update(long elapsedTime)
 		_lastState = MainPlayer::State_Attack;
 		if(_terrainFlag)
 		{
-			_terrainFlag->active(false);
+			_terrainFlag->setVisible(false);
 		}
 
 		static unsigned int counter = 0;

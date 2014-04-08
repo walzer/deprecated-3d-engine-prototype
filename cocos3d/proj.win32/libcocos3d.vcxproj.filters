@@ -296,7 +296,7 @@
     <ClCompile Include="..\C3DProfile.cpp">
       <Filter>performance</Filter>
     </ClCompile>
-    <ClCompile Include="..\DeviceCallback.cpp" />
+    <ClCompile Include="..\C3DDeviceAdapter_pc.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Base.h" />
@@ -606,7 +606,7 @@
     <ClInclude Include="..\C3DProfile.h">
       <Filter>performance</Filter>
     </ClInclude>
-    <ClInclude Include="..\DeviceCallback.h" />
+    <ClInclude Include="..\C3DDeviceAdapter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\C3DMatrix.inl">

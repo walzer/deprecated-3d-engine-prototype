@@ -44,7 +44,7 @@ void C3DRenderChannel::resetChannelSize()
 	ItemPool.clear();
 }
 
-void C3DRenderChannel::addItem( C3DBaseModel* model, float sortParam )
+void C3DRenderChannel::addItem( C3DBaseModel* model, float sortParamFlo, const std::string& sortParamStr )
 {
 	if ( model == NULL )
 	{
@@ -54,17 +54,17 @@ void C3DRenderChannel::addItem( C3DBaseModel* model, float sortParam )
 	static ModelDrawItem* item(NULL);
 	if ( ItemPool.empty() )
 	{
-		item = new ModelDrawItem( model, sortParam );
+		item = new ModelDrawItem( model, sortParamFlo );
 	}
 	else
 	{
 		item = (ModelDrawItem*)(*ItemPool.begin());
 		ItemPool.pop_front();
 		item->setModel( model );
-		item->setSortParam( sortParam );
+		item->setSortParam( sortParamFlo );
 	}
 
-	_drawItems.push_back( item );
+	_drawItems[sortParamStr].push_back( item );
 }
 
 void C3DRenderChannel::preDraw(void)
@@ -87,27 +87,50 @@ void C3DRenderChannel::preDraw(void)
 
 	if ( compare != NULL )
 	{
-		_drawItems.sort( compare );
+		std::map<std::string, ChannelDrawItems>::iterator iter_map = _drawItems.begin();
+		for (;iter_map != _drawItems.end(); iter_map++)
+		{
+			iter_map->second.sort( compare );
+		}
 	}
 }
 
 void C3DRenderChannel::draw(void)
 {
-	ChannelDrawItems::iterator ite = _drawItems.begin();
-	for ( ; ite != _drawItems.end(); ++ite )
+	std::map<std::string, ChannelDrawItems>::iterator iter_map = _drawItems.begin();
+	for (;iter_map != _drawItems.end(); iter_map++)
 	{
-		(*ite)->draw();
+		ChannelDrawItems::iterator iter = iter_map->second.begin();
+		for (;iter != iter_map->second.end(); ++iter)
+		{
+			(*iter)->draw();
+		}
 	}
 }
 
 void C3DRenderChannel::postDraw(void)
 {
-	for ( ChannelDrawItems::iterator ite = _drawItems.begin(); ite != _drawItems.end(); ++ite )
+	std::map<std::string, ChannelDrawItems>::iterator iter_map = _drawItems.begin();
+	for (;iter_map != _drawItems.end(); iter_map++)
 	{
-		(*ite)->clear();
+		for ( ChannelDrawItems::iterator ite = iter_map->second.begin(); ite != iter_map->second.end(); ++ite )
+		{
+			(*ite)->clear();
+		}
+		ItemPool.insert( ItemPool.end(), iter_map->second.begin(), iter_map->second.end() );
 	}
-	ItemPool.insert( ItemPool.end(), _drawItems.begin(), _drawItems.end() );
 	_drawItems.clear();
+}
+
+int C3DRenderChannel::itemCount(void)
+{
+	int count = 0;
+	std::map<std::string, ChannelDrawItems>::iterator iter_map = _drawItems.begin();
+	for (;iter_map != _drawItems.end(); iter_map++)
+	{
+		count += iter_map->second.size();
+	}
+	return count;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -239,6 +262,6 @@ C3DTexture* RenderChannelManager::get3DSceneTexture(void)
 		createFrameBuffer();
 	}
 
-	return _frameBuffer->getRenderTarget();
+	return _frameBuffer->getRenderTarget()->getTexture();
 }
 } 

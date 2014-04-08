@@ -72,13 +72,13 @@ bool PEGlow::initGlowaram()
 	//pass0->getParameter("u_texture")->setValue(sampler);
 	pass2->getParameter("u_texture")->setValue(sampler);
 
-	sampler = C3DSampler::create(_blurFrameBufferX->getRenderTarget());
+	sampler = C3DSampler::create(_blurFrameBufferX->getRenderTarget()->getTexture());
 	sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 	pass1->getParameter("u_texture")->setValue(sampler);
 	SAFE_RELEASE(sampler);
 
-	sampler = C3DSampler::create(_blurFrameBufferY->getRenderTarget());
+	sampler = C3DSampler::create(_blurFrameBufferY->getRenderTarget()->getTexture());
 	sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 	pass2->getParameter("u_glowTexture")->setValue(sampler);

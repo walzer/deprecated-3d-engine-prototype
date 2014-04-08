@@ -207,13 +207,13 @@ public:
     const C3DMatrix& getInverseViewProjectionMatrix();
 
     /**
-     * Projects the specified world position into the viewport coordinates.
+     * convert the specified point of viewport from worldspace coordinates into the screenspace coordinates.
      *
      */
     void project(const C3DViewport* viewport, C3DVector3* src, C3DVector2* dst);
 
     /**
-     * Converts a viewport-space coordinate to a world-space position for the given depth value.
+     * Convert the specified point of viewport from screenspace coordinate into the worldspace coordinate.
      */
     void unproject(const C3DViewport* viewport, C3DVector3* src, C3DVector3* dst);
 

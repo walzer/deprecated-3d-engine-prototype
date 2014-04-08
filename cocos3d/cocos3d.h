@@ -38,5 +38,6 @@
 #include "C3DPostEffect.h"
 
 #include "C3DLineRender.h"
+#include "C3DAnimation.h"
 
 #endif
