@@ -325,7 +325,7 @@ C3DAnimationChannel* C3DAnimation::createChannel(C3DBone* bone, unsigned int key
 
 C3DAnimationChannel* C3DAnimation::createChannel(C3DBone* bone, C3DAnimationCurve* curve)
 {
-    setFrameCount(curve->getPointCount());
+    //setFrameCount(curve->getPointCount());
 
     C3DAnimationChannel* channel = new C3DAnimationChannel(this, bone,curve, curve->getDruationTime());
     addChannel(channel);
