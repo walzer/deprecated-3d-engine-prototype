@@ -72,7 +72,7 @@ C3DPostProcess* C3DPostProcess::create(const std::string& id, unsigned int texWi
 	pp->_fbHeight = texHeight;
 	pp->autorelease();
 
-    C3DSampler* sampler = C3DSampler::create(pp->_framebuffer->getRenderTarget());
+	C3DSampler* sampler = C3DSampler::create(pp->_framebuffer->getRenderTarget()->getTexture());
 	sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pp->_sampler = sampler;

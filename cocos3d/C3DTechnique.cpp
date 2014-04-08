@@ -91,7 +91,7 @@ void passReload(C3DPass* pass)
 
 void C3DTechnique::reload()
 {
-	LOG_TRACE_VARG("---C3DMaterial:%s begin reload---", _id.c_str());
+	LOG_TRACE_VARG("   C3DTechnique:%s begin reload", _id.c_str());
 	C3DRenderState::reload();
 	for_each(_passes.begin(), _passes.end(), passReload);
 }

@@ -14,7 +14,6 @@ C3DSampler::C3DSampler()
 	_magFilter(Texture_Filter_LINEAR),
 	_dirtyBit(Texture_All_Dirty)
 {
-	C3DSamplerMgr::getInstance()->add(this);
 }
 
 C3DSampler::C3DSampler(C3DTexture* texture)
@@ -25,14 +24,11 @@ C3DSampler::C3DSampler(C3DTexture* texture)
 	texture->retain();
 	setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     _minFilter = texture->isMipmapped() ? Texture_Filter_LINEAR_MIPMAP_LINEAR : Texture_Filter_LINEAR;
-
-	C3DSamplerMgr::getInstance()->add(this);
 }
 
 C3DSampler::~C3DSampler()
 {
     SAFE_RELEASE(_3DTexture);
-	C3DSamplerMgr::getInstance()->remove(this);
 }
 
 C3DSampler* C3DSampler::create(C3DTexture* texture)
@@ -284,55 +280,5 @@ bool C3DSampler::save(C3DElementNode* node)
     node->setElement("minFilter", textureFilterModeToString(this->getMinFilter()));
     node->setElement("magFilter", textureFilterModeToString(this->getMagFilter()));
 	return true;
-}
-
-//-----------------------------------------------------------------------------------
-static C3DSamplerMgr* g_3DSampleMgr = NULL;
-
-C3DSamplerMgr::C3DSamplerMgr()
-{
-}
-
-C3DSamplerMgr::~C3DSamplerMgr()
-{
-	LOG_TRACE_VARG("@C3DSampleMgr::%d", _sampleCache.size());
-
-	g_3DSampleMgr = NULL;
-}
-
-C3DSamplerMgr* C3DSamplerMgr::getInstance()
-{
-	if (!g_3DSampleMgr)
-	{
-		g_3DSampleMgr = new C3DSamplerMgr();
-		g_3DSampleMgr->autorelease();
-	}
-	return g_3DSampleMgr;
-}
-
-void C3DSamplerMgr::add(C3DSampler* texture)
-{
-	std::vector<C3DSampler*>::iterator itr = std::find(_sampleCache.begin(), _sampleCache.end(), texture);
-	if (itr == _sampleCache.end())
-	{
-		_sampleCache.push_back(texture);
-	}
-}
-
-void C3DSamplerMgr::remove(C3DSampler* texture)
-{
-	std::vector<C3DSampler*>::iterator itr = std::find(_sampleCache.begin(), _sampleCache.end(), texture);
-	if (itr != _sampleCache.end())
-	{
-		_sampleCache.erase(itr);
-	}
-}
-
-void C3DSamplerMgr::reload()
-{
-	for(T_CACHE_CONTAINER::iterator iter = _sampleCache.begin(); iter!=_sampleCache.end(); ++iter)
-	{
-		(*iter)->reload();
-	}
 }
 }

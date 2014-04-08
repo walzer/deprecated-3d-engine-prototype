@@ -120,7 +120,7 @@ void C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
 
 		// Now set this target as the color attachment.
 		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
-		GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _renderTarget->getHandle(), 0) );
+		GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _renderTarget->getTexture()->getHandle(), 0) );
 		GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
 		{
@@ -156,7 +156,7 @@ void C3DFrameBuffer::setDepthStencilTarget(C3DDepthStencilTarget* target)
 		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
 
 		// Bind the depth texture
-		GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _depthStencilTarget->getHandle(), 0) );
+		GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _depthStencilTarget->getTexture()->getHandle(), 0) );
 
 		// If the taget has a stencil buffer, bind that as well
 		if (target->getFormat() == C3DDepthStencilTarget::DEPTH24_STENCIL8)

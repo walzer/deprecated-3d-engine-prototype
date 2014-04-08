@@ -82,7 +82,6 @@ protected:
     RenderChannelManager* _renderChannelManager;
 
 	C3DTextureMgr*		_textureMgr;
-	C3DSamplerMgr*		_samplerMgr;
 	C3DEffectManager*	_effectManager;
 	C3DMaterialManager* _materialManager;
 	C3DFrameBufferMgr*	_frameBufMgr;

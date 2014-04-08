@@ -123,9 +123,9 @@ void C3DBatchModel::bindVertex(void)
 			for (unsigned int j = 0, pCount = t->getPassCount(); j < pCount; ++j)
 			{
 				C3DPass* p = t->getPass(j);
-				C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh->_vertexFormat,_mesh->_vertices, p->getEffect());
+				
+				C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh->_vertexFormat, _mesh->_vertices, p->getEffect());
 				p->setVertexAttributeBinding(b);
-				SAFE_RELEASE(b);
 			}
 		}
 	}

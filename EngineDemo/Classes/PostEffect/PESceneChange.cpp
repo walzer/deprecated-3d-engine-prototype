@@ -80,7 +80,7 @@ bool PESceneChange::init(const std::string& szMaterial)
 	samplerBase->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 	pass->getParameter("u_texture")->setValue(samplerBase);
 
-	C3DSampler* samplerHalf = C3DSampler::create(_halfFrameBuffer->getRenderTarget());
+	C3DSampler* samplerHalf = C3DSampler::create(_halfFrameBuffer->getRenderTarget()->getTexture());
 	samplerHalf->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	samplerHalf->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 	_matCopyToScreen->getTechnique(0u)->getPass( 0u )->getParameter("u_texture")->setValue( samplerHalf );

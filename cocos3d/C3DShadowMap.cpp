@@ -59,7 +59,7 @@ namespace cocos3d
         if (!_framebuffer || !_framebuffer->getDepthStencilTarget())
             return NULL;
 
-        return _framebuffer->getDepthStencilTarget();
+		return _framebuffer->getDepthStencilTarget()->getTexture();
     }
 
     const C3DMatrix& C3DShadowMap::getViewProjectionMatrix()

@@ -43,8 +43,6 @@ C3DRenderSystem::C3DRenderSystem()
 
 	_deviceAdapter = C3DDeviceAdapter::getInstance();
 	_deviceAdapter->retain();
-	_samplerMgr = C3DSamplerMgr::getInstance();
-	_samplerMgr->retain();
 
 	_textureMgr = C3DTextureMgr::getInstance();
 	_textureMgr->retain();
@@ -53,29 +51,18 @@ C3DRenderSystem::C3DRenderSystem()
 	_frameBufMgr->retain();
 
     initialize();
-
-	//_RSBackup = new C3DStateBlock();
 }
 
 void C3DRenderSystem::onLostDevice()
 {
-	//_RSBackup->backUpGLState();
 }
 
 void C3DRenderSystem::reload()
 {
 	LOG_TRACE("---C3DRenderSystem begin reload---");
 
-	//cocos2d::GL::invalidateStateCache();
-	//cocos2d::ShaderCache::getInstance()->reloadDefaultShaders();
-	//cocos2d::DrawPrimitives::init();
-	//cocos2d::VolatileTextureMgr::reloadAllTextures();
-
-	//_RSBackup->restoreGLState(true);
-
 	_textureMgr->reload();
 	_frameBufMgr->reload();
-	_samplerMgr->reload();
 
 	C3DEffectManager::getInstance()->reload();
 	C3DMaterialManager::getInstance()->reload();
@@ -118,7 +105,6 @@ C3DRenderSystem::~C3DRenderSystem()
 	SAFE_RELEASE(_materialManager); 
 	SAFE_RELEASE(_effectManager); 
 
-	SAFE_RELEASE(_samplerMgr); //
 	SAFE_RELEASE(_frameBufMgr) //
 	SAFE_RELEASE(_textureMgr); //
 
