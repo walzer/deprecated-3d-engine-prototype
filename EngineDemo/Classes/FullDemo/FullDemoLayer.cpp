@@ -283,10 +283,10 @@ void FullDemoLayer::createMainPlayer()
 		entity->addAnimationClip("attack_skill",370,416,1,1.0f);
 		entity->playAnimationClip("idle");
 
-		_mainPlayer->addPartConfig("body",false);
-		_mainPlayer->addPart("body","body","demores/fulldemo/warrior/material/body.material");
-		_mainPlayer->setPart("body",0);
-		_mainPlayer->loadParts();
+	//	_mainPlayer->addPartConfig("body",false);
+	//	_mainPlayer->addPart("body","body","demores/fulldemo/warrior/material/body.material");
+	//	_mainPlayer->setPart("body",0);
+	//	_mainPlayer->loadParts();
 
 		entity->setPosition(0.0f,0.0f,0.0f);
 		entity->setScale(1.0f,1.0f,1.0f);
