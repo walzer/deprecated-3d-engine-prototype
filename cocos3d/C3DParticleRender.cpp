@@ -25,6 +25,7 @@
 #include "C3DParticleSystemCommon.h"
 #include "C3DVector2.h"
 #include "StringTool.h"
+#include "C3DMaterialManager.h"
 
 namespace cocos3d
 {
@@ -128,13 +129,13 @@ void C3DParticleRender::reloadMaterial()
 		sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 		sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 
-		material = C3DMaterial::create(_particleVs, _particleFs, "USE_TEXTURE");
+		material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource("common/particle/particle_tex.material"));
 		material->getTechnique(0u)->getPass(0u)->getParameter("u_texture")->setValue(sampler);
 		sampler->release();
 	}
 	else
 	{
-		material = C3DMaterial::create(_particleVs, _particleFs);
+		material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource("common/particle/particle.material"));
 	}
 
 	material->getStateBlock()->setDepthTest(true);

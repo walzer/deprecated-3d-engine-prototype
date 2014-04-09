@@ -24,14 +24,8 @@ class C3DSamplerCube;
  */
 class C3DEffect: public C3DResource
 {
-friend class C3DEffectManager;
-
+	friend class C3DEffectManager;
 public:
-
-	C3DEffect(const std::string& name);
-
-    virtual ~C3DEffect();
-
 	 /**
      * load cur effect
      */
@@ -193,6 +187,10 @@ public:
 
     static void setCurrentEffect(C3DEffect* effect);
 	virtual void reload();
+protected:
+
+	C3DEffect(const std::string& name);
+	virtual ~C3DEffect();
 private:
 
 	 /**
@@ -216,9 +214,6 @@ private:
 	std::string _vshPath;
     std::string _fshPath;
     std::string _defines;
-
-	std::string	_uniqueKey;
-
 };
 
 /**

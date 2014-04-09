@@ -1,0 +1,23 @@
+material test
+{
+    technique
+    {
+        pass 0
+        {
+            // shaders
+            vertexShader = shaders/particle.vsh
+            fragmentShader = shaders/particle.fsh
+            
+            // render state
+            renderState
+            {
+                cullFace = true
+                depthTest =  false
+
+                blend = true
+                srcBlend = SRC_ALPHA
+                dstBlend = ONE
+            }
+        }
+    }
+}

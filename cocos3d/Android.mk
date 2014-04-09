@@ -78,7 +78,7 @@ C3DSkeleton.cpp \
 C3DSkinlessModel.cpp \
 C3DSkinModel.cpp \
 C3DSprite.cpp \
-C3DRenderNodeManager \
+C3DSpriteManager.cpp \
 C3DStat.cpp \
 C3DStaticObj.cpp \
 C3DStream.cpp \

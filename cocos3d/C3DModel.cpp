@@ -192,21 +192,20 @@ void C3DModel::setMaterial(C3DMaterial* material, int partIndex)
     }
 }
 
- // zhukaixy: ¿ÉÒÔ¿¼ÂÇÉ¾³ý
- C3DMaterial* C3DModel::setMaterial(const std::string& vshPath, const std::string& fshPath, const std::string& defines, int partIndex )
- {
-     // Try to create a C3DMaterial with the given parameters.
-     C3DMaterial* material = C3DMaterial::create(vshPath, fshPath, defines);
-     if (material == NULL)
-     {
-         return NULL;
-     }
- 
-     // Assign the material to us.
-     setMaterial(material, partIndex);
- 
-     return material;
- }
+//  C3DMaterial* C3DModel::setMaterial(const std::string& vshPath, const std::string& fshPath, const std::string& defines, int partIndex )
+//  {
+//      // Try to create a C3DMaterial with the given parameters.
+//      C3DMaterial* material = C3DMaterial::create(vshPath, fshPath, defines);
+//      if (material == NULL)
+//      {
+//          return NULL;
+//      }
+//  
+//      // Assign the material to us.
+//      setMaterial(material, partIndex);
+//  
+//      return material;
+//  }
 
 C3DMaterial* C3DModel::setMaterial(const std::string& materialPath, int partIndex)
 {

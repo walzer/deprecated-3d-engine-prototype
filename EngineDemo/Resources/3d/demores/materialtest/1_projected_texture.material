@@ -1,6 +1,7 @@
 material texturedflat
 {
 	u_ligthPos = 0.0, 0.0, 0.0
+	u_ambientColor = 0.8, 0.8, 0.8
 	u_lightInvWorld = 0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0,  0.0, 0.0, 0.0, 0.0
     u_worldViewProjectionMatrix = WORLD_VIEW_PROJECTION_MATRIX
 
@@ -21,7 +22,6 @@ material texturedflat
             u_worldMatrix = WORLD_MATRIX
             u_inverseTransposeWorldMatrix = INVERSE_TRANSPOSE_WORLD_MATRIX
 
-			u_ambientColor = 0.8, 0.8, 0.8
 			u_specularExponent = 16
 
             vertexShader = shaders/projected_texture.vsh
