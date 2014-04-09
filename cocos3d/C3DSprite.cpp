@@ -58,71 +58,23 @@ C3DSprite* C3DSprite::create(const std::string& id)
     return pRet;
 }
 
-bool C3DSprite::loadFromFile(const std::string& fileName,bool isLoadAll)
+
+bool C3DSprite::load(C3DResourceLoader* loader, bool isLoadAll)
 {
-	_fileName = fileName;
-
-	// Load mesh/scene from file
-	C3DResourceLoader* bundle = C3DResourceLoader::create(_fileName);
-	if (bundle == NULL)
-        return false;
-	if(isLoadAll==true)
-	{
-		bundle->loadSuperModel(this);
-		this->setDefaultMaterial(StringTool::getFilePath(fileName));
-
-		getAABB();
-        getOBB();
-	}
-	else
-	{
-		bundle->loadSkeleton(this,"Bip01");
-	}
-
-    SAFE_RELEASE(bundle);
-
-    return true;
-}
-
-bool C3DSprite::load(const std::string& fileName)
-{
-	_fileName = fileName;
-
-	// Load mesh/scene from file
-	C3DResourceLoader* bundle = C3DResourceLoader::create(_fileName);
-	if (bundle == NULL)
-        return false;
-
-	bundle->loadSuperModel(this);
-	this->setDefaultMaterial(StringTool::getFilePath(fileName));
-
-	getAABB();
-    getOBB();
-
-    SAFE_RELEASE(bundle);
-
-    return true;
-}
-
-bool C3DSprite::load(bool isLoadAll)
-{
-	/*if(_loader == NULL)
-		return false;
+	_fileName = loader->getFilePath();
 
 	if(isLoadAll==true)
 	{
-		_loader->loadSuperModel(this);
-		this->setDefaultMaterial(StringTool::getFilePath(_fileName));
+		loader->loadSuperModel(this);
+		setDefaultMaterial(StringTool::getFilePath(_fileName));
 
 		getAABB();
-        getOBB();
+		getOBB();
 	}
 	else
 	{
-		_loader->loadSkeleton(this,"Bip01");
+		loader->loadSkeleton(this,"Bip01");
 	}
-
-    SAFE_RELEASE(_loader);*/
 
     return true;
 }
@@ -388,4 +340,5 @@ void C3DSprite::stopAllAnimationClip()
 	_animation->stopAll();
 	_animation->update(0);
 }
+
 }

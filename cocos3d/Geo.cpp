@@ -121,6 +121,85 @@ C3DMesh* Geo::createQuadFullscreen( unsigned int sizeX , unsigned int sizeY )
 	return mesh;
 }
 
+void Geo::createQuadFullscreen( unsigned int sizeX, unsigned int sizeY, C3DMesh* mesh )
+{
+	static float xMin = -1.0f;
+	static float yMin = -1.0f;
+	static float xMax = 1.0f;
+	static float yMax = 1.0f;
+
+	static float uMin = 0.0;
+	static float uMax = 1.0;
+	static float vMin = 0.0;
+	static float vMax = 1.0;
+
+	sizeX = (sizeX>1)?sizeX:1;
+	sizeY = (sizeY>1)?sizeY:1;
+	sizeX = (sizeX<MAX_QUAT_FULL_SCREEN_SIZE)?sizeX:MAX_QUAT_FULL_SCREEN_SIZE;
+	sizeY = (sizeY<MAX_QUAT_FULL_SCREEN_SIZE)?sizeY:MAX_QUAT_FULL_SCREEN_SIZE;
+
+	float vertexStepX = (xMax-xMin)/sizeX;
+	float vertexStepY = (yMax-yMin)/sizeY;
+
+	float uStep = (uMax-uMin)/sizeX;
+	float vStep = (vMax-vMin)/sizeY;
+
+	int vertexCount = (sizeX+1)*(sizeY+1);
+	int indexCount = sizeX*sizeY*6;
+
+	VertexPosition2UV* vertices = new VertexPosition2UV[vertexCount];
+	for ( unsigned int x = 0; x <= sizeX; ++x )
+	{
+		for ( unsigned int  y = 0; y <= sizeY; ++y )
+		{
+			unsigned int offset = x+y*(sizeX+1);
+			VertexPosition2UV* ptr = &(vertices[offset]);
+			ptr->position.x = xMin+x*vertexStepX;
+			ptr->position.y = yMin+y*vertexStepY;
+
+			ptr->uv.x = uMin+x*uStep;
+			ptr->uv.y = vMin+y*vStep;
+		}
+	}
+
+	unsigned short* indices = new unsigned short[indexCount];
+	for ( unsigned int x = 0; x < sizeX; ++x )
+	{
+		for ( unsigned int y = 0; y < sizeY; ++y )
+		{
+			unsigned short* ptr = &(indices[(x+y*sizeX)*6]);
+			*(ptr+0) = (x+0) + (y+0)*(sizeX+1);
+			*(ptr+1) = (x+0) + (y+1)*(sizeX+1);
+			*(ptr+2) = (x+1) + (y+0)*(sizeX+1);
+
+			*(ptr+3) = (x+0) + (y+1)*(sizeX+1);
+			*(ptr+4) = (x+1) + (y+1)*(sizeX+1);
+			*(ptr+5) = (x+1) + (y+0)*(sizeX+1);
+		}
+	}
+
+	C3DVertexElement elements[] =
+	{
+		C3DVertexElement(Vertex_Usage_POSITION, 2),
+		C3DVertexElement(Vertex_Usage_TEXCOORD0, 2)
+	};
+	C3DVertexFormat vertformat(elements, 2);
+
+	//------------------------------------------------------------------
+	mesh->reload();
+	mesh->init(&vertformat, vertexCount, false);
+	mesh->setPrimitiveType(PrimitiveType_TRIANGLES);
+	mesh->setVertexData(vertices, 0, vertexCount);
+
+	// Create mesh parts
+	MeshPart* part = mesh->addPart(PrimitiveType_TRIANGLES, IndexFormat_INDEX16, indexCount );
+	part->setIndexData( indices, 0, indexCount );
+	//---------------------------------------------------------------
+
+	SAFE_DELETE_ARRAY( vertices );
+	SAFE_DELETE_ARRAY( indices );
+}
+
 bool Geo::CreateSphere(float radius, std::vector< BBVertex > &ppVertices, std::vector< unsigned short > &ppIndices, const C3DVector4& color, int stacks, int slices)
 {
 	int base = ppVertices.size();

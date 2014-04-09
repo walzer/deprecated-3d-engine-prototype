@@ -53,6 +53,8 @@ public:
 
 protected:
 	C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);
+	void init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic);
+	virtual void reload();
 
 protected:
 
@@ -64,6 +66,6 @@ protected:
     bool _dynamic;
 	C3DAABB* _boundingBox;
 };
-}
 
+}
 #endif

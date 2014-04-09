@@ -38,6 +38,7 @@ class C3DSprite;
 class C3DResourceLoader : public cocos2d::CCObject
 {
 friend class C3DRenderNode;
+friend class C3DRenderNodeManager;
 
 public:
 
@@ -50,6 +51,7 @@ public:
      * load 3D sprite.
      */
 	void loadSuperModel(C3DSprite* superModel);
+	void reLoadSuperModel(C3DRenderNode* superModel);
 
 	/**
      * load 3D static object.
@@ -85,6 +87,9 @@ public:
      */
     const std::string getObjectID(unsigned int index) const;
 
+	unsigned int seekToNextType();
+
+	std::string getFilePath() const { return _path; }
 private:
 
     class Reference
@@ -167,7 +172,7 @@ private:
      *
      * @return The loaded mesh, or NULL if the mesh could not be loaded.
      */
-    C3DMesh* loadMesh(const std::string& nodeId,bool hasMorph);
+    C3DMesh* loadMesh(const std::string& nodeId, bool hasMorph);
 
     /**
      * Reads an xref string from the current file position.
@@ -185,6 +190,7 @@ private:
      * @return A pointer to new node or NULL if there was an error.
      */
 	C3DNode* readNode(C3DRenderNode* compoundModelContext);
+	void reloadNode(C3DNode* context);
 
     /**
      * Reads a camera from the current file position.

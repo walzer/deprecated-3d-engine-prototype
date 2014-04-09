@@ -84,6 +84,18 @@ void C3DTechnique::setChannel(const std::string& channelName)
 	//*/
 }
 
+void passReload(C3DPass* pass)
+{
+	pass->reload();
+}
+
+void C3DTechnique::reload()
+{
+	LOG_TRACE_VARG("   C3DTechnique:%s begin reload", _id.c_str());
+	C3DRenderState::reload();
+	for_each(_passes.begin(), _passes.end(), passReload);
+}
+
 C3DRenderChannel* C3DTechnique::getChannel()
 {
 	return C3DRenderSystem::getInstance()->getRenderChannelManager()->getRenderChannel(_renderChannelName);

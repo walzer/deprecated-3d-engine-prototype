@@ -58,7 +58,14 @@ extern void printError(const char* format, ...);
     { \
         LOGI(x, __VA_ARGS__); \
     }
-
+#define LOG_TRACE(x) \
+    { \
+        LOGI(x); \
+    }
+#define LOG_TRACE_VARG(x, ...) \
+    { \
+        LOGI(x, __VA_ARGS__); \
+    }
 // Warning macro
 #ifdef WARN
 #undef WARN
@@ -78,6 +85,14 @@ extern void printError(const char* format, ...);
     { \
         printError(x, __VA_ARGS__); \
         assert(#x == 0); \
+    }
+#define LOG_TRACE(x) \
+    { \
+        printError(x); \
+    }
+#define LOG_TRACE_VARG(x, ...) \
+    { \
+        printError(x, __VA_ARGS__); \
     }
 
 // Warning macro
@@ -162,7 +177,7 @@ extern void printError(const char* format, ...);
 #elif WIN32
     #define WIN32_LEAN_AND_MEAN
     #include <GL/glew.h>
-    #define USE_VAO
+    //#define USE_VAO
 #elif __APPLE__
     #include "TargetConditionals.h"
     #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -208,9 +223,7 @@ typedef GLuint RenderBufferHandle;
  * mode and is therefore safe to use for realtime/per-frame GL
  * function calls.
  */
-#ifdef NDEBUG
-#define GL_ASSERT( gl_code ) gl_code
-#else
+
 #define GL_ASSERT( gl_code ) \
     { \
         gl_code; \
@@ -221,7 +234,6 @@ typedef GLuint RenderBufferHandle;
         } \
         assert(__gl_error_code == GL_NO_ERROR); \
     }
-#endif
 
 /**
  * Executes the specified GL code and checks the GL error afterwards

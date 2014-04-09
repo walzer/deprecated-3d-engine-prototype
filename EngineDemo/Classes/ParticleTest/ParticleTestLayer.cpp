@@ -19,6 +19,7 @@
 #include "C3DParticleSystem.h"
 #include "C3DLineRender.h"
 #include "C3DSprite.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -127,9 +128,8 @@ void ParticleTestLayer::draw3D()
 
 void ParticleTestLayer::setUpScene()
 {
-    C3DSprite* shuicao = C3DSprite::create("hua");
-    shuicao->loadFromFile("demores/hua_01/hua_01.ckb",true);
-	//shuicao->setMaterial("body", "2.5D/plant/hua_01/hua_01.material");
+    C3DSprite* shuicao = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
+	shuicao->setId("shuicao");
     shuicao->addAnimationClip("all", 0 , 240, 0, 1.0f);
 
     shuicao->playAnimationClip("all");
@@ -137,7 +137,6 @@ void ParticleTestLayer::setUpScene()
     shuicao->rotateX(0.5f);
     shuicao->showAABB(false);
     shuicao->showOBB(false);
-    //shuicao->setScale(3.0f);
     _scene->addChild(shuicao);
 
     C3DParticleSystem* particle;

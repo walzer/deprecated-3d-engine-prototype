@@ -1,6 +1,5 @@
 #include "MaterialTestLayer.h"
 
-
 #include <map>
 
 #include "C3DViewport.h"
@@ -18,6 +17,7 @@
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
 #include "C3DModelNode.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -81,7 +81,7 @@ void MaterialTestLayer::update( float dt )
         light->rotateAlong(C3DVector3(0, 0, 0), C3DVector3(0, 1, 0), dt * 1.2f);
     }
 
-	C3DNode* pointLightNode = _scene->findNode("pointLightModel");
+	C3DNode* pointLightNode = _scene->findNode("PTBall");
 	if(pointLightNode)
 	{
 		static float dtAcc = dt;
@@ -131,9 +131,7 @@ void MaterialTestLayer::draw3D()
 
 void MaterialTestLayer::setUpScene()
 {
-    _sm = C3DStaticObj::create("1");
-
-    _sm->loadFromFile("demores/materialtest/1.ckb");
+    _sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/materialtest/1.ckb"));
 
     _sm->setMaterial("demores/materialtest/1_diffuse.material");
     _sm->translate(0, 0, 0);
@@ -143,9 +141,8 @@ void MaterialTestLayer::setUpScene()
     _sm->retain();
 
     //create fish
-	_fish = NULL;
-	_fish = cocos3d::C3DSprite::create("shayu");
-	_fish->loadFromFile("demores/shayunew/shayu.ckb", true);
+	_fish = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/shayunew/shayu.ckb"));
+	_fish->setId("shayu");
 	_fish->setScale(2.0f);
 	_fish->addAnimationClip("idle",0,600,0,1.0f);
 	_fish->playAnimationClip("idle");
@@ -179,8 +176,8 @@ void MaterialTestLayer::setUpLight()
 	pointLight->setLightEnable(false);
 
 	std::string strPointLightUrl = "demores/ball/ball.ckb";
-	cocos3d::C3DStaticObj* pointLightModel = cocos3d::C3DStaticObj::create("pointLightModel");
-	pointLightModel->loadFromFile(strPointLightUrl, true);
+	cocos3d::C3DStaticObj* pointLightModel = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource(strPointLightUrl));
+	pointLightModel->setId("PTBall");
 	pointLightModel->setScale(3.0f);
 
 	_scene->addChild(pointLightModel);
@@ -227,8 +224,6 @@ void MaterialTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, un
     };
 }
 
-
-
 void MaterialTestLayer::menuCallback( CCObject * pSender )
 {
     // get the userdata, it's the index of the menu item clicked
@@ -253,7 +248,7 @@ void MaterialTestLayer::menuCallback( CCObject * pSender )
             _scene->removeChild(fish);
     }
 
-	C3DNode*	pointLightModelNode = _scene->findNode("pointLightModel");
+	C3DNode*	pointLightModelNode = _scene->findNode("PTBall");
 	C3DLight*	pointLight = static_cast<C3DLight*>(pointLightModelNode->findNode("pointLight"));
 
 	if(pointLightModelNode)

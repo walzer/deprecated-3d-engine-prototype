@@ -4,13 +4,13 @@
 #include "EnumDef_GL.h"
 #include "cocos2d.h"
 
-namespace cocos2d {
+namespace cocos2d 
+{
     class Texture2D;
 }
 
 namespace cocos3d
 {
-
     class Image;
 
     /**
@@ -20,6 +20,7 @@ namespace cocos3d
     class C3DTexture : public cocos2d::CCObject
     {
         friend class C3DSampler;
+		friend class C3DTextureMgr;
 
     public:
 
@@ -51,6 +52,11 @@ namespace cocos3d
         static C3DTexture* create(const std::string& path, bool generateMipmaps = false);
         static C3DTexture* create(int width, int height, Format fmt, bool generateMipmaps = false);
 	    static C3DTexture* create(int width, int height, Format fmt, const void* data, ssize_t dataLen, bool generateMipmaps = false);
+
+		static cocos2d::CCImage* createImage(const std::string& path);
+
+		void init(int width, int height, C3DTexture::Format fmt, bool generateMipmaps);
+		virtual void reload();
 
         /**
          * Returns the texture width.
@@ -101,37 +107,51 @@ namespace cocos3d
          * get texture path
          */
         const std::string& getPath() const { return _path; };
+	protected:
+		void innerInit2D(const std::string& path, bool generateMipmaps = false);
+		void innerInit2D(C3DTexture* rhs);
 
-    private:
-
-        /**
-         * Constructor.
-         */
         C3DTexture();
-
-        /**
-         * Copy constructor.
-         */
         C3DTexture(const C3DTexture& copy);
-
-        /**
-         * Destructor.
-         */
         virtual ~C3DTexture();
 
 #ifdef USE_PVRTC
         static C3DTexture* createCompressedPVRTC(const std::string& path);
 #endif
 
-		//properties
-        std::string _path;
-        GLuint _handle;
-        unsigned int _width;
-        unsigned int _height;
-        bool _mipmapped;
+        std::string			_path;
 
-        cocos2d::Texture2D * _texture;
+		// zhukaixy: Handle不为0说明是一个Cocos3D纹理，否则为Cocos2D管理的纹理(即与_texture互斥)，历史遗留代码稍后处理。
+		GLuint				_handle;
+		C3DTexture::Format	_fmt;
+
+		//------------------------------------------
+        unsigned int		_width;
+        unsigned int		_height;
+        bool				_mipmapped;
+
+        cocos2d::Texture2D* _2DTex;
     };
+
+	//-----------------------------------------------------------------------
+	class C3DTextureMgr :public cocos2d::Ref
+	{
+	public:
+		typedef std::vector<C3DTexture*> T_CACHE_CONTAINER;
+	public:
+		static C3DTextureMgr* getInstance();
+
+		void add(C3DTexture* texture);
+		void remove(C3DTexture* texture);
+		C3DTexture* get(const std::string& strID);
+
+		void reload();
+	protected:
+		C3DTextureMgr();
+		~C3DTextureMgr();
+	protected:
+		T_CACHE_CONTAINER _texCon;
+	};
 }
 
 #endif

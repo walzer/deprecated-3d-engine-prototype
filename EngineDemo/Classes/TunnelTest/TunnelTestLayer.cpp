@@ -16,6 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -44,7 +45,7 @@ void TunnelTestLayer::update(float dt)
     C3DLayer::update(elapsedTime);
     static float time = 0;
     time += dt;
-    C3DRenderNode* cylinder = (C3DRenderNode*)_scene->findNode("cylinder");
+    C3DRenderNode* cylinder = (C3DRenderNode*)_scene->findNode("demores/cylinder/cylinder.ckb");
     if (cylinder)
     {
         C3DMaterial* material = cylinder->getMaterial("Cylinder001");
@@ -62,10 +63,8 @@ void TunnelTestLayer::draw3D()
 
 void TunnelTestLayer::setUpScene()
 {
-    C3DStaticObj* sm = C3DStaticObj::create("cylinder");
-    sm->loadFromFile("demores/cylinder/cylinder.ckb");
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/cylinder/cylinder.ckb"));
 
-  //  sm->setMaterial("Cylinder001","demores/cylinder/cylinder.material");
     sm->translate(0, 0, -330);
     sm->rotateX(1.57f);
     sm->scale(50, 50, 50);

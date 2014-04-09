@@ -16,6 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -82,9 +83,7 @@ void PerformanceTestLayer::setUpScene()
     {
 		for (int j = 0; j < 10; j++)
 		{
-			C3DSprite* sm = C3DSprite::create("haigui");
-
-			sm->loadFromFile("demores/haigui/haigui.ckb", true);
+			C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
 			sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
 			sm->setMaterial("body", "demores/haigui/haigui.material");
 			sm->playAnimationClip("all");
@@ -93,8 +92,6 @@ void PerformanceTestLayer::setUpScene()
 			_scene->addChild(sm);
 		}
     }
-	
-    
 }
 
 void PerformanceTestLayer::setUpCamera()
@@ -153,9 +150,7 @@ void PerformanceTestLayer::menuCallback( CCObject * pSender )
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSender);
     int nIdx = pMenuItem->getZOrder() - 10000;
 
-
     C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("hua");
-
     if (sm)
     {
         MaterialParameter* mp = sm->getMaterial("body")->getParameter("u_diffuseColor");
@@ -188,18 +183,13 @@ CCLayer* PerformanceTestLayer::createUILayer()
 
     for (int i = 0; i < COLOR_NUM; ++i)
     {
-        // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
-        //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
-        // #else
         CCLabelTTF* label = CCLabelTTF::create(colorTypes[i], "Arial", 20);
-        // #endif
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(PerformanceTestLayer::menuCallback,this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));
     }
 
-    //pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (MATERIAL_NUM + 1) * (40)));
     pItemMenu->setPosition(0, 0);
     layer->addChild(pItemMenu, 1000);
 

@@ -16,6 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -77,9 +78,7 @@ void AnimLightTestLayer::draw3D()
 
 void AnimLightTestLayer::setUpScene()
 {
-    C3DStaticObj* sm = C3DStaticObj::create("1");
-
-    sm->loadFromFile("demores/materialtest/1.ckb");
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/materialtest/1.ckb"));
     sm->setMaterial("demores/materialtest/1.material");
     sm->translate(0, 0, 0);
     sm->scale(50, 50, 50);

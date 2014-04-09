@@ -26,11 +26,13 @@ public:
     static C3DVertexDeclaration* create(C3DMesh* mesh, C3DEffect* effect);
 
     static C3DVertexDeclaration* create(const C3DVertexFormat* vertexFormat, void* vertexPointer, C3DEffect* effect);
-	static C3DVertexDeclaration* create(C3DMesh* mesh, const C3DVertexFormat* vertexFormat, void* vertexPointer, C3DEffect* effect);
+	bool   init(C3DMesh* mesh, const C3DVertexFormat* vertexFormat, void* vertexPointer, C3DEffect* effect);
 
     void bind();
 
     void unbind();
+
+	void reload();
 
     static int getCurVertAttEnables();
 

@@ -375,6 +375,17 @@ void C3DRenderState::bind(C3DPass* pass)
     }
 }
 
+void paramterReload(MaterialParameter* param)
+{
+	param->reload();
+}
+
+void C3DRenderState::reload()
+{
+	C3DRenderState::_activeTexture = std::numeric_limits<size_t>::max();
+	for_each(_parameters.begin(), _parameters.end(), paramterReload);
+}
+
 void C3DRenderState::setParamMethonAutoUniform(C3DPass* pass)
 {
 	C3DRenderState* rs = NULL;

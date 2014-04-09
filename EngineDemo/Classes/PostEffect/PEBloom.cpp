@@ -80,19 +80,19 @@ bool PEBloom::initBloomParam()
 
     pass3->getParameter("u_texture")->setValue(sampler);
 
-    sampler = C3DSampler::create(_brightFrameBuffer->getRenderTarget()->getTexture());
+	sampler = C3DSampler::create(_brightFrameBuffer->getRenderTarget()->getTexture());
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pass1->getParameter("u_texture")->setValue(sampler);
     SAFE_RELEASE(sampler);
 
-    sampler = C3DSampler::create(_blurFrameBufferX->getRenderTarget()->getTexture());
+	sampler = C3DSampler::create(_blurFrameBufferX->getRenderTarget()->getTexture());
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pass2->getParameter("u_texture")->setValue(sampler);
     SAFE_RELEASE(sampler);
 
-    sampler = C3DSampler::create(_blurFrameBufferY->getRenderTarget()->getTexture());
+	sampler = C3DSampler::create(_blurFrameBufferY->getRenderTarget()->getTexture());
     sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
     sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pass3->getParameter("u_bloomTexture")->setValue(sampler);

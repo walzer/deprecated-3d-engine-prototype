@@ -16,6 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -78,16 +79,15 @@ void ColorTestLayer::draw3D()
 
 void ColorTestLayer::setUpScene()
 {
-    C3DSprite* sm = C3DSprite::create("hua");
-
-    sm->loadFromFile("demores/hua_01/hua_01.ckb", true);
-    sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
-    sm->setMaterial("body", "demores/hua_01/hua_01.material");
-    sm->playAnimationClip("all");
-    sm->setPosition(0.0f, -50, -30.0f);
-    sm->setScale(3.0f);
-
-    _scene->addChild(sm);
+     C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
+	 sm->setId("shuicao");
+     sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
+     sm->setMaterial("body", "demores/hua_01/hua_01.material");
+     sm->playAnimationClip("all");
+     sm->setPosition(0.0f, -50, -30.0f);
+     sm->setScale(3.0f);
+ 
+     _scene->addChild(sm);
 }
 
 void ColorTestLayer::setUpCamera()
@@ -147,7 +147,7 @@ void ColorTestLayer::menuCallback( CCObject * pSender )
     int nIdx = pMenuItem->getZOrder() - 10000;
 
 
-    C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("hua");
+    C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("shuicao");
 
     if (sm)
     {
@@ -181,18 +181,13 @@ CCLayer* ColorTestLayer::createUILayer()
 
     for (int i = 0; i < COLOR_NUM; ++i)
     {
-        // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
-        //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
-        // #else
         CCLabelTTF* label = CCLabelTTF::create(colorTypes[i], "Arial", 20);
-        // #endif
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(ColorTestLayer::menuCallback,this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
         pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));
     }
 
-    //pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (MATERIAL_NUM + 1) * (40)));
     pItemMenu->setPosition(0, 0);
     layer->addChild(pItemMenu, 1000);
 

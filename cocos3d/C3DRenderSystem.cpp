@@ -14,6 +14,11 @@
 
 #include "C3DEffectManager.h"
 #include "C3DMaterialManager.h"
+#include "C3DRenderNodeManager.h"
+#include "C3DTexture.h"
+#include "C3DFrameBuffer.h"
+#include "C3DSampler.h"
+#include "C3DPostProcess.h"
 
 #include "C3DDeviceAdapter.h"
 
@@ -39,8 +44,34 @@ C3DRenderSystem::C3DRenderSystem()
 	_deviceAdapter = C3DDeviceAdapter::getInstance();
 	_deviceAdapter->retain();
 
-    initialize();
+	_textureMgr = C3DTextureMgr::getInstance();
+	_textureMgr->retain();
 
+	_frameBufMgr = C3DFrameBufferMgr::getInstance();
+	_frameBufMgr->retain();
+
+    initialize();
+}
+
+void C3DRenderSystem::onLostDevice()
+{
+}
+
+void C3DRenderSystem::reload()
+{
+	LOG_TRACE("---C3DRenderSystem begin reload---");
+
+	_textureMgr->reload();
+	_frameBufMgr->reload();
+
+	C3DEffectManager::getInstance()->reload();
+	C3DMaterialManager::getInstance()->reload();
+	C3DRenderNodeManager::getInstance()->reload();
+
+	if(g_pPostProcess)
+		g_pPostProcess->reload();
+
+	LOG_TRACE("---C3DRenderSystem end reload---");
 }
 
 C3DRenderSystem* C3DRenderSystem::create()
@@ -55,9 +86,6 @@ C3DRenderSystem* C3DRenderSystem::create()
 
 C3DRenderSystem* C3DRenderSystem::getInstance()
 {
- //   CCAssert(__renderSystemInstance, "Render system not created");
-	//return __renderSystemInstance;
-
 	if (!__renderSystemInstance)
     {
         __renderSystemInstance = new C3DRenderSystem();
@@ -69,11 +97,18 @@ C3DRenderSystem* C3DRenderSystem::getInstance()
 C3DRenderSystem::~C3DRenderSystem()
 {
 	finalize();
-	__renderSystemInstance = NULL;
-	SAFE_RELEASE( _renderChannelManager );
-	SAFE_RELEASE(_effectManager);
-	SAFE_RELEASE(_materialManager);
 
+	__renderSystemInstance = NULL;
+
+	SAFE_RELEASE(_renderChannelManager);
+
+	SAFE_RELEASE(_materialManager); 
+	SAFE_RELEASE(_effectManager); 
+
+	SAFE_RELEASE(_frameBufMgr) //
+	SAFE_RELEASE(_textureMgr); //
+
+	SAFE_RELEASE(_deviceAdapter);
 	SAFE_RELEASE(_deviceAdapter);
 }
 
@@ -94,13 +129,10 @@ void C3DRenderSystem::initialize()
 
 void C3DRenderSystem::finalize()
 {
-
 	_renderChannelManager->clear();
 
     C3DStateBlock::finalize();
 
-	C3DEffectManager::getInstance()->removeAll();
-	C3DMaterialManager::getInstance()->removeAll();
     SAFE_DELETE(_viewport);
 	SAFE_DELETE(_clearColor);
 

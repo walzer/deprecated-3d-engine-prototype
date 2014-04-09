@@ -62,6 +62,16 @@ C3DResource* C3DResourcePool::getItem(const std::string& name)
 		return NULL;
 }
 
+void C3DResourcePool::reload()
+{
+	std::map<std::string, C3DResource*>::iterator iter = _items.begin();
+	while(iter != _items.end())
+	{
+		iter->second->reload();
+		++iter;
+	}
+}
+
 C3DUsedResourcePool::C3DUsedResourcePool(C3DResourceManager* manager)
 	:C3DResourcePool(manager)
 {

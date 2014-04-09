@@ -13,6 +13,7 @@
 
 #include "C3DRenderSystem.h"
 #include "C3DRenderChannel.h"
+#include "C3DMaterialManager.h"
 
 namespace cocos3d
 {
@@ -29,7 +30,7 @@ C3DBatchModel* C3DBatchModel::createDebugModel(C3DNode* node)
     C3DBatchMesh* mesh = new C3DBatchMesh(&v, PrimitiveType_LINES,true);
 
     model->_mesh = mesh;
-	C3DMaterial* material = C3DMaterial::create("shaders/debug.vsh", "shaders/debug.fsh");
+	C3DMaterial* material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource("common/debug.material"));
 
 	for ( unsigned int i = 0; i < material->getTechniqueCount(); ++i )
 	{
@@ -123,9 +124,9 @@ void C3DBatchModel::bindVertex(void)
 			for (unsigned int j = 0, pCount = t->getPassCount(); j < pCount; ++j)
 			{
 				C3DPass* p = t->getPass(j);
-				C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh->_vertexFormat,_mesh->_vertices, p->getEffect());
+				
+				C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh->_vertexFormat, _mesh->_vertices, p->getEffect());
 				p->setVertexAttributeBinding(b);
-				SAFE_RELEASE(b);
 			}
 		}
 	}
