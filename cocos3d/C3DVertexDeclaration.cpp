@@ -71,13 +71,19 @@ namespace cocos3d
 		dec->autorelease();
 
 		bool res = dec->init(mesh, mesh->getVertexFormat(), 0, effect);
-		b = dec;
+
+		if(res)
+			b = dec;
+		else
+			b = NULL;
+		
 		//-----------------------------------------------------------------------------------
 
 		// Add the new vertex attribute binding to the cache.
 		if (b)
 		{
 			__vertexAttributeBindingCache.push_back(b);
+			
 		}
 
 		return b;
