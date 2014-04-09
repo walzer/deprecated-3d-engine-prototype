@@ -57,7 +57,7 @@ public:
      */
     void setMaterial(C3DMaterial* material, int partIndex = -1);
 
-    C3DMaterial* setMaterial(const std::string& vshPath, const std::string& fshPath, const std::string& defines = "", int partIndex = -1);
+    //C3DMaterial* setMaterial(const std::string& vshPath, const std::string& fshPath, const std::string& defines = "", int partIndex = -1);
 
     C3DMaterial* setMaterial(const std::string& materialPath, int partIndex = -1);
 

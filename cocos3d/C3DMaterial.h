@@ -20,10 +20,7 @@ class C3DEffect;
  */
 class C3DMaterial : public C3DRenderState, public C3DResource
 {
-    friend class C3DTechnique;
-    friend class C3DPass;
-    friend class C3DRenderState;
-    friend class C3DNode;
+	friend class C3DMaterialManager;
 
 public:
     enum TechniqueUsage
@@ -37,14 +34,10 @@ public:
         TECH_USAGE_NUM,
     };
 
-public:
-
+protected:
 	C3DMaterial(const std::string& name);
 
-    virtual ~C3DMaterial();
-	virtual void reload();
-
-protected:
+	virtual ~C3DMaterial();
 	 /**
      * create a material from the file.
      *
@@ -54,8 +47,7 @@ protected:
      *
      * @return The created material.
      */
-    static C3DMaterial* create(const std::string& fileName);
-public:
+    //static C3DMaterial* create(const std::string& fileName);
 	/**
      * create a material from the material info of an elementnode.
      *
@@ -63,7 +55,8 @@ public:
      *
      * @return The created material.
      */
-    static C3DMaterial* create(C3DElementNode* materialNodes);
+    //static C3DMaterial* create(C3DElementNode* materialNodes);
+public:
 
 	 /**
      * create a material from the given vertex and fragment shader source code.
@@ -74,7 +67,7 @@ public:
      *
      * @return The created material.
      */
-    static C3DMaterial* create(const std::string& vshPath, const std::string& fshPath, const std::string& defines = "");
+    //static C3DMaterial* create(const std::string& vshPath, const std::string& fshPath, const std::string& defines = "");
 
   //  static C3DMaterial* create(C3DEffect* effect);
     unsigned int getTechniqueCount() const;
@@ -128,6 +121,8 @@ public:
      *
      */
 	virtual bool save(C3DElementNode* nodes);
+
+	virtual void reload();
 
 private:
 

@@ -123,8 +123,7 @@ void C3DEffect::reload()
 {
 	setCurrentEffect(NULL);
 
-	LOG_TRACE_VARG("Effect::reload %s", _uniqueKey.c_str());
-	    // Free uniforms.
+	// Free uniforms.
     for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); ++itr)
     {
         SAFE_DELETE(itr->second);
@@ -135,31 +134,18 @@ void C3DEffect::reload()
 
     _program = 0;
 
-	std::vector<std::string> a = StringTool::StringSplitByChar(_uniqueKey,';');
-	if(a.size() < 2)
-		return;
-
-	std::string vshpath = a[0];
-	std::string fshpath = a[1];
-	std::string define;
-	if(a.size()==3)
-		define = a[2];
-
 	C3DElementNode* elementNode = C3DElementNode::createEmptyNode("test", "effect");
-
 	if(elementNode != NULL)
 	{
-		elementNode->setElement("vertexShader", vshpath.c_str());
-		elementNode->setElement("fragmentShader", fshpath.c_str());
-		if(define.c_str() != NULL)
-			elementNode->setElement("defines", define.c_str());
+		elementNode->setElement("vertexShader", _vshPath);
+		elementNode->setElement("fragmentShader", _fshPath);
+		if(!_defines.empty())
+			elementNode->setElement("defines", _defines);
 	}
 
 	load(elementNode);
 
 	SAFE_DELETE(elementNode);
-
-	LOG_TRACE("Effect::reload finished");
 }
 
 bool C3DEffect::load(C3DElementNode* node)
@@ -169,22 +155,6 @@ bool C3DEffect::load(C3DElementNode* node)
 	const std::string& vshPath = node->getElement("vertexShader");
 	const std::string& fshPath = node->getElement("fragmentShader");
 	const std::string& defines = node->getElement("defines");
-
-	//---------------------------------------------------------
-	LOG_TRACE_VARG("%s * %s * %s", vshPath.c_str(), fshPath.c_str(), defines.c_str());
-	
-	_uniqueKey  = vshPath;
-	_uniqueKey += ';';
-	_uniqueKey += fshPath;
-
-	if (!defines.empty())
-	{		
-		_uniqueKey += ';';
-		_uniqueKey += defines;
-	}
-
-	LOG_TRACE_VARG("--%s", _uniqueKey.c_str());
-	//---------------------------------------------------------
 
 	_vshPath = vshPath;
 	_fshPath = fshPath;
