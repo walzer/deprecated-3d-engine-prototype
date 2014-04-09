@@ -14,7 +14,7 @@
 
 #include "C3DEffectManager.h"
 #include "C3DMaterialManager.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 #include "C3DTexture.h"
 #include "C3DFrameBuffer.h"
 #include "C3DSampler.h"
@@ -66,7 +66,7 @@ void C3DRenderSystem::reload()
 
 	C3DEffectManager::getInstance()->reload();
 	C3DMaterialManager::getInstance()->reload();
-	C3DSpriteManager::getInstance()->reload();
+	C3DRenderNodeManager::getInstance()->reload();
 
 	if(g_pPostProcess)
 		g_pPostProcess->reload();

@@ -25,7 +25,7 @@
 #include "C3DRay.h"
 #include "C3DPlane.h"
 #include "C3DRenderSystem.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -94,7 +94,7 @@ void UI3DLayer::setUpLight()
 
 void UI3DLayer::setUpScene()
 {
-	C3DSprite* fish = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
+	C3DSprite* fish = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
     fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
     fish->playAnimationClip("idle");
 

@@ -24,7 +24,7 @@ class C3DRenderSystem;
 class C3DViewport;
 class C3DStateBlock;
 class C3DStatRender;
-class C3DSpriteManager;
+class C3DRenderNodeManager;
 
 enum TouchEvent
 {
@@ -176,7 +176,7 @@ protected:
 	C3DEnvConf _envConfig;       //environment configuration
 	C3DStatRender* _statRender; // statistics info render
 
-	C3DSpriteManager* _spriteManager;
+	C3DRenderNodeManager* _spriteManager;
 
 	float _totalTimeSceond;
 	float _delatTimeSceond;

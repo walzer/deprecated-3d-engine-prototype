@@ -39,7 +39,7 @@ class  C3DSprite : public C3DRenderNode
 {
 	friend class C3DScene;
 	friend class C3DResourceLoader;
-	friend class C3DSpriteManager;
+	friend class C3DRenderNodeManager;
 
 public:
 
@@ -48,9 +48,7 @@ public:
 
 	C3DNode::Type getType() const;
 
-	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false);
-	virtual bool load(bool isLoadAll=false);
-	virtual bool load(const std::string& fileName);
+	virtual bool load(C3DResourceLoader* loader, bool isLoadAll = false);
 
 	void loadNode(const std::string& nodeName);
 	void loadNodes(std::list<std::string>* models);

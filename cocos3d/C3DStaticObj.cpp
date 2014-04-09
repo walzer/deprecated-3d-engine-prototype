@@ -35,62 +35,15 @@ C3DNode::Type C3DStaticObj::getType() const
 	return C3DNode::NodeType_SceneModel;
 }
 
-// zhukaixy: 下面这两个方法是一样的吧
-bool C3DStaticObj::loadFromFile(const std::string& fileName,bool isLoadAll)
+bool C3DStaticObj::load(C3DResourceLoader* loader, bool isLoadAll/* = false*/)
 {
-	_fileName = fileName;
+	_fileName = loader->getFilePath();
 
-	// Load mesh/scene from file
-	C3DResourceLoader* bundle = C3DResourceLoader::create(fileName);
-
-	if (bundle == NULL)
-        return false;
-
-	bundle->loadSceneModel(this);
-	this->setDefaultMaterial(StringTool::getFilePath(fileName));
-    SAFE_RELEASE(bundle);
+	loader->loadSceneModel(this);
+	this->setDefaultMaterial(StringTool::getFilePath(_fileName));
 
 	getAABB();
-    getOBB();
-
-	return true;
-}
-
-bool C3DStaticObj::load(const std::string& fileName)
-{
-	_fileName = fileName;
-
-	// Load mesh/scene from file
-	C3DResourceLoader* bundle = C3DResourceLoader::create(fileName);
-	if (bundle == NULL)
-        return false;
-
-	bundle->loadSceneModel(this);
-	this->setDefaultMaterial(StringTool::getFilePath(fileName));
-
-	getAABB();
-    getOBB();
-
-    SAFE_RELEASE(bundle);
-
-    return true;
-}
-
-// zhukaixy: 可以删掉
-bool C3DStaticObj::load(bool isLoadAll)
-{
-	//if(_loader == NULL)
-	//	return false;
-	//
-	//_loader->loadSceneModel(this);
-	//this->setDefaultMaterial(StringTool::getFilePath(_fileName));
- //
-	//
-	//getAABB();
-
- //   getOBB();
-
-	//SAFE_RELEASE(_loader);
+	getOBB();
 
 	return true;
 }

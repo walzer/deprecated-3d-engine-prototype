@@ -38,7 +38,7 @@ class C3DSprite;
 class C3DResourceLoader : public cocos2d::CCObject
 {
 friend class C3DRenderNode;
-friend class C3DSpriteManager;
+friend class C3DRenderNodeManager;
 
 public:
 
@@ -88,6 +88,8 @@ public:
     const std::string getObjectID(unsigned int index) const;
 
 	unsigned int seekToNextType();
+
+	std::string getFilePath() const { return _path; }
 private:
 
     class Reference

@@ -23,10 +23,9 @@
 #include "C3DRay.h"
 #include "C3DPlane.h"
 #include "C3DRenderSystem.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 #include "C3DAnimation.h"
 #include "C3DProfile.h"
-#include "C3DSpriteManager.h"
 
 using namespace cocos3d;
 
@@ -152,7 +151,7 @@ void FullDemoLayer::setUpScene()
 
 void FullDemoLayer::createStaticModel()
 {
-	C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/scene/scene.ckb"));
+	C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/fulldemo/scene/scene.ckb"));
 	sm->translate(0, -1, 0);
 	sm->scale(1, 1, 1);
 	_scene->addChild(sm);
@@ -250,7 +249,7 @@ void FullDemoLayer::createParticleEffect()
     
 void FullDemoLayer::createEffect()
 {
-    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DSpriteManager::getInstance()->getResource("effect/fadecircle.ckb"));
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("effect/fadecircle.ckb"));
 
     sm->setMaterial("effect/fadecircle.material");
     sm->translate(0, 0, 0);
@@ -262,7 +261,7 @@ void FullDemoLayer::createEffect()
 void FullDemoLayer::createMainPlayer()
 {
 	cocos3d::C3DSprite* entity = NULL;
-	entity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/warrior/warrior.ckb"));
+	entity = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/fulldemo/warrior/warrior.ckb"));
 	if(entity != NULL)
 	{
 		std::string name = "mainPlayer";
@@ -297,7 +296,7 @@ void FullDemoLayer::createEnemy()
 {
 	cocos3d::C3DSprite* entity = NULL;
 
-	entity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/guai/guai.ckb"));
+	entity = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/fulldemo/guai/guai.ckb"));
 	entity->getAnimation()->setQuality(C3DAnimation::Low);
 
 	if(entity != NULL)
@@ -317,7 +316,7 @@ void FullDemoLayer::createEnemy()
 		for (int i = 0; i < 5; i++)
 		{
 	
-			C3DSprite* newEntity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/fulldemo/guai/guai.ckb"));
+			C3DSprite* newEntity = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/fulldemo/guai/guai.ckb"));
 
 			newEntity->playAnimationClip("idle");
 
@@ -350,7 +349,7 @@ void FullDemoLayer::createEnemy()
 
 void FullDemoLayer::createNpc()
 {
-	cocos3d::C3DSprite* entity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/girl/test.ckb"));
+	cocos3d::C3DSprite* entity = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/girl/test.ckb"));
 	if(entity != NULL)
 	{
 		std::string name = "npc";
