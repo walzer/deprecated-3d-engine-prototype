@@ -30,7 +30,7 @@ class C3DResourceLoader;
 /**
 *Defines the bass class for all scene objects which includes static object,dynamic object,and so on.
 */
-class  C3DRenderNode : public C3DNode,public C3DResource
+class  C3DRenderNode : public C3DNode, public C3DResource
 {
 	friend class C3DScene;
 	friend class C3DStaticObj;
@@ -41,18 +41,14 @@ public:
 	C3DRenderNode(const std::string& id);
     ~C3DRenderNode();
 
-	// zhukaixy: 删除如下接口create sprite and add it to autorelease pool
-    // static C3DRenderNode* create(const std::string& id,const std::string& fileName);
-
 	/**
     * load sprite from file.
     *
     * @param fileName sprite filename.
     */
-	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false){ return false; }
-	virtual bool load(bool isLoadAll=false){ return false; }
-	virtual bool load(const std::string& fileName){ return false; }
+	bool loadFromFile(const std::string& fileName, bool isLoadAll = false);
 
+	virtual bool load(C3DResourceLoader* loader, bool isLoadAll = false){ return false; };
 	virtual void reload();
 
 	/**
@@ -103,6 +99,8 @@ public:
 	C3DCollitionBox* pickCollitionBox(const C3DRay *ray);
 	bool saveCollitionBox(const std::string& fileName)const;
 	bool loadCollitionBox(const std::string& fileName);
+
+	virtual C3DNode* clone(CloneContext& context) const{ return NULL; }
 
 protected:
 

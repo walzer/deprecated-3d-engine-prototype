@@ -12,11 +12,11 @@ class C3DEffect;
 /**
  *A materialManager manager material's load£¬preload, and so on.
  */
-class C3DSpriteManager : public C3DResourceManager
+class C3DRenderNodeManager : public C3DResourceManager
 {
 public:
 
-	static C3DSpriteManager* getInstance();
+	static C3DRenderNodeManager* getInstance();
 
 	virtual C3DResource* createResource(const std::string& name);
 
@@ -26,9 +26,9 @@ public:
 
 private:
 
-    C3DSpriteManager();
+    C3DRenderNodeManager();
 
-    virtual ~C3DSpriteManager();
+    virtual ~C3DRenderNodeManager();
 
 };
 }

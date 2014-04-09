@@ -16,7 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -79,10 +79,11 @@ void ColorTestLayer::draw3D()
 
 void ColorTestLayer::setUpScene()
 {
-     C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
-     //sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
-     //sm->setMaterial("body", "demores/hua_01/hua_01.material");
-     //sm->playAnimationClip("all");
+     C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
+	 sm->setId("shuicao");
+     sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
+     sm->setMaterial("body", "demores/hua_01/hua_01.material");
+     sm->playAnimationClip("all");
      sm->setPosition(0.0f, -50, -30.0f);
      sm->setScale(3.0f);
  
@@ -146,7 +147,7 @@ void ColorTestLayer::menuCallback( CCObject * pSender )
     int nIdx = pMenuItem->getZOrder() - 10000;
 
 
-    C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("demores/hua_01/hua_01.ckb");
+    C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("shuicao");
 
     if (sm)
     {

@@ -219,7 +219,7 @@ void C3DFrameBuffer::unbind()
 }
 
 //-----------------------------------------------------------------------------------
-static C3DFrameBufferMgr* g_3DFrmaeBufferMgr = NULL;
+static C3DFrameBufferMgr* __3DFrameBufferMgr = NULL;
 
 C3DFrameBufferMgr::C3DFrameBufferMgr()
 {
@@ -229,17 +229,17 @@ C3DFrameBufferMgr::~C3DFrameBufferMgr()
 {
 	LOG_TRACE_VARG("@C3DFrameBufferMgr::%d", _frameBufs.size());
 
-	g_3DFrmaeBufferMgr = NULL;
+	__3DFrameBufferMgr = NULL;
 }
 
 C3DFrameBufferMgr* C3DFrameBufferMgr::getInstance()
 {
-	if (NULL == g_3DFrmaeBufferMgr)
+	if (NULL == __3DFrameBufferMgr)
 	{
-		g_3DFrmaeBufferMgr = new C3DFrameBufferMgr();
-		g_3DFrmaeBufferMgr->autorelease();
+		__3DFrameBufferMgr = new C3DFrameBufferMgr();
+		__3DFrameBufferMgr->autorelease();
 	}
-	return g_3DFrmaeBufferMgr;
+	return __3DFrameBufferMgr;
 }
 
 void C3DFrameBufferMgr::add(C3DFrameBuffer* texture)

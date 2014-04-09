@@ -16,7 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -63,7 +63,7 @@ void TunnelTestLayer::draw3D()
 
 void TunnelTestLayer::setUpScene()
 {
-    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DSpriteManager::getInstance()->getResource("demores/cylinder/cylinder.ckb"));
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/cylinder/cylinder.ckb"));
 
     sm->translate(0, 0, -330);
     sm->rotateX(1.57f);

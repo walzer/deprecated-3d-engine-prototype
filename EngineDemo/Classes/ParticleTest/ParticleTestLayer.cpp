@@ -19,7 +19,7 @@
 #include "C3DParticleSystem.h"
 #include "C3DLineRender.h"
 #include "C3DSprite.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -128,7 +128,8 @@ void ParticleTestLayer::draw3D()
 
 void ParticleTestLayer::setUpScene()
 {
-    C3DSprite* shuicao = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
+    C3DSprite* shuicao = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/hua_01/hua_01.ckb"));
+	shuicao->setId("shuicao");
     shuicao->addAnimationClip("all", 0 , 240, 0, 1.0f);
 
     shuicao->playAnimationClip("all");

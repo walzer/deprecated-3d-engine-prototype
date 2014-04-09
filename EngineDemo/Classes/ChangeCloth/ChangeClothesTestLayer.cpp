@@ -19,7 +19,7 @@
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
 #include "ClothUILayer.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 
 #include "../C3DActor.h"
 
@@ -78,7 +78,7 @@ void ChangeClothesTestLayer::draw3D()
 
 void ChangeClothesTestLayer::createLive()
 {
-	cocos3d::C3DSprite* entity = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/girl/test.ckb"));
+	cocos3d::C3DSprite* entity = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/girl/test.ckb"));
 	if(entity != NULL)
 	{
 		std::string name = "girl_1";

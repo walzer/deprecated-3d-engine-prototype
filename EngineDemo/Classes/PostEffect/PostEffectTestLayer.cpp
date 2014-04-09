@@ -18,7 +18,7 @@
 #include "PESpaceWarp.h"
 #include "PEVortex.h"
 #include "PESceneChange.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -113,7 +113,7 @@ void PostEffectTestLayer::draw3D()
 
 void PostEffectTestLayer::setUpScene()
 {
-    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DSpriteManager::getInstance()->getResource("demores/materialtest/1.ckb"));
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/materialtest/1.ckb"));
 
     //sm->setMaterial("scene/1/1_specular.material");
 	sm->setMaterial("demores/materialtest/1_no_glow.material");
@@ -121,7 +121,7 @@ void PostEffectTestLayer::setUpScene()
     sm->scale(50, 50, 50);
     _scene->addChild(sm);
 
-	C3DSprite* fish = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
+	C3DSprite* fish = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
 	//fish->setMaterial("body", "2.5D/fish/haigui/haigui.material");
     fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
 

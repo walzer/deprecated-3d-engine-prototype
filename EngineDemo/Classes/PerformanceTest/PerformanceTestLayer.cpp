@@ -16,7 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -83,7 +83,7 @@ void PerformanceTestLayer::setUpScene()
     {
 		for (int j = 0; j < 10; j++)
 		{
-			C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DSpriteManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
+			C3DSprite* sm = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
 			sm->addAnimationClip("all", 0 , 240, 0, 1.0f);
 			sm->setMaterial("body", "demores/haigui/haigui.material");
 			sm->playAnimationClip("all");
