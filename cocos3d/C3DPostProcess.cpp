@@ -17,6 +17,7 @@
 #include "C3DVector4.h"
 #include "C3DPostEffect.h"
 #include <map>
+#include "C3DDeviceAdapter.h"
 
 namespace cocos3d
 {
@@ -58,6 +59,9 @@ C3DPostProcess::~C3DPostProcess()
 
 C3DPostProcess* C3DPostProcess::create(const std::string& id, unsigned int texWidth, unsigned int texHeight/*, const std::string& techniqueId*/)
 {
+	if(C3DDeviceAdapter::getInstance()->isSuppertPostProcess() == false)
+		return NULL;
+
 	unsigned int fmtColor = C3DTexture::RGBA;
 	//unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH24_STENCIL8;
 	unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
