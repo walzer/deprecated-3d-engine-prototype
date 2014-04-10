@@ -8,19 +8,19 @@ namespace cocos3d
 {
 C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat, PrimitiveType primitiveType)
     :C3DBaseMesh(vertexFormat, primitiveType),
+	 _vertexCount(0), 
 	 _vertexBuffer(0),
-	 _vertexCount(0),
 	 _partCount(0),
 	 _parts(NULL),
 	 _dynamic(false),
 	 _boundingBox(NULL)
 {
-	LOG_TRACE_VARG("%p +C3DMesh", this);
+	//LOG_TRACE_VARG("%p +C3DMesh", this);
 }
 
 C3DMesh::~C3DMesh()
 {
-	LOG_TRACE_VARG("%p -C3DMesh", this);
+	//LOG_TRACE_VARG("%p -C3DMesh", this);
 	reload();
 }
 
@@ -34,11 +34,7 @@ void C3DMesh::reload()
 	_partCount = 0;
     SAFE_DELETE_ARRAY(_parts);
 
-    if (_vertexBuffer)
-    {
-        //glDeleteBuffers(1, &_vertexBuffer);
-        _vertexBuffer = 0;
-    }
+    _vertexBuffer = 0;
 
 	_url = std::string("");
 

@@ -16,7 +16,7 @@ namespace cocos3d
 {
 C3DMaterial::C3DMaterial(const std::string& name) : C3DResource(name)
 {
-    //memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
+    memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
 }
 
 C3DMaterial::~C3DMaterial()
@@ -31,7 +31,7 @@ C3DMaterial::~C3DMaterial()
         }
     }
 
-    //memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
+    memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
 }
 
 void techniqueReload(C3DTechnique* tech)
