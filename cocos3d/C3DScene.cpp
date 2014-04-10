@@ -23,6 +23,7 @@
 #include "C3DViewport.h"
 #include "C3DPostProcess.h"
 #include "C3DGeoWireRender.h"
+#include "C3DDeviceAdapter.h"
 
 namespace cocos3d
 {
@@ -195,42 +196,38 @@ void C3DScene::drawDebug()
 
 void C3DScene::preDraw()
 {
-    C3DStat::getInstance()->beginStat();
+	C3DStat::getInstance()->beginStat();
 
-	if (_activeShadowMap && _activeShadowMap->isVisible())
-    {
-        _inShadowPass = true;
-
-        _activeShadowMap->beginDraw();
-        //draw scene
-
-        bool bStatEnable = C3DStat::getInstance()->isStatEnable();
-
-		for (size_t i = 0; i < _children.size(); ++i)
+	if(C3DDeviceAdapter::getInstance()->isSupportShadow() == true)
+	{
+		if (_activeShadowMap && _activeShadowMap->isVisible())
 		{
-			C3DNode* node = _children[i];
-			if(node->isVisible())
+			_inShadowPass = true;
+
+			_activeShadowMap->beginDraw();
+			//draw scene
+
+			bool bStatEnable = C3DStat::getInstance()->isStatEnable();
+
+			for (size_t i = 0; i < _children.size(); ++i)
 			{
-				node->draw();
+				C3DNode* node = _children[i];
+				if(node->isVisible())
+				{
+					node->draw();
 
-				if (bStatEnable)
-					C3DStat::getInstance()->incTriangleTotal(node->getTriangleCount());
+					if (bStatEnable)
+						C3DStat::getInstance()->incTriangleTotal(node->getTriangleCount());
+				}
 			}
+
+			_activeShadowMap->endDraw();
+
+			_inShadowPass = false;
 		}
+	}
+    
 
-        _activeShadowMap->endDraw();
-
-        _inShadowPass = false;
-    }
-
-	//....posteffect start ....
-	/**
-	if (_activePostProcess && _activePostProcess->active())
-    {
-        _activePostProcess->beginDraw();
-    }
-	//*/
-	//....posteffect end.......
 }
 
 void C3DScene::draw()
@@ -252,22 +249,30 @@ void C3DScene::draw()
 
 void C3DScene::postDraw()
 {
-	if (_activePostProcess && _activePostProcess->isVisible())
+	if( C3DDeviceAdapter::getInstance()->isSuppertPostProcess() == true)
 	{
-		_activePostProcess->preChannelDraw();
+		if (_activePostProcess && _activePostProcess->isVisible())
+		{
+			_activePostProcess->preChannelDraw();
+		}
 	}
+	
 
 	C3DRenderSystem::getInstance()->getRenderChannelManager()->draw();
 
 	//....posteffect start ....
 
-	if (_activePostProcess && _activePostProcess->isVisible())
+	if( C3DDeviceAdapter::getInstance()->isSuppertPostProcess() == true)
 	{
-		_activePostProcess->postChannelDraw();
-        _activePostProcess->beginDraw();
-		_activePostProcess->draw();
-		_activePostProcess->endDraw();
-    }
+		if (_activePostProcess && _activePostProcess->isVisible())
+		{
+			_activePostProcess->postChannelDraw();
+			_activePostProcess->beginDraw();
+			_activePostProcess->draw();
+			_activePostProcess->endDraw();
+		}
+	}
+	
 	//....posteffect end.......
 
 	for (unsigned int i = 0; i < _postDrawNode.size(); i++)

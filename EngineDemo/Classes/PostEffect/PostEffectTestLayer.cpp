@@ -75,6 +75,8 @@ bool PostEffectTestLayer::init()
 void PostEffectTestLayer::onExit()
 {
 	C3DPostProcess* pp = _scene->getActivePostProcess();
+	if( pp == NULL)
+		return;
 	std::vector<std::string> names = pp->getEffectNames();
 	for ( unsigned int i = 0; i < names.size(); ++i )
 	{
@@ -142,6 +144,8 @@ void PostEffectTestLayer::setUpPostEffect()
 	float width = CCDirector::getInstance()->getOpenGLView()->getFrameSize().width;
 	float height = CCDirector::getInstance()->getOpenGLView()->getFrameSize().height;
 	C3DPostProcess* pp = C3DPostProcess::create("PostProcessTest", width, height);
+	if(pp == NULL)
+		return;
 	_scene->addChild(pp);
 
 	_scene->setActivePostProcess( pp );
@@ -250,8 +254,11 @@ void PostEffectTestLayer::menuCallback( CCObject * pSender )
     if (sm)
     {
 		C3DPostProcess* pp = _scene->getActivePostProcess();
+		if(pp != NULL)
+		{
+			pp->setActiveEffect( postEffectTypes[nIdx] );
+		}
 
-		pp->setActiveEffect( postEffectTypes[nIdx] );
     }
 }
 
