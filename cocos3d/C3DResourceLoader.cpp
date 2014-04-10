@@ -514,12 +514,10 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 			}
 
 			mesh->_boundingBox->set(meshData->boundingBox->_min,meshData->boundingBox->_max);
-
-			//-----------------------------------------------------------------------------
+			
+			SAFE_DELETE(meshData);
 		}
 	}
-
-	return;
 }
 
 void C3DResourceLoader::loadSuperModel(C3DSprite* superModel)

@@ -21,7 +21,19 @@ C3DMesh::C3DMesh(C3DVertexFormat* vertexFormat, PrimitiveType primitiveType)
 C3DMesh::~C3DMesh()
 {
 	//LOG_TRACE_VARG("%p -C3DMesh", this);
-	reload();
+	for (unsigned int i = 0; i < _partCount; ++i)
+	{
+		SAFE_DELETE(_parts[i]);
+	}
+	SAFE_DELETE_ARRAY(_parts);
+
+	if (_vertexBuffer)
+	{
+		glDeleteBuffers(1, &_vertexBuffer);
+		_vertexBuffer = 0;
+	}
+
+	SAFE_DELETE(_boundingBox);
 }
 
 void C3DMesh::reload()
@@ -57,7 +69,6 @@ void C3DMesh::init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool
         return;
     }
 
-	// TODO: ©ирти╬ЁЩё©
     GL_CHECK( glBufferData(GL_ARRAY_BUFFER, vertexFormat->getVertexSize() * vertexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
     if (GL_LAST_ERROR())
     {
