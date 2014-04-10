@@ -44,6 +44,8 @@ public:
 	bool load(C3DElementNode* node);
 	bool save(C3DElementNode* node);
 
+	void reload();
+
 private:
 
     C3DTexture3D* _texture;

@@ -112,6 +112,7 @@ void main()
     // Light the pixel
     gl_FragColor.a = _baseColor.a;
 	gl_FragColor.rgb = _ambientColor + _diffuseColor + _specularColor;
+	
 	#ifdef PTLIGHT
 	gl_FragColor *= textureCube(u_shellTex, normalize(v_lightRefDir));
 	#endif
@@ -119,4 +120,6 @@ void main()
 #if defined(GLOBAL_ALPHA)
     gl_FragColor.a *= u_globalAlpha;
 #endif
+
+	gl_FragColor.rgba = vec4(u_ambientColor, 0.8);
 }

@@ -40,6 +40,8 @@ public:
 
     void unbind();
 
+	virtual void reload();
+
     // get max support lights each type
     int getMaxDirLight() const { return _nMaxDirLight; }
     int getMaxPointLight() const  { return _nMaxPointLight; }
@@ -70,7 +72,6 @@ public:
 	std::string getVshPath()const{return _vshPath;}
 	std::string getFshPath()const{return _fshPath;}
 	std::string getDefines()const{return _defines;}
-
 private:
 
     std::string _id;

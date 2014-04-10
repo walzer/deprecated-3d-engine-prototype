@@ -12,7 +12,7 @@ material
 
 			sampler u_diffuseTexture
 			{
-				path = objects/Girl_Maozi_01.png
+				path = demores/girl/Girl_Maozi_01.png
 				mipmap = true
 				wrapS = REPEAT
 				wrapT = REPEAT
@@ -22,7 +22,7 @@ material
 
 			renderState 
 			{
-				cullFace = true
+				cullFace = false
 				depthTest = true
 				depthWrite = true
 				blend = true

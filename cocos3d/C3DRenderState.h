@@ -193,7 +193,7 @@ public:
 	static const std::string getAutoBindingName(AutoBinding autoBinding);
 
 	C3DRenderState* getParent();
-
+	virtual void reload();
 protected:
 
     /**

@@ -1,0 +1,13 @@
+material 
+{
+	technique Technique0
+	{
+
+		pass Pass0
+		{
+			vertexShader = shaders/debug.vsh
+			fragmentShader = shaders/debug.fsh
+		}
+	}
+}
+

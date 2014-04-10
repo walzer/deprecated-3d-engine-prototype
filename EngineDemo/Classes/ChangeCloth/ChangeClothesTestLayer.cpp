@@ -19,6 +19,7 @@
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
 #include "ClothUILayer.h"
+#include "C3DRenderNodeManager.h"
 
 #include "../C3DActor.h"
 
@@ -77,14 +78,11 @@ void ChangeClothesTestLayer::draw3D()
 
 void ChangeClothesTestLayer::createLive()
 {
-	cocos3d::C3DSprite* entity = NULL;
-
-    entity = cocos3d::C3DSprite::create("girl_1");
+	cocos3d::C3DSprite* entity = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/girl/test.ckb"));
 	if(entity != NULL)
 	{
 		std::string name = "girl_1";
 		_actor = new C3DActor(name,entity,this);
-		entity->loadFromFile("demores/girl/test.ckb");
 		entity->addAnimationClip("idle",0,80,0,1.0f);
 		entity->addAnimationClip("idle1",240,320,0,1.0f);
 		entity->playAnimationClip("idle1");

@@ -10,10 +10,12 @@ static C3DMaterialManager* __materialManagerInstance = NULL;
 
 C3DMaterialManager::C3DMaterialManager()
 {
+	LOG_TRACE_VARG("@C3DMaterialManager born at: %p", this);
 }
 
 C3DMaterialManager::~C3DMaterialManager()
 {
+	LOG_TRACE_VARG("@C3DMaterialManager dead at: %p", this);
 	__materialManagerInstance = NULL;
 }
 

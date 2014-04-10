@@ -58,6 +58,8 @@ public:
      */
 	virtual bool save(C3DElementNode* node);
 
+	virtual void reload();
+
 private:
 
     std::string _id;

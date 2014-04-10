@@ -12,7 +12,7 @@ material
 
 			sampler u_diffuseTexture
 			{
-				path = objects/Girl_Lian.png
+				path = demores/girl/Girl_Lian.png
 				mipmap = true
 				wrapS = REPEAT
 				wrapT = REPEAT

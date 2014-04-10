@@ -27,6 +27,8 @@ public:
 	*/
 	static C3DMesh* createQuadFullscreen( unsigned int sizeX, unsigned int sizeY );
 
+	static void createQuadFullscreen( unsigned int sizeX, unsigned int sizeY, C3DMesh* mesh );
+
 	/**
 	* create Sphere mesh.
 	*/

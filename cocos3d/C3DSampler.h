@@ -91,9 +91,10 @@ public:
 	bool load(C3DElementNode* node);
 	bool save(C3DElementNode* node);
 
+	void reload();
 private:
 
-    C3DTexture* _texture;
+    C3DTexture* _3DTexture;
     Texture_Wrap _wrapS;
     Texture_Wrap _wrapT;
     Texture_Filter _minFilter;

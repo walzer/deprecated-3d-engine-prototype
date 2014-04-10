@@ -12,6 +12,7 @@
 #include "C3DFrameBuffer.h"
 #include "MaterialParameter.h"
 #include "C3DRenderSystem.h"
+#include "C3DMaterialManager.h"
 
 namespace cocos3d
 {
@@ -55,7 +56,7 @@ bool PESceneChange::init(const std::string& szMaterial)
 		return false;
 	}
 
-	_matCopyToScreen = C3DMaterial::create( "demores/posteffect/postprocess_scenecopy.material" );
+	_matCopyToScreen = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource("demores/posteffect/postprocess_scenecopy.material"));
 	_matCopyToScreen->retain();
 
 	float fbScale = 0.5f;

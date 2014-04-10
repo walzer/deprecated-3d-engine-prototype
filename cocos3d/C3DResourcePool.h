@@ -27,7 +27,9 @@ public:
 
 	virtual void update(long elapsedTime) = 0;
 
-protected:
+	void reload();
+
+public:
 	std::map<std::string,C3DResource*> _items;
 	C3DResourceManager* _manager;
 };

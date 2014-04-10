@@ -18,7 +18,6 @@ namespace cocos3d
 C3DStaticObj* C3DStaticObj::create(const std::string& id)
 {
 	C3DStaticObj* pRet = new C3DStaticObj(id);
-
     pRet->autorelease();
     return pRet;
 }
@@ -30,61 +29,21 @@ C3DStaticObj::C3DStaticObj(const std::string& id):C3DRenderNode(id)
 C3DStaticObj::~C3DStaticObj()
 {
 }
+
 C3DNode::Type C3DStaticObj::getType() const
 {
 	return C3DNode::NodeType_SceneModel;
 }
 
-bool C3DStaticObj::loadFromFile(const std::string& fileName,bool isLoadAll)
+bool C3DStaticObj::load(C3DResourceLoader* loader, bool isLoadAll/* = false*/)
 {
-	// Load mesh/scene from file
-	C3DResourceLoader* bundle = C3DResourceLoader::create(fileName);
+	_fileName = loader->getFilePath();
 
-	if (bundle == NULL)
-        return false;
-
-	bundle->loadSceneModel(this);
-	this->setDefaultMaterial(StringTool::getFilePath(fileName));
-    SAFE_RELEASE(bundle);
+	loader->loadSceneModel(this);
+	this->setDefaultMaterial(StringTool::getFilePath(_fileName));
 
 	getAABB();
-    getOBB();
-
-	return true;
-}
-
-bool C3DStaticObj::load(const std::string& fileName)
-{
-	// Load mesh/scene from file
-	C3DResourceLoader* bundle = C3DResourceLoader::create(fileName);
-	if (bundle == NULL)
-        return false;
-
-	bundle->loadSceneModel(this);
-	this->setDefaultMaterial(StringTool::getFilePath(fileName));
-
-	getAABB();
-    getOBB();
-
-    SAFE_RELEASE(bundle);
-
-    return true;
-}
-
-bool C3DStaticObj::load(bool isLoadAll)
-{
-	//if(_loader == NULL)
-	//	return false;
-	//
-	//_loader->loadSceneModel(this);
-	//this->setDefaultMaterial(StringTool::getFilePath(_fileName));
- //
-	//
-	//getAABB();
-
- //   getOBB();
-
-	//SAFE_RELEASE(_loader);
+	getOBB();
 
 	return true;
 }

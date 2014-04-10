@@ -64,28 +64,28 @@ C3DRenderNode::~C3DRenderNode()
 	m_collitionBoxs.clear();
 }
 
-C3DRenderNode* C3DRenderNode::create(const std::string& id,const std::string& fileName)
+bool C3DRenderNode::loadFromFile(const std::string& fileName, bool isLoadAll /*= false*/)
 {
-	// Load mesh/scene from file
-	C3DResourceLoader* loader = C3DResourceLoader::create(fileName);
+	bool res(false);
 
-	if (loader == NULL)
-        return NULL;
-
-	C3DRenderNode* renderNode = NULL;
-	if(loader->_isSkin == true)
+	C3DResourceLoader* bundle = C3DResourceLoader::create(fileName);
+	if (NULL != bundle)
 	{
-		renderNode = C3DSprite::create(id);
-	}
-	else
-	{
-		renderNode = C3DStaticObj::create(id);
+		res = load(bundle, isLoadAll);
+		SAFE_RELEASE(bundle);
 	}
 
-	renderNode->_fileName = fileName;
-	loader->autorelease();
+	return res;
+}
 
-	return renderNode;
+void C3DRenderNode::reload()
+{
+ 	C3DResourceLoader* bundle = C3DResourceLoader::create(_fileName);
+	if (bundle == NULL)
+		return;
+
+	bundle->reLoadSuperModel(this);
+	bundle->release();
 }
 
 void C3DRenderNode::draw()

@@ -10,6 +10,7 @@
 #include "C3DCamera.h"
 #include "C3DNoise.h"
 #include "Base.h"
+#include "C3DMaterialManager.h"
 
 namespace cocos3d
 {
@@ -66,7 +67,7 @@ void C3DLineRender::init( const std::string& materialPath )
 	_model = new C3DBatchModel(this);
 	_model->setMesh(mesh);
 
-	C3DMaterial* material = C3DMaterial::create( materialPath );
+	C3DMaterial* material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(materialPath));
 	_model->setMaterial( material );
 }
 

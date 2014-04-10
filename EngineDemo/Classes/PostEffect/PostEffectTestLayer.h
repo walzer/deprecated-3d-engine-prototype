@@ -2,7 +2,6 @@
 #define __POSTEFFECT_TEST_LAYER_H__
 
 #include "CCNode.h"
-//#include "touch_dispatcher/CCTouchDelegateProtocol.h"
 #include "cocos2d.h"
 #include "cocos3d.h"
 #include "TestLayer.h"

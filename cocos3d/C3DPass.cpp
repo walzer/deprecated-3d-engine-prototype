@@ -80,7 +80,15 @@ void C3DPass::unbind()
         _vaBinding->unbind();
     }
 
-	   //GL_ASSERT( glUseProgram(0) );
+	//GL_ASSERT( glUseProgram(0) );
+}
+
+void C3DPass::reload()
+{
+	LOG_TRACE_VARG("    C3DPass:%s begin reload", _id.c_str());
+	C3DRenderState::reload();
+	if(_vaBinding)
+		_vaBinding->reload();
 }
 
 C3DPass* C3DPass::clone() const

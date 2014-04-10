@@ -337,6 +337,26 @@ void MaterialParameter::bind(C3DEffect* effect)
     }
 }
 
+void MaterialParameter::reload()
+{
+	_uniform = NULL;
+
+	switch (_type)
+	{
+	case cocos3d::MaterialParameter::SAMPLER:
+		{
+			const_cast<C3DSampler*>(_value.samplerValue)->reload();
+		}
+		break;
+	case cocos3d::MaterialParameter::SAMPLERCUBE:
+		break;
+	case cocos3d::MaterialParameter::TEXTURE:
+		break;
+	default:
+		break;
+	}
+}
+
 void MaterialParameter::setParamMethonAutoUniform(C3DEffect* effect)
 {
     // If we had a Uniform cached that is not from the passed in effect,
