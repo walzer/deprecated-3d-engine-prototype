@@ -119,6 +119,9 @@ void ShadowTestLayer::setUpShadowMap()
     if (!light)
         return;
     C3DShadowMap* shadowMap = C3DShadowMap::create("shadow", 512, 512);
+	if(shadowMap == NULL)
+		return;
+
     shadowMap->setDimension(60, 60, 160);
     light->addChild(shadowMap);
     _scene->setActiveShadowMap(0);

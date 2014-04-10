@@ -24,6 +24,7 @@
 #include "C3DRenderChannel.h"
 #include "C3DRenderSystem.h"
 #include "C3DMorphMesh.h"
+#include "C3DDeviceAdapter.h"
 
 namespace cocos3d
 {
@@ -552,6 +553,9 @@ void C3DModel::applyLightParam(C3DPass* pass)
 
 void C3DModel::applyShadowMap(C3DPass* pass)
 {
+	if( C3DDeviceAdapter::getInstance()->isSupportShadow() == false )
+		return;
+
     if (_node == NULL)
         return;
 

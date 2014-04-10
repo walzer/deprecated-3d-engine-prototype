@@ -3,7 +3,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DTexture.h"
 #include "C3DSampler.h"
-
+#include "C3DDeviceAdapter.h"
 namespace cocos3d
 {
     enum
@@ -25,6 +25,9 @@ namespace cocos3d
 
     C3DShadowMap* C3DShadowMap::create(const std::string& id, unsigned int texWidth, unsigned int texHeight)
     {
+		if(C3DDeviceAdapter::getInstance()->isSupportShadow() == false )
+			return NULL;
+
         unsigned int fmtColor = 0;
         unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
         bool supportNullColor = false;
