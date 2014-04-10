@@ -58,14 +58,8 @@ extern void printError(const char* format, ...);
     { \
         LOGI(x, __VA_ARGS__); \
     }
-#define LOG_TRACE(x) \
-    { \
-        LOGI(x); \
-    }
-#define LOG_TRACE_VARG(x, ...) \
-    { \
-        LOGI(x, __VA_ARGS__); \
-    }
+#define LOG_TRACE(x)
+#define LOG_TRACE_VARG(x, ...)
 // Warning macro
 #ifdef WARN
 #undef WARN
@@ -223,7 +217,9 @@ typedef GLuint RenderBufferHandle;
  * mode and is therefore safe to use for realtime/per-frame GL
  * function calls.
  */
-
+#ifdef NDEBUG
+#define GL_ASSERT( gl_code ) gl_code
+#else
 #define GL_ASSERT( gl_code ) \
     { \
         gl_code; \
@@ -234,6 +230,7 @@ typedef GLuint RenderBufferHandle;
         } \
         assert(__gl_error_code == GL_NO_ERROR); \
     }
+#endif
 
 /**
  * Executes the specified GL code and checks the GL error afterwards

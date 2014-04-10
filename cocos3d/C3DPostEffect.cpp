@@ -63,29 +63,29 @@ bool C3DPostEffect::init(const std::string& szMaterial)
     return true;
 }
 
-bool C3DPostEffect::reset()
-{
-	SAFE_RELEASE(_model);
-	SAFE_RELEASE(_material);
-
-	_material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(_szMaterial));
-	if (_material == NULL)
-		return false;
-
-	_material->retain();
-	C3DTechnique* technique = _material->getTechnique(0u);
-
-	technique->getPass(0u)->getParameter("u_texture")->setValue(_postProcess->getFramebufferSampler());
-
-	C3DMesh* mesh = Geo::createQuadFullscreen(_x, _y);
-	_model = C3DSkinlessModel::create();
-	_model->setMesh(mesh);
-	SAFE_RELEASE(mesh);
-
-	_model->setNode(_postProcess);
-
-	return true;
-}
+// bool C3DPostEffect::reset()
+// {
+// 	SAFE_RELEASE(_model);
+// 	SAFE_RELEASE(_material);
+// 
+// 	_material = static_cast<C3DMaterial*>(C3DMaterialManager::getInstance()->getResource(_szMaterial));
+// 	if (_material == NULL)
+// 		return false;
+// 
+// 	_material->retain();
+// 	C3DTechnique* technique = _material->getTechnique(0u);
+// 
+// 	technique->getPass(0u)->getParameter("u_texture")->setValue(_postProcess->getFramebufferSampler());
+// 
+// 	C3DMesh* mesh = Geo::createQuadFullscreen(_x, _y);
+// 	_model = C3DSkinlessModel::create();
+// 	_model->setMesh(mesh);
+// 	SAFE_RELEASE(mesh);
+// 
+// 	_model->setNode(_postProcess);
+// 
+// 	return true;
+// }
 
 void C3DPostEffect::setGridSize( unsigned int x, unsigned int y )
 {
