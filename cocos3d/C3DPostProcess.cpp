@@ -216,7 +216,7 @@ std::vector<std::string> C3DPostProcess::getEffectNames(void) const
 }
 
 void C3DPostProcess::reload()
-{	std::vector<std::string> names;
+{
 	for ( PostEffects::const_iterator ite = _postEffects.begin(); ite != _postEffects.end(); ++ite )
 	{
 		(*ite).second->reload();

@@ -59,19 +59,20 @@ void C3DRenderSystem::onLostDevice()
 
 void C3DRenderSystem::reload()
 {
-	LOG_TRACE("---C3DRenderSystem begin reload---");
+	LOG_TRACE("\n\n\n---C3DRenderSystem begin reload---");
 
 	_textureMgr->reload();
 	_frameBufMgr->reload();
 
 	C3DEffectManager::getInstance()->reload();
-	C3DMaterialManager::getInstance()->reload();
 	C3DRenderNodeManager::getInstance()->reload();
 
 	if(g_pPostProcess)
 		g_pPostProcess->reload();
 
-	LOG_TRACE("---C3DRenderSystem end reload---");
+	C3DMaterialManager::getInstance()->reload();
+
+	LOG_TRACE("---C3DRenderSystem end reload---\n\n\n");
 }
 
 C3DRenderSystem* C3DRenderSystem::create()
@@ -123,8 +124,6 @@ void C3DRenderSystem::initialize()
     _viewport = new C3DViewport(0, 0, (int)size.width, (int)size.height);
 
 	C3DEffectManager::getInstance()->preload("config/effect.config");
-
-
 }
 
 void C3DRenderSystem::finalize()
@@ -135,8 +134,6 @@ void C3DRenderSystem::finalize()
 
     SAFE_DELETE(_viewport);
 	SAFE_DELETE(_clearColor);
-
-
 }
 
 void C3DRenderSystem::setViewport(float x, float y, float width, float height)
