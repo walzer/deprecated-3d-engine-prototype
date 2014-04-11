@@ -59,7 +59,7 @@ void C3DRenderSystem::onLostDevice()
 
 void C3DRenderSystem::reload()
 {
-	LOG_TRACE("\n\n\n---C3DRenderSystem begin reload---");
+	WARN("\n\n\n---C3DRenderSystem begin reload---");
 
 	_textureMgr->reload();
 	_frameBufMgr->reload();
@@ -72,7 +72,7 @@ void C3DRenderSystem::reload()
 
 	C3DMaterialManager::getInstance()->reload();
 
-	LOG_TRACE("---C3DRenderSystem end reload---\n\n\n");
+	WARN("---C3DRenderSystem end reload---\n\n\n");
 }
 
 C3DRenderSystem* C3DRenderSystem::create()

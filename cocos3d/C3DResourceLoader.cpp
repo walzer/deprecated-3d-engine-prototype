@@ -371,7 +371,11 @@ void C3DResourceLoader::reLoadSuperModel(C3DRenderNode* superModel)
 	// Read each child directly into the scene
 	for (unsigned int i = 0; i < childrenCount; ++i)
 	{
-		reloadNode(superModel);
+		bool res = reloadNode(superModel);
+		if(res == false)
+		{
+			WARN_VARG("reloadNode error,child index : %d",i);
+		}
 	}
 }
 
@@ -396,7 +400,7 @@ seekCheck::~seekCheck()
 		_object->seekToNextType();
 }
 
-void C3DResourceLoader::reloadNode(C3DNode* context)
+bool C3DResourceLoader::reloadNode(C3DNode* context)
 {
 	seekCheck	autoSeek(this);
     std::string nodeID(getIdFromOffset());
@@ -405,15 +409,18 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
     unsigned int eNodeType;
     if (!_stream->read(&eNodeType))
     {
-        return;
+        return false;
     }
 
 	if(nodeID.empty())
-		return;
+	{
+		WARN("reloadNode : nodeID is empty");
+		return false;
+	}
 
     C3DNode* curNode = context->findNode(nodeID, false);
 	if(NULL==curNode)
-		return;
+		return false;
 
 	// skip the transform
 	_stream->seek(sizeof(float)*16, SEEK_CUR);
@@ -444,7 +451,7 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 		if (!_stream->read(&hasMesh))
 		{
 			LOG_ERROR_VARG("Failed to load hasMesh in bundle '%s'.", _path.c_str());
-			return;
+			return false;
 		}
 
 		// TODO: read morph
@@ -452,21 +459,21 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 		if (!_stream->read(&hasMorph))
 		{
 			LOG_ERROR_VARG("Failed to load hasMorph in bundle '%s'.", _path.c_str());
-			return;
+			return false;
 		}
 
 		unsigned char hasSkin;
 		if (!_stream->read(&hasSkin))
 		{
 			LOG_ERROR_VARG("Failed to load hasSkin in bundle '%s'.", _path.c_str());
-			return;
+			return false;
 		}
 
 		unsigned char hasMaterial;
 		if (!_stream->read(&hasMaterial))
 		{
 			LOG_ERROR_VARG("Failed to load hasMaterial in bundle '%s'.", _path.c_str());
-			return;
+			return false;
 		}
 
 		if(hasMesh)
@@ -476,7 +483,7 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 			MeshData* meshData = readMeshData();
 			if (meshData == NULL)
 			{
-				return;
+				return false;
 			}
 
 			// Create C3DMesh
@@ -485,7 +492,7 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 			{
 				LOG_ERROR_VARG("Failed to create mesh: %s", nodeID.c_str());
 				SAFE_DELETE_ARRAY(meshData);
-				return;
+				return false;
 			}
 
 			mesh->reload();
@@ -508,7 +515,7 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 				{
 					LOG_ERROR_VARG("Failed to create mesh part (i=%d): %s", i, nodeID.c_str());
 					SAFE_DELETE(meshData);
-					return;
+					return false;
 				}
 				part->setIndexData(partData->indexData, 0, partData->indexCount);
 			}
@@ -518,6 +525,7 @@ void C3DResourceLoader::reloadNode(C3DNode* context)
 			SAFE_DELETE(meshData);
 		}
 	}
+	return true;
 }
 
 void C3DResourceLoader::loadSuperModel(C3DSprite* superModel)

@@ -2,7 +2,7 @@
 #include "C3DMesh.h"
 #include "C3DEffect.h"
 #include "C3DVertexFormat.h"
-
+#include "Base.h"
 #include "C3DDeviceAdapter.h"
 
 // Graphics (GLSL)
@@ -256,7 +256,8 @@ namespace cocos3d
 
 			if (attrib == -1)
 			{
-				//WARN_VARG("Warning: Vertex element with usage '%s' in mesh '%s' does not correspond to an attribute in effect '%s'.", VertexFormat::toString(e.usage), mesh->getUrl(), effect->getId());
+				
+			//	WARN_VARG("Warning: Vertex element with usage '%s' in mesh '%s' does not correspond to an attribute in effect '%s'.", C3DVertexFormat::toString(elem->usage), mesh->getUrl(), effect->getID());
 			}
 			else
 			{
@@ -283,7 +284,7 @@ namespace cocos3d
 	{
 		assert(indx < (GLuint)__maxVertexAttribs);
 
-		_vaEnableMask |= 1 << indx;
+		//_vaEnableMask |= 1 << indx;
 
 		if (_handle)
 		{

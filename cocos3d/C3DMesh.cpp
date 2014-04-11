@@ -40,6 +40,7 @@ void C3DMesh::reload()
 {
 	for (unsigned int i = 0; i < _partCount; ++i)
     {
+		_parts[i]->reset();
         SAFE_DELETE(_parts[i]);
     }
 
@@ -47,26 +48,26 @@ void C3DMesh::reload()
     SAFE_DELETE_ARRAY(_parts);
 
     _vertexBuffer = 0;
-
+	
 	_url = std::string("");
 
 	SAFE_DELETE(_boundingBox);
 }
 
-void C3DMesh::init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic)
+bool C3DMesh::init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic)
 {
 	GLuint vbo;
     GL_ASSERT( glGenBuffers(1, &vbo) );
     if (GL_LAST_ERROR())
     {
-        return;
+        return false;
     }
 
     GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, vbo) );
     if (GL_LAST_ERROR())
     {
         glDeleteBuffers(1, &vbo);
-        return;
+        return false;
     }
 
     GL_CHECK( glBufferData(GL_ARRAY_BUFFER, vertexFormat->getVertexSize() * vertexCount, NULL, dynamic ? GL_DYNAMIC_DRAW : GL_STATIC_DRAW) );
@@ -74,7 +75,7 @@ void C3DMesh::init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool
     {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glDeleteBuffers(1, &vbo);
-        return;
+        return false;
     }
 
 	GL_ASSERT( glBindBuffer(GL_ARRAY_BUFFER, 0) );
@@ -83,14 +84,21 @@ void C3DMesh::init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool
 	_vertexBuffer	= vbo;
 	_dynamic		= dynamic;
 	_boundingBox	= new C3DAABB();
+
+	return  true;
 }
 
 C3DMesh* C3DMesh::createMesh(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic)
 {
     C3DMesh* mesh = new C3DMesh(vertexFormat);
-	mesh->init(vertexFormat, vertexCount, dynamic);
-
-    return mesh;
+	bool res = mesh->init(vertexFormat, vertexCount, dynamic);
+	if(res == true)
+		return mesh;
+	else
+	{
+		SAFE_RELEASE(mesh);
+		return NULL;
+	}
 }
 
 const std::string& C3DMesh::getUrl() const

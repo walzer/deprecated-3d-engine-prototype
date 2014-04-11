@@ -190,7 +190,7 @@ private:
      * @return A pointer to new node or NULL if there was an error.
      */
 	C3DNode* readNode(C3DRenderNode* compoundModelContext);
-	void reloadNode(C3DNode* context);
+	bool reloadNode(C3DNode* context);
 
     /**
      * Reads a camera from the current file position.

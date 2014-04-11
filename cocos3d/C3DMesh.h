@@ -49,11 +49,13 @@ public:
 
     virtual ~C3DMesh();
 
+	void reset();
+
 	C3DAABB* getBoundingBox() { return _boundingBox; };
 
 protected:
 	C3DMesh(C3DVertexFormat* vertexFormat,PrimitiveType primitiveType = PrimitiveType_TRIANGLES);
-	void init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic);
+	bool init(C3DVertexFormat* vertexFormat, unsigned int vertexCount, bool dynamic);
 	virtual void reload();
 
 protected:

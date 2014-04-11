@@ -21,6 +21,7 @@ class MeshPart
 public:
 
     ~MeshPart();
+	void reset();
 
     unsigned int getMeshIndex() const;
 
