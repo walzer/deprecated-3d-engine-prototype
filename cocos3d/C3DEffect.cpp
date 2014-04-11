@@ -132,7 +132,7 @@ void C3DEffect::reload()
 	_uniforms.clear();
 	_vertexAttributes.clear();
 
-    _program = 0;
+	_program = 0;
 
 	C3DElementNode* elementNode = C3DElementNode::createEmptyNode("test", "effect");
 	if(elementNode != NULL)
@@ -297,7 +297,6 @@ bool C3DEffect::load(const std::string& vshSource, const std::string& fshSource,
         return false;
     }
 
-	LOG_TRACE_VARG("Effect program id changed:: %d --> %d", _program, program);
     this->_program = program;
 
     // Query and store vertex attribute meta-data from the program.
