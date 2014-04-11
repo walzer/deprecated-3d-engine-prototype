@@ -25,6 +25,7 @@
 #include "C3DRay.h"
 #include "C3DPlane.h"
 #include "C3DRenderSystem.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -61,9 +62,8 @@ bool UI3DLayer::init()
 	setUpCamera();
     setUpLight();
 
-//	_scene->getActiveCamera()->unproject(C3DRenderSystem::getInstance()->getViewport(),&_base,&_base);
-
-   // setUpScene();
+	// _scene->getActiveCamera()->unproject(C3DRenderSystem::getInstance()->getViewport(),&_base,&_base);
+	// setUpScene();
     return r;
 }
 
@@ -94,15 +94,10 @@ void UI3DLayer::setUpLight()
 
 void UI3DLayer::setUpScene()
 {
-	C3DSprite* fish = C3DSprite::create("haigui");
-
-    fish->loadFromFile("demores/haigui/haigui.ckb",true);
+	C3DSprite* fish = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
     fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
     fish->playAnimationClip("idle");
 
-  //  fish->setPosition(0, 0, 0);
-	//fish->setPosition(_base.x + 10,_base.y + 10,0);
-    //fish->rotateX(0.5f);
     fish->setScale(1.0f);
 
     _scene->addChild(fish);
@@ -121,8 +116,6 @@ void UI3DLayer::update(float dt)
    // glClear(GL_DEPTH_BUFFER_BIT);
  //   C3DLayer::draw();
 //}
-
-
 
 void UI3DLayer::setBase(cocos3d::C3DVector3& base)
 {

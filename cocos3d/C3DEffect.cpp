@@ -6,6 +6,7 @@
 #include "C3DRenderState.h"
 #include "C3DElementNode.h"
 #include "C3DSamplerCube.h"
+#include "Base.h"
 
 #define OPENGL_ES_DEFINE  "#define OPENGL_ES"
 
@@ -15,10 +16,13 @@ static C3DEffect* __currentEffect = NULL;
 
 C3DEffect::C3DEffect(const std::string& name) : C3DResource(name),_program(0)
 {
+	LOG_TRACE_VARG("+Effect: %s", name.c_str());
 }
 
 C3DEffect::~C3DEffect()
 {
+	LOG_TRACE_VARG("-Effect: %s with ID:%d", getID().c_str(), _program);
+
     // Free uniforms.
     for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); itr++)
     {
@@ -115,6 +119,35 @@ void replaceIncludes(const std::string& source, std::string& out)
     }
 }
 
+void C3DEffect::reload()
+{
+	setCurrentEffect(NULL);
+
+	// Free uniforms.
+    for (std::map<std::string, Uniform*>::iterator itr = _uniforms.begin(); itr != _uniforms.end(); ++itr)
+    {
+        SAFE_DELETE(itr->second);
+    }
+
+	_uniforms.clear();
+	_vertexAttributes.clear();
+
+	_program = 0;
+
+	C3DElementNode* elementNode = C3DElementNode::createEmptyNode("test", "effect");
+	if(elementNode != NULL)
+	{
+		elementNode->setElement("vertexShader", _vshPath);
+		elementNode->setElement("fragmentShader", _fshPath);
+		if(!_defines.empty())
+			elementNode->setElement("defines", _defines);
+	}
+
+	load(elementNode);
+
+	SAFE_DELETE(elementNode);
+}
+
 bool C3DEffect::load(C3DElementNode* node)
 {
 	C3DResource::load(node);
@@ -140,7 +173,7 @@ bool C3DEffect::load(C3DElementNode* node)
 		return false;
     }
 
-    if(this->load(vshSource,fshSource,defines) == false)
+    if(this->load(vshSource, fshSource, defines) == false)
 	{
 		LOG_ERROR_VARG("Failed to create effect from shaders: %s, %s", _vshPath.c_str(), _fshPath.c_str());
 	}

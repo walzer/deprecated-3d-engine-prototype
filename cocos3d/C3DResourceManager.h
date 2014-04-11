@@ -50,6 +50,8 @@ public:
 	/** Gets a string identifying the type of resource this manager handles. */
 	const std::string& getType(void) const { return _type; }
 
+	void reload();
+
 protected:
 	C3DResource* findResource(const std::string& name);
 

@@ -16,13 +16,9 @@ class MeshBatch;
 class C3DStaticObj : public C3DRenderNode
 {
 	friend class C3DScene;
+	friend class C3DRenderNodeManager;
 public:
-
-    static C3DStaticObj* create(const std::string& id);
-
-	virtual bool loadFromFile(const std::string& fileName,bool isLoadAll=false);
-	virtual bool load(bool isLoadAll=false);
-	virtual bool load(const std::string& fileName);
+	virtual bool load(C3DResourceLoader* loader, bool isLoadAll = false);
 
 	C3DNode::Type getType() const;
 
@@ -30,11 +26,12 @@ public:
 
 	virtual void copyFrom(const C3DTransform* other, C3DNode::CloneContext& context);
 	virtual C3DNode* clone(CloneContext& context) const;
+protected:
+	static C3DStaticObj* create(const std::string& id);
 
 private:
 
     C3DStaticObj(const std::string& id);
-
     ~C3DStaticObj();
 };
 }

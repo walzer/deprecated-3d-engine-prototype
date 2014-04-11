@@ -12,70 +12,81 @@ using namespace cocos2d;
 
 namespace cocos3d
 {
-static std::vector<C3DTexture*> __textureCache;
-
 C3DTexture::C3DTexture() :
 	_handle(0),
 	_mipmapped(false),
 	_width(0),
 	_height(0),
-	/*_cached(false), */_texture(NULL)
+	_2DTex(NULL)
 {
+	C3DTextureMgr::getInstance()->add(this);
 }
 
 C3DTexture::C3DTexture(const C3DTexture& copy)
 {
+	C3DTextureMgr::getInstance()->add(this);
 }
 
 C3DTexture::~C3DTexture()
 {
-    std::vector<C3DTexture*>::iterator itr = std::find(__textureCache.begin(), __textureCache.end(), this);
-    if (itr != __textureCache.end())
-    {
-        __textureCache.erase(itr);
-    }
-    SAFE_RELEASE(_texture);
+	C3DTextureMgr::getInstance()->remove(this);
+    SAFE_RELEASE(_2DTex);
+}
+
+void C3DTexture::reload()
+{
+	if(NULL != _2DTex && _mipmapped)
+	{
+		_2DTex->generateMipmap();
+	}
+
+	if(_handle)
+	{
+		// Cocos3D managed resource
+		init(_width, _height, _fmt, false);
+	}
 }
 
 C3DTexture* C3DTexture::create(const std::string& path, bool generateMipmaps)
 {
-    for (size_t i = 0; i < __textureCache.size(); ++i)
-	{
-        C3DTexture* t = __textureCache[i];
-        if (t->_path == path)
-        {
-            // If 'generateMipmaps' is true, call C3DTexture::generateMipamps() to force the
-            // texture to generate its mipmap chain if it hasn't already done so.
-            if (generateMipmaps && !t->isMipmapped())
-            {
-                t->generateMipmaps();
-            }
+    C3DTexture* retTexture = new C3DTexture();
 
-            // Found a match.
-            t->retain();
+	retTexture->innerInit2D(path, generateMipmaps);
+	retTexture->autorelease();
 
-            return t;
-        }
-    }
+    return retTexture;
+}
 
-    CCTexture2D* tex = CCTextureCache::sharedTextureCache()->addImage(path.c_str());
-    if (tex == NULL)
+void C3DTexture::innerInit2D(const std::string& path, bool generateMipmaps)
+{
+    CCTexture2D* tex2D = CCTextureCache::sharedTextureCache()->addImage(path);
+    if (tex2D == NULL)
     {
         LOG_ERROR_VARG("failed to load texture file: %s", path.c_str());
-        return NULL;
+        return;
     }
 
-    if (generateMipmaps)
-        tex->generateMipmap();
-    tex->retain();
-    C3DTexture* retTexture = new C3DTexture();
-    retTexture->_texture = tex;
-    retTexture->_path = path;
-    retTexture->_width = tex->getPixelsWide();
-    retTexture->_height = tex->getPixelsHigh();
+	SAFE_RELEASE(_2DTex);
 
-	retTexture->autorelease();
-    return retTexture;
+    if (generateMipmaps)
+        tex2D->generateMipmap();
+
+    tex2D->retain();
+    _2DTex = tex2D;
+    _path = path;
+    _width = tex2D->getPixelsWide();
+    _height = tex2D->getPixelsHigh();
+	_mipmapped = generateMipmaps;
+}
+
+void C3DTexture::innerInit2D(C3DTexture* rhs)
+{
+	rhs->_2DTex->retain();
+	_2DTex = rhs->_2DTex;
+	_path = rhs->_path;
+	_width = _2DTex->getPixelsWide();
+	_height = _2DTex->getPixelsHigh();
+	_mipmapped = rhs->_mipmapped;
 }
 
 inline unsigned long nextPOT(unsigned long x)
@@ -109,7 +120,7 @@ C3DTexture* C3DTexture::create(int width, int height, C3DTexture::Format fmt, co
 	texture2D->initWithData(data, dataLen, format, width, height, CCSize(width, height));
 
 	C3DTexture* retTexture = new C3DTexture();
-	retTexture->_texture = texture2D;
+	retTexture->_2DTex = texture2D;
 	retTexture->_width = width;
 	retTexture->_height = height;
 	retTexture->_mipmapped = generateMipmaps;
@@ -123,12 +134,53 @@ C3DTexture* C3DTexture::create(int width, int height, C3DTexture::Format fmt, co
 
 C3DTexture* C3DTexture::create(int width, int height, C3DTexture::Format fmt, bool generateMipmaps)
 {
+	C3DTexture* retTexture = new C3DTexture();
+	retTexture->init(width, height, fmt, generateMipmaps);
+
+	C3DTextureMgr::getInstance()->add(retTexture);
+
+	retTexture->autorelease();
+	return retTexture;
+}
+
+cocos2d::CCImage* C3DTexture::createImage(const std::string& path)
+{
+	if (path.empty())
+		return NULL;
+
+	std::string pathKey = path;
+
+	pathKey = CCFileUtils::sharedFileUtils()->fullPathForFilename(pathKey);
+	if (pathKey.size() == 0)
+	{
+		return NULL;
+	}
+
+	std::string fullpath = pathKey;
+	std::string lowerCase(pathKey);
+	for (unsigned int i = 0; i < lowerCase.length(); ++i)
+	{
+		lowerCase[i] = tolower(lowerCase[i]);
+	}
+
+	cocos2d::CCImage* pImage = new CCImage();
+	if(NULL == pImage)
+		return NULL;
+
+	bool bRet = pImage->initWithImageFile(fullpath.c_str());
+	if (!bRet)
+		SAFE_DELETE(pImage);
+
+	return pImage;
+}
+
+void C3DTexture::init(int width, int height, C3DTexture::Format fmt, bool generateMipmaps)
+{
     GLuint handle;
     GL_ASSERT(glGenTextures(1, &handle));
     GL_ASSERT(glBindTexture(GL_TEXTURE_2D, handle));
 
     // Specify OpenGL texture image
-
     GLenum internalFormat = GL_RGBA;
     GLenum type = GL_UNSIGNED_BYTE;
     switch(fmt)
@@ -148,26 +200,18 @@ C3DTexture* C3DTexture::create(int width, int height, C3DTexture::Format fmt, bo
             break;
         default:
             LOG_ERROR_VARG("Unknown texture formmat: %d", fmt);
-
-            return NULL;
+            return;
     }
-
-    /* GLuint depthTexture;
-    glGenTextures(1, &depthTexture);
-    glBindTexture(GL_TEXTURE_2D, depthTexture);
-    */
-    //glTexImage2D(GL_TEXTURE_2D, 0,GL_DEPTH_COMPONENT16, 1024, 1024, 0,GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 
     GL_ASSERT(glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, (GLenum)fmt, type, 0));
 
-    C3DTexture* retTexture = new C3DTexture();
-    retTexture->_handle = handle;
-    retTexture->_texture = NULL;
-    retTexture->_width = width;
-    retTexture->_height = height;
-    retTexture->_mipmapped = false;
-	retTexture->autorelease();
-    return retTexture;
+    _handle = handle;
+	_fmt = fmt;
+
+    _2DTex = NULL;
+    _width = width;
+    _height = height;
+    _mipmapped = false;
 }
 
 #ifdef USE_PVRTC
@@ -192,23 +236,23 @@ TextureHandle C3DTexture::getHandle() const
     if (_handle)
         return _handle;
 
-    if (_texture == NULL)
+    if (_2DTex == NULL)
     {
         LOG_ERROR("getHandle from NULL texture");
         return -1;
     }
 
-    return _texture->getName();
+    return _2DTex->getName();
 }
 
 void C3DTexture::setWrapMode(Texture_Wrap wrapS, Texture_Wrap wrapT)
 {
-    if (_texture != NULL)
+    if (_2DTex != NULL)
     {
         GLint currentTextureId;
 
         GL_ASSERT( glGetIntegerv(GL_TEXTURE_BINDING_2D, &currentTextureId) );
-        GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _texture->getName()) );
+        GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _2DTex->getName()) );
         GL_ASSERT( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, (GLenum)wrapS) );
         GL_ASSERT( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, (GLenum)wrapT) );
         GL_ASSERT( glBindTexture(GL_TEXTURE_2D, (GLuint)currentTextureId) );
@@ -217,11 +261,11 @@ void C3DTexture::setWrapMode(Texture_Wrap wrapS, Texture_Wrap wrapT)
 
 void C3DTexture::setFilterMode(Texture_Filter minificationFilter, Texture_Filter magnificationFilter)
 {
-    if (_texture != NULL)
+    if (_2DTex != NULL)
     {
         GLint currentTextureId;
         GL_ASSERT( glGetIntegerv(GL_TEXTURE_BINDING_2D, &currentTextureId) );
-        GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _texture->getName()) );
+        GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _2DTex->getName()) );
         GL_ASSERT( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, (GLenum)minificationFilter) );
         GL_ASSERT( glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, (GLenum)magnificationFilter) );
         GL_ASSERT( glBindTexture(GL_TEXTURE_2D, (GLuint)currentTextureId) );
@@ -230,12 +274,12 @@ void C3DTexture::setFilterMode(Texture_Filter minificationFilter, Texture_Filter
 
 void C3DTexture::generateMipmaps()
 {
-    if (_texture != NULL && !_texture->hasMipmaps() )
+    if (_2DTex != NULL && !_2DTex->hasMipmaps() )
     {
-        _texture->generateMipmap();
+        _2DTex->generateMipmap();
         GLint currentTextureId;
         GL_ASSERT( glGetIntegerv(GL_TEXTURE_BINDING_2D, &currentTextureId) );
-        GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _texture->getName()) );
+        GL_ASSERT( glBindTexture(GL_TEXTURE_2D, _2DTex->getName()) );
         glGenerateMipmap(GL_TEXTURE_2D);
 
         GL_ASSERT( glBindTexture(GL_TEXTURE_2D, (GLuint)currentTextureId) );
@@ -244,11 +288,72 @@ void C3DTexture::generateMipmaps()
 
 bool C3DTexture::isMipmapped() const
 {
-    if (_texture == NULL)
+    if (_2DTex == NULL)
     {
         //LOG_ERROR("isMipmapped from NULL texture");
         return false;
     }
-    return _texture->hasMipmaps();
+    return _2DTex->hasMipmaps();
 }
+
+//-----------------------------------------------------------------------------------
+static C3DTextureMgr* g_3DTextureMgr = NULL;
+
+C3DTextureMgr::C3DTextureMgr()
+{
+}
+
+C3DTextureMgr::~C3DTextureMgr()
+{
+	LOG_TRACE_VARG("@C3DTextureMgr::%d", _texCon.size());
+	
+	g_3DTextureMgr = NULL;
+}
+
+C3DTextureMgr* C3DTextureMgr::getInstance()
+{
+	if (!g_3DTextureMgr)
+	{
+		g_3DTextureMgr = new C3DTextureMgr();
+		g_3DTextureMgr->autorelease();
+	}
+	return g_3DTextureMgr;
+}
+
+void C3DTextureMgr::add(C3DTexture* texture)
+{
+	T_CACHE_CONTAINER::iterator itr = std::find(_texCon.begin(), _texCon.end(), texture);
+	if (itr == _texCon.end())
+	{
+		_texCon.push_back(texture);
+	}
+}
+
+void C3DTextureMgr::remove(C3DTexture* texture)
+{
+	T_CACHE_CONTAINER::iterator itr = std::find(_texCon.begin(), _texCon.end(), texture);
+	if (itr != _texCon.end())
+	{
+		_texCon.erase(itr);
+	}
+}
+
+C3DTexture* C3DTextureMgr::get(const std::string& strID)
+{
+	for(T_CACHE_CONTAINER::iterator iter = _texCon.begin(); iter!=_texCon.end(); ++iter)
+	{
+		if((*iter)->getPath() == strID)
+			return *iter;
+	}
+	return NULL;
+}
+
+void C3DTextureMgr::reload()
+{
+	for(T_CACHE_CONTAINER::iterator iter = _texCon.begin(); iter!=_texCon.end(); ++iter)
+	{
+		(*iter)->reload();
+	}
+}
+
 }

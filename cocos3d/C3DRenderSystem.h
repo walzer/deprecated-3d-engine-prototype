@@ -16,6 +16,10 @@ class C3DMaterialManager;
 class C3DScreenProcessManager;
 class C3DDeviceAdapter;
 
+class C3DSamplerMgr;
+class C3DTextureMgr;
+class C3DFrameBufferMgr;
+
 /**
 Defines the view port and clear flag
 */
@@ -53,7 +57,8 @@ public:
      * @param clearStencil The stencil value to clear to when the flags includes the color buffer.
     */
     void clear(ClearFlags flags, const C3DVector4* clearColor, float clearDepth, int clearStencil);
-
+	void onLostDevice();
+	void reload();
 protected:
 
 	/**
@@ -76,8 +81,10 @@ protected:
     C3DViewport* _viewport;                        // the games's current viewport.
     RenderChannelManager* _renderChannelManager;
 
-	C3DEffectManager* _effectManager;
+	C3DTextureMgr*		_textureMgr;
+	C3DEffectManager*	_effectManager;
 	C3DMaterialManager* _materialManager;
+	C3DFrameBufferMgr*	_frameBufMgr;
 
     C3DVector4* _clearColor;                        // The clear color value last used for clearing the color buffer.
 

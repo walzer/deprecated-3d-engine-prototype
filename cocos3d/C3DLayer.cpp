@@ -4,7 +4,6 @@
 #include "C3DVector2.h"
 #include "C3DScene.h"
 
-
 #include <map>
 
 #include "C3DCamera.h"
@@ -22,7 +21,7 @@
 #include "C3DRenderState.h"
 #include "C3DEffect.h"
 #include "C3DMaterial.h"
-#include "C3DSpriteManager.h"
+#include "C3DRenderNodeManager.h"
 #include "C3DVertexDeclaration.h"
 #include "C3DProfile.h"
 
@@ -177,7 +176,7 @@ bool C3DLayer::startup()
 	_renderSystem = C3DRenderSystem::getInstance();
     _renderSystem->retain();
 
-	_spriteManager = C3DSpriteManager::getInstance();
+	_spriteManager = C3DRenderNodeManager::getInstance();
     _spriteManager->retain();
 
     _state = RUNNING;
@@ -192,11 +191,11 @@ void C3DLayer::shutdown()
     {
         finalize();
 
+		SAFE_RELEASE(_spriteManager);
         SAFE_RELEASE(_renderSystem);
 
         _state = UNINITIALIZED;
 
-		 SAFE_RELEASE(_spriteManager);
     }
 }
 

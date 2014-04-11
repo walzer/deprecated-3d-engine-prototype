@@ -46,6 +46,9 @@ public:
 
     virtual bool init(const std::string& szMaterial);
 
+	virtual void reload();
+	bool reset();
+
 	std::string getName(void) const
 	{
 		return _name;
@@ -57,6 +60,11 @@ public:
     std::string _name;
     C3DMaterial* _material;
 	C3DModel* _model;
+
+	size_t		_x;
+	size_t		_y;
+
+	std::string _szMaterial;
 };
 }
 

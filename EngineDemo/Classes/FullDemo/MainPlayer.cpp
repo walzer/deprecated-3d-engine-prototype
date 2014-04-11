@@ -9,6 +9,7 @@
 #include "C3DCamera.h"
 #include "C3DMaterial.h"
 #include "MaterialParameter.h"
+#include "C3DRenderNodeManager.h"
 
 #include "C3DRenderNode.h"
 #include "Lighting.h"
@@ -68,9 +69,8 @@ void MainPlayer::init()
 	_camera = _layer->get3DScene()->getActiveCamera();
 	_camera->lookAt(_node->getTranslationWorld()+_offset, C3DVector3(0, 1, 0), _node->getTranslationWorld());
 
-	_terrainFlag = C3DStaticObj::create("terrainflag");
-	_terrainFlag->loadFromFile("demores/fulldemo/cursor/terrainflag.ckb");
-  //  _terrainFlag->setMaterial("demores/fulldemo/cursor/terrainflag.material");
+	_terrainFlag = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/fulldemo/cursor/terrainflag.ckb"));
+	//_terrainFlag->setMaterial("demores/fulldemo/cursor/terrainflag.material");
 
 	_terrainFlag->translate(0, 1, 0);
     _terrainFlag->scale(2, 2, 2);

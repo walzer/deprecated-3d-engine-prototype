@@ -10,6 +10,7 @@
 #include "C3DVector3.h"
 #include "C3DVector4.h"
 #include "C3DRenderChannel.h"
+#include "C3DMaterialManager.h"
 
 namespace cocos3d
 {
@@ -29,55 +30,69 @@ C3DMaterial::~C3DMaterial()
             SAFE_RELEASE(technique);
         }
     }
+
     memset(_techniqueChannel, 0, sizeof(_techniqueChannel));
 }
 
-C3DMaterial* C3DMaterial::create(const std::string& fileName)
+void techniqueReload(C3DTechnique* tech)
 {
-	assert(!fileName.empty());
-
-    // Load the material properties from file
-    C3DElementNode* nodes = C3DElementNode::create(fileName);
-    assert(nodes);
-    if (nodes == NULL)
-    {
-        return NULL;
-    }
-
-    C3DElementNode* materialNodes = nodes->getNodeType().empty() ? nodes->getNextChild() : nodes;
-    if (!materialNodes || materialNodes->getNodeType() != "material")
-    {
-        return NULL;
-    }
-	C3DMaterial* material = C3DMaterial::create(materialNodes);
-
-	//material->setName(fileName);
-    SAFE_DELETE(nodes);
-
-	return material;
+	tech->reload();
 }
 
-C3DMaterial* C3DMaterial::create(C3DElementNode* materialNodes)
+void C3DMaterial::reload()
 {
-    // Check if the Properties is valid and has a valid namespace.
-    assert(materialNodes);
-    if (!materialNodes || materialNodes->getNodeType() != "material")
-    {
-        return NULL;
-    }
+	LOG_TRACE_VARG("C3DMaterial:%s begin reload", getResourceName().c_str());
 
-	// Create new material from the file passed in.
-
-	C3DMaterial* material = new C3DMaterial("");
-	if(material->load(materialNodes) == false)
-	{
-		SAFE_RELEASE(material);
-		return NULL;
-	}
-
-	material->autorelease();
-	return material;
+	C3DRenderState::reload();
+	for_each(_techniques.begin(), _techniques.end(), techniqueReload);
 }
+
+//C3DMaterial* C3DMaterial::create(const std::string& fileName)
+//{
+//	assert(!fileName.empty());
+//
+//    // Load the material properties from file
+//    C3DElementNode* nodes = C3DElementNode::create(fileName);
+//    assert(nodes);
+//    if (nodes == NULL)
+//    {
+//        return NULL;
+//    }
+//
+//    C3DElementNode* materialNodes = nodes->getNodeType().empty() ? nodes->getNextChild() : nodes;
+//    if (!materialNodes || materialNodes->getNodeType() != "material")
+//    {
+//        return NULL;
+//    }
+//	C3DMaterial* material = C3DMaterial::create(materialNodes);
+//
+//	//material->setName(fileName);
+//    SAFE_DELETE(nodes);
+//
+//	return material;
+//}
+
+//C3DMaterial* C3DMaterial::create(C3DElementNode* materialNodes)
+//{
+//    // Check if the Properties is valid and has a valid namespace.
+//    assert(materialNodes);
+//    if (!materialNodes || materialNodes->getNodeType() != "material")
+//    {
+//        return NULL;
+//    }
+//
+//	// Create new material from the file passed in.
+//
+//	C3DMaterial* material = new C3DMaterial("");
+//	if(material->load(materialNodes) == false)
+//	{
+//		SAFE_RELEASE(material);
+//		return NULL;
+//	}
+//
+//	material->autorelease();
+//	return material;
+//}
 
 //C3DMaterial* C3DMaterial::create(C3DEffect* effect)
 //{
@@ -105,32 +120,34 @@ C3DMaterial* C3DMaterial::create(C3DElementNode* materialNodes)
 //    return material;
 //}
 
-C3DMaterial* C3DMaterial::create(const std::string& vshPath, const std::string& fshPath, const std::string& defines)
-{
-    // Create a new material with a single technique and pass for the given effect
-    C3DMaterial* material = new C3DMaterial("");
-
-	cocos3d::C3DElementNode* tpMatNode = cocos3d::C3DElementNode::createEmptyNode("0", "material");
-	if (!tpMatNode)
-		return NULL;
-
-	cocos3d::C3DElementNode* tpNodeTechnique = cocos3d::C3DElementNode::createEmptyNode("0", "technique");
-	tpMatNode->addChildNode(tpNodeTechnique);
-
-	cocos3d::C3DElementNode* tpNodePass = cocos3d::C3DElementNode::createEmptyNode("0", "pass");
-	tpNodeTechnique->addChildNode(tpNodePass);
-	tpNodePass->setElement("vertexShader", vshPath);
-	tpNodePass->setElement("fragmentShader", fshPath);
-	if(!defines.empty())
-		tpNodePass->setElement("defines", defines);
-
-	material->load(tpMatNode);
-	material->autorelease();
-
-	SAFE_DELETE(tpMatNode);
-
-	return material;
-}
+//C3DMaterial* C3DMaterial::create(const std::string& vshPath, const std::string& fshPath, const std::string& defines)
+//{
+//    // Create a new material with a single technique and pass for the given effect
+//    C3DMaterial* material = new C3DMaterial("");
+//
+//	cocos3d::C3DElementNode* tpMatNode = cocos3d::C3DElementNode::createEmptyNode("0", "material");
+//	if (!tpMatNode)
+//		return NULL;
+//
+//	cocos3d::C3DElementNode* tpNodeTechnique = cocos3d::C3DElementNode::createEmptyNode("0", "technique");
+//	tpMatNode->addChildNode(tpNodeTechnique);
+//
+//	cocos3d::C3DElementNode* tpNodePass = cocos3d::C3DElementNode::createEmptyNode("0", "pass");
+//	tpNodeTechnique->addChildNode(tpNodePass);
+//	tpNodePass->setElement("vertexShader", vshPath);
+//	tpNodePass->setElement("fragmentShader", fshPath);
+//	if(!defines.empty())
+//		tpNodePass->setElement("defines", defines);
+//
+//	material->load(tpMatNode);
+//	material->autorelease();
+//
+//	SAFE_DELETE(tpMatNode);
+//
+//	C3DMaterialManager::getInstance()->setResourceState(material, C3DResource::State_Used);
+//
+//	return material;
+//}
 
 unsigned int C3DMaterial::getTechniqueCount() const
 {

@@ -4,7 +4,9 @@
 #include "C3DEffectManager.h"
 #include "C3DElementNode.h"
 #include "StringTool.h"
+#include "Base.h"
 
+#include "C3DResourcePool.h"
 namespace cocos3d
 {
 static C3DEffectManager* __effectManagerInstance = NULL;
@@ -174,9 +176,10 @@ std::string C3DEffectManager::generateID( std::string& vshPath, std::string& fsh
 	std::string uniqueId = vshPath;
 	uniqueId += ';';
 	uniqueId += fshPath;
-	uniqueId += ';';
+
 	if (define.c_str() != 0)
-	{
+	{	
+		uniqueId += ';';
 		uniqueId += define;
 	}
 
@@ -204,9 +207,10 @@ void C3DEffectManager::preload(C3DElementNode* node)
 	std::string uniqueId = vshPath;
     uniqueId += ';';
     uniqueId += fshPath;
-    uniqueId += ';';
+    
 	if (!defines.empty())
     {
+		uniqueId += ';';
         uniqueId += defines;
     }
 

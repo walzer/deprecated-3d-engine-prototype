@@ -33,12 +33,12 @@ LOCAL_SRC_FILES := main.cpp \
                    ../../Classes/PostEffect/PEOutLine.cpp \
                    ../../Classes/PostEffect/PEPointWarp.cpp \
                    ../../Classes/PostEffect/PESceneChange.cpp \
+                   ../../Classes/PerformanceTest/PerformanceTestLayer.cpp \
                    ../../Classes/PostEffect/PESpaceWarp.cpp \
                    ../../Classes/PostEffect/PEVortex.cpp \
                    ../../Classes/PostEffect/PostEffectTestLayer.cpp \
                    ../../Classes/TunnelTest/TunnelTestLayer.cpp \
-                   ../../Classes/ShadowTest/ShadowTestLayer.cpp \
-				   ../../Classes/PerformanceTest/PerformanceTestLayer.cpp\
+                   ../../Classes/ShadowTest/ShadowTestLayer.cpp 
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

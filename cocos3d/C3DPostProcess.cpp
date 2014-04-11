@@ -17,9 +17,11 @@
 #include "C3DVector4.h"
 #include "C3DPostEffect.h"
 #include <map>
+#include "C3DDeviceAdapter.h"
 
 namespace cocos3d
 {
+C3DPostProcess* g_pPostProcess = NULL;
 
 C3DPostProcess::C3DPostProcess(const std::string& id,C3DFrameBuffer* buffer)
 	: C3DNode(id)
@@ -27,7 +29,7 @@ C3DPostProcess::C3DPostProcess(const std::string& id,C3DFrameBuffer* buffer)
 	, _isDraw( false )
 {
 	_curPostEffect = NULL;
-
+	g_pPostProcess = this;
 }
 
 C3DPostProcess::~C3DPostProcess()
@@ -51,10 +53,15 @@ C3DPostProcess::~C3DPostProcess()
 		SAFE_RELEASE( (*ite).second );
 	}
 	_postEffects.clear();
+
+	g_pPostProcess = NULL;
 }
 
 C3DPostProcess* C3DPostProcess::create(const std::string& id, unsigned int texWidth, unsigned int texHeight/*, const std::string& techniqueId*/)
 {
+	if(C3DDeviceAdapter::getInstance()->isSuppertPostProcess() == false)
+		return NULL;
+
 	unsigned int fmtColor = C3DTexture::RGBA;
 	//unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH24_STENCIL8;
 	unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
@@ -69,7 +76,7 @@ C3DPostProcess* C3DPostProcess::create(const std::string& id, unsigned int texWi
 	pp->_fbHeight = texHeight;
 	pp->autorelease();
 
-    C3DSampler* sampler = C3DSampler::create(pp->_framebuffer->getRenderTarget()->getTexture());
+	C3DSampler* sampler = C3DSampler::create(pp->_framebuffer->getRenderTarget()->getTexture());
 	sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
 	sampler->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
     pp->_sampler = sampler;
@@ -97,6 +104,7 @@ void C3DPostProcess::postChannelDraw()
     CCAssert(_framebuffer, "Empty frame buffer");;
     _framebuffer->unbind();
 }
+
 void C3DPostProcess::beginDraw()
 {
 	_isDraw = true;
@@ -210,4 +218,13 @@ std::vector<std::string> C3DPostProcess::getEffectNames(void) const
 	}
 	return names;
 }
+
+void C3DPostProcess::reload()
+{
+	for ( PostEffects::const_iterator ite = _postEffects.begin(); ite != _postEffects.end(); ++ite )
+	{
+		(*ite).second->reload();
+	}
+}
+
 }

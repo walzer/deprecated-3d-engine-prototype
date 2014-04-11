@@ -83,6 +83,8 @@ public:
         return  _height;
     }
 
+	void reload();
+
 private:
 
 	/**
@@ -103,6 +105,24 @@ private:
     C3DViewport _oldViewport;
     GLint _oldFBO;
 };
-}
+
+class C3DFrameBufferMgr : public cocos2d::Ref
+{
+public:
+	typedef std::vector<C3DFrameBuffer*> T_CACHE_CONTAINER;
+public:
+	static C3DFrameBufferMgr* getInstance();
+
+	void add(C3DFrameBuffer* texture);
+	void remove(C3DFrameBuffer* texture);
+	C3DFrameBuffer* get(const std::string& strID);
+
+	void reload();
+protected:
+	C3DFrameBufferMgr();
+	~C3DFrameBufferMgr();
+protected:
+	T_CACHE_CONTAINER _frameBufs;
+};}
 
 #endif

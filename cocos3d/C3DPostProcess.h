@@ -15,6 +15,7 @@ class C3DModel;
 class C3DPostEffect;
 class C3DPass;
 
+extern C3DPostProcess* g_pPostProcess;
 /**
 Post process
 A C3DPostProcess can have serial post effect, but with only one active right now
@@ -93,6 +94,8 @@ public:
 
 	std::vector<std::string> getEffectNames(void) const;
 
+	void reload();
+
 public:
 	typedef std::map<std::string, C3DPostEffect*> PostEffects;
 protected:
@@ -118,6 +121,7 @@ protected:
 	unsigned int _fbWidth;
 	unsigned int _fbHeight;
 };
+
 }
 
 #endif

@@ -18,6 +18,7 @@
 #include "PESpaceWarp.h"
 #include "PEVortex.h"
 #include "PESceneChange.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -74,6 +75,8 @@ bool PostEffectTestLayer::init()
 void PostEffectTestLayer::onExit()
 {
 	C3DPostProcess* pp = _scene->getActivePostProcess();
+	if( pp == NULL)
+		return;
 	std::vector<std::string> names = pp->getEffectNames();
 	for ( unsigned int i = 0; i < names.size(); ++i )
 	{
@@ -112,33 +115,25 @@ void PostEffectTestLayer::draw3D()
 
 void PostEffectTestLayer::setUpScene()
 {
-    C3DStaticObj* sm = C3DStaticObj::create("1");
-
-    sm->loadFromFile("demores/materialtest/1.ckb");
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/materialtest/1.ckb"));
 
     //sm->setMaterial("scene/1/1_specular.material");
 	sm->setMaterial("demores/materialtest/1_no_glow.material");
     sm->translate(0, 0, 0);
-    //sm->rotateX(0.8f);
     sm->scale(50, 50, 50);
     _scene->addChild(sm);
 
-	C3DSprite* fish = C3DSprite::create("haigui");
-
-    fish->loadFromFile("demores/haigui/haigui.ckb",true);
+	C3DSprite* fish = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
 	//fish->setMaterial("body", "2.5D/fish/haigui/haigui.material");
     fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
 
-//    fish->addPartConfig("body",false);
-
-//    fish->addPart("body", "body", "2.5D/fish/denglongyu.material");
-
-//    fish->setPart("body",0);
-//    fish->loadParts();
+	// fish->addPartConfig("body",false);
+	// fish->addPart("body", "body", "2.5D/fish/denglongyu.material");
+	// fish->setPart("body",0);
+	// fish->loadParts();
 
     fish->playAnimationClip("idle");
     fish->setPosition(35, 10, 0);
-    //fish->rotateX(0.5f);
     fish->setScale(5.0f);
 
     _scene->addChild(fish);
@@ -148,7 +143,9 @@ void PostEffectTestLayer::setUpPostEffect()
 {
 	float width = CCDirector::getInstance()->getOpenGLView()->getFrameSize().width;
 	float height = CCDirector::getInstance()->getOpenGLView()->getFrameSize().height;
-	C3DPostProcess* pp = C3DPostProcess::create("PostProcessTest",width, height);
+	C3DPostProcess* pp = C3DPostProcess::create("PostProcessTest", width, height);
+	if(pp == NULL)
+		return;
 	_scene->addChild(pp);
 
 	_scene->setActivePostProcess( pp );
@@ -164,17 +161,15 @@ void PostEffectTestLayer::setUpPostEffect()
 	pp->addPostEffect( PEPointWarp::create( postEffectTypes[POINT_WARP], "demores/posteffect/postprocess_point_warp.material", pp ) );
 
 	C3DPostEffect* pe = pp->getPostEffect( postEffectTypes[VORTEX] );
-	pe->setGridSize( width*0.2, height*0.2 );
+	pe->setGridSize( width*0.05, height*0.05 );
 	pe = pp->getPostEffect( postEffectTypes[POINT_WARP] );
-	pe->setGridSize( width*0.2, height*0.2 );
+	pe->setGridSize( width*0.05, height*0.05 );
 }
 
 void PostEffectTestLayer::setUpCamera()
 {
     C3DCamera* camera = C3DCamera::createPerspective(45, 0.75f, 1, 1000);
-    //camera->setPosition(0,0,100);
     camera->lookAt(C3DVector3(0,50,100), C3DVector3(0, 1, 0), C3DVector3(0, 0, 0));
-    //camera->rotateX(MATH_DEG_TO_RAD(-20.0f));
 
     _scene->addChild(camera);
     _scene->setActiveCamera(0);
@@ -248,21 +243,22 @@ void PostEffectTestLayer::postEffectTouchPress(float x, float y)
 	}
 }
 
-
-
 void PostEffectTestLayer::menuCallback( CCObject * pSender )
 {
     // get the userdata, it's the index of the menu item clicked
     CCMenuItem* pMenuItem = (CCMenuItem *)(pSender);
     int nIdx = pMenuItem->getZOrder() - 10000;
 
-    C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("1");
+    C3DRenderNode* sm = (C3DRenderNode*)_scene->findNode("demores/materialtest/1.ckb");
 
     if (sm)
     {
 		C3DPostProcess* pp = _scene->getActivePostProcess();
+		if(pp != NULL)
+		{
+			pp->setActiveEffect( postEffectTypes[nIdx] );
+		}
 
-		pp->setActiveEffect( postEffectTypes[nIdx] );
     }
 }
 
@@ -274,18 +270,13 @@ CCLayer* PostEffectTestLayer::createUILayer()
 
     for (int i = 0; i < POSTEFFECT_NUM; ++i)
     {
-        // #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
-        //         CCLabelBMFont* label = CCLabelBMFont::create(g_aTestNames[i].c_str(),  "fonts/arial16.fnt");
-        // #else
-        CCLabelTTF* label = CCLabelTTF::create(postEffectTypes[i], "Arial", 20);
-        // #endif
-        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(PostEffectTestLayer::menuCallback,this));
+        CCLabelTTF* label = CCLabelTTF::create(postEffectTypes[i], "Arial", 40);
+        CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(PostEffectTestLayer::menuCallback, this));
 
         pItemMenu->addChild(pMenuItem, i + 10000);
-        pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 24) ));
+        pMenuItem->setPosition( ccp( 20 + VisibleRect::left().x + label->getContentSize().width / 2, (VisibleRect::top().y - (i + 1) * 40) ));
     }
 
-    //pItemMenu->setContentSize(CCSizeMake(VisibleRect::getVisibleRect().size.width, (MATERIAL_NUM + 1) * (40)));
     pItemMenu->setPosition(0, 0);
     layer->addChild(pItemMenu, 1000);
 

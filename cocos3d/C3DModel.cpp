@@ -24,6 +24,7 @@
 #include "C3DRenderChannel.h"
 #include "C3DRenderSystem.h"
 #include "C3DMorphMesh.h"
+#include "C3DDeviceAdapter.h"
 
 namespace cocos3d
 {
@@ -181,7 +182,6 @@ void C3DModel::setMaterial(C3DMaterial* material, int partIndex)
                 C3DPass* p = t->getPass(j);
                 C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh, p->getEffect());
                 p->setVertexAttributeBinding(b);
-                SAFE_RELEASE(b);
             }
         }
 
@@ -193,20 +193,20 @@ void C3DModel::setMaterial(C3DMaterial* material, int partIndex)
     }
 }
 
-C3DMaterial* C3DModel::setMaterial(const std::string& vshPath, const std::string& fshPath, const std::string& defines, int partIndex )
-{
-    // Try to create a C3DMaterial with the given parameters.
-    C3DMaterial* material = C3DMaterial::create(vshPath, fshPath, defines);
-    if (material == NULL)
-    {
-        return NULL;
-    }
-
-    // Assign the material to us.
-    setMaterial(material, partIndex);
-
-    return material;
-}
+//  C3DMaterial* C3DModel::setMaterial(const std::string& vshPath, const std::string& fshPath, const std::string& defines, int partIndex )
+//  {
+//      // Try to create a C3DMaterial with the given parameters.
+//      C3DMaterial* material = C3DMaterial::create(vshPath, fshPath, defines);
+//      if (material == NULL)
+//      {
+//          return NULL;
+//      }
+//  
+//      // Assign the material to us.
+//      setMaterial(material, partIndex);
+//  
+//      return material;
+//  }
 
 C3DMaterial* C3DModel::setMaterial(const std::string& materialPath, int partIndex)
 {
@@ -227,7 +227,7 @@ C3DMaterial* C3DModel::setMaterial(const std::string& materialPath, int partInde
 C3DMaterial* C3DModel::setDefaultMaterial(const std::string& path,int partIndex)
 {
 	std::string materialPath;
-    // Try to create a C3DMaterial from the specified material file.
+	// Try to create a C3DMaterial from the specified material file.
 	if(_materialName.length() == 0)
 	{
 		materialPath = getDefaultMaterialName();
@@ -553,6 +553,9 @@ void C3DModel::applyLightParam(C3DPass* pass)
 
 void C3DModel::applyShadowMap(C3DPass* pass)
 {
+	if( C3DDeviceAdapter::getInstance()->isSupportShadow() == false )
+		return;
+
     if (_node == NULL)
         return;
 

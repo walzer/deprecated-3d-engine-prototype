@@ -15,8 +15,7 @@
 #include "PostEffect/PostEffectTestLayer.h"
 #include "FullDemo/UI3DLayer.h"
 #include "PerformanceTest/PerformanceTestLayer.h"
-
-//#include "PhysicsTest/PhysicsTestLayer.h"
+#include "C3DRenderSystem.h"
 
 #define LINE_SPACE          50
 
@@ -38,7 +37,7 @@ bool MainLayer::init()
     CCMenu* pMenu =CCMenu::create(pCloseItem, NULL);
 
     pMenu->setPosition( CCPointZero );
-    pCloseItem->setPosition(ccp( VisibleRect::right().x - 30, VisibleRect::top().y - 30));
+    pCloseItem->setPosition(ccp( VisibleRect::right().x - 40, VisibleRect::top().y - 30));
 
     // add menu items for tests
     m_pItemMenu = CCMenu::create();
@@ -63,7 +62,7 @@ bool MainLayer::init()
 
     addChild(pMenu, 1);
 
-    CCLabelTTF* label = CCLabelTTF::create("MainMenu", "Arial", 24);
+    CCLabelTTF* label = CCLabelTTF::create("MainMenu", "Arial", 32);
     //#endif
     CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(MainLayer::menuBackCallback,this));
 
@@ -99,8 +98,8 @@ cocos2d::CCScene* MainLayer::scene()
 
 void MainLayer::closeCallback(CCObject* pSender)
 {
-    CCDirector::sharedDirector()->end();
-
+    //CCDirector::sharedDirector()->end();
+	cocos3d::C3DRenderSystem::getInstance()->reload();
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif

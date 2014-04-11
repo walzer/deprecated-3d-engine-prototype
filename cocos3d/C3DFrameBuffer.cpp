@@ -7,12 +7,12 @@
 
 namespace cocos3d
 {
-static std::vector<C3DFrameBuffer*> __frameBuffers;
 
 C3DFrameBuffer::C3DFrameBuffer(const std::string& id) :
     _id(id), _handle(0), _renderTarget(NULL), _depthStencilTarget(NULL), _width(1), _height(1),
     _isBind(false), _oldFBO(0), _oldViewport(0, 0, 1, 1)
 {
+	C3DFrameBufferMgr::getInstance()->add(this);
 }
 
 C3DFrameBuffer::~C3DFrameBuffer()
@@ -25,17 +25,13 @@ C3DFrameBuffer::~C3DFrameBuffer()
         GL_ASSERT( glDeleteFramebuffers(1, &_handle) );
     }
 
-    // Remove self from vector.
-    std::vector<C3DFrameBuffer*>::iterator it = std::find(__frameBuffers.begin(), __frameBuffers.end(), this);
-    if (it != __frameBuffers.end())
-    {
-        __frameBuffers.erase(it);
-    }
+	C3DFrameBufferMgr::getInstance()->remove(this);
 }
 
 C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width, unsigned int height, unsigned int fmtColor, unsigned int fmtDepth)
 {
     // Create C3DRenderTarget with same ID
+	LOG_TRACE_VARG("++++++++create FBO:%s    %d    %d    %d    %d", id.c_str(), width, height, fmtColor, fmtDepth);
     C3DRenderTarget* renderTarget = NULL;
 
     if (fmtColor)
@@ -80,7 +76,6 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
         frameBuffer->setDepthStencilTarget(depthTarget);
 
     // Add to the global list of managed frame buffers
-    __frameBuffers.push_back(frameBuffer);
     frameBuffer->_width = width;
     frameBuffer->_height = height;
     frameBuffer->autorelease();
@@ -89,18 +84,7 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
 
 C3DFrameBuffer* C3DFrameBuffer::getFrameBuffer(const std::string& id)
 {
-    // Search the vector for a matching ID.
-    std::vector<C3DFrameBuffer*>::const_iterator it;
-    for (it = __frameBuffers.begin(); it < __frameBuffers.end(); it++)
-    {
-        C3DFrameBuffer* fb = *it;
-        if (id == fb->getID())
-        {
-            return fb;
-        }
-    }
-
-    return NULL;
+	return C3DFrameBufferMgr::getInstance()->get(id);
 }
 
 const std::string& C3DFrameBuffer::getID() const
@@ -108,37 +92,44 @@ const std::string& C3DFrameBuffer::getID() const
     return _id;
 }
 
-void C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
+void C3DFrameBuffer::reload()
 {
-    if (_renderTarget == target)
-    {
-        return;
-    }
+	GLuint handle = 0;
+	GL_ASSERT( glGenFramebuffers(1, &handle) );
 
-    SAFE_RELEASE(_renderTarget);
+	_handle = handle;
 
-    _renderTarget = target;
+	setRenderTarget(_renderTarget);
+	setDepthStencilTarget(_depthStencilTarget);
+	LOG_TRACE_VARG("++++++++Reload FBO:%s    %d    %d", _id.c_str(), _width, _height);
+}
 
-    if (target)
-    {
-        target->retain();
+void C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
+{    
+	if (target)
+	{
+		target->retain();
 
-        // Store the current FBO binding so we can restore it
-        GLint currentFbo;
-        GL_ASSERT( glGetIntegerv(GL_FRAMEBUFFER_BINDING, &currentFbo) );
+		SAFE_RELEASE(_renderTarget);
 
-        // Now set this target as the color attachment.
-        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
-        GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _renderTarget->getTexture()->getHandle(), 0) );
+		_renderTarget = target;
+
+		// Store the current FBO binding so we can restore it
+		GLint currentFbo;
+		GL_ASSERT( glGetIntegerv(GL_FRAMEBUFFER_BINDING, &currentFbo) );
+
+		// Now set this target as the color attachment.
+		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
+		GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _renderTarget->getTexture()->getHandle(), 0) );
 		GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
-        {
-            //LOG_ERROR("Framebuffer status incomplete: 0x%x", fboStatus);
-        }
+		if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
+		{
+			LOG_ERROR_VARG("Framebuffer status incomplete: 0x%x", fboStatus);
+		}
 
-        // Restore the FBO binding
-        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, currentFbo) );
-    }
+		// Restore the FBO binding
+		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, currentFbo) );
+	}
 }
 
 C3DRenderTarget* C3DFrameBuffer::getRenderTarget() const
@@ -148,47 +139,41 @@ C3DRenderTarget* C3DFrameBuffer::getRenderTarget() const
 
 void C3DFrameBuffer::setDepthStencilTarget(C3DDepthStencilTarget* target)
 {
-    if (_depthStencilTarget == target)
-    {
-        return;
-    }
+	if (target)
+	{
+		target->retain();
 
-    // Release our existing depth stencil target
-    SAFE_RELEASE(_depthStencilTarget);
+		// Release our existing depth stencil target
+		SAFE_RELEASE(_depthStencilTarget);
 
-    _depthStencilTarget = target;
+		_depthStencilTarget = target;
 
-    if (target)
-    {
-        // The C3DFrameBuffer now owns this C3DDepthStencilTarget
-        target->retain();
+		// Store the current FBO binding so we can restore it
+		GLint currentFbo;
+		GL_ASSERT( glGetIntegerv(GL_FRAMEBUFFER_BINDING, &currentFbo) );
 
-        // Store the current FBO binding so we can restore it
-        GLint currentFbo;
-        GL_ASSERT( glGetIntegerv(GL_FRAMEBUFFER_BINDING, &currentFbo) );
+		// Now set this target as the color attachment.
+		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
 
-        // Now set this target as the color attachment.
-        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, _handle) );
+		// Bind the depth texture
+		GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _depthStencilTarget->getTexture()->getHandle(), 0) );
 
-        // Bind the depth texture
-        GL_ASSERT( glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, _depthStencilTarget->getTexture()->getHandle(), 0) );
+		// If the taget has a stencil buffer, bind that as well
+		if (target->getFormat() == C3DDepthStencilTarget::DEPTH24_STENCIL8)
+		{
+			GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_stencilBuffer) );
+		}
 
-        // If the taget has a stencil buffer, bind that as well
-        if (target->getFormat() == C3DDepthStencilTarget::DEPTH24_STENCIL8)
-        {
-            GL_ASSERT( glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, _depthStencilTarget->_stencilBuffer) );
-        }
+		// Check the framebuffer is good to go.
+		GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+		if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
+		{
+			//LOG_ERROR("Framebuffer status incomplete: 0x%x", fboStatus);
+		}
 
-		 // Check the framebuffer is good to go.
-        GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-        if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
-        {
-            //LOG_ERROR("Framebuffer status incomplete: 0x%x", fboStatus);
-        }
-
-        // Restore the FBO binding
-        GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, currentFbo) );
-    }
+		// Restore the FBO binding
+		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, currentFbo) );
+	}
 }
 
 C3DDepthStencilTarget* C3DFrameBuffer::getDepthStencilTarget() const
@@ -217,7 +202,7 @@ void C3DFrameBuffer::bindDefault()
     cocos2d::CCDirector::getInstance()->setViewport();
 
     std::vector<C3DFrameBuffer*>::const_iterator it;
-    for (it = __frameBuffers.begin(); it < __frameBuffers.end(); it++)
+    //for (it = __frameBuffers.begin(); it < __frameBuffers.end(); it++)
     {
         C3DFrameBuffer* fb = *it;
         fb->_isBind = false;
@@ -232,4 +217,66 @@ void C3DFrameBuffer::unbind()
     C3DRenderSystem::getInstance()->setViewport(&_oldViewport);
     _isBind = false;
 }
+
+//-----------------------------------------------------------------------------------
+static C3DFrameBufferMgr* __3DFrameBufferMgr = NULL;
+
+C3DFrameBufferMgr::C3DFrameBufferMgr()
+{
+}
+
+C3DFrameBufferMgr::~C3DFrameBufferMgr()
+{
+	LOG_TRACE_VARG("@C3DFrameBufferMgr::%d", _frameBufs.size());
+
+	__3DFrameBufferMgr = NULL;
+}
+
+C3DFrameBufferMgr* C3DFrameBufferMgr::getInstance()
+{
+	if (NULL == __3DFrameBufferMgr)
+	{
+		__3DFrameBufferMgr = new C3DFrameBufferMgr();
+		__3DFrameBufferMgr->autorelease();
+	}
+	return __3DFrameBufferMgr;
+}
+
+void C3DFrameBufferMgr::add(C3DFrameBuffer* texture)
+{
+	T_CACHE_CONTAINER::iterator itr = std::find(_frameBufs.begin(), _frameBufs.end(), texture);
+	if (itr == _frameBufs.end())
+	{
+		_frameBufs.push_back(texture);
+	}
+}
+
+void C3DFrameBufferMgr::remove(C3DFrameBuffer* texture)
+{
+	T_CACHE_CONTAINER::iterator itr = std::find(_frameBufs.begin(), _frameBufs.end(), texture);
+	if (itr != _frameBufs.end())
+	{
+		_frameBufs.erase(itr);
+	}
+}
+
+C3DFrameBuffer* C3DFrameBufferMgr::get(const std::string& strID)
+{
+	for(T_CACHE_CONTAINER::iterator iter = _frameBufs.begin(); iter!=_frameBufs.end(); ++iter)
+	{
+		if((*iter)->getID() == strID)
+			return *iter;
+	}
+
+	return NULL;
+}
+
+void C3DFrameBufferMgr::reload()
+{
+	for(T_CACHE_CONTAINER::iterator iter = _frameBufs.begin(); iter!=_frameBufs.end(); ++iter)
+	{
+		(*iter)->reload();
+	}
+}
+
 }

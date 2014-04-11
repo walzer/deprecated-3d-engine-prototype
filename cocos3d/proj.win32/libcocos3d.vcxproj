@@ -88,7 +88,7 @@
     <ClCompile Include="..\C3DSkinlessModel.cpp" />
     <ClCompile Include="..\C3DSkinModel.cpp" />
     <ClCompile Include="..\C3DSprite.cpp" />
-    <ClCompile Include="..\C3DSpriteManager.cpp" />
+    <ClCompile Include="..\C3DRenderNodeManager.cpp" />
     <ClCompile Include="..\C3DStat.cpp" />
     <ClCompile Include="..\C3DStaticObj.cpp" />
     <ClCompile Include="..\C3DStream.cpp" />
@@ -193,7 +193,7 @@
     <ClInclude Include="..\C3DSkinlessModel.h" />
     <ClInclude Include="..\C3DSkinModel.h" />
     <ClInclude Include="..\C3DSprite.h" />
-    <ClInclude Include="..\C3DSpriteManager.h" />
+    <ClInclude Include="..\C3DRenderNodeManager.h" />
     <ClInclude Include="..\C3DStat.h" />
     <ClInclude Include="..\C3DStaticObj.h" />
     <ClInclude Include="..\C3DStream.h" />

@@ -16,6 +16,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DShadowMap.h"
 #include "VisibleRect.h"
+#include "C3DRenderNodeManager.h"
 
 using namespace cocos3d;
 
@@ -70,31 +71,23 @@ void ShadowTestLayer::draw3D()
 
 void ShadowTestLayer::setUpScene()
 {
-    C3DStaticObj* sm = C3DStaticObj::create("1");
-
-    sm->loadFromFile("demores/materialtest/1.ckb");
-
+    C3DStaticObj* sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/materialtest/1.ckb"));
     sm->setMaterial("demores/materialtest/1_shadow.material");
     sm->translate(0, 0, 0);
-    //sm->rotateX(0.8f);
     sm->scale(50, 50, 50);
 
     _scene->addChild(sm);
 
-    C3DSprite* fish = C3DSprite::create("denglongyu");
-
-	fish->loadFromFile("demores/haigui/haigui.ckb",true);
-	//fish->setMaterial("body", "demores/haigui/haigui.material");
-    fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
-
-    fish->playAnimationClip("idle");
-    fish->setPosition(35, 10, 0);
-    //fish->rotateX(0.5f);
-	//fish->showSkeleton(true);
-    fish->setScale(5.0f);
-	//fish->showBoundingBox(true);
-	//fish->showSkeleton(true);
-	fish->showOBB(false);
+//     C3DSprite* fish = static_cast<cocos3d::C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
+//     fish->addAnimationClip("idle", 0, 60, 0, 1.0f);
+// 
+//     fish->playAnimationClip("idle");
+//     fish->setPosition(35, 10, 0);
+// 	//fish->showSkeleton(true);
+//     fish->setScale(5.0f);
+// 	//fish->showBoundingBox(true);
+// 	//fish->showSkeleton(true);
+// 	fish->showOBB(false);
     //_scene->addChild(fish);
 }
 
@@ -126,6 +119,9 @@ void ShadowTestLayer::setUpShadowMap()
     if (!light)
         return;
     C3DShadowMap* shadowMap = C3DShadowMap::create("shadow", 512, 512);
+	if(shadowMap == NULL)
+		return;
+
     shadowMap->setDimension(60, 60, 160);
     light->addChild(shadowMap);
     _scene->setActiveShadowMap(0);

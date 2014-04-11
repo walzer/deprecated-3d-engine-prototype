@@ -263,9 +263,6 @@
     <ClCompile Include="..\C3DCircle.cpp">
       <Filter>geo</Filter>
     </ClCompile>
-    <ClCompile Include="..\C3DSpriteManager.cpp">
-      <Filter>node</Filter>
-    </ClCompile>
     <ClCompile Include="..\C3DMathUtilty.cpp">
       <Filter>math</Filter>
     </ClCompile>
@@ -297,6 +294,9 @@
       <Filter>performance</Filter>
     </ClCompile>
     <ClCompile Include="..\C3DDeviceAdapter_pc.cpp" />
+    <ClCompile Include="..\C3DRenderNodeManager.cpp">
+      <Filter>node</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Base.h" />
@@ -570,9 +570,6 @@
     <ClInclude Include="..\C3DCircle.h">
       <Filter>geo</Filter>
     </ClInclude>
-    <ClInclude Include="..\C3DSpriteManager.h">
-      <Filter>node</Filter>
-    </ClInclude>
     <ClInclude Include="..\C3DMath.h">
       <Filter>math</Filter>
     </ClInclude>
@@ -607,6 +604,9 @@
       <Filter>performance</Filter>
     </ClInclude>
     <ClInclude Include="..\C3DDeviceAdapter.h" />
+    <ClInclude Include="..\C3DRenderNodeManager.h">
+      <Filter>node</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\C3DMatrix.inl">

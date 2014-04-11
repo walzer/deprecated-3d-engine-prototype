@@ -12,13 +12,12 @@
 namespace cocos3d
 {
 C3DPass::C3DPass() :
-    _id(""), _technique(NULL), _effect(NULL),_vaBinding(NULL), _nMaxDirLight(0), _nMaxPointLight(0), _nMaxSpotLight(0), _nMaxShadowMap(0)
+    _id(""), _technique(NULL), _effect(NULL),_vaBinding(NULL), _nMaxDirLight(0), _nMaxPointLight(0), _nMaxSpotLight(0), _nMaxAnimLight(0), _nMaxShadowMap(0)
 {
-	_id = "";
 }
 
 C3DPass::C3DPass(const std::string& id, C3DTechnique* technique, C3DEffect* effect) :
-    _id(id), _technique(technique), _effect(effect), _vaBinding(NULL), _nMaxDirLight(0), _nMaxPointLight(0), _nMaxSpotLight(0), _nMaxShadowMap(0)
+    _id(id), _technique(technique), _effect(effect), _vaBinding(NULL), _nMaxDirLight(0), _nMaxPointLight(0), _nMaxSpotLight(0), _nMaxAnimLight(0), _nMaxShadowMap(0)
 {
     assert(technique);
 
@@ -80,7 +79,16 @@ void C3DPass::unbind()
         _vaBinding->unbind();
     }
 
-	   //GL_ASSERT( glUseProgram(0) );
+	//GL_ASSERT( glUseProgram(0) );
+}
+
+void C3DPass::reload()
+{
+	LOG_TRACE_VARG("    C3DPass:%s begin reload", _id.c_str());
+	C3DRenderState::reload();
+	
+	if(_vaBinding)
+		_vaBinding->reload();
 }
 
 C3DPass* C3DPass::clone() const

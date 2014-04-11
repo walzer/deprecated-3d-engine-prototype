@@ -3,7 +3,7 @@
 #include "C3DDepthStencilTarget.h"
 #include "C3DTexture.h"
 #include "C3DSampler.h"
-
+#include "C3DDeviceAdapter.h"
 namespace cocos3d
 {
     enum
@@ -25,6 +25,9 @@ namespace cocos3d
 
     C3DShadowMap* C3DShadowMap::create(const std::string& id, unsigned int texWidth, unsigned int texHeight)
     {
+		if(C3DDeviceAdapter::getInstance()->isSupportShadow() == false )
+			return NULL;
+
         unsigned int fmtColor = 0;
         unsigned int fmtDepth = C3DDepthStencilTarget::DEPTH16;
         bool supportNullColor = false;
@@ -33,6 +36,7 @@ namespace cocos3d
         {
             fmtColor = C3DTexture::RGBA;
         }
+
         C3DFrameBuffer* framebuffer = C3DFrameBuffer::create(id, texWidth, texHeight, fmtColor, fmtDepth);
 
         if (!framebuffer)
@@ -45,7 +49,6 @@ namespace cocos3d
         shadowMap->_texHeight = texHeight;
 
         C3DSampler* samp = C3DSampler::create(shadowMap->getDepthTexture());
-        //samp->retain();
         samp->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
         samp->setWrapMode(Texture_Wrap_CLAMP, Texture_Wrap_CLAMP);
 
@@ -59,7 +62,7 @@ namespace cocos3d
         if (!_framebuffer || !_framebuffer->getDepthStencilTarget())
             return NULL;
 
-        return _framebuffer->getDepthStencilTarget()->getTexture();
+		return _framebuffer->getDepthStencilTarget()->getTexture();
     }
 
     const C3DMatrix& C3DShadowMap::getViewProjectionMatrix()
