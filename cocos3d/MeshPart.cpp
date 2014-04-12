@@ -15,6 +15,11 @@ MeshPart::~MeshPart()
     }
 }
 
+void MeshPart::reset()
+{
+	_indexBuffer = 0;
+}
+
 MeshPart* MeshPart::create(C3DMesh* mesh, unsigned int meshIndex, PrimitiveType primitiveType,
     IndexFormat indexFormat, unsigned int indexCount, bool dynamic)
 {
