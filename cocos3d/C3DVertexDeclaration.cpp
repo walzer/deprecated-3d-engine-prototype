@@ -67,38 +67,31 @@ namespace cocos3d
 
 		//b = create(mesh, mesh->getVertexFormat(), 0, effect);
 		//-----------------------------------------------------------------------------------
-		C3DVertexDeclaration* dec = new C3DVertexDeclaration();
-		dec->autorelease();
+		b = new C3DVertexDeclaration();
 
-		bool res = dec->init(mesh, mesh->getVertexFormat(), 0, effect);
-
-		if(res)
-			b = dec;
-		else
-			b = NULL;
-		
-		//-----------------------------------------------------------------------------------
-
-		// Add the new vertex attribute binding to the cache.
-		if (b)
+		if( b->init(mesh, mesh->getVertexFormat(), 0, effect) )
 		{
+			// Add the new vertex attribute binding to the cache.
 			__vertexAttributeBindingCache.push_back(b);
-			
+			return b;
 		}
 
-		return b;
+		SAFE_RELEASE(b);
+		return NULL;
 	}
 
 	C3DVertexDeclaration* C3DVertexDeclaration::create(const C3DVertexFormat* vertexFormat, void* vertexPointer, C3DEffect* effect)
 	{
 		C3DVertexDeclaration* dec = new C3DVertexDeclaration();
-		dec->autorelease();
-
-		bool res = dec->init(NULL, vertexFormat, vertexPointer, effect);
-		if(res)
+		if(dec->init(NULL, vertexFormat, vertexPointer, effect))
+		{
 			return dec;
+		}
 		else
+		{
+			SAFE_RELEASE(dec);
 			return NULL;
+		}
 	}
 
 	void C3DVertexDeclaration::reload()

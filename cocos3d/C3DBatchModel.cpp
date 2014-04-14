@@ -127,6 +127,7 @@ void C3DBatchModel::bindVertex(void)
 				
 				C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh->_vertexFormat, _mesh->_vertices, p->getEffect());
 				p->setVertexAttributeBinding(b);
+				SAFE_RELEASE(b);
 			}
 		}
 	}

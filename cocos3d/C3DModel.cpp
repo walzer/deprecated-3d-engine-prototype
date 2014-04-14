@@ -182,6 +182,7 @@ void C3DModel::setMaterial(C3DMaterial* material, int partIndex)
                 C3DPass* p = t->getPass(j);
                 C3DVertexDeclaration* b = C3DVertexDeclaration::create(_mesh, p->getEffect());
                 p->setVertexAttributeBinding(b);
+				SAFE_RELEASE(b);
             }
         }
 
