@@ -5,18 +5,12 @@
 #include <jni.h>
 #include <android/log.h>
 
-#define  LOG_TAG    "EngineDemoJni"
+#define  LOG_TAG    "main"
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
 using namespace cocos2d;
 
-jint JNI_OnLoad(JavaVM *vm, void *reserved)
-{
-    JniHelper::setJavaVM(vm);
-    return JNI_VERSION_1_4;
-}
-
-void cocos_android_app_init (struct android_app* app)
-{
+void cocos_android_app_init (JNIEnv* env, jobject thiz)
+{ 
 	AppDelegate *pAppDelegate = new AppDelegate();
 }
