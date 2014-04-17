@@ -1,4 +1,5 @@
 #include "Hello3DLayer.h"
+#include "C3DRenderNodeManager.h"
 
 USING_NS_CC;
 using namespace cocos3d;
@@ -32,8 +33,8 @@ bool Hello3DLayer::init()
 void Hello3DLayer::setUpScene()
 {
     //create fish
-    cocos3d::C3DSprite* fish = cocos3d::C3DSprite::create("haigui");
-    fish->loadFromFile("demores/haigui/haigui.ckb",true);
+    cocos3d::C3DSprite* fish = static_cast<C3DSprite*>(C3DRenderNodeManager::getInstance()->getResource("demores/haigui/haigui.ckb"));
+	fish->setId("haigui");
     fish->addAnimationClip("idle", 0, 60, 0, 1.0f);	
     fish->scale(3.0f);
     fish->playAnimationClip("idle");
