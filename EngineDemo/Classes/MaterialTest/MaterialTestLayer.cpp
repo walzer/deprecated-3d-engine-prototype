@@ -185,6 +185,8 @@ void MaterialTestLayer::setUpLight()
 
 	pointLightModel->setMaterial("demores/ball/projected_texture_ball.material");
 	pointLightModel->setVisible(false);
+
+	_scene->setAmbientColor(1.0f, 1.0f, 1.0f);
 }
 
 void MaterialTestLayer::touchEvent(cocos3d::TouchEvent evt, float x, float y, unsigned int contactIndex)
