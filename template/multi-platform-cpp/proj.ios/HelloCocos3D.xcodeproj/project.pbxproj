@@ -94,7 +94,6 @@
 		A9633E9A18C09304003BE009 /* C3DSkinlessModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633E0B18C09304003BE009 /* C3DSkinlessModel.cpp */; };
 		A9633E9B18C09304003BE009 /* C3DSkinModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633E0D18C09304003BE009 /* C3DSkinModel.cpp */; };
 		A9633E9C18C09304003BE009 /* C3DSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633E0F18C09304003BE009 /* C3DSprite.cpp */; };
-		A9633E9D18C09304003BE009 /* C3DSpriteManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633E1118C09304003BE009 /* C3DSpriteManager.cpp */; };
 		A9633E9E18C09304003BE009 /* C3DStat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633E1318C09304003BE009 /* C3DStat.cpp */; };
 		A9633E9F18C09304003BE009 /* C3DStaticObj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633E1518C09304003BE009 /* C3DStaticObj.cpp */; };
 		A9633EA018C09304003BE009 /* C3DStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9633E1718C09304003BE009 /* C3DStream.cpp */; };
@@ -133,6 +132,7 @@
 		B2C5BBCC18DC6D4200C14955 /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5BBA818DC6C2E00C14955 /* libcocos2dx-extensions iOS.a */; };
 		B2C5BBCD18DC6D4200C14955 /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5BBAE18DC6C2E00C14955 /* libCocosDenshion iOS.a */; };
 		B2C5BBE418DC6EBB00C14955 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C5BBE318DC6EBB00C14955 /* CoreMotion.framework */; };
+		BCC5E99B18FFD1EC00C2E5A9 /* C3DRenderNodeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCC5E99918FFD1EC00C2E5A9 /* C3DRenderNodeManager.cpp */; };
 		BCE2E9D918C6FEDF006CEE3B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BCE2E9D818C6FEDF006CEE3B /* Default-568h@2x.png */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712461292920000B8313A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB212928DE900B8313A /* libxml2.dylib */; };
@@ -427,8 +427,6 @@
 		A9633E0E18C09304003BE009 /* C3DSkinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C3DSkinModel.h; sourceTree = "<group>"; };
 		A9633E0F18C09304003BE009 /* C3DSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = C3DSprite.cpp; sourceTree = "<group>"; };
 		A9633E1018C09304003BE009 /* C3DSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C3DSprite.h; sourceTree = "<group>"; };
-		A9633E1118C09304003BE009 /* C3DSpriteManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = C3DSpriteManager.cpp; sourceTree = "<group>"; };
-		A9633E1218C09304003BE009 /* C3DSpriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C3DSpriteManager.h; sourceTree = "<group>"; };
 		A9633E1318C09304003BE009 /* C3DStat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = C3DStat.cpp; sourceTree = "<group>"; };
 		A9633E1418C09304003BE009 /* C3DStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C3DStat.h; sourceTree = "<group>"; };
 		A9633E1518C09304003BE009 /* C3DStaticObj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = C3DStaticObj.cpp; sourceTree = "<group>"; };
@@ -491,6 +489,8 @@
 		A9A854B018ECED630032965A /* C3DDeviceAdapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = C3DDeviceAdapter_ios.mm; sourceTree = "<group>"; };
 		A9A854B118ECED630032965A /* C3DDeviceAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C3DDeviceAdapter.h; sourceTree = "<group>"; };
 		B2C5BBE318DC6EBB00C14955 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		BCC5E99918FFD1EC00C2E5A9 /* C3DRenderNodeManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = C3DRenderNodeManager.cpp; sourceTree = "<group>"; };
+		BCC5E99A18FFD1EC00C2E5A9 /* C3DRenderNodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C3DRenderNodeManager.h; sourceTree = "<group>"; };
 		BCE2E9D818C6FEDF006CEE3B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB212928DE900B8313A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
@@ -615,6 +615,8 @@
 		A9633D7018C09304003BE009 /* cocos3d */ = {
 			isa = PBXGroup;
 			children = (
+				BCC5E99918FFD1EC00C2E5A9 /* C3DRenderNodeManager.cpp */,
+				BCC5E99A18FFD1EC00C2E5A9 /* C3DRenderNodeManager.h */,
 				A9A854B018ECED630032965A /* C3DDeviceAdapter_ios.mm */,
 				A9A854B118ECED630032965A /* C3DDeviceAdapter.h */,
 				A9633D7218C09304003BE009 /* AttachNode.cpp */,
@@ -776,8 +778,6 @@
 				A9633E0E18C09304003BE009 /* C3DSkinModel.h */,
 				A9633E0F18C09304003BE009 /* C3DSprite.cpp */,
 				A9633E1018C09304003BE009 /* C3DSprite.h */,
-				A9633E1118C09304003BE009 /* C3DSpriteManager.cpp */,
-				A9633E1218C09304003BE009 /* C3DSpriteManager.h */,
 				A9633E1318C09304003BE009 /* C3DStat.cpp */,
 				A9633E1418C09304003BE009 /* C3DStat.h */,
 				A9633E1518C09304003BE009 /* C3DStaticObj.cpp */,
@@ -1021,6 +1021,7 @@
 				A9633E5418C09304003BE009 /* C3DAnimation.cpp in Sources */,
 				A9633E8B18C09304003BE009 /* C3DRenderBlock.cpp in Sources */,
 				A9633E7118C09304003BE009 /* C3DMatrix.cpp in Sources */,
+				BCC5E99B18FFD1EC00C2E5A9 /* C3DRenderNodeManager.cpp in Sources */,
 				A9A854B218ECED630032965A /* C3DDeviceAdapter_ios.mm in Sources */,
 				A9633E7A18C09304003BE009 /* C3Dneon_matrix_impl.c in Sources */,
 				A9633EA218C09304003BE009 /* C3DTexture.cpp in Sources */,
@@ -1049,7 +1050,6 @@
 				A9633E8518C09304003BE009 /* C3DPostProcess.cpp in Sources */,
 				A9633E8918C09304003BE009 /* C3DRandom.cpp in Sources */,
 				A9633E5E18C09304003BE009 /* C3DCapsule.cpp in Sources */,
-				A9633E9D18C09304003BE009 /* C3DSpriteManager.cpp in Sources */,
 				A9633E7418C09304003BE009 /* C3DMeshSkin.cpp in Sources */,
 				A9633E7818C09304003BE009 /* C3DMorphMesh.cpp in Sources */,
 				A9633EA118C09304003BE009 /* C3DTechnique.cpp in Sources */,
