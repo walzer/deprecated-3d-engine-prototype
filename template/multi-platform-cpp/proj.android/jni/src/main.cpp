@@ -10,13 +10,7 @@
 
 using namespace cocos2d;
 
-jint JNI_OnLoad(JavaVM *vm, void *reserved)
-{
-    JniHelper::setJavaVM(vm);
-    return JNI_VERSION_1_4;
-}
-
-void cocos_android_app_init (struct android_app* app)
+void cocos_android_app_init (JNIEnv* env, jobject thiz)
 {
 	AppDelegate *pAppDelegate = new AppDelegate();
 }
