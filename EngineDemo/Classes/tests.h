@@ -16,7 +16,7 @@ enum
 #ifdef WIN32
     TEST_PHYSICS,
 #else
-    TEST_MATERIALS9,
+    TEST_CarDemo,
 #endif
     TEST_MATERIALS10,
 	
@@ -37,7 +37,7 @@ const std::string g_aTestNames[TESTS_COUNT] = {
 #ifdef WIN32
     "Physics Test",
 #else
-    "Todo:New test",
+    "CarDemo",
 #endif
     "Todo:New test",
 };

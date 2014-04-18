@@ -1,0 +1,44 @@
+material
+{
+
+	technique 0
+	{
+
+		pass 0
+		{
+	
+			vertexShader = shaders/meshlambert.vsh
+			fragmentShader = shaders/meshlambert.fsh
+
+			u_diffuseColor = 0.6, 0.6, 0.6,1.0
+			u_ambientColor = 1.0, 1.0, 1.0
+
+			u_reflectivity = 0.3
+
+			defines = MAXDIRLIGHT 2
+			
+			samplerCube cubeMap
+			{
+				path_left = demores/fulldemo/skybox/px.jpg
+				path_right = demores/fulldemo/skybox/nx.jpg
+				path_top = demores/fulldemo/skybox/py.jpg
+				path_bottom = demores/fulldemo/skybox/ny.jpg
+				path_front = demores/fulldemo/skybox/nz.jpg
+				path_back = demores/fulldemo/skybox/pz.jpg
+			}
+
+			renderState 
+			{
+				cullFace = true
+				depthTest = true
+				depthWrite = true
+				blend = true
+				srcBlend = SRC_ALPHA
+				dstBlend = ONE_MINUS_SRC_ALPHA
+			}
+
+		}
+
+	}
+
+}
