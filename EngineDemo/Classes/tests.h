@@ -13,12 +13,7 @@ enum
     TEST_POSTEFFECT,
     TEST_PARTICLE,
     TEST_CHANGECLOTHES,
-#ifdef WIN32
-    TEST_PHYSICS,
-#else
-    TEST_MATERIALS9,
-#endif
-    TEST_MATERIALS10,
+	TEST_CarDemo,
 	
     TESTS_COUNT,
 };
@@ -34,12 +29,7 @@ const std::string g_aTestNames[TESTS_COUNT] = {
     "PostEffectTest",
     "ParticleTest",
     "ChangeClothesTest",
-#ifdef WIN32
-    "Physics Test",
-#else
-    "Todo:New test",
-#endif
-    "Todo:New test",
+    "CarDemo"
 };
 
 #endif

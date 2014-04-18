@@ -16,6 +16,7 @@
 #include "FullDemo/UI3DLayer.h"
 #include "PerformanceTest/PerformanceTestLayer.h"
 #include "C3DRenderSystem.h"
+#include "CarDemo/CarTestLayer.h"
 
 #define LINE_SPACE          50
 
@@ -149,6 +150,9 @@ void MainLayer::menuCallback(CCObject * pSender)
 	case TEST_PERFORMANCE:
 		layer = PerformanceTestLayer::create();
 		break;
+    case TEST_CarDemo:
+        layer = CarTestLayer::create();
+        break;
 //#ifdef WIN32
 //	case TEST_PHYSICS:
 //		layer = PhysicsTestLayer::create();

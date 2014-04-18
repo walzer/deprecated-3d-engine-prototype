@@ -17,12 +17,12 @@ material
 
 			samplerCube u_shellTex
 			{
-				path_left	= demores/materialtest/magiclight/LanternF_2.png
-				path_right	= demores/materialtest/magiclight/LanternF_1.png
-				path_top	= demores/materialtest/magiclight/LanternF_5.png
-				path_bottom = demores/materialtest/magiclight/LanternF_6.png
-				path_front	= demores/materialtest/magiclight/LanternF_3.png
-				path_back	= demores/materialtest/magiclight/LanternF_4.png
+				path_left	= demores/materialtest/magiclight/LanternF_2.jpg
+				path_right	= demores/materialtest/magiclight/LanternF_1.jpg
+				path_top	= demores/materialtest/magiclight/LanternF_5.jpg
+				path_bottom = demores/materialtest/magiclight/LanternF_6.jpg
+				path_front	= demores/materialtest/magiclight/LanternF_3.jpg
+				path_back	= demores/materialtest/magiclight/LanternF_4.jpg
 					
 				wrapS = MIRROR
 				wrapT = MIRROR

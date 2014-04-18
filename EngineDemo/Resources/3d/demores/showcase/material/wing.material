@@ -1,0 +1,56 @@
+material 
+{
+
+	technique 0
+	{
+
+		pass 0
+		{
+			vertexShader = shaders/meshspecular.vsh
+			fragmentShader = shaders/meshspecular.fsh
+			
+			
+			
+			u_ambientColor = 1,1,1,1.0
+			u_reflectivity = 0.4
+			u_specularPower = 5.0, 5.0, 5.0, 250.0;
+		
+		
+			defines = MAXDIRLIGHT 2;SPECULAR
+			
+			sampler u_diffuseTexture
+			{
+				path = demores/showcase/marsred.png
+				mipmap = true
+				wrapS = CLAMP
+				wrapT = CLAMP
+				minFilter = LINEAR_MIPMAP_LINEAR
+				magFilter = LINEAR
+			}
+			
+			samplerCube cubeMap
+			{
+				path_left = demores/fulldemo/skybox/left.jpg
+				path_right = demores/fulldemo/skybox/right.jpg
+				path_top = demores/fulldemo/skybox/top.jpg
+				path_bottom = demores/fulldemo/skybox/bottom.jpg
+				path_front = demores/fulldemo/skybox/front.jpg
+				path_back = demores/fulldemo/skybox/back.jpg
+				
+			}
+
+			renderState 
+			{
+				cullFace = flase
+				depthTest = true
+				depthWrite = true
+				blend = true
+				srcBlend = SRC_ALPHA
+				dstBlend = ONE_MINUS_SRC_ALPHA
+			}
+
+		}
+
+	}
+
+}

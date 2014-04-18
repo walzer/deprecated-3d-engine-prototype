@@ -10,6 +10,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		76B2D07318FFDCD100F29EEB /* CarTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */; };
 		A904087C18113C7500C4FBAD /* C3DActor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A904087818113C7500C4FBAD /* C3DActor.cpp */; };
 		A904087D18113C7500C4FBAD /* C3DBaseActor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A904087A18113C7500C4FBAD /* C3DBaseActor.cpp */; };
 		A947258E18C9C66B00B09455 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781C33B51547F06B00633F88 /* AVFoundation.framework */; };
@@ -107,7 +108,6 @@
 		B6588A5D18DA95E0006E5DA2 /* C3DSkinlessModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65889DC18DA95E0006E5DA2 /* C3DSkinlessModel.cpp */; };
 		B6588A5E18DA95E0006E5DA2 /* C3DSkinModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65889DE18DA95E0006E5DA2 /* C3DSkinModel.cpp */; };
 		B6588A5F18DA95E0006E5DA2 /* C3DSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65889E018DA95E0006E5DA2 /* C3DSprite.cpp */; };
-		B6588A6018DA95E0006E5DA2 /* C3DSpriteManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65889E218DA95E0006E5DA2 /* C3DSpriteManager.cpp */; };
 		B6588A6118DA95E0006E5DA2 /* C3DStat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65889E418DA95E0006E5DA2 /* C3DStat.cpp */; };
 		B6588A6218DA95E0006E5DA2 /* C3DStaticObj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65889E618DA95E0006E5DA2 /* C3DStaticObj.cpp */; };
 		B6588A6318DA95E0006E5DA2 /* C3DStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B65889E818DA95E0006E5DA2 /* C3DStream.cpp */; };
@@ -158,6 +158,7 @@
 		B6B6D8DF1890FF4D0071DDFF /* PESceneChange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6B6D8D31890FF4D0071DDFF /* PESceneChange.cpp */; };
 		B6B6D8E01890FF4D0071DDFF /* PESpaceWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6B6D8D51890FF4D0071DDFF /* PESpaceWarp.cpp */; };
 		B6B6D8E11890FF4D0071DDFF /* PEVortex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6B6D8D71890FF4D0071DDFF /* PEVortex.cpp */; };
+		BCC5E9AB18FFD37800C2E5A9 /* C3DRenderNodeManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BCC5E9A918FFD37800C2E5A9 /* C3DRenderNodeManager.cpp */; };
 		BF1373EF128A898400D9F789 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF492D4B1289302400A09262 /* OpenGLES.framework */; };
 		BF1373F0128A899500D9F789 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF492C21128924A800A09262 /* libxml2.dylib */; };
 		BF13742F128A8E6A00D9F789 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF137426128A8E4600D9F789 /* QuartzCore.framework */; };
@@ -245,6 +246,8 @@
 		1D6058910D05DD3D006BFB54 /* EngineDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EngineDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CarTestLayer.cpp; path = CarDemo/CarTestLayer.cpp; sourceTree = "<group>"; };
+		76B2D07218FFDCD100F29EEB /* CarTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarTestLayer.h; path = CarDemo/CarTestLayer.h; sourceTree = "<group>"; };
 		781C33B11547F06B00633F88 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		781C33B31547F06B00633F88 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		781C33B51547F06B00633F88 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -431,8 +434,6 @@
 		B65889DF18DA95E0006E5DA2 /* C3DSkinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DSkinModel.h; path = ../../cocos3d/C3DSkinModel.h; sourceTree = "<group>"; };
 		B65889E018DA95E0006E5DA2 /* C3DSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = C3DSprite.cpp; path = ../../cocos3d/C3DSprite.cpp; sourceTree = "<group>"; };
 		B65889E118DA95E0006E5DA2 /* C3DSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DSprite.h; path = ../../cocos3d/C3DSprite.h; sourceTree = "<group>"; };
-		B65889E218DA95E0006E5DA2 /* C3DSpriteManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = C3DSpriteManager.cpp; path = ../../cocos3d/C3DSpriteManager.cpp; sourceTree = "<group>"; };
-		B65889E318DA95E0006E5DA2 /* C3DSpriteManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DSpriteManager.h; path = ../../cocos3d/C3DSpriteManager.h; sourceTree = "<group>"; };
 		B65889E418DA95E0006E5DA2 /* C3DStat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = C3DStat.cpp; path = ../../cocos3d/C3DStat.cpp; sourceTree = "<group>"; };
 		B65889E518DA95E0006E5DA2 /* C3DStat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DStat.h; path = ../../cocos3d/C3DStat.h; sourceTree = "<group>"; };
 		B65889E618DA95E0006E5DA2 /* C3DStaticObj.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = C3DStaticObj.cpp; path = ../../cocos3d/C3DStaticObj.cpp; sourceTree = "<group>"; };
@@ -535,6 +536,8 @@
 		B6B6D8D61890FF4D0071DDFF /* PESpaceWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PESpaceWarp.h; path = PostEffect/PESpaceWarp.h; sourceTree = "<group>"; };
 		B6B6D8D71890FF4D0071DDFF /* PEVortex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PEVortex.cpp; path = PostEffect/PEVortex.cpp; sourceTree = "<group>"; };
 		B6B6D8D81890FF4D0071DDFF /* PEVortex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEVortex.h; path = PostEffect/PEVortex.h; sourceTree = "<group>"; };
+		BCC5E9A918FFD37800C2E5A9 /* C3DRenderNodeManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = C3DRenderNodeManager.cpp; path = ../../cocos3d/C3DRenderNodeManager.cpp; sourceTree = "<group>"; };
+		BCC5E9AA18FFD37800C2E5A9 /* C3DRenderNodeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DRenderNodeManager.h; path = ../../cocos3d/C3DRenderNodeManager.h; sourceTree = "<group>"; };
 		BF137426128A8E4600D9F789 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BF23D4E3143315EB00657E08 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		BF23D4E4143315EB00657E08 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -608,6 +611,15 @@
 				781C33B51547F06B00633F88 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76B2D06418FFDCBE00F29EEB /* CarDemo */ = {
+			isa = PBXGroup;
+			children = (
+				76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */,
+				76B2D07218FFDCD100F29EEB /* CarTestLayer.h */,
+			);
+			name = CarDemo;
 			sourceTree = "<group>";
 		};
 		A975330A18EBA6AF00502796 /* Products */ = {
@@ -724,6 +736,8 @@
 		B6AFD70E1867DBF10098D989 /* cocos3d */ = {
 			isa = PBXGroup;
 			children = (
+				BCC5E9A918FFD37800C2E5A9 /* C3DRenderNodeManager.cpp */,
+				BCC5E9AA18FFD37800C2E5A9 /* C3DRenderNodeManager.h */,
 				A987495E18EABE5000E69CBE /* C3DDeviceAdapter_ios.mm */,
 				A987495F18EABE5000E69CBE /* C3DDeviceAdapter.h */,
 				B6588A7818DA95F1006E5DA2 /* Rectangle.cpp */,
@@ -890,8 +904,6 @@
 				B65889DF18DA95E0006E5DA2 /* C3DSkinModel.h */,
 				B65889E018DA95E0006E5DA2 /* C3DSprite.cpp */,
 				B65889E118DA95E0006E5DA2 /* C3DSprite.h */,
-				B65889E218DA95E0006E5DA2 /* C3DSpriteManager.cpp */,
-				B65889E318DA95E0006E5DA2 /* C3DSpriteManager.h */,
 				B65889E418DA95E0006E5DA2 /* C3DStat.cpp */,
 				B65889E518DA95E0006E5DA2 /* C3DStat.h */,
 				B65889E618DA95E0006E5DA2 /* C3DStaticObj.cpp */,
@@ -989,6 +1001,7 @@
 		BF23D4E2143315EB00657E08 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				76B2D06418FFDCBE00F29EEB /* CarDemo */,
 				A975332D18EBAB3700502796 /* PermormanceTest */,
 				A904087818113C7500C4FBAD /* C3DActor.cpp */,
 				A904087918113C7500C4FBAD /* C3DActor.h */,
@@ -1259,7 +1272,9 @@
 				B6588A3B18DA95E0006E5DA2 /* C3DMorphMesh.cpp in Sources */,
 				B6588A3C18DA95E0006E5DA2 /* C3DMorphModel.cpp in Sources */,
 				B6588A3D18DA95E0006E5DA2 /* C3Dneon_matrix_impl.c in Sources */,
+				76B2D07318FFDCD100F29EEB /* CarTestLayer.cpp in Sources */,
 				B6588A3E18DA95E0006E5DA2 /* C3DNode.cpp in Sources */,
+				BCC5E9AB18FFD37800C2E5A9 /* C3DRenderNodeManager.cpp in Sources */,
 				B6588A3F18DA95E0006E5DA2 /* C3DNoise.cpp in Sources */,
 				B6588A4018DA95E0006E5DA2 /* C3DOBB.cpp in Sources */,
 				B6588A4118DA95E0006E5DA2 /* C3DParticleEmitter.cpp in Sources */,
@@ -1292,7 +1307,6 @@
 				B6588A5D18DA95E0006E5DA2 /* C3DSkinlessModel.cpp in Sources */,
 				B6588A5E18DA95E0006E5DA2 /* C3DSkinModel.cpp in Sources */,
 				B6588A5F18DA95E0006E5DA2 /* C3DSprite.cpp in Sources */,
-				B6588A6018DA95E0006E5DA2 /* C3DSpriteManager.cpp in Sources */,
 				B6588A6118DA95E0006E5DA2 /* C3DStat.cpp in Sources */,
 				B6588A6218DA95E0006E5DA2 /* C3DStaticObj.cpp in Sources */,
 				B6588A6318DA95E0006E5DA2 /* C3DStream.cpp in Sources */,

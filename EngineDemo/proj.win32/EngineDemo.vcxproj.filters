@@ -91,6 +91,9 @@
     <ClCompile Include="..\Classes\PerformanceTest\PerformanceTestLayer.cpp">
       <Filter>performaceTest</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CarDemo\CarTestLayer.cpp">
+      <Filter>CarDemo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -187,6 +190,9 @@
     <ClInclude Include="..\Classes\PerformanceTest\PerformanceTestLayer.h">
       <Filter>performaceTest</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\CarDemo\CarTestLayer.h">
+      <Filter>CarDemo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="EngineDemo.rc" />
@@ -227,6 +233,9 @@
     </Filter>
     <Filter Include="performaceTest">
       <UniqueIdentifier>{f1aa2a71-aaa9-4afb-ac7f-b96c2b8db673}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CarDemo">
+      <UniqueIdentifier>{bc178d8e-0868-4a75-82d3-afe43a83cea8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

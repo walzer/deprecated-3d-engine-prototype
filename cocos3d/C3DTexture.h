@@ -55,7 +55,7 @@ namespace cocos3d
 
 		static cocos2d::CCImage* createImage(const std::string& path);
 
-		void init(int width, int height, C3DTexture::Format fmt, bool generateMipmaps);
+		bool init(int width, int height, C3DTexture::Format fmt, bool generateMipmaps);
 		virtual void reload();
 
         /**
@@ -108,11 +108,10 @@ namespace cocos3d
          */
         const std::string& getPath() const { return _path; };
 	protected:
-		void innerInit2D(const std::string& path, bool generateMipmaps = false);
-		void innerInit2D(C3DTexture* rhs);
+		bool innerInit2D(const std::string& path, bool generateMipmaps = false);
+		bool innerInit2D(C3DTexture* rhs);
 
         C3DTexture();
-        C3DTexture(const C3DTexture& copy);
         virtual ~C3DTexture();
 
 #ifdef USE_PVRTC
