@@ -68,18 +68,22 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
 
     frameBuffer->_handle = handle;
 
+	bool ret = false;
     // Add the render target as the first color attachment
     if (renderTarget)
-        frameBuffer->setRenderTarget(renderTarget);
+		ret = frameBuffer->setRenderTarget(renderTarget);
 
+	// Add the depth stencil target
     if (depthTarget)
-        frameBuffer->setDepthStencilTarget(depthTarget);
+		ret = frameBuffer->setDepthStencilTarget(depthTarget);
 
-    // Add to the global list of managed frame buffers
-    frameBuffer->_width = width;
-    frameBuffer->_height = height;
-    frameBuffer->autorelease();
-    return frameBuffer;
+	// Add to the global list of managed frame buffers
+	frameBuffer->_width = width;
+	frameBuffer->_height = height;
+	frameBuffer->autorelease();
+
+	if (ret) return frameBuffer;
+	else return NULL;
 }
 
 C3DFrameBuffer* C3DFrameBuffer::getFrameBuffer(const std::string& id)
@@ -104,8 +108,9 @@ void C3DFrameBuffer::reload()
 	LOG_TRACE_VARG("++++++++Reload FBO:%s    %d    %d", _id.c_str(), _width, _height);
 }
 
-void C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
+bool C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
 {    
+	bool ret = true;
 	if (target)
 	{
 		target->retain();
@@ -125,11 +130,14 @@ void C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
 		if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
 		{
 			LOG_ERROR_VARG("Framebuffer status incomplete: 0x%x", fboStatus);
+			ret = false;
 		}
 
 		// Restore the FBO binding
 		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, currentFbo) );
 	}
+
+	return ret;
 }
 
 C3DRenderTarget* C3DFrameBuffer::getRenderTarget() const
@@ -137,8 +145,9 @@ C3DRenderTarget* C3DFrameBuffer::getRenderTarget() const
 	return _renderTarget;
 }
 
-void C3DFrameBuffer::setDepthStencilTarget(C3DDepthStencilTarget* target)
+bool C3DFrameBuffer::setDepthStencilTarget(C3DDepthStencilTarget* target)
 {
+	bool ret = true;
 	if (target)
 	{
 		target->retain();
@@ -168,12 +177,15 @@ void C3DFrameBuffer::setDepthStencilTarget(C3DDepthStencilTarget* target)
 		GLenum fboStatus = glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (fboStatus != GL_FRAMEBUFFER_COMPLETE)
 		{
-			//LOG_ERROR("Framebuffer status incomplete: 0x%x", fboStatus);
+			LOG_ERROR_VARG("Framebuffer status incomplete: 0x%x", fboStatus);
+			ret = false;
 		}
 
 		// Restore the FBO binding
 		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, currentFbo) );
 	}
+	
+	return ret;
 }
 
 C3DDepthStencilTarget* C3DFrameBuffer::getDepthStencilTarget() const

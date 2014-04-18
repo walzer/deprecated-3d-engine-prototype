@@ -214,6 +214,8 @@ void RenderChannelManager::createFrameBuffer(void)
 	float height = cocos2d::Director::getInstance()->getOpenGLView()->getFrameSize().height;
 
 	_frameBuffer = C3DFrameBuffer::create( SceneBufferName, width, height, fmtColor, fmtDepth );
+	if (!_frameBuffer) return;
+
 	_frameBuffer->retain();
 }
 
