@@ -10,6 +10,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		76B2D07318FFDCD100F29EEB /* CarTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */; };
 		A904087C18113C7500C4FBAD /* C3DActor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A904087818113C7500C4FBAD /* C3DActor.cpp */; };
 		A904087D18113C7500C4FBAD /* C3DBaseActor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A904087A18113C7500C4FBAD /* C3DBaseActor.cpp */; };
 		A947258E18C9C66B00B09455 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 781C33B51547F06B00633F88 /* AVFoundation.framework */; };
@@ -245,6 +246,8 @@
 		1D6058910D05DD3D006BFB54 /* EngineDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EngineDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CarTestLayer.cpp; path = CarDemo/CarTestLayer.cpp; sourceTree = "<group>"; };
+		76B2D07218FFDCD100F29EEB /* CarTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarTestLayer.h; path = CarDemo/CarTestLayer.h; sourceTree = "<group>"; };
 		781C33B11547F06B00633F88 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		781C33B31547F06B00633F88 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		781C33B51547F06B00633F88 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -608,6 +611,15 @@
 				781C33B51547F06B00633F88 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76B2D06418FFDCBE00F29EEB /* CarDemo */ = {
+			isa = PBXGroup;
+			children = (
+				76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */,
+				76B2D07218FFDCD100F29EEB /* CarTestLayer.h */,
+			);
+			name = CarDemo;
 			sourceTree = "<group>";
 		};
 		A975330A18EBA6AF00502796 /* Products */ = {
@@ -989,6 +1001,7 @@
 		BF23D4E2143315EB00657E08 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				76B2D06418FFDCBE00F29EEB /* CarDemo */,
 				A975332D18EBAB3700502796 /* PermormanceTest */,
 				A904087818113C7500C4FBAD /* C3DActor.cpp */,
 				A904087918113C7500C4FBAD /* C3DActor.h */,
@@ -1259,6 +1272,7 @@
 				B6588A3B18DA95E0006E5DA2 /* C3DMorphMesh.cpp in Sources */,
 				B6588A3C18DA95E0006E5DA2 /* C3DMorphModel.cpp in Sources */,
 				B6588A3D18DA95E0006E5DA2 /* C3Dneon_matrix_impl.c in Sources */,
+				76B2D07318FFDCD100F29EEB /* CarTestLayer.cpp in Sources */,
 				B6588A3E18DA95E0006E5DA2 /* C3DNode.cpp in Sources */,
 				BCC5E9AB18FFD37800C2E5A9 /* C3DRenderNodeManager.cpp in Sources */,
 				B6588A3F18DA95E0006E5DA2 /* C3DNoise.cpp in Sources */,
