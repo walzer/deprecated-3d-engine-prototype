@@ -15,6 +15,7 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\C3DActor.cpp" />
     <ClCompile Include="..\Classes\C3DBaseActor.cpp" />
+    <ClCompile Include="..\Classes\CarDemo\CarTestLayer.cpp" />
     <ClCompile Include="..\Classes\ChangeCloth\ChangeClothesTestLayer.cpp" />
     <ClCompile Include="..\Classes\ChangeCloth\ClothUILayer.cpp" />
     <ClCompile Include="..\Classes\ColorTest\ColorTestLayer.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="..\Classes\AppMacros.h" />
     <ClInclude Include="..\Classes\C3DActor.h" />
     <ClInclude Include="..\Classes\C3DBaseActor.h" />
+    <ClInclude Include="..\Classes\CarDemo\CarTestLayer.h" />
     <ClInclude Include="..\Classes\ChangeCloth\ChangeClothesTestLayer.h" />
     <ClInclude Include="..\Classes\ChangeCloth\ClothUILayer.h" />
     <ClInclude Include="..\Classes\ColorTest\ColorTestLayer.h" />
