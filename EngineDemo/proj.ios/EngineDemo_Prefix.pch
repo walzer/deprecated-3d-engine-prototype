@@ -1,9 +1,5 @@
 //
-<<<<<<< HEAD
-// Prefix header for all source files of the 'HelloWorld' target in the 'HelloWorld' project
-=======
 // Prefix header for all source files of the 'iphone' target in the 'iphone' project
->>>>>>> 6af025f4919a352dacda25b0e43d83f54ae588f3
 //
 
 #ifdef __OBJC__
