@@ -285,7 +285,6 @@ int C3DSprite::getAnimationFrameCount()
 	if( _animation == NULL )
 		createAnimation();
 
-	_animation = _skeleton->getAnimation("movements");
 	if (_animation)
 		return _animation->getFrameCount();
 
