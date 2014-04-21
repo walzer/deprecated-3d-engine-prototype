@@ -15,6 +15,7 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\C3DActor.cpp" />
     <ClCompile Include="..\Classes\C3DBaseActor.cpp" />
+    <ClCompile Include="..\Classes\CarDemo\CarTestLayer.cpp" />
     <ClCompile Include="..\Classes\ChangeCloth\ChangeClothesTestLayer.cpp" />
     <ClCompile Include="..\Classes\ChangeCloth\ClothUILayer.cpp" />
     <ClCompile Include="..\Classes\ColorTest\ColorTestLayer.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="..\Classes\AppMacros.h" />
     <ClInclude Include="..\Classes\C3DActor.h" />
     <ClInclude Include="..\Classes\C3DBaseActor.h" />
+    <ClInclude Include="..\Classes\CarDemo\CarTestLayer.h" />
     <ClInclude Include="..\Classes\ChangeCloth\ChangeClothesTestLayer.h" />
     <ClInclude Include="..\Classes\ChangeCloth\ClothUILayer.h" />
     <ClInclude Include="..\Classes\ColorTest\ColorTestLayer.h" />
@@ -137,6 +139,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\..\cocos3d;$(ProjectDir)..\..\cocos\base;$(ProjectDir)..\..\cocos\math\kazmath;$(ProjectDir)..\..\external\chipmunk\include\chipmunk;$(ProjectDir)..\..\cocos\physics;$(ProjectDir)..\..\cocos\2d;$(ProjectDir)..\..\cocos\gui;$(ProjectDir)..\..\cocos\2d\render;$(ProjectDir)..\..\cocos\2d\platform\desktop;$(ProjectDir)..\..\cocos\2d\platform\win32;$(ProjectDir)..\..\external\glfw3\include\win32;$(ProjectDir)..\..\external\win32-specific\gles\include\OGLES;..\Classes;..\vld\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ProgramDataBaseFileName>$(IntDir)$(ProjectName).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

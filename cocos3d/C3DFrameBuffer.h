@@ -41,13 +41,13 @@ public:
 	/**
      * get & set render target.
      */
-    void setRenderTarget(C3DRenderTarget* target);
+    bool setRenderTarget(C3DRenderTarget* target);
     C3DRenderTarget* getRenderTarget() const;
 
 	/**
      * get & set DepthStencilTarget
      */
-    void setDepthStencilTarget(C3DDepthStencilTarget* target);
+    bool setDepthStencilTarget(C3DDepthStencilTarget* target);
     C3DDepthStencilTarget* getDepthStencilTarget() const;
 
 	/**
