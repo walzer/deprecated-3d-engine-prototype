@@ -121,9 +121,16 @@ void C3DLayer::draw3D(void)
     endRender();
 }
     
-void C3DLayer::draw(cocos2d::Renderer* renderer, const kmMat4 &transform, bool transformUpdated)
+void C3DLayer::onDraw()
 {
     draw3D();
+}
+
+void C3DLayer::draw(Renderer *renderer, const kmMat4 &transform, bool transformUpdated)
+{
+	_customCommand.init(0);
+	_customCommand.func = CC_CALLBACK_0(C3DLayer::onDraw, this);
+	renderer->addCommand(&_customCommand);
 }
 
 long C3DLayer::getAbsoluteTime()
