@@ -38,7 +38,8 @@ LOCAL_SRC_FILES := main.cpp \
                    ../../Classes/PostEffect/PEVortex.cpp \
                    ../../Classes/PostEffect/PostEffectTestLayer.cpp \
                    ../../Classes/TunnelTest/TunnelTestLayer.cpp \
-                   ../../Classes/ShadowTest/ShadowTestLayer.cpp 
+                   ../../Classes/ShadowTest/ShadowTestLayer.cpp \
+				   ../../Classes/CarDemo/CarTestLayer.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

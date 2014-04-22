@@ -31,8 +31,12 @@ public:
 		 _deviceLevel = DeviceLevel::Low;
 		 _supportVAO = false;
 
+		 checkCpuInfo();
+		 checkNeon();
 		 checkDevice();
 		 checkVAO();
+		 checkPostProcess();
+		 checkShadow();
 	 }
 
     ~C3DDeviceAdapter()
@@ -46,29 +50,15 @@ public:
 	
     void checkCpuInfo();
 
-	void checkVAO()
-	{
-		_supportVAO = cocos2d::Configuration::getInstance()->checkForGLExtension("vertex_array_object");
+	void checkVAO();
+	
+	void checkNeon();
 
-		WARN_VARG("the gpu support VAO : %d",_supportVAO);
-	}
+	void checkPostProcess();
+	void checkShadow();
 
-	void checkDevice()
-	{
-		checkCpuInfo();
-		
-		if(_cpuCount == 1)
-			_deviceLevel = DeviceLevel::Low;
-		else if(_cpuCount == 2)
-			_deviceLevel = DeviceLevel::Mid;
-		else if(_cpuCount >= 4)
-			_deviceLevel = DeviceLevel::High;
-		else
-			_deviceLevel = DeviceLevel::Unknow;
-
-		WARN_VARG("the devicelevel is : %d",(int)_deviceLevel);
-	}
-
+	void checkDevice();
+	
 	unsigned int getCpuCount()
 	{
 		return _cpuCount;
@@ -89,31 +79,34 @@ public:
 		return _deviceLevel;
 	}
 
+	bool isSuppoetNeon()
+	{
+		return _supportNeon;
+	}
+
+	
 	bool isSupportVAO()
 	{
-	
-    //	return _supportVAO;
-
-		if(_deviceLevel == DeviceLevel::High)
-			return _supportVAO;
-		else
-			return false;
+		return _supportVAO;
 	}
 
+	void setSupportShadow(bool support)
+	{
+		_supportShadow = support;
+	}
 	bool isSupportShadow()
 	{
-		if(_deviceLevel == DeviceLevel::High)
-			return true;
-		else
-			return false;
+		return _supportShadow;
 	}
 
-	bool isSuppertPostProcess()
+	void setSupportPostProcess(bool support)
 	{
-		if(_deviceLevel == DeviceLevel::High)
-			return  true;
-		else
-			return false;
+		_supportPostProcess = support;
+	}
+
+	bool isSupportPostProcess()
+	{
+		return _supportPostProcess;
 	}
 	
 
@@ -125,6 +118,9 @@ private:
     std::string _deviceName;
 	DeviceLevel _deviceLevel;
 	bool _supportVAO;
+	bool _supportPostProcess;
+	bool _supportShadow;
+	bool _supportNeon;
 
 };
 }

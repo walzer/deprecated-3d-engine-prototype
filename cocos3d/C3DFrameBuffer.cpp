@@ -68,22 +68,25 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
 
     frameBuffer->_handle = handle;
 
-	bool ret = false;
+	bool ret1 = false;
+	bool ret2 = false;
     // Add the render target as the first color attachment
     if (renderTarget)
-		ret = frameBuffer->setRenderTarget(renderTarget);
+		ret1 = frameBuffer->setRenderTarget(renderTarget);
 
 	// Add the depth stencil target
     if (depthTarget)
-		ret = frameBuffer->setDepthStencilTarget(depthTarget);
+		ret2 = frameBuffer->setDepthStencilTarget(depthTarget);
 
 	// Add to the global list of managed frame buffers
 	frameBuffer->_width = width;
 	frameBuffer->_height = height;
 	frameBuffer->autorelease();
 
-	if (ret) return frameBuffer;
-	else return NULL;
+	if (ret1 && ret2) 
+		return frameBuffer;
+	else 
+		return NULL;
 }
 
 C3DFrameBuffer* C3DFrameBuffer::getFrameBuffer(const std::string& id)
@@ -136,7 +139,6 @@ bool C3DFrameBuffer::setRenderTarget(C3DRenderTarget* target)
 		// Restore the FBO binding
 		GL_ASSERT( glBindFramebuffer(GL_FRAMEBUFFER, currentFbo) );
 	}
-
 	return ret;
 }
 

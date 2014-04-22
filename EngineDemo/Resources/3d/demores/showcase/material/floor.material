@@ -1,0 +1,37 @@
+material 
+{
+
+	technique 0
+	{
+
+		pass 0
+		{
+			vertexShader = shaders/floor.vsh
+			fragmentShader = shaders/floor.fsh
+
+			sampler u_diffuseTexture
+			{
+				path = demores/showcase/f01.jpg
+				mipmap = true
+				wrapS = REPEAT
+				wrapT = REPEAT
+				minFilter = LINEAR_MIPMAP_LINEAR
+				magFilter = LINEAR
+			}
+
+			renderState 
+			{
+				cullFace = true
+				depthTest = true
+				depthWrite = true
+				blend = true
+				srcBlend = SRC_ALPHA
+				dstBlend = ONE_MINUS_SRC_ALPHA
+			}
+
+		}
+
+	}
+
+}
+

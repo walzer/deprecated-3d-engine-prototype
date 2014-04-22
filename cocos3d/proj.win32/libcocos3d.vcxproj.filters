@@ -297,6 +297,9 @@
     <ClCompile Include="..\C3DRenderNodeManager.cpp">
       <Filter>node</Filter>
     </ClCompile>
+    <ClCompile Include="..\C3Dneon_matrix_impl.c">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Base.h" />
@@ -606,6 +609,9 @@
     <ClInclude Include="..\C3DDeviceAdapter.h" />
     <ClInclude Include="..\C3DRenderNodeManager.h">
       <Filter>node</Filter>
+    </ClInclude>
+    <ClInclude Include="..\C3Dneon_matrix_impl.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
