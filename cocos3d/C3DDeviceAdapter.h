@@ -26,6 +26,8 @@ public:
 	 C3DDeviceAdapter()
 	 {
 		 _cpuCount = 1;
+         _cpuFrequency = 0;
+         _deviceName = "unknown";
 		 _deviceLevel = DeviceLevel::Low;
 		 _supportVAO = false;
 
@@ -72,6 +74,16 @@ public:
 		return _cpuCount;
 	}
 
+    unsigned int getCpuFrequency()
+    {
+        return _cpuFrequency;
+    }
+
+    std::string getDeviceName()
+    {
+        return _deviceName;
+    }
+
 	DeviceLevel getDeviceLevel()
 	{
 		return _deviceLevel;
@@ -109,6 +121,8 @@ private:
 
 	static C3DDeviceAdapter* _deviceAdapterInstance;
 	unsigned int _cpuCount;
+    unsigned int _cpuFrequency;
+    std::string _deviceName;
 	DeviceLevel _deviceLevel;
 	bool _supportVAO;
 
