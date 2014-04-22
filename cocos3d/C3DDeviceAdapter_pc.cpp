@@ -28,6 +28,50 @@ void C3DDeviceAdapter::checkCpuInfo()
 
 }
 
+void C3DDeviceAdapter::checkNeon()
+{
+	_supportNeon = false;
+}
+
+void C3DDeviceAdapter::checkVAO()
+{
+	
+
+	if(_deviceLevel == DeviceLevel::High)
+	{
+		_supportVAO = cocos2d::Configuration::getInstance()->checkForGLExtension("vertex_array_object");
+	}
+	else
+		_supportVAO = false;
+
+	WARN_VARG("the gpu support VAO : %d",_supportVAO);
+}
+
+void C3DDeviceAdapter::checkDevice()
+{
+	if(_cpuCount == 1)
+		_deviceLevel = DeviceLevel::Low;
+	else if(_cpuCount == 2)
+		_deviceLevel = DeviceLevel::Mid;
+	else if(_cpuCount >= 4)
+		_deviceLevel = DeviceLevel::High;
+	else
+		_deviceLevel = DeviceLevel::Unknow;
+
+	WARN_VARG("the devicelevel is : %d",(int)_deviceLevel);
+}
+
+void C3DDeviceAdapter::checkShadow()
+{
+	_supportShadow = false;
+}
+
+void C3DDeviceAdapter::checkPostProcess()
+{
+
+	_supportPostProcess = false;
+}
+
 
 
 

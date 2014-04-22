@@ -55,6 +55,7 @@
     <ClCompile Include="..\C3DMorph.cpp" />
     <ClCompile Include="..\C3DMorphMesh.cpp" />
     <ClCompile Include="..\C3DMorphModel.cpp" />
+    <ClCompile Include="..\C3Dneon_matrix_impl.c" />
     <ClCompile Include="..\C3DNode.cpp" />
     <ClCompile Include="..\C3DNoise.cpp" />
     <ClCompile Include="..\C3DOBB.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="..\C3DModelNode.h" />
     <ClInclude Include="..\C3DMorph.h" />
     <ClInclude Include="..\C3DMorphMesh.h" />
+    <ClInclude Include="..\C3Dneon_matrix_impl.h" />
     <ClInclude Include="..\C3DNode.h" />
     <ClInclude Include="..\C3DNoise.h" />
     <ClInclude Include="..\C3DOBB.h" />

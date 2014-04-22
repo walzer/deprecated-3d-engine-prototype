@@ -115,8 +115,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH) \
 $(LOCAL_PATH)/physics \
 
                     
-//LOCAL_CFLAGS := -D__ANDROID__ -fexceptions 
-//LOCAL_LDLIBS := -lGLESv2  -lEGL -llog -lz -landroid
+LOCAL_CFLAGS := -D__ANDROID__ -fexceptions -mfloat-abi=softfp -mfpu=neon -march=armv7-a -mtune=cortex-a8
+LOCAL_LDLIBS := -lGLESv2  -lEGL -llog -lz -landroid 
                 
                     
 include $(BUILD_STATIC_LIBRARY)
