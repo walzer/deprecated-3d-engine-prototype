@@ -249,7 +249,7 @@ void C3DScene::draw()
 
 void C3DScene::postDraw()
 {
-	if( C3DDeviceAdapter::getInstance()->isSuppertPostProcess() == true)
+	if( C3DDeviceAdapter::getInstance()->isSupportPostProcess() == true)
 	{
 		if (_activePostProcess && _activePostProcess->isVisible())
 		{
@@ -262,7 +262,7 @@ void C3DScene::postDraw()
 
 	//....posteffect start ....
 
-	if( C3DDeviceAdapter::getInstance()->isSuppertPostProcess() == true)
+	if( C3DDeviceAdapter::getInstance()->isSupportPostProcess() == true)
 	{
 		if (_activePostProcess && _activePostProcess->isVisible())
 		{

@@ -184,7 +184,7 @@ extern void printError(const char* format, ...);
         #define glClearDepth glClearDepthf
         #define OPENGL_ES
         #define USE_PVRTC
-        #define USE_VAO
+     //   #define USE_VAO
     #elif TARGET_OS_MAC
         #include <OpenGL/gl.h>
         #include <OpenGL/glext.h>
@@ -192,7 +192,7 @@ extern void printError(const char* format, ...);
         #define glDeleteVertexArrays glDeleteVertexArraysAPPLE
         #define glGenVertexArrays glGenVertexArraysAPPLE
         #define glIsVertexArray glIsVertexArrayAPPLE
-        #define USE_VAO
+    //    #define USE_VAO
     #else
         #error "Unsupported Apple Device"
     #endif

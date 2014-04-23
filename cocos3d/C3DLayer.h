@@ -14,6 +14,8 @@
 
 #include "kazmath/GL/matrix.h"
 
+#include "renderer/CCRenderCommand.h"
+
 namespace cocos3d
 {
 class C3DSceneNode;
@@ -106,6 +108,8 @@ public:
     virtual void render(long elapsedTime);
 	virtual void endRender();   // restore render states
 
+	void onDraw();
+
 	/**
      * Gets the game main scene.
      *
@@ -143,8 +147,6 @@ public:
 	void setEnvConf(const C3DEnvConf& conf) { _envConfig.set(conf); }
 
 	const C3DVector4& getTimeParam(void) const;
-public:
-
 private:
     bool init3D();
 
@@ -181,6 +183,8 @@ protected:
 	float _totalTimeSceond;
 	float _delatTimeSceond;
 	float _timeMinuteRound;
+
+	cocos2d::CustomCommand _customCommand;
 };
 }
 #endif

@@ -59,7 +59,7 @@ C3DPostProcess::~C3DPostProcess()
 
 C3DPostProcess* C3DPostProcess::create(const std::string& id, unsigned int texWidth, unsigned int texHeight/*, const std::string& techniqueId*/)
 {
-	if(C3DDeviceAdapter::getInstance()->isSuppertPostProcess() == false)
+	if(C3DDeviceAdapter::getInstance()->isSupportPostProcess() == false)
 		return NULL;
 
 	unsigned int fmtColor = C3DTexture::RGBA;
