@@ -36,7 +36,7 @@ bool CarTestLayer::init()
 		
 	setUpCamera();
 	setUpLight();
-//	setUpScene();   
+	setUpScene();
 	setUpCar();
 	return r;
 }
@@ -55,22 +55,22 @@ void CarTestLayer::draw3D(void)
 
 void CarTestLayer::setUpScene()
 {
-	//_sm = C3DStaticObj::create("1");
+	
+    _sm = static_cast<cocos3d::C3DStaticObj*>(C3DRenderNodeManager::getInstance()->getResource("demores/showcase/garage.ckb"));
+	
+	C3DMaterial* _mat = _sm->getMaterial("floor");
+	_sm->scale(40, 40, 40);
 
-	//_sm->loadFromFile("demores/showcase/house.ckb");
-	//C3DMaterial* _mat = _sm->getMaterial("Plane001");
-	//_sm->scale(40, 40, 40);
+	C3DSampler* sampler = C3DSampler::create("demores/showcase/fs01.jpg", true);
+	sampler->retain();
 
-	//C3DSampler* sampler = C3DSampler::create("demores/showcase/fs01.jpg", true);
-	//sampler->retain();
+	sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
+	sampler->setWrapMode(Texture_Wrap_REPEAT, Texture_Wrap_REPEAT);
 
-	//sampler->setFilterMode(Texture_Filter_LINEAR, Texture_Filter_LINEAR);
-	//sampler->setWrapMode(Texture_Wrap_REPEAT, Texture_Wrap_REPEAT);
+	_mat->getTechnique(0u)->getPass(0u)->getParameter("u_diffuseTexture1")->setValue(sampler);
 
-	//_mat->getTechnique(0u)->getPass(0u)->getParameter("u_diffuseTexture1")->setValue(sampler);
-
-	//_scene->addChild(_sm);
-	//_sm->retain();
+	_scene->addChild(_sm);
+	_sm->retain();
 
 }
 
@@ -91,7 +91,7 @@ void CarTestLayer::setUpCar()
 void CarTestLayer::setUpCamera()
 {
 	C3DCamera* camera = C3DCamera::createPerspective(45, 0.75f, 1, 1000);
-	camera->lookAt(C3DVector3(60,60,60), C3DVector3(0, 1, 0), C3DVector3(0, 0, 0));	
+	camera->lookAt(C3DVector3(90,90,90), C3DVector3(0, 1, 0), C3DVector3(0, 0, 0));
 
 	_scene->addChild(camera);
 	_scene->setActiveCamera(0);	
