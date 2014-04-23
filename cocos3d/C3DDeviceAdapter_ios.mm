@@ -20,15 +20,39 @@ namespace cocos3d
         return _deviceAdapterInstance;
     }
     
-void C3DDeviceAdapter::checkCpuInfo()
-{
-    size_t size = sizeof(int);
+    void C3DDeviceAdapter::checkCpuInfo()
+    {
+        size_t size = sizeof(int);
    
-    int mib[2] = {CTL_HW, HW_NCPU};
-    sysctl(mib, 2, &_cpuCount, &size, NULL, 0);
+        int mib[2] = {CTL_HW, HW_NCPU};
+        sysctl(mib, 2, &_cpuCount, &size, NULL, 0);
 
-	WARN_VARG("the cpu counter is : %d", _cpuCount);
-}
+        WARN_VARG("the cpu counter is : %d", _cpuCount);
+    }
+    
+    void C3DDeviceAdapter::checkVAO()
+    {
+    }
+	
+    void C3DDeviceAdapter::checkNeon()
+    {
+        
+    }
+    
+	void C3DDeviceAdapter::checkPostProcess()
+    {
+        
+    }
+
+	void C3DDeviceAdapter::checkShadow()
+    {
+        
+    }
+    
+	void C3DDeviceAdapter::checkDevice()
+    {
+        
+    }
 
 }
 

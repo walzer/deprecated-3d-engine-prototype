@@ -2,10 +2,11 @@ material
 {
 
 	technique 0
-	{
-	<
-		 channel = transparency
+    <
+        channel = transparency
 	>
+	{
+
 		pass 0
 		{
 			vertexShader = shaders/meshlambert.vsh

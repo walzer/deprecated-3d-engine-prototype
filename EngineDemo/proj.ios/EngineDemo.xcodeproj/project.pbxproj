@@ -10,6 +10,9 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		76AD7E73190699B50010D698 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76AD7E71190699B50010D698 /* RigidBody.cpp */; };
+		76AD7E8119069B2B0010D698 /* C3DDeviceAdapter_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 76AD7E8019069B2B0010D698 /* C3DDeviceAdapter_ios.mm */; };
+		76AD7E8319069BA00010D698 /* C3DDeviceAdapter_pc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76AD7E8219069BA00010D698 /* C3DDeviceAdapter_pc.cpp */; };
 		76B2D07318FFDCD100F29EEB /* CarTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */; };
 		A904087C18113C7500C4FBAD /* C3DActor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A904087818113C7500C4FBAD /* C3DActor.cpp */; };
 		A904087D18113C7500C4FBAD /* C3DBaseActor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A904087A18113C7500C4FBAD /* C3DBaseActor.cpp */; };
@@ -23,7 +26,6 @@
 		A947267E18C9DE2C00B09455 /* ipadhd in Resources */ = {isa = PBXBuildFile; fileRef = A947267A18C9DE2C00B09455 /* ipadhd */; };
 		A975333018EBAB6E00502796 /* PerformanceTestLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A975332E18EBAB6E00502796 /* PerformanceTestLayer.cpp */; };
 		A975333318EBAD8200502796 /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A975332318EBA6B000502796 /* libcocos2dx iOS.a */; };
-		A987496018EABE5000E69CBE /* C3DDeviceAdapter_ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = A987495E18EABE5000E69CBE /* C3DDeviceAdapter_ios.mm */; };
 		A9D0326917E9B592005ACA13 /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9D0325F17E9B591005ACA13 /* Bullet.cpp */; };
 		A9D0326B17E9B592005ACA13 /* Enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9D0326317E9B592005ACA13 /* Enemy.cpp */; };
 		A9D0326C17E9B592005ACA13 /* MainPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A9D0326517E9B592005ACA13 /* MainPlayer.cpp */; };
@@ -246,6 +248,11 @@
 		1D6058910D05DD3D006BFB54 /* EngineDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EngineDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		76AD7E70190699B50010D698 /* Physics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Physics.h; sourceTree = "<group>"; };
+		76AD7E71190699B50010D698 /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidBody.cpp; sourceTree = "<group>"; };
+		76AD7E72190699B50010D698 /* RigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidBody.h; sourceTree = "<group>"; };
+		76AD7E8019069B2B0010D698 /* C3DDeviceAdapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = C3DDeviceAdapter_ios.mm; path = ../../cocos3d/C3DDeviceAdapter_ios.mm; sourceTree = "<group>"; };
+		76AD7E8219069BA00010D698 /* C3DDeviceAdapter_pc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = C3DDeviceAdapter_pc.cpp; path = ../../cocos3d/C3DDeviceAdapter_pc.cpp; sourceTree = "<group>"; };
 		76B2D07118FFDCD100F29EEB /* CarTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CarTestLayer.cpp; path = CarDemo/CarTestLayer.cpp; sourceTree = "<group>"; };
 		76B2D07218FFDCD100F29EEB /* CarTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CarTestLayer.h; path = CarDemo/CarTestLayer.h; sourceTree = "<group>"; };
 		781C33B11547F06B00633F88 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -263,7 +270,6 @@
 		A975330918EBA6AF00502796 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../../cocos2dx/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		A975332E18EBAB6E00502796 /* PerformanceTestLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerformanceTestLayer.cpp; path = ../Classes/PerformanceTest/PerformanceTestLayer.cpp; sourceTree = "<group>"; };
 		A975332F18EBAB6E00502796 /* PerformanceTestLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerformanceTestLayer.h; path = ../Classes/PerformanceTest/PerformanceTestLayer.h; sourceTree = "<group>"; };
-		A987495E18EABE5000E69CBE /* C3DDeviceAdapter_ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = C3DDeviceAdapter_ios.mm; path = ../../cocos3d/C3DDeviceAdapter_ios.mm; sourceTree = "<group>"; };
 		A987495F18EABE5000E69CBE /* C3DDeviceAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = C3DDeviceAdapter.h; path = ../../cocos3d/C3DDeviceAdapter.h; sourceTree = "<group>"; };
 		A9D0325F17E9B591005ACA13 /* Bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Bullet.cpp; path = FullDemo/Bullet.cpp; sourceTree = "<group>"; };
 		A9D0326017E9B591005ACA13 /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bullet.h; path = FullDemo/Bullet.h; sourceTree = "<group>"; };
@@ -613,6 +619,17 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		76AD7E6F190699B50010D698 /* physics */ = {
+			isa = PBXGroup;
+			children = (
+				76AD7E70190699B50010D698 /* Physics.h */,
+				76AD7E71190699B50010D698 /* RigidBody.cpp */,
+				76AD7E72190699B50010D698 /* RigidBody.h */,
+			);
+			name = physics;
+			path = ../../cocos3d/physics;
+			sourceTree = "<group>";
+		};
 		76B2D06418FFDCBE00F29EEB /* CarDemo */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,9 +753,11 @@
 		B6AFD70E1867DBF10098D989 /* cocos3d */ = {
 			isa = PBXGroup;
 			children = (
+				76AD7E8219069BA00010D698 /* C3DDeviceAdapter_pc.cpp */,
+				76AD7E6F190699B50010D698 /* physics */,
 				BCC5E9A918FFD37800C2E5A9 /* C3DRenderNodeManager.cpp */,
 				BCC5E9AA18FFD37800C2E5A9 /* C3DRenderNodeManager.h */,
-				A987495E18EABE5000E69CBE /* C3DDeviceAdapter_ios.mm */,
+				76AD7E8019069B2B0010D698 /* C3DDeviceAdapter_ios.mm */,
 				A987495F18EABE5000E69CBE /* C3DDeviceAdapter.h */,
 				B6588A7818DA95F1006E5DA2 /* Rectangle.cpp */,
 				B6588A7918DA95F1006E5DA2 /* Rectangle.h */,
@@ -1209,6 +1228,7 @@
 				B6A7DB1717D7257A0030D101 /* ChangeClothesTestLayer.cpp in Sources */,
 				B6A7DB1817D7257A0030D101 /* ClothUILayer.cpp in Sources */,
 				B6A7DB1F17D7261C0030D101 /* FullDemoLayer.cpp in Sources */,
+				76AD7E8319069BA00010D698 /* C3DDeviceAdapter_pc.cpp in Sources */,
 				B6A7DB2017D7261C0030D101 /* FullDemoUILayer.cpp in Sources */,
 				A9D0326917E9B592005ACA13 /* Bullet.cpp in Sources */,
 				A9D0326B17E9B592005ACA13 /* Enemy.cpp in Sources */,
@@ -1241,6 +1261,7 @@
 				B6588A1B18DA95E0006E5DA2 /* C3DBaseMesh.cpp in Sources */,
 				B6588A1C18DA95E0006E5DA2 /* C3DBaseModel.cpp in Sources */,
 				B6588A1D18DA95E0006E5DA2 /* C3DBatchMesh.cpp in Sources */,
+				76AD7E73190699B50010D698 /* RigidBody.cpp in Sources */,
 				B6588A1E18DA95E0006E5DA2 /* C3DBatchModel.cpp in Sources */,
 				B6588A1F18DA95E0006E5DA2 /* C3DBone.cpp in Sources */,
 				B6588A2018DA95E0006E5DA2 /* C3DCamera.cpp in Sources */,
@@ -1310,7 +1331,7 @@
 				B6588A6118DA95E0006E5DA2 /* C3DStat.cpp in Sources */,
 				B6588A6218DA95E0006E5DA2 /* C3DStaticObj.cpp in Sources */,
 				B6588A6318DA95E0006E5DA2 /* C3DStream.cpp in Sources */,
-				A987496018EABE5000E69CBE /* C3DDeviceAdapter_ios.mm in Sources */,
+				76AD7E8119069B2B0010D698 /* C3DDeviceAdapter_ios.mm in Sources */,
 				B6588A6418DA95E0006E5DA2 /* C3DTechnique.cpp in Sources */,
 				B6588A6518DA95E0006E5DA2 /* C3DTexture.cpp in Sources */,
 				B6588A6618DA95E0006E5DA2 /* C3DTexture3D.cpp in Sources */,
