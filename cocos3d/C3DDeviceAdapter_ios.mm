@@ -34,10 +34,12 @@ namespace cocos3d
         sysctl(mib_, 2, &_cpuFrequency, &size, NULL, 0);
         WARN_VARG("the cpu frequency is : %d", _cpuFrequency);
         
-        sysctlbyname("hw.model", NULL, &size, NULL, 0);
+        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
         char *answer = (char*)malloc(size);
-        sysctlbyname("hw.model", answer, &size, NULL, 0);
+        sysctlbyname("hw.machine", answer, &size, NULL, 0);
         _deviceName = answer;
+        WARN_VARG("the device name is : %s", answer);
+
     }
     
     void C3DDeviceAdapter::checkVAO()
