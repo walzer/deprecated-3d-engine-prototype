@@ -86,6 +86,19 @@ namespace cocos3d
                 _deviceLevel = DeviceLevel::High;                        // other iPad
             
         }
+        else if (_platformName.find("iPod") != std::string::npos)
+        {
+            if(_platformName.find("iPod1") != std::string::npos)         // iPod 1
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPod2") != std::string::npos)    // iPod 2
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPod3") != std::string::npos)    // iPod 3
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPod4") != std::string::npos)    // iPod 4
+                _deviceLevel = DeviceLevel::Mid;
+            else
+                _deviceLevel = DeviceLevel::High;                        // other iPod
+        }
         else if(_platformName.find("x86") != std::string::npos)
         {
             _deviceLevel = DeviceLevel::High;                            // Simulator
