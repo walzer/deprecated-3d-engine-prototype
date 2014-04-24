@@ -78,9 +78,9 @@ namespace cocos3d
         }
         else if (_platformName.find("iPad") != std::string::npos)
         {
-            if(_platformName.find("ipad1") != std::string::npos)         // iPad 1
+            if(_platformName.find("iPad1") != std::string::npos)         // iPad 1
                 _deviceLevel = DeviceLevel::Low;
-            else if(_platformName.find("ipad2") != std::string::npos)    // iPad 2
+            else if(_platformName.find("iPad2") != std::string::npos)    // iPad 2
                 _deviceLevel = DeviceLevel::Mid;
             else
                 _deviceLevel = DeviceLevel::High;                        // other iPad
