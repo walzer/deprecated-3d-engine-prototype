@@ -77,6 +77,8 @@ C3DFrameBuffer* C3DFrameBuffer::create(const std::string& id, unsigned int width
 	// Add the depth stencil target
     if (depthTarget)
 		ret2 = frameBuffer->setDepthStencilTarget(depthTarget);
+    else
+        ret2 = true; // If you don't want to attach depth-stencil, that is OK.
 
 	// Add to the global list of managed frame buffers
 	frameBuffer->_width = width;

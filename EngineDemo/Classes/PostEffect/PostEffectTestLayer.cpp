@@ -74,6 +74,7 @@ bool PostEffectTestLayer::init()
 
 void PostEffectTestLayer::onExit()
 {
+    TestLayer::onExit();
 	C3DPostProcess* pp = _scene->getActivePostProcess();
 	if( pp == NULL)
 		return;

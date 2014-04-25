@@ -44,21 +44,22 @@ namespace cocos3d
     
     void C3DDeviceAdapter::checkVAO()
     {
+        _supportVAO = true;
     }
 	
     void C3DDeviceAdapter::checkNeon()
     {
-        
+        _supportNeon = true;
     }
     
 	void C3DDeviceAdapter::checkPostProcess()
     {
-        
+        _supportPostProcess = true;
     }
 
 	void C3DDeviceAdapter::checkShadow()
     {
-        
+        _supportShadow = true;
     }
     
 	void C3DDeviceAdapter::checkDevice()
