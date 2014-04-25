@@ -53,7 +53,10 @@ namespace cocos3d
     
 	void C3DDeviceAdapter::checkPostProcess()
     {
-        
+        if (_deviceLevel == DeviceLevel::Unknow || _deviceLevel == DeviceLevel::Low)
+            _supportPostProcess = false;
+        else
+            _supportPostProcess = true;
     }
 
 	void C3DDeviceAdapter::checkShadow()

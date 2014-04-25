@@ -181,7 +181,7 @@ CCLayer* PerformanceTestLayer::createUILayer()
 
     CCMenu* pItemMenu = CCMenu::create();
 
-    for (int i = 0; i < COLOR_NUM; ++i)
+    for (int i = 0; i < 0; ++i)
     {
         CCLabelTTF* label = CCLabelTTF::create(colorTypes[i], "Arial", 20);
         CCMenuItemLabel* pMenuItem = CCMenuItemLabel::create(label, CC_CALLBACK_1(PerformanceTestLayer::menuCallback,this));
