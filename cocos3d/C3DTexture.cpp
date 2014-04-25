@@ -57,7 +57,47 @@ C3DTexture* C3DTexture::create(const std::string& path, bool generateMipmaps)
 
     return retTexture;
 }
-
+    
+C3DTexture* C3DTexture::create(cocos2d::Texture2D* tex2D, bool generateMipmaps){
+    C3DTexture* retTexture = new C3DTexture();
+    
+	if(retTexture->innerInit2D(tex2D, generateMipmaps))
+	{
+		retTexture->autorelease();
+		C3DTextureMgr::getInstance()->add(retTexture);
+	}
+	else
+	{
+		SAFE_RELEASE(retTexture);
+	}
+    
+    return retTexture;
+}
+bool C3DTexture::innerInit2D(cocos2d::Texture2D* tex2D, bool generateMipmaps)
+{
+    if (tex2D == NULL)
+    {
+        LOG_ERROR_VARG("failed to load texture2d","");
+        return false;
+    }
+    
+	SAFE_RELEASE(_2DTex);
+    
+    if (generateMipmaps)
+        tex2D->generateMipmap();
+    
+    tex2D->retain();
+    _2DTex = tex2D;
+    _path = StringUtils::format("%u", tex2D->getName());
+    
+    _width = tex2D->getPixelsWide();
+    _height = tex2D->getPixelsHigh();
+    
+	_mipmapped = generateMipmaps;
+    
+	return true;
+}
+    
 bool C3DTexture::innerInit2D(const std::string& path, bool generateMipmaps)
 {
     CCTexture2D* tex2D = CCTextureCache::sharedTextureCache()->addImage(path);

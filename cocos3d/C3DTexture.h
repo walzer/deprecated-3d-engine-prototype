@@ -50,6 +50,7 @@ namespace cocos3d
          * @return The new texture, or NULL if the texture could not be loaded/created.
          */
         static C3DTexture* create(const std::string& path, bool generateMipmaps = false);
+        static C3DTexture* create(cocos2d::Texture2D* tex2D, bool generateMipmaps = false);
         static C3DTexture* create(int width, int height, Format fmt, bool generateMipmaps = false);
 	    static C3DTexture* create(int width, int height, Format fmt, const void* data, ssize_t dataLen, bool generateMipmaps = false);
 
@@ -110,6 +111,7 @@ namespace cocos3d
 	protected:
 		bool innerInit2D(const std::string& path, bool generateMipmaps = false);
 		bool innerInit2D(C3DTexture* rhs);
+		bool innerInit2D(cocos2d::Texture2D* tex2D, bool generateMipmaps);
 
         C3DTexture();
         virtual ~C3DTexture();
