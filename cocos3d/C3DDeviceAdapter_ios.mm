@@ -37,7 +37,7 @@ namespace cocos3d
         sysctlbyname("hw.machine", NULL, &size, NULL, 0);
         char *answer = (char*)malloc(size);
         sysctlbyname("hw.machine", answer, &size, NULL, 0);
-        _deviceName = answer;
+        _platformName = answer;
         WARN_VARG("the device name is : %s", answer);
 
     }
@@ -63,7 +63,52 @@ namespace cocos3d
     
 	void C3DDeviceAdapter::checkDevice()
     {
+        if(_platformName.find("iPhone") != std::string::npos)
+        {
+            if(_platformName.find("iPhone1") != std::string::npos)       // iPhone 1g
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPhone2") != std::string::npos)  // iPhone 3g
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPhone3") != std::string::npos)  // iPhone 4
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPhone4") != std::string::npos)  // iPhone 4s
+                _deviceLevel = DeviceLevel::Mid;
+            else
+                _deviceLevel = DeviceLevel::High;                        // other iPhone
+        }
+        else if (_platformName.find("iPad") != std::string::npos)
+        {
+            if(_platformName.find("iPad1") != std::string::npos)         // iPad 1
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPad2") != std::string::npos)    // iPad 2
+                _deviceLevel = DeviceLevel::Mid;
+            else
+                _deviceLevel = DeviceLevel::High;                        // other iPad
+            
+        }
+        else if (_platformName.find("iPod") != std::string::npos)
+        {
+            if(_platformName.find("iPod1") != std::string::npos)         // iPod 1
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPod2") != std::string::npos)    // iPod 2
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPod3") != std::string::npos)    // iPod 3
+                _deviceLevel = DeviceLevel::Low;
+            else if(_platformName.find("iPod4") != std::string::npos)    // iPod 4
+                _deviceLevel = DeviceLevel::Mid;
+            else
+                _deviceLevel = DeviceLevel::High;                        // other iPod
+        }
+        else if(_platformName.find("x86") != std::string::npos)
+        {
+            _deviceLevel = DeviceLevel::High;                            // Simulator
+        }
+        else
+        {
+            _deviceLevel = DeviceLevel::Unknow;                          // other ios device
+        }
         
+        WARN_VARG("the device level is : %d", _deviceLevel);
     }
 
 }
