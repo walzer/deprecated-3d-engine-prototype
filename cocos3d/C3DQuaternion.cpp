@@ -59,7 +59,7 @@ bool C3DQuaternion::isIdentity() const
 
 bool C3DQuaternion::isZero() const
 {
-    return x == 0.0f && y == 0.0f && z == 0.0f && z == 0.0f;
+    return x == 0.0f && y == 0.0f && z == 0.0f && w == 0.0f;
 }
 
 void C3DQuaternion::createFromRotationMatrix(const C3DMatrix& m, C3DQuaternion* dst)
