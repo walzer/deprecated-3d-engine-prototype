@@ -7,9 +7,11 @@ We're doing this, merging 3D features from this repository into github.com/cocos
 <img src="http://b277.photo.store.qq.com/psb?/V149io673qGalT/W6cXcz9sTIkPXptO4G5cIUM2r88IoXP8jIhqI4LpW7M!/b/dJ8QJKWVFQAA&bo=IAPgAQAAAAADAOc!" width=800 height = 480>
   
 ### Supported Platforms
-- [Windows]
-- [iOS]
-- [Android]
+
+- iOS
+- Android
+- Windows Desktop
+- Mac OS X
 
 ### Main features
 
