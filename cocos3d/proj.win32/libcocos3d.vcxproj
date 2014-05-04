@@ -272,7 +272,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(ProjectDir)..\..\cocos\base;$(ProjectDir)..\..\cocos\math\kazmath;$(ProjectDir)..\..\cocos\physics;$(ProjectDir)..\..\cocos\2d;$(ProjectDir)..\..\cocos\gui;$(ProjectDir)..\..\cocos\2d\render;$(ProjectDir)..\..\cocos\2d\platform\win32;$(ProjectDir)..\..\cocos\2d\platform\desktop;$(ProjectDir)..\..\cocos2dx\platform\third_party\win32;$(ProjectDir)..\..\external\glfw3\include\win32;$(ProjectDir)..\..\external\win32-specific\gles\include\OGLES;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(MSBuildProgramFiles32)\Microsoft SDKs\Windows\v7.1A\include;$(ProjectDir)..\..\cocos2dx\cocos;$(ProjectDir)..\..\cocos2dx\cocos\base;$(ProjectDir)..\..\cocos2dx\cocos\math\kazmath;$(ProjectDir)..\..\cocos2dx\cocos\physics;$(ProjectDir)..\..\cocos2dx\cocos\2d;$(ProjectDir)..\..\cocos2dx\cocos\gui;$(ProjectDir)..\..\cocos2dx\cocos\2d\render;$(ProjectDir)..\..\cocos2dx\cocos\2d\platform\win32;$(ProjectDir)..\..\cocos2dx\cocos\2d\platform\desktop;$(ProjectDir)..\..\cocos2dx\platform\third_party\win32;$(ProjectDir)..\..\external\glfw3\include\win32;$(ProjectDir)..\..\external\win32-specific\gles\include\OGLES;..\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;COCOS2DXWIN32_EXPORTS;GL_GLEXT_PROTOTYPES;COCOS2D_DEBUG=1;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DisableSpecificWarnings>4267;4251;4244;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
