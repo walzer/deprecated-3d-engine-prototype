@@ -1,13 +1,17 @@
-<img src="http://b277.photo.store.qq.com/psb?/V149io673qGalT/W6cXcz9sTIkPXptO4G5cIUM2r88IoXP8jIhqI4LpW7M!/b/dJ8QJKWVFQAA&bo=IAPgAQAAAAADAOc!" width=800 height = 480>
-cocos3d-x
+Chukong's 3D Game Engine
 =========
-cocos3d-x is a multi-platform game framework for building 3d games,which is based on the cocos2d-x engine.
+As you can see here, we have created a 3D engine for mobile games, called it cocos3d-x. But sooner we realise that we shouldn't have 2 product lines: cocos2d-x and cocos3d-x. The correct way is merge them into only one engine. So you can ust it to create 2D games, 2.5D games and 3D games, or 3D games with 2D UI widgets.
 
+We're doing this, merging 3D features from this repository into github.com/cocos2d/cocos2d-x repo, so we will eventually have one engine for both 2D and 3D games.
+
+<img src="http://b277.photo.store.qq.com/psb?/V149io673qGalT/W6cXcz9sTIkPXptO4G5cIUM2r88IoXP8jIhqI4LpW7M!/b/dJ8QJKWVFQAA&bo=IAPgAQAAAAADAOc!" width=800 height = 480>
   
 ### Supported Platforms
-- [Windows]
-- [iOS]
-- [Android]
+
+- iOS
+- Android
+- Windows Desktop
+- Mac OS X
 
 ### Main features
 
