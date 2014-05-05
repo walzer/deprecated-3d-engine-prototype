@@ -93,7 +93,7 @@ bool C3DVector4::isZero() const
 
 bool C3DVector4::isOne() const
 {
-    return x == 1.0f && y == 1.0f && z == 1.0f && z == 1.0f;
+    return x == 1.0f && y == 1.0f && z == 1.0f && w == 1.0f;
 }
 
 float C3DVector4::angle(const C3DVector4& v1, const C3DVector4& v2)
